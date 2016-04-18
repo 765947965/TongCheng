@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <FrameLayout
+        android:layout_width="300dip"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_margin="15dip"
+        android:background="@drawable/bg_rounded_box"
+        android:paddingTop="@dimen/dp_22">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="55.5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/text_content"
+                android:textSize="@dimen/sp18" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_22"
+                android:layout_marginLeft="@dimen/left_right_space"
+                android:layout_marginRight="@dimen/left_right_space"
+                android:layout_marginTop="@dimen/dp_19">
+
+                <TextView
+                    android:id="@+id/txtMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_horizontal"
+                    android:lineSpacingExtra="5dip"
+                    android:textColor="@color/text_content"
+                    android:textSize="@dimen/sp16" />
+            </ScrollView>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/dialog_lly"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_gravity="bottom"
+            android:background="@android:color/transparent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_bottom_left_rounded_box_selector"
+                android:gravity="center"
+                android:textColor="@color/text_content"
+                android:textSize="@dimen/sp19" />
+
+            <View
+                android:id="@+id/viewBtnLIne"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/dividing_line_light" />
+
+            <Button
+                android:id="@+id/btnOk"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_bottom_right_rounded_box_selector"
+                android:gravity="center"
+                android:textColor="#ffc61a"
+                android:textSize="@dimen/sp19"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="55dp"
+            android:background="@color/dividing_line_light" />
+    </FrameLayout>
+
+</RelativeLayout>

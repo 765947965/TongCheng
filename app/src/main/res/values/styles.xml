@@ -1,0 +1,45 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/activityAnimation</item>
+    </style>
+
+    <style name="activityAnimation" parent="@android:style/Animation.Translucent">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_right_in</item>
+        <!-- 打开ACTIVITY时 进来的AcTIvity动画 -->
+        <item name="android:activityOpenExitAnimation">@anim/slide_left_out</item>
+        <!-- 打开ACTIVITY时 出去的AcTIvity动画 -->
+        <item name="android:activityCloseEnterAnimation">@anim/slide_left_in</item>
+        <!-- 退出ACTIVITY时 背后AcTIvity进来的动画 -->
+        <item name="android:activityCloseExitAnimation">@anim/slide_right_out</item>
+        <!-- 退出ACTIVITY时 退出的动画 -->
+    </style>
+
+    <style name="quick_option_dialog" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowAnimationStyle">@style/dialog_animation</item>
+    </style>
+
+    <style name="dialog_animation" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/dialog_enter</item>
+        <item name="@android:windowExitAnimation">@anim/dialog_exit</item>
+    </style>
+
+    <declare-styleable name="MaterialTabHost">
+        <attr name="type" format="string" />
+        <attr name="primaryColor" format="color" />
+        <attr name="accentColor" format="color" />
+        <attr name="iconColor" format="color" />
+        <attr name="textColor" format="color" />
+        <attr name="clickAnim" format="boolean" />
+    </declare-styleable>
+
+</resources>

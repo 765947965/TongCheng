@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <at.markushi.ui.RevealColorView
+        android:id="@+id/reveal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:id="@+id/rl_normal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ViewStub
+            android:id="@+id/vs_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout="@layout/layout_icon" />
+
+        <ViewStub
+            android:id="@+id/vs_icon_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout="@layout/layout_icon_large" />
+
+        <ViewStub
+            android:id="@+id/vs_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/vs_icon"
+            android:layout="@layout/layout_text" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/divider"
+        android:layout_width="1dp"
+        android:layout_height="16dp"
+        android:layout_gravity="right|center_vertical"
+        android:background="@mipmap/ic_divider"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/selector"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tabSelectorHeight"
+        android:layout_gravity="bottom" />
+
+    <ImageView
+        android:id="@+id/iv_tab_hint_spot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:paddingLeft="@dimen/dp_24"
+        android:paddingTop="@dimen/dp_8"
+        android:src="@mipmap/discovery_reddot"
+        android:visibility="gone" />
+</FrameLayout>
