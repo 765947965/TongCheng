@@ -138,10 +138,11 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
     public void onPageSelected(int position) {
         mTabHost.setSelectedNavigationItem(position);
         Message mMessage = new Message();
+        mMessage.what = 1;
         Bundle mBundle = new Bundle();
         mBundle.putInt("position", position);
         mMessage.setData(mBundle);
-        mHandler.sendMessageDelayed(mMessage, 100);
+        mHandler.sendMessageDelayed(mMessage, 200);
     }
 
     @Override
