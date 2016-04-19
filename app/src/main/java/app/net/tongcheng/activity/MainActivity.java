@@ -1,6 +1,8 @@
 package app.net.tongcheng.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -48,6 +50,20 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
     private int iconActivateds[] = {R.mipmap.home_tab_tuandai, R.mipmap.home_tab_tozi, R.mipmap.home_tab_faxian, R.mipmap.home_tab_chifu, R.mipmap.home_tab_tuandai2};
 
     private boolean flag = false;
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 1) {
+                BaseFragment bf = listFragment.get(msg.getData().getInt("position"));
+                if (bf != null && bf.isfirstloaddata()) {
+                    bf.setIsfirstloaddata(false);
+                    bf.loadDataAndPull();
+                }
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,11 +137,11 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
     @Override
     public void onPageSelected(int position) {
         mTabHost.setSelectedNavigationItem(position);
-        BaseFragment bf = listFragment.get(position);
-        if (bf != null && bf.isfirstloaddata()) {
-            bf.setIsfirstloaddata(false);
-            bf.loadDataAndPull();
-        }
+        Message mMessage = new Message();
+        Bundle mBundle = new Bundle();
+        mBundle.putInt("position", position);
+        mMessage.setData(mBundle);
+        mHandler.sendMessageDelayed(mMessage, 100);
     }
 
     @Override
