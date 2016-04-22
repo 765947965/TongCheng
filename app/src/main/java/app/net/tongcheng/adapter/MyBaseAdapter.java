@@ -8,6 +8,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import app.net.tongcheng.util.ViewHolder;
@@ -23,18 +25,19 @@ import app.net.tongcheng.util.ViewHolder;
  * @Description: TODO
  * @Copyright: Copyright (c) 2014 Tuandai Inc. All Rights Reserved.
  */
-public abstract class MyBaseAdapter<T> extends ArrayAdapter<T> {
+public abstract class MyBaseAdapter<T> extends ArrayAdapter<T> implements AdapterView.OnItemClickListener {
     private LayoutInflater mInflater;
     private Context mContext;
     private List<T> mDatas;
     private int mItemLayoutId;
 
-    public MyBaseAdapter(Context context, List<T> datas, int itemLayoutId) {
+    public MyBaseAdapter(AbsListView mListView, Context context, List<T> datas, int itemLayoutId) {
         super(context, 0, datas);
         mContext = context;
         mInflater = LayoutInflater.from(mContext);
         mDatas = datas;
         mItemLayoutId = itemLayoutId;
+        mListView.setOnItemClickListener(this);
     }
 
     @Override
@@ -66,5 +69,12 @@ public abstract class MyBaseAdapter<T> extends ArrayAdapter<T> {
         return convertView;
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        MyonItemClick(parent, view, getItem(position), position, id);
+    }
+
     protected abstract void convert(ViewHolder holder, T item, List<T> list, int position);
+
+    protected abstract void MyonItemClick(AdapterView<?> parent, View view, T item, int position, long id);
 }
