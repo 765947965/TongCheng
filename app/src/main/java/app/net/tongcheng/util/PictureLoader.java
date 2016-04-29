@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.CircleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -31,7 +32,7 @@ public class PictureLoader {
     }
 
     /**
-     * @param defaultImg 默认加载中,加载失败等图片
+     * @param defaultImg     默认加载中,加载失败等图片
      * @param imageScaleType 图片缩放模式
      */
     public PictureLoader(int defaultImg, ImageScaleType imageScaleType) {
@@ -39,7 +40,7 @@ public class PictureLoader {
     }
 
     /**
-     * @param defaultImg 默认加载中,加载失败等图片
+     * @param defaultImg         默认加载中,加载失败等图片
      * @param cornerRadiusPixels 设置图片圆角
      */
     public PictureLoader(int defaultImg, int cornerRadiusPixels) {
@@ -47,11 +48,11 @@ public class PictureLoader {
     }
 
     /**
-     * @param defaultImg 默认加载中,加载失败等图片
-     * @param imageScaleType 图片缩放模式
+     * @param defaultImg         默认加载中,加载失败等图片
+     * @param imageScaleType     图片缩放模式
      * @param cornerRadiusPixels 设置图片圆角
      */
-    public PictureLoader(int defaultImg, ImageScaleType imageScaleType, int cornerRadiusPixels) {
+    private PictureLoader(int defaultImg, ImageScaleType imageScaleType, int cornerRadiusPixels) {
         DisplayImageOptions.Builder mDBuilder = new DisplayImageOptions.Builder()
                 .showStubImage(defaultImg) // 设置图片在下载期间显示的图片
                 .showImageForEmptyUri(defaultImg)// 设置图片Uri为空或是错误的时候显示的图片
@@ -62,7 +63,9 @@ public class PictureLoader {
                 .imageScaleType(imageScaleType)// 设置图片以如何的编码方式显示
                 .bitmapConfig(Bitmap.Config.RGB_565)// 设置图片的解码类型
                 .resetViewBeforeLoading(true);// 设置图片在下载前是否重置，复位
-        if (cornerRadiusPixels > 0) {
+        if (cornerRadiusPixels == 360) {
+            mDBuilder.displayer(new CircleBitmapDisplayer());//圆形图片
+        } else if (cornerRadiusPixels > 0) {
             mDBuilder.displayer(new RoundedBitmapDisplayer(cornerRadiusPixels));//设置圆角和弧度
         }
         options = mDBuilder.build();// 构建完成
@@ -71,11 +74,8 @@ public class PictureLoader {
     /**
      * 加载图片
      *
-     * @param @param url
-     * @param @param imgView
-     * @return void
-     * @author longluliu
-     * @date 2014-7-22 上午10:33:06
+     * @param url
+     * @param imgView
      */
     public void displayImage(String url, ImageView imgView) {
         imageLoader.displayImage(url, imgView, options);
