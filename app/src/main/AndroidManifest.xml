@@ -34,12 +34,15 @@
     <application
         android:name=".TCApplication"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.LocationActivity"
+            android:alwaysRetainTaskState="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>

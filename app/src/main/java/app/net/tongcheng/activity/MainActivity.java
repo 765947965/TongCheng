@@ -200,4 +200,10 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
             mTabHost.setTabHintSpotVisibility(item, visibility);
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        moveTaskToBack(true);//像QQ一样在后台运行
+    }
 }
