@@ -3,9 +3,11 @@ package app.net.tongcheng.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -177,21 +179,46 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        getSupportFragmentManager().putFragment(outState, RedPacketFragment.class.getName(), mRedPacketFragment);
-        getSupportFragmentManager().putFragment(outState, LifeFragment.class.getName(), mLifeFragment);
-        getSupportFragmentManager().putFragment(outState, FriendFragment.class.getName(), mFriendFragment);
-        getSupportFragmentManager().putFragment(outState, ShareFragment.class.getName(), mShareFragment);
-        getSupportFragmentManager().putFragment(outState, MyFragment.class.getName(), mMyFragment);
+        if (mRedPacketFragment != null && mRedPacketFragment.isAdded() && mRedPacketFragment.isVisible()) {
+            getSupportFragmentManager().putFragment(outState, RedPacketFragment.class.getName(), mRedPacketFragment);
+        }
+        if (mLifeFragment != null && mLifeFragment.isAdded() && mLifeFragment.isVisible()) {
+            getSupportFragmentManager().putFragment(outState, LifeFragment.class.getName(), mLifeFragment);
+        }
+        if (mFriendFragment != null && mFriendFragment.isAdded() && mFriendFragment.isVisible()) {
+            getSupportFragmentManager().putFragment(outState, FriendFragment.class.getName(), mFriendFragment);
+        }
+        if (mShareFragment != null && mShareFragment.isAdded() && mShareFragment.isVisible()) {
+            getSupportFragmentManager().putFragment(outState, ShareFragment.class.getName(), mShareFragment);
+        }
+        if (mMyFragment != null && mMyFragment.isAdded() && mMyFragment.isVisible()) {
+            getSupportFragmentManager().putFragment(outState, MyFragment.class.getName(), mMyFragment);
+        }
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        mRedPacketFragment = (RedPacketFragment) getSupportFragmentManager().getFragment(savedInstanceState, RedPacketFragment.class.getName());
-        mLifeFragment = (LifeFragment) getSupportFragmentManager().getFragment(savedInstanceState, LifeFragment.class.getName());
-        mFriendFragment = (FriendFragment) getSupportFragmentManager().getFragment(savedInstanceState, FriendFragment.class.getName());
-        mShareFragment = (ShareFragment) getSupportFragmentManager().getFragment(savedInstanceState, ShareFragment.class.getName());
-        mMyFragment = (MyFragment) getSupportFragmentManager().getFragment(savedInstanceState, MyFragment.class.getName());
+        Fragment temp_mRedPacketFragment = getSupportFragmentManager().getFragment(savedInstanceState, RedPacketFragment.class.getName());
+        if (temp_mRedPacketFragment != null) {
+            mRedPacketFragment = (RedPacketFragment) temp_mRedPacketFragment;
+        }
+        Fragment temp_mLifeFragment = getSupportFragmentManager().getFragment(savedInstanceState, LifeFragment.class.getName());
+        if (temp_mLifeFragment != null) {
+            mLifeFragment = (LifeFragment) temp_mLifeFragment;
+        }
+        Fragment temp_mFriendFragment = getSupportFragmentManager().getFragment(savedInstanceState, FriendFragment.class.getName());
+        if (temp_mFriendFragment != null) {
+            mFriendFragment = (FriendFragment) temp_mFriendFragment;
+        }
+        Fragment temp_mShareFragment = getSupportFragmentManager().getFragment(savedInstanceState, ShareFragment.class.getName());
+        if (temp_mShareFragment != null) {
+            mShareFragment = (ShareFragment) temp_mShareFragment;
+        }
+        Fragment temp_mMyFragment = getSupportFragmentManager().getFragment(savedInstanceState, MyFragment.class.getName());
+        if (temp_mMyFragment != null) {
+            mMyFragment = (MyFragment) temp_mMyFragment;
+        }
         super.onRestoreInstanceState(savedInstanceState);
     }
 
