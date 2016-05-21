@@ -1,22 +1,24 @@
 package app.net.tongcheng.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
 import org.xutils.common.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import app.net.tongcheng.R;
+import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.util.CancelableClear;
 import app.net.tongcheng.view.SlidingLayout;
 
@@ -36,22 +38,41 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
     private ImageView bt_close;
     private SlidingLayout rootView;
     private View status;
+    private boolean isRegistEventBus;
     private List<Callback.Cancelable> mCancelableList = new ArrayList<>();
+    public Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            mHandDoSomeThing(msg);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_base);
         initView();
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
-//            导航栏
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            status = findViewById(R.id.view_status_bar);
-            status.setVisibility(View.VISIBLE);
-        }
+//        if (android.os.Build.VERSION.SDK_INT >= 21) {
+////            导航栏
+////            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//            status = findViewById(R.id.view_status_bar);
+//            status.setVisibility(View.VISIBLE);
+//        }
         rootView = new SlidingLayout(this);
         rootView.bindActivity(this);
+    }
+
+    public void setEventBus() {
+        if (!isRegistEventBus) {
+            isRegistEventBus = true;
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    public void sendEventBusMessage(String messsage){
+        EventBus.getDefault().post(new CheckEvent(messsage));
     }
 
     public void setStatusColor(int mColor) {
@@ -106,6 +127,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
                 mCancelable.cancel();
             }
         }
+        if(isRegistEventBus){
+            EventBus.getDefault().unregister(this);
+        }
     }
 
     @Override
@@ -125,4 +149,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
             rootView.setCanSlidingClose(CanSlidingClose);
         }
     }
+
+    public abstract void mHandDoSomeThing(Message msg);
 }

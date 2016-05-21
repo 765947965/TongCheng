@@ -1,13 +1,12 @@
 package app.net.tongcheng.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -45,27 +44,14 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
     private MyFragment mMyFragment;
     private List<BaseFragment> listFragment = new ArrayList<>();
     // 定义数组来存放按钮图片
-    private String mTextViewArray[] = {"红包", "生活", "好友", "分享", "我的"};
+//    private String mTextViewArray[] = {"红包", "生活", "好友", "分享", "我的"};
     // 默认状态图片数组
-    private int iconNormals[] = {R.mipmap.home_tab_tuandai_black, R.mipmap.home_tab_tozi_black, R.mipmap.home_tab_faxian_black, R.mipmap.home_tab_chifu_black, R.mipmap.home_tab_tuandai_black2};
+    private int iconNormals[] = {R.drawable.home_tab_red_black, R.drawable.home_tab_life_black, R.drawable.home_tab_frend_black, R.drawable.home_tab_share_black, R.drawable.home_tab_my_black};
     // 激活状态图片数组
-    private int iconActivateds[] = {R.mipmap.home_tab_tuandai, R.mipmap.home_tab_tozi, R.mipmap.home_tab_faxian, R.mipmap.home_tab_chifu, R.mipmap.home_tab_tuandai2};
+    private int iconActivateds[] = {R.drawable.home_tab_red, R.drawable.home_tab_life, R.drawable.home_tab_frend, R.drawable.home_tab_share, R.drawable.home_tab_my};
 
     private boolean flag = false;
 
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if (msg.what == 1) {
-                BaseFragment bf = listFragment.get(msg.getData().getInt("position"));
-                if (bf != null && bf.isfirstloaddata()) {
-                    bf.setIsfirstloaddata(false);
-                    bf.loadDataAndPull();
-                }
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,11 +78,13 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
         pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(pagerAdapter);
         mPager.addOnPageChangeListener(this);
+        mTabHost.setTabType(MaterialTab.TYPE_LARGE_ICON);
+        mTabHost.setPrimaryColor(Color.parseColor("#FFFFFF"));
+        mTabHost.setAccentColor(Color.parseColor("#80CCCCCC"));
         for (int i = 0; i < pagerAdapter.getCount(); i++) {
             mTabHost.addTab(
                     mTabHost.newTab()
                             .setIcon(iconNormals[i], iconActivateds[i])
-                            .setText(mTextViewArray[i])
                             .setSelectorVisibility(View.GONE)
                             .setTabListener(this)
             );
@@ -105,6 +93,11 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
 
     @Override
     public void loadData() {
+
+    }
+
+    @Override
+    public void mHandDoSomeThing(Message msg) {
 
     }
 
@@ -139,12 +132,6 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
     @Override
     public void onPageSelected(int position) {
         mTabHost.setSelectedNavigationItem(position);
-        Message mMessage = new Message();
-        mMessage.what = 1;
-        Bundle mBundle = new Bundle();
-        mBundle.putInt("position", position);
-        mMessage.setData(mBundle);
-        mHandler.sendMessageDelayed(mMessage, 200);
     }
 
     @Override
@@ -231,6 +218,5 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        moveTaskToBack(true);//像QQ一样在后台运行
     }
 }

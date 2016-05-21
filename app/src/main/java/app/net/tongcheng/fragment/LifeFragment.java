@@ -30,7 +30,7 @@ public class LifeFragment extends BaseFragment {
     }
 
     @Override
-    public void loadDataAndPull() {
+    public void loadData() {
 
     }
 }

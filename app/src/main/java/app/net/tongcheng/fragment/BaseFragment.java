@@ -18,7 +18,7 @@ import app.net.tongcheng.util.CancelableClear;
  */
 public abstract class BaseFragment extends Fragment implements CancelableClear {
 
-    public boolean isfirstloaddata = true;
+    public boolean isfirstloaddata;
 
     private List<Callback.Cancelable> mCancelableList = new ArrayList<>();
 
@@ -37,7 +37,16 @@ public abstract class BaseFragment extends Fragment implements CancelableClear {
         }
     }
 
-    public abstract void loadDataAndPull();
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if (isVisibleToUser && isVisible() && !isfirstloaddata) {
+            isfirstloaddata = true;
+            loadData();
+        }
+        super.setUserVisibleHint(isVisibleToUser);
+    }
+
+    public abstract void loadData();
 
     public boolean isfirstloaddata() {
         return isfirstloaddata;

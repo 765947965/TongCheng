@@ -57,12 +57,10 @@ public class ViewHolder {
         return (T) view;
     }
 
-    public void setText(int resource, Spanned mSpanned) {
-        ((TextView) getView(resource)).setText(mSpanned);
-    }
-
-    public void setText(int resource, String text) {
-        ((TextView) getView(resource)).setText(text);
+    public TextView setText(int resource, CharSequence mCharSequence) {
+        TextView mTextView = getView(resource);
+        mTextView.setText(mCharSequence);
+        return mTextView;
     }
 
     public void setImage(int resource, int resourceImage) {

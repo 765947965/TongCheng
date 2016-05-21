@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="listitem_pressed">#D3D3D3</color>
+    <color name="mycolor_pressed">#1160FD</color>
+    <color name="actionbtb_pressed">#e8e8e8</color>
+    <color name="mycolor_pressed_num">#1160FD</color>
+    <color name="textmrcolor">#b4b4b4</color>
+    <color name="textmrcolor2">#808080</color>
+    <color name="mycolor_dispressed_num">#FFFFFF</color>
+    <color name="mycolor_dial_tm">#00000000</color>
+    <color name="traditiondialbanck">#066B91</color>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>

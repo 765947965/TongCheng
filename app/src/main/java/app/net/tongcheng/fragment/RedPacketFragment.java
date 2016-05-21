@@ -22,8 +22,6 @@ public class RedPacketFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.from(getActivity()).inflate(R.layout.fragment_red_packet_layout, null);
         initView(view);
-        loadDataAndPull();
-        isfirstloaddata = false;
         return view;
     }
 
@@ -33,7 +31,7 @@ public class RedPacketFragment extends BaseFragment {
     }
 
     @Override
-    public void loadDataAndPull() {
+    public void loadData() {
 
     }
 }

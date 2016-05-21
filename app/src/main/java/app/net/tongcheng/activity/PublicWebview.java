@@ -1,6 +1,7 @@
 package app.net.tongcheng.activity;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -68,6 +69,11 @@ public class PublicWebview extends BaseActivity {
         if (!TextUtils.isEmpty(url)) {
             webview.loadUrl(url);
         }
+    }
+
+    @Override
+    public void mHandDoSomeThing(Message msg) {
+
     }
 
     @Override

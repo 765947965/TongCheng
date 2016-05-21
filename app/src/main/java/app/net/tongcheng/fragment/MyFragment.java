@@ -50,27 +50,28 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                         | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
                 // Update the LastUpdatedLabel
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-                loadData();
+                loding();
             }
         });
     }
 
-    private void loadData() {
-        //读取数据 模拟延迟
+    @Override
+    public void loadData() {
+        //读取数据
+        pullScroll.getRefreshableView().scrollTo(0, 0);
+        pullScroll.showRefresh();
+        loding();
+    }
+
+    private void loding(){
+        //模拟延迟
         new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 pullScroll.onRefreshComplete();
             }
-        }.sendEmptyMessageDelayed(1, 5000);
-    }
-
-    @Override
-    public void loadDataAndPull() {
-        pullScroll.getRefreshableView().scrollTo(0, 0);
-        pullScroll.showRefresh();
-        Log.i("aaac","myset");
+        }.sendEmptyMessageDelayed(1, 2000);
     }
 
     @Override

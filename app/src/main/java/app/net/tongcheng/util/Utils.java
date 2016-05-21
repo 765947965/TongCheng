@@ -25,6 +25,8 @@ import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -493,5 +495,22 @@ public class Utils {
         return calDateA.get(Calendar.YEAR) == calDateB.get(Calendar.YEAR)
                 && calDateA.get(Calendar.MONTH) == calDateB.get(Calendar.MONTH)
                 && calDateA.get(Calendar.DAY_OF_MONTH) == calDateB.get(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
+     * 弹出输入法
+     *
+     * @param edt
+     */
+    public static void setInputMethodVisiable(final EditText edt, long time) {
+        edt.requestFocus();
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                InputMethodManager inputManager = (InputMethodManager) edt.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.showSoftInput(edt, 0);
+                edt.setSelection(edt.getText().toString().length());
+            }
+        }, time);
     }
 }

@@ -1,13 +1,14 @@
 package app.net.tongcheng.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import app.net.tongcheng.R;
+import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -24,15 +25,16 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.location_activity_layout);
+        setContentView(R.layout.location_layout);
         initView();
-        setStatusColor(Color.parseColor("#fac502"));
-        setTitle("启动页");
+        setEventBus();
+        mHandler.sendEmptyMessageDelayed(101, 2000);
     }
 
     private void initView() {
-        mViewHolder = new ViewHolder(findViewById(R.id.rlt_main), this);
-        mViewHolder.setOnClickListener(R.id.tv_start);
+        mViewHolder = new ViewHolder(findViewById(R.id.flt_main), this);
+        mViewHolder.setOnClickListener(R.id.registration);
+        mViewHolder.setOnClickListener(R.id.loding);
     }
 
     @Override
@@ -41,11 +43,28 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
+    public void mHandDoSomeThing(Message msg) {
+        if (msg.what == 101) {
+            mViewHolder.setVisibility(R.id.llt_loding, View.VISIBLE);
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_start:
-                startActivity(new Intent(this, MainActivity.class));
+            case R.id.registration://注册
+                startActivity(new Intent(this, RegisterActivity.class));
                 break;
+            case R.id.loding://登录
+                startActivity(new Intent(this, LodingActivity.class));
+                break;
+        }
+    }
+
+    @Subscribe
+    public void onEvent(CheckEvent event) {
+        if (event.getMsg().equals("LocationActivity.close")) {
+            finish();
         }
     }
 }

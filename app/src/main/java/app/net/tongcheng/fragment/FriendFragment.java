@@ -30,7 +30,7 @@ public class FriendFragment extends BaseFragment {
     }
 
     @Override
-    public void loadDataAndPull() {
+    public void loadData() {
 
     }
 }
