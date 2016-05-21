@@ -47,6 +47,7 @@ public class MaterialTab implements View.OnTouchListener {
 
     private View completeView;
 
+
     private ImageView iv_icon_activate;
     private ImageView iv_icon;
     private TextView tv_title;
