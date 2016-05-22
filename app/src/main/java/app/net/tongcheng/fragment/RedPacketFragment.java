@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ScrollView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -32,7 +33,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
 
     private ViewHolder mViewHolder;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private RecyclerView mRecyclerView;
+    private ListView mListView;
     public static boolean isfirstloaddata;
 
 
@@ -53,10 +54,10 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
         mSwipeRefreshLayout.setColorSchemeResources(R.color.refurush_color);
         mSwipeRefreshLayout.setProgressViewEndTarget(true, 150);
         mSwipeRefreshLayout.setOnRefreshListener(this);
-        mRecyclerView = mViewHolder.getView(R.id.mRecyclerView);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(TCApplication.mContext);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(layoutManager);
+        mListView = mViewHolder.getView(R.id.mListView);
+        View mHeadView = LayoutInflater.from(TCApplication.mContext).inflate(R.layout.redpacket_fragment_headview_layout, null);
+        mListView.addHeaderView(mHeadView);
+        mListView.setAdapter(null);
     }
 
     @Override
