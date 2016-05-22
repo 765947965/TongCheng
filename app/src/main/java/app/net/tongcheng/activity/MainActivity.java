@@ -93,7 +93,10 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
 
     @Override
     public void loadData() {
-
+        if(mRedPacketFragment != null){
+            // 首页加载数据
+            mRedPacketFragment.loadData();
+        }
     }
 
     @Override

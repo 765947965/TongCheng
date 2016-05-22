@@ -42,22 +42,17 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(TCApplication.mContext).inflate(R.layout.fragment_red_packet_layout, null);
         initView(view);
-        loadData();
-        isfirstloaddata = true;
+        isfirstloaddata = false;
         return view;
     }
 
 
     private void initView(View view) {
         mViewHolder = new ViewHolder(view, this);
-        mSwipeRefreshLayout = mViewHolder.getView(R.id.sfl_main);
+        mSwipeRefreshLayout = mViewHolder.getView(R.id.mSwipeRefreshLayout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.refurush_color);
-        mSwipeRefreshLayout.setProgressViewEndTarget(true, 150);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mListView = mViewHolder.getView(R.id.mListView);
-        View mHeadView = LayoutInflater.from(TCApplication.mContext).inflate(R.layout.redpacket_fragment_headview_layout, null);
-        mListView.addHeaderView(mHeadView);
-        mListView.setAdapter(null);
     }
 
     @Override
@@ -66,6 +61,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
         if (isfirstloaddata) {
             return;
         }
+        isfirstloaddata = true;
         mHandler.sendEmptyMessageDelayed(102, 500);
     }
 

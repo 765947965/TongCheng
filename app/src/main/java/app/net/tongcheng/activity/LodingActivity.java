@@ -141,6 +141,7 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
             oldus_showlist.clear();
             mViewHolder.setVisibility(R.id.lplist, View.GONE);
             mHandler.sendEmptyMessage(101);
+            Utils.setInputMethodVisiable(r_loding4v2_pwd, 250);
         }
     }
 
