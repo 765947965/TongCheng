@@ -63,6 +63,11 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         loding();
     }
 
+    @Override
+    public void mHandDoSomeThing(Message msg) {
+
+    }
+
     private void loding(){
         //模拟延迟
         new Handler() {

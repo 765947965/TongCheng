@@ -32,7 +32,7 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void initView() {
-        mViewHolder = new ViewHolder(findViewById(R.id.flt_main), this);
+        mViewHolder = new ViewHolder(findViewById(R.id.sll_main), this);
         mViewHolder.setOnClickListener(R.id.registration);
         mViewHolder.setOnClickListener(R.id.loding);
     }

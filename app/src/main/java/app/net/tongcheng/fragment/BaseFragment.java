@@ -1,5 +1,7 @@
 package app.net.tongcheng.fragment;
 
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 
 import org.xutils.common.Callback;
@@ -18,9 +20,17 @@ import app.net.tongcheng.util.CancelableClear;
  */
 public abstract class BaseFragment extends Fragment implements CancelableClear {
 
-    public boolean isfirstloaddata;
+
 
     private List<Callback.Cancelable> mCancelableList = new ArrayList<>();
+
+    public Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            mHandDoSomeThing(msg);
+        }
+    };
 
     @Override
     public void addCancelable(Callback.Cancelable mCancelable) {
@@ -39,8 +49,7 @@ public abstract class BaseFragment extends Fragment implements CancelableClear {
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser && isVisible() && !isfirstloaddata) {
-            isfirstloaddata = true;
+        if (isVisibleToUser && isVisible()) {
             loadData();
         }
         super.setUserVisibleHint(isVisibleToUser);
@@ -48,11 +57,5 @@ public abstract class BaseFragment extends Fragment implements CancelableClear {
 
     public abstract void loadData();
 
-    public boolean isfirstloaddata() {
-        return isfirstloaddata;
-    }
-
-    public void setIsfirstloaddata(boolean isfirstloaddata) {
-        this.isfirstloaddata = isfirstloaddata;
-    }
+    public abstract void mHandDoSomeThing(Message msg);
 }

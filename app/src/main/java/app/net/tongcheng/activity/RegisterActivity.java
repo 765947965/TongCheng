@@ -1,5 +1,6 @@
 package app.net.tongcheng.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.Editable;
@@ -12,7 +13,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import app.net.tongcheng.R;
+import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.util.ToastUtil;
+import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -51,7 +54,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void loadData() {
-
+        Utils.setInputMethodVisiable(et_phone, 250);
     }
 
     @Override
@@ -72,6 +75,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     ToastUtil.showToast("请先阅读并同意用户协议!");
                     return;
                 }
+                startActivity(new Intent(TCApplication.mContext, MainActivity.class));
                 break;
         }
     }

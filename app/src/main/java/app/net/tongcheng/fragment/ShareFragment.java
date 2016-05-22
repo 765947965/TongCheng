@@ -1,6 +1,7 @@
 package app.net.tongcheng.fragment;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,11 @@ public class ShareFragment extends BaseFragment {
 
     @Override
     public void loadData() {
+
+    }
+
+    @Override
+    public void mHandDoSomeThing(Message msg) {
 
     }
 }
