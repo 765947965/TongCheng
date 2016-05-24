@@ -14,7 +14,7 @@ import app.net.tongcheng.util.ViewHolder;
  * @Copyright: Copyright (c) 2016 Tuandai Inc. All rights reserved.
  * @date: 2016/5/24 16:16
  */
-public class PayMoney extends BaseActivity implements View.OnClickListener{
+public class PayMoney extends BaseActivity implements View.OnClickListener {
 
     private ViewHolder mViewHolder;
 
@@ -22,13 +22,13 @@ public class PayMoney extends BaseActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pay_money_layout);
-        setTitle(R.layout.red_head_view);
+        setTitleView(R.layout.red_head_view);
+        setTitle("付款");
         initView();
     }
 
-    private void initView(){
-        mViewHolder = new ViewHolder(findViewById(R.id.llt_main), this);
-        mViewHolder.setText(R.id.tv_title_red, "付款");
+    private void initView() {
+        mViewHolder = new ViewHolder(findViewById(R.id.rlt_main), this);
     }
 
 

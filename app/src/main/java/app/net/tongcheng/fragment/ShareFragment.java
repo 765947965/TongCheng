@@ -17,8 +17,9 @@ import app.net.tongcheng.util.ViewHolder;
  * @Copyright: Copyright (c) 2016 Tuandai Inc. All rights reserved.
  * @date: 2016/4/16 15:54
  */
-public class ShareFragment extends BaseFragment implements View.OnClickListener{
+public class ShareFragment extends BaseFragment implements View.OnClickListener {
     private ViewHolder mViewHolder;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class ShareFragment extends BaseFragment implements View.OnClickListener{
     private void initView(View view) {
         mViewHolder = new ViewHolder(view, this);
         mViewHolder.setText(R.id.tv_title, "分享");
+        mViewHolder.setVisibility(R.id.bt_close, View.GONE);
     }
 
 

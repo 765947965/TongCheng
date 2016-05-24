@@ -6,9 +6,11 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -32,10 +34,14 @@ import app.net.tongcheng.view.SlidingLayout;
  */
 public abstract class BaseActivity extends AppCompatActivity implements CancelableClear {
 
-    private FrameLayout fl_root;
+    private LinearLayout llt_main;
+    private RelativeLayout rlt_title;
+    private FrameLayout flt_root;
     private boolean isload;
     private TextView tv_title;
     private ImageView bt_close;
+    private Button btnRight;
+    private ImageView ivRight;
     private SlidingLayout rootView;
     private View status;
     private boolean isRegistEventBus;
@@ -71,7 +77,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
         }
     }
 
-    public void sendEventBusMessage(String messsage){
+    public void sendEventBusMessage(String messsage) {
         EventBus.getDefault().post(new CheckEvent(messsage));
     }
 
@@ -82,9 +88,13 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
     }
 
     private void initView() {
-        fl_root = (FrameLayout) findViewById(R.id.fl_root);
+        llt_main = (LinearLayout) findViewById(R.id.llt_main);
+        rlt_title = (RelativeLayout) findViewById(R.id.rlt_title);
+        flt_root = (FrameLayout) findViewById(R.id.flt_root);
         tv_title = (TextView) findViewById(R.id.tv_title);
         bt_close = (ImageView) findViewById(R.id.bt_close);
+        btnRight = (Button) findViewById(R.id.btnRight);
+        ivRight = (ImageView) findViewById(R.id.ivRight);
         bt_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,24 +105,31 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
 
     public void setTitle(String title) {
         if (!TextUtils.isEmpty(title)) {
-            findViewById(R.id.rlt_title).setVisibility(View.VISIBLE);
+            rlt_title.setVisibility(View.VISIBLE);
             tv_title.setText(title);
         }
     }
 
-    public void setTitle(View view) {
-        findViewById(R.id.rlt_title).setVisibility(View.GONE);
-        ((LinearLayout) findViewById(R.id.llt_main)).addView(view, 1);
+    public void setTitleView(View view) {
+        rlt_title.removeAllViews();
+        rlt_title.addView(view);
+        initView();
     }
 
-    public void setTitle(int ResId) {
-        findViewById(R.id.rlt_title).setVisibility(View.GONE);
-        ((LinearLayout) findViewById(R.id.llt_main)).addView(getLayoutInflater().inflate(ResId, null), 1);
+    public void setTitleView(int ResId) {
+        rlt_title.removeAllViews();
+        rlt_title.addView(getLayoutInflater().inflate(ResId, null));
+        initView();
+    }
+
+    public void setContentView(View view) {
+        flt_root.removeAllViews();
+        flt_root.addView(view);
     }
 
     public void setContentView(int ResId) {
-        fl_root.removeAllViews();
-        fl_root.addView(getLayoutInflater().inflate(ResId, null));
+        flt_root.removeAllViews();
+        flt_root.addView(getLayoutInflater().inflate(ResId, null));
     }
 
     @Override
@@ -132,7 +149,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
                 mCancelable.cancel();
             }
         }
-        if(isRegistEventBus){
+        if (isRegistEventBus) {
             EventBus.getDefault().unregister(this);
         }
     }
