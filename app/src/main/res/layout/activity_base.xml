@@ -6,12 +6,6 @@
     android:background="@color/app_background"
     android:orientation="vertical">
 
-    <View
-        android:id="@+id/view_status_bar"
-        android:layout_width="match_parent"
-        android:layout_height="27dp"
-        android:visibility="gone" />
-
 
     <RelativeLayout
         android:id="@+id/rlt_title"

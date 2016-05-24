@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import app.net.tongcheng.R;
+import app.net.tongcheng.util.ViewHolder;
 
 /**
  * @author: xiewenliang
@@ -16,8 +17,8 @@ import app.net.tongcheng.R;
  * @Copyright: Copyright (c) 2016 Tuandai Inc. All rights reserved.
  * @date: 2016/4/16 15:54
  */
-public class ShareFragment extends BaseFragment {
-
+public class ShareFragment extends BaseFragment implements View.OnClickListener{
+    private ViewHolder mViewHolder;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -27,6 +28,8 @@ public class ShareFragment extends BaseFragment {
     }
 
     private void initView(View view) {
+        mViewHolder = new ViewHolder(view, this);
+        mViewHolder.setText(R.id.tv_title, "分享");
     }
 
 
@@ -37,6 +40,11 @@ public class ShareFragment extends BaseFragment {
 
     @Override
     public void mHandDoSomeThing(Message msg) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
 
     }
 }

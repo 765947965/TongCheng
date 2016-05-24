@@ -105,6 +105,11 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
         ((LinearLayout) findViewById(R.id.llt_main)).addView(view, 1);
     }
 
+    public void setTitle(int ResId) {
+        findViewById(R.id.rlt_title).setVisibility(View.GONE);
+        ((LinearLayout) findViewById(R.id.llt_main)).addView(getLayoutInflater().inflate(ResId, null), 1);
+    }
+
     public void setContentView(int ResId) {
         fl_root.removeAllViews();
         fl_root.addView(getLayoutInflater().inflate(ResId, null));

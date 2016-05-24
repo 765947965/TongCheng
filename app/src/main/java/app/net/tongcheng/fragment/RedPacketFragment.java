@@ -1,25 +1,20 @@
 package app.net.tongcheng.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ScrollView;
-
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.activity.PayMoney;
+import app.net.tongcheng.adapter.RedListAdapter;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -33,7 +28,8 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
 
     private ViewHolder mViewHolder;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private ListView mListView;
+    private RecyclerView mRecyclerView;
+    private RedListAdapter mRedListAdapter;
     public static boolean isfirstloaddata;
 
 
@@ -52,7 +48,11 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
         mSwipeRefreshLayout = mViewHolder.getView(R.id.mSwipeRefreshLayout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.refurush_color);
         mSwipeRefreshLayout.setOnRefreshListener(this);
-        mListView = mViewHolder.getView(R.id.mListView);
+        mRecyclerView = mViewHolder.getView(R.id.mRecyclerView);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(TCApplication.mContext);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        mViewHolder.setOnClickListener(R.id.llt_fukuang);
     }
 
     @Override
@@ -78,7 +78,11 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()){
+            case R.id.llt_fukuang://付款
+                startActivity(new Intent(TCApplication.mContext, PayMoney.class));
+                break;
+        }
     }
 
     @Override
