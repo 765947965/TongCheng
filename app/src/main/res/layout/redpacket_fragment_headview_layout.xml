@@ -46,6 +46,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
                 android:text="扫一扫"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp16" />
@@ -71,6 +72,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
                 android:text="付款"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp16" />
@@ -95,6 +97,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
                 android:text="余额"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp16" />
@@ -119,6 +122,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
                 android:text="充值"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp16" />
@@ -143,6 +147,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
                 android:text="红包"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp16" />

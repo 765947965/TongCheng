@@ -7,13 +7,13 @@
 
     <ImageView
         android:id="@+id/iv_icon"
-        android:layout_width="35dp"
-        android:layout_height="35dp" />
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
 
     <ImageView
         android:id="@+id/iv_icon_activate"
-        android:layout_width="35dp"
-        android:layout_height="35dp" />
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
 </FrameLayout>
 
 

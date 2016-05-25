@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
-import app.net.tongcheng.activity.PayMoney;
+import app.net.tongcheng.activity.PayMoneyActivity;
 import app.net.tongcheng.adapter.RedListAdapter;
 import app.net.tongcheng.util.ViewHolder;
 
@@ -80,7 +80,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.llt_fukuang://付款
-                startActivity(new Intent(TCApplication.mContext, PayMoney.class));
+                startActivity(new Intent(TCApplication.mContext, PayMoneyActivity.class));
                 break;
         }
     }

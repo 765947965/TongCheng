@@ -28,7 +28,6 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.location_layout);
         initView();
         setEventBus();
-        mHandler.sendEmptyMessageDelayed(101, 2000);
     }
 
     private void initView() {
@@ -39,7 +38,7 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void loadData() {
-
+        mHandler.sendEmptyMessage(101);
     }
 
     @Override

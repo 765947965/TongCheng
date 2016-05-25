@@ -1,9 +1,11 @@
 package app.net.tongcheng.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.activity.MyUserInfoActivity;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -28,7 +31,7 @@ import app.net.tongcheng.util.ViewHolder;
 public class MyFragment extends BaseFragment implements View.OnClickListener {
 
     private ViewHolder mViewHolder;
-    private PullToRefreshScrollView pullScroll;
+    public static boolean isfirstloaddata;
 
 
     @Nullable
@@ -41,26 +44,18 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
     private void initView(View view) {
         mViewHolder = new ViewHolder(view, this);
-        pullScroll = mViewHolder.getView(R.id.pullScroll);
-        pullScroll.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
-            @Override
-            public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
-                // TODO Auto-generated method stub
-                String label = DateUtils.formatDateTime(TCApplication.mContext, System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME
-                        | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
-                // Update the LastUpdatedLabel
-                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-                loding();
-            }
-        });
+        mViewHolder.setText(R.id.tv_title, "我");
+        mViewHolder.setVisibility(R.id.bt_close, View.GONE);
+        mViewHolder.setOnClickListener(R.id.rlt_user_info);
     }
 
     @Override
     public void loadData() {
         //读取数据
-        pullScroll.getRefreshableView().scrollTo(0, 0);
-        pullScroll.showRefresh();
-        loding();
+        if (isfirstloaddata) {
+            return;
+        }
+        isfirstloaddata = true;
     }
 
     @Override
@@ -68,19 +63,13 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
     }
 
-    private void loding(){
-        //模拟延迟
-        new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                pullScroll.onRefreshComplete();
-            }
-        }.sendEmptyMessageDelayed(1, 2000);
-    }
-
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.rlt_user_info://我的信心
+                startActivity(new Intent(TCApplication.mContext, MyUserInfoActivity.class));
+                break;
+        }
     }
+
 }

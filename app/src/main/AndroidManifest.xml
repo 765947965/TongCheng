@@ -67,7 +67,11 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
-            android:name=".activity.PayMoney"
+            android:name=".activity.PayMoneyActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MyUserInfoActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
     </application>

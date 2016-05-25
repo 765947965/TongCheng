@@ -12,7 +12,7 @@
         android:layout_height="45dp"
         android:visibility="gone">
 
-        <include layout="@layout/write_head_view" />
+        <include layout="@layout/red_head_view" />
     </RelativeLayout>
 
     <FrameLayout
