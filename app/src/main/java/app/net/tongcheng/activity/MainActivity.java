@@ -76,6 +76,7 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
         listFragment.add(mShareFragment);
         listFragment.add(mMyFragment);
         pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        mPager.setOffscreenPageLimit(5);
         mPager.setAdapter(pagerAdapter);
         mPager.addOnPageChangeListener(this);
         mTabHost.setTabType(MaterialTab.TYPE_LARGE_ICON);
