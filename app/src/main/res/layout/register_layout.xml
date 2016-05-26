@@ -113,9 +113,9 @@
             android:id="@+id/bt_register"
             android:layout_width="230dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="14.6dp"
-            android:layout_marginTop="14.6dp"
-            android:background="@drawable/register_button_banck_select"
+            android:layout_margin="14.6dp"
+            android:background="@drawable/blue_button_box_select"
+            android:minHeight="35dp"
             android:text="注册"
             android:textColor="@color/white"
             android:textSize="@dimen/sp14" />

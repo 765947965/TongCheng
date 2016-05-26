@@ -4,7 +4,7 @@
 
     <!-- 实心 -->
     <!-- <solid android:color="#1E90FF" /> -->
-    <solid android:color="#848080" />
+    <solid android:color="#e7e7e7" />
     <!-- 渐变 -->
     <!-- gradient android:angle="270" android:endColor="#FCFCFC" android:startColor="#404040" -->
     <!-- 描边 -->

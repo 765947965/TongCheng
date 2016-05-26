@@ -11,9 +11,10 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
+        android:layout_marginTop="14.6dp"
         android:background="@drawable/red_button_box_select"
+        android:minHeight="35dp"
         android:text="马上去分享"
-        android:minHeight="30dp"
         android:textColor="@color/white"
         android:textSize="@dimen/sp14" />
 </RelativeLayout>
