@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.activity.BalanceActivity;
 import app.net.tongcheng.activity.PayMoneyActivity;
 import app.net.tongcheng.adapter.RedListAdapter;
 import app.net.tongcheng.util.ViewHolder;
@@ -53,6 +54,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mViewHolder.setOnClickListener(R.id.llt_fukuang);
+        mViewHolder.setOnClickListener(R.id.llt_balance);
     }
 
     @Override
@@ -81,6 +83,9 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
         switch (v.getId()){
             case R.id.llt_fukuang://付款
                 startActivity(new Intent(TCApplication.mContext, PayMoneyActivity.class));
+                break;
+            case R.id.llt_balance://余额
+                startActivity(new Intent(TCApplication.mContext, BalanceActivity.class));
                 break;
         }
     }

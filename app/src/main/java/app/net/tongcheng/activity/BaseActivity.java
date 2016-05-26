@@ -103,6 +103,18 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
         });
     }
 
+    public Button getRightBtn() {
+        return btnRight;
+    }
+
+    public ImageView getRightIV() {
+        return ivRight;
+    }
+
+    public void setTileLineGONE() {
+        findViewById(R.id.viewBaseLine).setVisibility(View.GONE);
+    }
+
     public void setTitle(String title) {
         if (!TextUtils.isEmpty(title)) {
             rlt_title.setVisibility(View.VISIBLE);
