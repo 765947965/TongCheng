@@ -1,5 +1,6 @@
 package app.net.tongcheng.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import app.net.tongcheng.R;
+import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.activity.ShareActivity;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -32,6 +35,7 @@ public class ShareFragment extends BaseFragment implements View.OnClickListener 
         mViewHolder = new ViewHolder(view, this);
         mViewHolder.setText(R.id.tv_title, "分享");
         mViewHolder.setVisibility(R.id.bt_close, View.GONE);
+        mViewHolder.setOnClickListener(R.id.bt_share);
     }
 
 
@@ -47,6 +51,10 @@ public class ShareFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.bt_share://分享
+                startActivity(new Intent(TCApplication.mContext, ShareActivity.class));
+                break;
+        }
     }
 }

@@ -6,6 +6,7 @@
     <include layout="@layout/red_head_view" />
 
     <Button
+        android:id="@+id/bt_share"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
