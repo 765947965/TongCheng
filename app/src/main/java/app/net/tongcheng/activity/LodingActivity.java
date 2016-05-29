@@ -18,10 +18,14 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.adapter.R_Loding4v2_SPLIST;
+import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.OraLodingUser;
+import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.OraLodingUserTools;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
@@ -45,6 +49,7 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
     private EditText r_loding4v2_phnum;
     private TextView r_loding4v2_lodingbt;
     private ListView lplist;
+    private OtherBusiness mOtherBusiness;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,7 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
         setContentView(R.layout.loding_layout);
         setTitle("登录");
         initView();
+        mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 
     private void initView() {
@@ -100,13 +106,27 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
     }
 
     @Override
+    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
+        switch (mLoding_Type) {
+            case APPCationStation.SUMBIT:
+                DialogUtil.showTipsDialog(this, (String) mConnectResult.getObject(), null);
+                break;
+        }
+    }
+
+    @Override
+    public void BusinessOnFail(int mLoding_Type) {
+
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl4v2_clearpnum:
                 r_loding4v2_phnum.setText("");
                 break;
             case R.id.r_loding4v2_lodingbt://登录
-                startActivity(new Intent(TCApplication.mContext, MainActivity.class));
+                mOtherBusiness.loadingBusiness(APPCationStation.SUMBIT, "登录中", r_loding4v2_phnum.getText().toString(), r_loding4v2_pwd.getText().toString());
                 break;
             case R.id.r_loding4v2_getpassword://忘记密码
                 break;

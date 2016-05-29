@@ -68,7 +68,7 @@ public class Utils {
      * @author longluliu
      * @date 2015-4-22 下午3:42:58
      */
-    private String getVersionName() {
+    public static String getVersionName() {
         String versionCode = "";
         try {
             versionCode = TCApplication.mContext.getPackageManager().getPackageInfo(TCApplication.mContext.getPackageName(), 0).versionName;

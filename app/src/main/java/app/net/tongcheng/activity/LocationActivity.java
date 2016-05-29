@@ -9,6 +9,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import app.net.tongcheng.R;
 import app.net.tongcheng.model.CheckEvent;
+import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -46,6 +47,16 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
         if (msg.what == 101) {
             mViewHolder.setVisibility(R.id.llt_loding, View.VISIBLE);
         }
+    }
+
+    @Override
+    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
+
+    }
+
+    @Override
+    public void BusinessOnFail(int mLoding_Type) {
+
     }
 
     @Override

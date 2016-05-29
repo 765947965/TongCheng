@@ -21,6 +21,8 @@ import java.util.List;
 
 import app.net.tongcheng.R;
 import app.net.tongcheng.model.CheckEvent;
+import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.CancelableClear;
 import app.net.tongcheng.view.SlidingLayout;
 
@@ -51,6 +53,16 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             mHandDoSomeThing(msg);
+            switch (msg.what) {
+                case APPCationStation.SUCCESS:
+                    Bundle mBundleSuccess = msg.getData();
+                    BusinessOnSuccess(mBundleSuccess.getInt("mLoding_Type"), (ConnectResult) mBundleSuccess.getSerializable("ConnectResult"));
+                    break;
+                case APPCationStation.FAIL:
+                    Bundle mBundleFail = msg.getData();
+                    BusinessOnFail(mBundleFail.getInt("mLoding_Type"));
+                    break;
+            }
         }
     };
 
@@ -185,4 +197,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
     }
 
     public abstract void mHandDoSomeThing(Message msg);
+
+    public abstract void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult);
+
+    public abstract void BusinessOnFail(int mLoding_Type);
 }

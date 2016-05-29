@@ -2,6 +2,7 @@ package app.net.tongcheng.util;
 
 import android.content.Context;
 import android.text.Spanned;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,7 @@ import java.util.HashMap;
 public class ViewHolder {
 
     private View mRootView;
-    private HashMap<Integer, View> viewmaps = new HashMap<>();
+    private SparseArray<View> viewmaps = new SparseArray<>();
     private View.OnClickListener mOnClickListener;
 
     public ViewHolder(Context context, int resource) {

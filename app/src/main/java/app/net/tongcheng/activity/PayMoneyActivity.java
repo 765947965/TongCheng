@@ -5,6 +5,7 @@ import android.os.Message;
 import android.view.View;
 
 import app.net.tongcheng.R;
+import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -38,6 +39,16 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void mHandDoSomeThing(Message msg) {
+
+    }
+
+    @Override
+    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
+
+    }
+
+    @Override
+    public void BusinessOnFail(int mLoding_Type) {
 
     }
 

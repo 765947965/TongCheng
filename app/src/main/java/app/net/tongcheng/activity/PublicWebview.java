@@ -11,6 +11,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import app.net.tongcheng.R;
+import app.net.tongcheng.model.ConnectResult;
 
 
 /**
@@ -73,6 +74,16 @@ public class PublicWebview extends BaseActivity {
 
     @Override
     public void mHandDoSomeThing(Message msg) {
+
+    }
+
+    @Override
+    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
+
+    }
+
+    @Override
+    public void BusinessOnFail(int mLoding_Type) {
 
     }
 

@@ -19,6 +19,7 @@ import app.net.tongcheng.fragment.LifeFragment;
 import app.net.tongcheng.fragment.MyFragment;
 import app.net.tongcheng.fragment.RedPacketFragment;
 import app.net.tongcheng.fragment.ShareFragment;
+import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.util.ViewHolder;
 import app.net.tongcheng.view.materialtabs.MaterialTab;
 import app.net.tongcheng.view.materialtabs.MaterialTabHost;
@@ -102,6 +103,16 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
 
     @Override
     public void mHandDoSomeThing(Message msg) {
+
+    }
+
+    @Override
+    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
+
+    }
+
+    @Override
+    public void BusinessOnFail(int mLoding_Type) {
 
     }
 

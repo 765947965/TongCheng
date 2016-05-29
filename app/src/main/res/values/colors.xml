@@ -36,7 +36,7 @@
     <!-- 时间 -->
     <color name="time">#ababab</color>
     <!-- 深黄色 -->
-    <color name="btn_text_yellow">#fac502</color>
+    <color name="btn_text_yellow">#FF6666</color>
     <!-- 描述 -->
     <color name="text_desc">#434343</color>
     <!-- 标题右边文字颜色 -->

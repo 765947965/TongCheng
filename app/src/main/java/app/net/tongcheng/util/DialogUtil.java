@@ -2,6 +2,7 @@ package app.net.tongcheng.util;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +30,7 @@ public class DialogUtil {
                 ToastUtil.showToast(message);
                 return null;
             }
-            final AlertDialog dialog = new AlertDialog.Builder(activity).create();
+            final AlertDialog dialog = new AlertDialog.Builder(activity, R.style.dialog_style).create();
             dialog.setCanceledOnTouchOutside(true);
             dialog.show();
             View view = (View) LayoutInflater.from(activity).inflate(R.layout.view_dialog_tips_layout, null);
@@ -75,6 +76,24 @@ public class DialogUtil {
         return null;
     }
 
+    public static Dialog loadingDialog(Activity mActivity, String mMessage) {
+        try {
+            if (mActivity.isFinishing()) {
+                ToastUtil.showToast(mMessage);
+                return null;
+            }
+            AlertDialog dialog = new AlertDialog.Builder(mActivity, R.style.dialog_style).create();
+            dialog.setCanceledOnTouchOutside(true);
+            dialog.show();
+            View view = LayoutInflater.from(mActivity).inflate(R.layout.loading_layout, null);
+            ((TextView) view.findViewById(R.id.tv_message)).setText(mMessage);
+            dialog.setContentView(view);
+            return dialog;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     /**
      * 弹出对话框
      */
@@ -105,7 +124,7 @@ public class DialogUtil {
             if (activity.isFinishing()) {
                 return;
             }
-            final AlertDialog dialog = new AlertDialog.Builder(activity).create();
+            final AlertDialog dialog = new AlertDialog.Builder(activity, R.style.dialog_style).create();
             dialog.setCanceledOnTouchOutside(true);
             dialog.show();
             View view = (View) LayoutInflater.from(activity).inflate(R.layout.view_dialog_tips_layout, null);
@@ -142,7 +161,7 @@ public class DialogUtil {
             if (activity.isFinishing()) {
                 return;
             }
-            final AlertDialog dialog = new AlertDialog.Builder(activity).create();
+            final AlertDialog dialog = new AlertDialog.Builder(activity, R.style.dialog_style).create();
             dialog.setCanceledOnTouchOutside(true);
             dialog.show();
             View view = (View) LayoutInflater.from(activity).inflate(R.layout.view_dialog_tips_layout, null);

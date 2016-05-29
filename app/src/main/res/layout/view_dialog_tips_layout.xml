@@ -84,7 +84,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/bg_bottom_right_rounded_box_selector"
                 android:gravity="center"
-                android:textColor="#ffc61a"
+                android:textColor="#ff6666"
                 android:textSize="@dimen/sp19"
                 android:textStyle="bold" />
         </LinearLayout>
