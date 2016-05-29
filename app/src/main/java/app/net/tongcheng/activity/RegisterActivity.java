@@ -12,9 +12,11 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
@@ -32,12 +34,14 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private CheckBox checkBox;
     private TextView tv_protocol;
     private Button bt_register;
+    private OtherBusiness mOtherBusiness;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_layout);
         initView();
+        mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 
     private void initView() {
@@ -82,11 +86,23 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             case R.id.tv_protocol://查看合同
                 break;
             case R.id.bt_register://注册
+                if (TextUtils.isEmpty(et_phone.getText().toString())) {
+                    ToastUtil.showToast("请输入手机号码!");
+                    return;
+                }
+                if (et_phone.getText().toString().length() != 11) {
+                    ToastUtil.showToast("请输入正确的手机号码!");
+                    return;
+                }
                 if (!checkBox.isChecked()) {
                     ToastUtil.showToast("请先阅读并同意用户协议!");
                     return;
                 }
-                startActivity(new Intent(TCApplication.mContext, MainActivity.class));
+                if (!TextUtils.isEmpty(et_invite_code.getText().toString())) {
+                    mOtherBusiness.registerInviteflagBusiness(APPCationStation.CHECK, "查询邀请码...", et_invite_code.getText().toString());
+                } else {
+
+                }
                 break;
         }
     }

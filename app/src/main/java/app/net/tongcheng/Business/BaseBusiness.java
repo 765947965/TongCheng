@@ -66,11 +66,17 @@ public class BaseBusiness implements ConnectListener {
         }
         params.addQueryStringParameter("sn", sn);
         params.addQueryStringParameter("agent_id", "1");
-        params.addQueryStringParameter("account", phone);
-        params.addQueryStringParameter("pwd", Misc.cryptDataByPwd(pwd.trim()));
+        if (!TextUtils.isEmpty(phone)) {
+            params.addQueryStringParameter("account", phone);
+        }
+        if (!TextUtils.isEmpty(pwd)) {
+            params.addQueryStringParameter("pwd", Misc.cryptDataByPwd(pwd.trim()));
+        }
         params.addQueryStringParameter("pv", "android");
         params.addQueryStringParameter("v", Utils.getVersionName());
-        params.addQueryStringParameter("sign", MD5.toMD5(sn + phone + Common.SIGN_KEY));
+        if (!TextUtils.isEmpty(phone)) {
+            params.addQueryStringParameter("sign", MD5.toMD5(sn + phone + Common.SIGN_KEY));
+        }
         params.addQueryStringParameter("brand", Utils.getBrand());
         params.addQueryStringParameter("model", Utils.getModel());
         params.addQueryStringParameter("product", Common.BrandName);
