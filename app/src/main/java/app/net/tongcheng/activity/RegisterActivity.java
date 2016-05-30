@@ -15,6 +15,7 @@ import android.widget.TextView;
 import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.RegisterInviteflagModel;
 import app.net.tongcheng.util.APPCationStation;
@@ -74,13 +75,23 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
         switch (mLoding_Type) {
             case APPCationStation.CHECK:
-                if (mConnectResult != null && mConnectResult.getObject() != null && ((RegisterInviteflagModel) mConnectResult.getObject()).getResult() == 0) {
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     sendAouthCode();
                 }
                 break;
             case APPCationStation.GETAOUTHCODE:
-                if (mConnectResult != null && mConnectResult.getObject() != null && ((RegisterInviteflagModel) mConnectResult.getObject()).getResult() == 0) {
-                    startActivity(new Intent(this, RegisterInputCodeActivity.class).putExtra("phone", phone));
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    DialogUtil.showTipsDialog(this, "验证码已下发至您的手机,请注意查收!", new DialogUtil.OnConfirmListener() {
+                        @Override
+                        public void clickConfirm() {
+                            startActivity(new Intent(TCApplication.mContext, RegisterInputCodeActivity.class).putExtra("phone", phone));
+                        }
+
+                        @Override
+                        public void clickCancel() {
+
+                        }
+                    });
                 }
                 break;
         }
@@ -132,7 +143,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 + phone, "确定", "取消", new DialogUtil.OnConfirmListener() {
             @Override
             public void clickConfirm() {
-                mOtherBusiness.getRegisterAouthCode(APPCationStation.GETAOUTHCODE, "获取验证码", phone);
+                mOtherBusiness.getRegisterAouthCode(APPCationStation.GETAOUTHCODE, "获取验证码...", phone);
             }
 
             @Override

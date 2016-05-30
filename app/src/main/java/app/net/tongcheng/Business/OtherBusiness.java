@@ -7,6 +7,7 @@ import org.xutils.http.RequestParams;
 
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.LodingResultModel;
+import app.net.tongcheng.model.RegisterCode;
 import app.net.tongcheng.model.RegisterInviteflagModel;
 import app.net.tongcheng.util.CancelableClear;
 import app.net.tongcheng.util.Common;
@@ -58,7 +59,7 @@ public class OtherBusiness extends BaseBusiness {
      */
     public void getRegisterAouthCode(int mLoding_Type, String message, String phone) {
         RequestParams params = getRequestParams(HttpUrls.REG_GETCODE, phone, null);
-        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+        goConnect(mLoding_Type, params, message, RegisterCode.class.getName());
     }
 
     /**
