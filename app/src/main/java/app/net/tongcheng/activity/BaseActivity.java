@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -47,6 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
     private SlidingLayout rootView;
     private View status;
     private boolean isRegistEventBus;
+    private long lastClickTime;
     private List<Callback.Cancelable> mCancelableList = new ArrayList<>();
     public Handler mHandler = new Handler() {
         @Override
@@ -181,6 +183,27 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
     @Override
     public void addCancelable(Callback.Cancelable mCancelable) {
         mCancelableList.add(mCancelable);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            if (isFastDoubleClick()) {// 防止快速点击
+                return true;
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    private boolean isFastDoubleClick() {
+        long time = System.currentTimeMillis();
+        long timeD = time - lastClickTime;
+        if (timeD >= 0 && timeD <= 500) {
+            return true;
+        } else {
+            lastClickTime = time;
+            return false;
+        }
     }
 
     public abstract void loadData();
