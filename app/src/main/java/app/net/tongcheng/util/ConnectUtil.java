@@ -1,6 +1,7 @@
 package app.net.tongcheng.util;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 
@@ -20,10 +21,16 @@ import app.net.tongcheng.model.ConnectResult;
  */
 public class ConnectUtil {
 
-    public static Callback.Cancelable Connect(final int mLoding_Type, RequestParams params, String message, final ConnectListener mConnectListener, final String className) {
+    public static boolean isDebugModel = true;
+    public static String tag = "TCdebug";
+
+    public static Callback.Cancelable Connect(final int mLoding_Type, final RequestParams params, String message, final ConnectListener mConnectListener, final String className) {
         return x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                if(isDebugModel){
+                    Log.i(tag, params.getUri() + "\r\n"+ result);
+                }
                 ConnectResult cr = new ConnectResult();
                 if (mConnectListener != null) {
                     if (!TextUtils.isEmpty(className)) {

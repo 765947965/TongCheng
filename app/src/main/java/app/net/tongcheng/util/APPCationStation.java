@@ -10,4 +10,5 @@ public class APPCationStation {
     public static final int RELOADING = LOADING + 1;
     public static final int SUMBIT = RELOADING + 1;
     public static final int CHECK = SUMBIT + 1;
+    public static final int GETAOUTHCODE = CHECK + 1;
 }

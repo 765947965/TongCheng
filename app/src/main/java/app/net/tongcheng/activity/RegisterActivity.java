@@ -16,7 +16,9 @@ import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.model.RegisterInviteflagModel;
 import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
@@ -34,6 +36,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private CheckBox checkBox;
     private TextView tv_protocol;
     private Button bt_register;
+    private String phone;
     private OtherBusiness mOtherBusiness;
 
     @Override
@@ -69,7 +72,18 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-
+        switch (mLoding_Type) {
+            case APPCationStation.CHECK:
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((RegisterInviteflagModel) mConnectResult.getObject()).getResult() == 0) {
+                    sendAouthCode();
+                }
+                break;
+            case APPCationStation.GETAOUTHCODE:
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((RegisterInviteflagModel) mConnectResult.getObject()).getResult() == 0) {
+                    startActivity(new Intent(this, RegisterInputCodeActivity.class).putExtra("phone", phone));
+                }
+                break;
+        }
     }
 
     @Override
@@ -98,10 +112,11 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     ToastUtil.showToast("请先阅读并同意用户协议!");
                     return;
                 }
+                phone = et_phone.getText().toString();
                 if (!TextUtils.isEmpty(et_invite_code.getText().toString())) {
                     mOtherBusiness.registerInviteflagBusiness(APPCationStation.CHECK, "查询邀请码...", et_invite_code.getText().toString());
                 } else {
-
+                    sendAouthCode();
                 }
                 break;
         }
@@ -110,6 +125,21 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+    }
+
+    private void sendAouthCode() {
+        DialogUtil.showTipsDialog(this, "提示", "同城商城将验证码发送到+86"
+                + phone, "确定", "取消", new DialogUtil.OnConfirmListener() {
+            @Override
+            public void clickConfirm() {
+                mOtherBusiness.getRegisterAouthCode(APPCationStation.GETAOUTHCODE, "获取验证码", phone);
+            }
+
+            @Override
+            public void clickCancel() {
+
+            }
+        });
     }
 
     @Override

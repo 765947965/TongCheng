@@ -68,6 +68,7 @@ public class BaseBusiness implements ConnectListener {
         params.addQueryStringParameter("agent_id", "1");
         if (!TextUtils.isEmpty(phone)) {
             params.addQueryStringParameter("account", phone);
+            params.addQueryStringParameter("phone", phone);
         }
         if (!TextUtils.isEmpty(pwd)) {
             params.addQueryStringParameter("pwd", Misc.cryptDataByPwd(pwd.trim()));
