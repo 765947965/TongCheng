@@ -93,6 +93,7 @@ public class BaseBusiness implements ConnectListener {
                 if (mMessageold != null && mMessageold.isShowing()) {
                     mMessageold.dismiss();
                 }
+                mMessagesDialog.remove(mLoding_Type);
                 mMessagesDialog.put(mLoding_Type, mMessage);
             }
         }
@@ -151,15 +152,6 @@ public class BaseBusiness implements ConnectListener {
 
     @Override
     public void ConnectOnFinished(int mLoding_Type) {
-        Dialog mMessageold = mMessagesDialog.get(mLoding_Type);
-        if (mMessageold != null && mMessageold.isShowing()) {
-            mMessageold.dismiss();
-        }
-        Bundle mBundle = new Bundle();
-        mBundle.putInt("mLoding_Type", mLoding_Type);
-        Message mMessage = new Message();
-        mMessage.what = APPCationStation.FAIL;
-        mMessage.setData(mBundle);
-        mHandler.sendMessage(mMessage);
+
     }
 }
