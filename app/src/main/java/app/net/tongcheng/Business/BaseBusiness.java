@@ -93,7 +93,6 @@ public class BaseBusiness implements ConnectListener {
                 if (mMessageold != null && mMessageold.isShowing()) {
                     mMessageold.dismiss();
                 }
-                mMessagesDialog.remove(mLoding_Type);
                 mMessagesDialog.put(mLoding_Type, mMessage);
             }
         }
