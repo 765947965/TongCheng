@@ -9,14 +9,19 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+
 import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.RegisterCode;
+import app.net.tongcheng.model.UserInfo;
 import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.DialogUtil;
+import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
 
@@ -29,17 +34,22 @@ import app.net.tongcheng.util.ViewHolder;
  */
 public class RegisterInputCodeActivity extends BaseActivity implements View.OnClickListener {
     private ViewHolder mViewHolder;
-    private String phone;
+    private String phone, invite_code;
     private EditText rgv2_phnum;
     private TextView cannotsevedcode;
-    private int jishunum = 60;
+    private int jishunum = Common.LasMine;
     private OtherBusiness mOtherBusiness;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_input_aouthcode_layout);
+        setTitle("填写验证码");
         phone = getIntent().getStringExtra("phone");
+        invite_code = getIntent().getStringExtra("invite_code");
+        if (TextUtils.isEmpty(invite_code)) {
+            invite_code = "0";
+        }
         initView();
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
@@ -66,12 +76,13 @@ public class RegisterInputCodeActivity extends BaseActivity implements View.OnCl
             case 1001:
                 jishunum -= 1;
                 if (jishunum < 0) {
-                    jishunum = 60;
+                    jishunum = Common.LasMine;
                     mViewHolder.setText(R.id.timejs, "");
                     cannotsevedcode.setTextColor(Color.parseColor("#1160FD"));
                     cannotsevedcode.setEnabled(true);
                 } else {
                     mViewHolder.setText(R.id.timejs, jishunum + "秒");
+                    mHandler.sendEmptyMessageDelayed(1001, 1000);
                 }
                 break;
         }
@@ -85,6 +96,13 @@ public class RegisterInputCodeActivity extends BaseActivity implements View.OnCl
                     mViewHolder.setText(R.id.timejs, "请输入该验证码:" + ((RegisterCode) mConnectResult.getObject()).getAuthcode());
                 } else {
                     mHandler.sendEmptyMessage(1001);
+                }
+                break;
+            case APPCationStation.SUMBIT:
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    UserInfo mUserInfo = (UserInfo) mConnectResult.getObject();
+                    TCApplication.setmUserInfo(mUserInfo);
+                    OperationUtils.setUserInfo(JSON.toJSONString(mUserInfo));
                 }
                 break;
         }
@@ -123,6 +141,7 @@ public class RegisterInputCodeActivity extends BaseActivity implements View.OnCl
                     ToastUtil.showResultToast("验证码不能为空!");
                     return;
                 }
+                mOtherBusiness.registerBusiness(APPCationStation.SUMBIT, "注册中...", phone, invite_code, rgv2_phnum.getText().toString());
                 break;
         }
     }

@@ -50,7 +50,6 @@
                 android:id="@+id/iv_clearphone"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_marginLeft="-30dp"
                 android:src="@drawable/phone_search_clear"
                 android:visibility="invisible" />
         </LinearLayout>

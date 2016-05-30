@@ -2,13 +2,19 @@ package app.net.tongcheng;
 
 import android.app.Application;
 import android.content.Context;
+import android.text.TextUtils;
 
+import com.alibaba.fastjson.JSON;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
+import org.w3c.dom.Text;
 import org.xutils.x;
+
+import app.net.tongcheng.model.UserInfo;
+import app.net.tongcheng.util.OperationUtils;
 
 /**
  * @author: xiewenliang
@@ -20,17 +26,30 @@ import org.xutils.x;
 public class TCApplication extends Application {
 
     public static Context mContext;
+    private static UserInfo mUserInfo;
 
 
     @Override
     public void onCreate() {
         super.onCreate();
         mContext = this.getApplicationContext();
+        String userinfo = OperationUtils.getUserInfo();
+        if (!TextUtils.isEmpty(userinfo)) {
+            setmUserInfo(JSON.parseObject(userinfo, UserInfo.class));
+        }
         x.Ext.init(this);
         x.Ext.setDebug(true); // 是否输出debug日志
         initImageLoader();
     }
 
+    public static UserInfo getmUserInfo() {
+        return mUserInfo;
+    }
+
+    public static void setmUserInfo(UserInfo mUserInfo) {
+        OperationUtils.setUserID(mUserInfo.getUid());
+        TCApplication.mUserInfo = mUserInfo;
+    }
 
     /**
      * 初始化ImageLoader

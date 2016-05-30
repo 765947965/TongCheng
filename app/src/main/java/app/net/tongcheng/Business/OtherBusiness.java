@@ -5,10 +5,9 @@ import android.os.Handler;
 
 import org.xutils.http.RequestParams;
 
-import app.net.tongcheng.model.BaseModel;
-import app.net.tongcheng.model.LodingResultModel;
 import app.net.tongcheng.model.RegisterCode;
 import app.net.tongcheng.model.RegisterInviteflagModel;
+import app.net.tongcheng.model.UserInfo;
 import app.net.tongcheng.util.CancelableClear;
 import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.HttpUrls;
@@ -33,7 +32,9 @@ public class OtherBusiness extends BaseBusiness {
      */
     public void loadingBusiness(int mLoding_Type, String message, String phone, String pwd) {
         RequestParams params = getRequestParams(HttpUrls.Loding_V2, phone, pwd);
-        goConnect(mLoding_Type, params, message, LodingResultModel.class.getName());
+        params.addQueryStringParameter("account", phone);
+        params.removeParameter("phone");
+        goConnect(mLoding_Type, params, message, UserInfo.class.getName());
     }
 
     /**
@@ -44,7 +45,7 @@ public class OtherBusiness extends BaseBusiness {
      * @param inviteflag
      */
     public void registerInviteflagBusiness(int mLoding_Type, String message, String inviteflag) {
-        RequestParams params = getRequestParams(HttpUrls.Loding_V2, null, null);
+        RequestParams params = getRequestParams(HttpUrls.Checkyaoqingma, null, null);
         params.addQueryStringParameter("sign", MD5.toMD5(params.getStringParameter("sn") + inviteflag + Common.SIGN_KEY));
         params.addQueryStringParameter("inviteflag", inviteflag);
         goConnect(mLoding_Type, params, message, RegisterInviteflagModel.class.getName());
@@ -59,6 +60,7 @@ public class OtherBusiness extends BaseBusiness {
      */
     public void getRegisterAouthCode(int mLoding_Type, String message, String phone) {
         RequestParams params = getRequestParams(HttpUrls.REG_GETCODE, phone, null);
+        params.removeParameter("netmode");
         goConnect(mLoding_Type, params, message, RegisterCode.class.getName());
     }
 
@@ -72,9 +74,12 @@ public class OtherBusiness extends BaseBusiness {
      * @param authcode
      */
     public void registerBusiness(int mLoding_Type, String message, String phone, String inviteflag, String authcode) {
-        RequestParams params = getRequestParams(HttpUrls.Loding_V2, phone, null);
+        RequestParams params = getRequestParams(HttpUrls.REG_V2, phone, null);
+        params.addQueryStringParameter("invitedby", "");
+        params.addQueryStringParameter("channel", "");
         params.addQueryStringParameter("inviteflag", inviteflag);
         params.addQueryStringParameter("authcode", authcode);
-        goConnect(mLoding_Type, params, message, RegisterInviteflagModel.class.getName());
+        params.removeParameter("netmode");
+        goConnect(mLoding_Type, params, message, UserInfo.class.getName());
     }
 }

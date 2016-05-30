@@ -15,6 +15,7 @@ import app.net.tongcheng.TCApplication;
 public class OperationUtils {
     private static final String FILENAME = "OperationData";
     private static final String USERID = "nowuserid";
+    private static final String USERINFO = "nowuserinfo";
     public static final String LODINGUSERJSON = "lodinguserjson";
     private static OperationUtils instance;
     private SharedPreferences mSp;
@@ -40,7 +41,15 @@ public class OperationUtils {
      */
     public static void setUserID(String userid) {
         OperationUtils.userid = userid;
-        getSharedPreference().edit().putString(USERID, userid);
+        getSharedPreference().edit().putString(USERID, userid).commit();
+    }
+
+    public static void setUserInfo(String userinfo){
+        getSharedPreference().edit().putString(USERINFO, userinfo).commit();
+    }
+
+    public static String getUserInfo(){
+        return getSharedPreference().getString(USERINFO, "");
     }
 
     public static void PutString(String key, String value) {

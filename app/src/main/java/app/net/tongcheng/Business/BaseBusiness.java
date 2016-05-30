@@ -65,9 +65,8 @@ public class BaseBusiness implements ConnectListener {
             netmode = 3;
         }
         params.addQueryStringParameter("sn", sn);
-        params.addQueryStringParameter("agent_id", "1");
+        params.addQueryStringParameter("agent_id", TCApplication.getmUserInfo() == null ? "1" : TCApplication.getmUserInfo().getAgent_id());
         if (!TextUtils.isEmpty(phone)) {
-            params.addQueryStringParameter("account", phone);
             params.addQueryStringParameter("phone", phone);
         }
         if (!TextUtils.isEmpty(pwd)) {

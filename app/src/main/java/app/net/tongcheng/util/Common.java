@@ -7,6 +7,7 @@ import java.util.Properties;
 public class Common {
 	public static final String SIGN_KEY = "&%&aicall$#$";
 	public static final String BrandName = "aixin";
+	public static final int LasMine = 5;
 
 	public static synchronized String getValueForPro(InputStream in, String key) {
 		Properties pro = new Properties();

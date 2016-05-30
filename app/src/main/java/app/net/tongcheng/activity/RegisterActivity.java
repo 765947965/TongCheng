@@ -37,7 +37,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private CheckBox checkBox;
     private TextView tv_protocol;
     private Button bt_register;
-    private String phone;
+    private String phone, invite_code;
     private OtherBusiness mOtherBusiness;
 
     @Override
@@ -84,7 +84,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     DialogUtil.showTipsDialog(this, "验证码已下发至您的手机,请注意查收!", new DialogUtil.OnConfirmListener() {
                         @Override
                         public void clickConfirm() {
-                            startActivity(new Intent(TCApplication.mContext, RegisterInputCodeActivity.class).putExtra("phone", phone));
+                            startActivity(new Intent(TCApplication.mContext, RegisterInputCodeActivity.class).putExtra("phone", phone).putExtra("invite_code", invite_code));
                         }
 
                         @Override
@@ -124,7 +124,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     return;
                 }
                 phone = et_phone.getText().toString();
-                if (!TextUtils.isEmpty(et_invite_code.getText().toString())) {
+                invite_code = et_invite_code.getText().toString();
+                if (!TextUtils.isEmpty(invite_code)) {
                     mOtherBusiness.registerInviteflagBusiness(APPCationStation.CHECK, "查询邀请码...", et_invite_code.getText().toString());
                 } else {
                     sendAouthCode();

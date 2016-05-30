@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -22,10 +24,13 @@ import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.adapter.R_Loding4v2_SPLIST;
+import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.OraLodingUser;
+import app.net.tongcheng.model.UserInfo;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
+import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.OraLodingUserTools;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
@@ -109,7 +114,11 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
     public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
         switch (mLoding_Type) {
             case APPCationStation.SUMBIT:
-                DialogUtil.showTipsDialog(this, (String) mConnectResult.getObject(), null);
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    UserInfo mUserInfo = (UserInfo) mConnectResult.getObject();
+                    TCApplication.setmUserInfo(mUserInfo);
+                    OperationUtils.setUserInfo(JSON.toJSONString(mUserInfo));
+                }
                 break;
         }
     }
