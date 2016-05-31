@@ -19,7 +19,6 @@ public class OperationUtils {
     public static final String LODINGUSERJSON = "lodinguserjson";
     private static OperationUtils instance;
     private SharedPreferences mSp;
-    private static String userid;
 
     private static SharedPreferences getSharedPreference() {
         if (instance == null || instance.mSp == null) {
@@ -27,59 +26,48 @@ public class OperationUtils {
                 if (instance == null || instance.mSp == null) {
                     instance = new OperationUtils();
                     instance.mSp = TCApplication.mContext.getSharedPreferences(FILENAME, Context.MODE_PRIVATE);
-                    userid = instance.mSp.getString(USERID, "");
                 }
             }
         }
         return instance.mSp;
     }
 
-    /**
-     * 设置userid
-     *
-     * @param userid
-     */
-    public static void setUserID(String userid) {
-        OperationUtils.userid = userid;
-        getSharedPreference().edit().putString(USERID, userid).commit();
-    }
-
-    public static void setUserInfo(String userinfo){
+    public static void setUserInfo(String userinfo) {
         getSharedPreference().edit().putString(USERINFO, userinfo).commit();
     }
 
-    public static String getUserInfo(){
+    public static String getUserInfo() {
         return getSharedPreference().getString(USERINFO, "");
     }
 
     public static void PutString(String key, String value) {
         SharedPreferences.Editor editor = getSharedPreference().edit();
-        editor.putString(userid + key, value);
+        editor.putString(TCApplication.getmUserInfo() == null ? "" : TCApplication.getmUserInfo().getUid() + key, value);
         editor.commit();
     }
 
     public static String getString(String key) {
-        return getSharedPreference().getString(userid + key, null);
+        return getSharedPreference().getString(TCApplication.getmUserInfo() == null ? "" : TCApplication.getmUserInfo().getUid() + key, null);
     }
 
     public static void PutInt(String key, int value) {
         SharedPreferences.Editor editor = getSharedPreference().edit();
-        editor.putInt(userid + key, value);
+        editor.putInt(TCApplication.getmUserInfo() == null ? "" : TCApplication.getmUserInfo().getUid() + key, value);
         editor.commit();
     }
 
     public static int getInt(String key) {
-        return getSharedPreference().getInt(userid + key, 0);
+        return getSharedPreference().getInt(TCApplication.getmUserInfo() == null ? "" : TCApplication.getmUserInfo().getUid() + key, 0);
     }
 
     public static void PutBoolean(String key, boolean value) {
         SharedPreferences.Editor editor = getSharedPreference().edit();
-        editor.putBoolean(userid + key, value);
+        editor.putBoolean(TCApplication.getmUserInfo() == null ? "" : TCApplication.getmUserInfo().getUid() + key, value);
         editor.commit();
     }
 
     public static boolean getBoolean(String key) {
-        return getSharedPreference().getBoolean(userid + key, false);
+        return getSharedPreference().getBoolean(TCApplication.getmUserInfo() == null ? "" : TCApplication.getmUserInfo().getUid() + key, false);
     }
 
 }

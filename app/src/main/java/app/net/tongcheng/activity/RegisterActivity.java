@@ -12,10 +12,13 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
+import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.RegisterInviteflagModel;
 import app.net.tongcheng.util.APPCationStation;
@@ -45,6 +48,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_layout);
         initView();
+        setEventBus();
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 
@@ -171,5 +175,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void afterTextChanged(Editable s) {
 
+    }
+
+    @Subscribe
+    public void onEvent(CheckEvent event) {
+        if (event != null && event.getMsg().equals("loading_ok")) {
+            finish();
+        }
     }
 }

@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -25,6 +27,7 @@ import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.adapter.R_Loding4v2_SPLIST;
 import app.net.tongcheng.model.BaseModel;
+import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.OraLodingUser;
 import app.net.tongcheng.model.UserInfo;
@@ -62,6 +65,7 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
         setContentView(R.layout.loding_layout);
         setTitle("登录");
         initView();
+        setEventBus();
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 
@@ -197,4 +201,10 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
         r_loding4v2_phnum.setSelection(r_loding4v2_phnum.getText().toString().length());
     }
 
+    @Subscribe
+    public void onEvent(CheckEvent event) {
+        if (event != null && event.getMsg().equals("loading_ok")) {
+            finish();
+        }
+    }
 }

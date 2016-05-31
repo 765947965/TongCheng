@@ -35,7 +35,7 @@ public class TCApplication extends Application {
         mContext = this.getApplicationContext();
         String userinfo = OperationUtils.getUserInfo();
         if (!TextUtils.isEmpty(userinfo)) {
-            setmUserInfo(JSON.parseObject(userinfo, UserInfo.class));
+            TCApplication.mUserInfo = JSON.parseObject(userinfo, UserInfo.class);
         }
         x.Ext.init(this);
         x.Ext.setDebug(true); // 是否输出debug日志
@@ -47,7 +47,7 @@ public class TCApplication extends Application {
     }
 
     public static void setmUserInfo(UserInfo mUserInfo) {
-        OperationUtils.setUserID(mUserInfo.getUid());
+        OperationUtils.setUserInfo(mUserInfo == null ? "" : JSON.toJSONString(mUserInfo));
         TCApplication.mUserInfo = mUserInfo;
     }
 

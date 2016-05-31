@@ -5,16 +5,20 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
+import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.RegisterCode;
 import app.net.tongcheng.model.UserInfo;
@@ -51,6 +55,7 @@ public class RegisterInputCodeActivity extends BaseActivity implements View.OnCl
             invite_code = "0";
         }
         initView();
+        setEventBus();
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 
@@ -60,6 +65,7 @@ public class RegisterInputCodeActivity extends BaseActivity implements View.OnCl
         rgv2_phnum = mViewHolder.getView(R.id.rgv2_phnum);
         mViewHolder.setOnClickListener(R.id.cannotsevedcode);
         mViewHolder.setOnClickListener(R.id.rg4v2_code_regorlog);
+        getLeftClose().setOnClickListener(this);
     }
 
     @Override
@@ -102,7 +108,6 @@ public class RegisterInputCodeActivity extends BaseActivity implements View.OnCl
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     UserInfo mUserInfo = (UserInfo) mConnectResult.getObject();
                     TCApplication.setmUserInfo(mUserInfo);
-                    OperationUtils.setUserInfo(JSON.toJSONString(mUserInfo));
                 }
                 break;
         }
@@ -143,6 +148,40 @@ public class RegisterInputCodeActivity extends BaseActivity implements View.OnCl
                 }
                 mOtherBusiness.registerBusiness(APPCationStation.SUMBIT, "注册中...", phone, invite_code, rgv2_phnum.getText().toString());
                 break;
+            case R.id.bt_close:
+                goWillBack();
+                break;
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // 针对按返回键退出到注册登录界面
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            goWillBack();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void goWillBack(){
+        DialogUtil.showTipsDialog(this, "提示", "验证码已下发，确定返回?", "确定", "取消", new DialogUtil.OnConfirmListener() {
+            @Override
+            public void clickConfirm() {
+                RegisterInputCodeActivity.this.finish();
+            }
+
+            @Override
+            public void clickCancel() {
+
+            }
+        });
+    }
+
+    @Subscribe
+    public void onEvent(CheckEvent event) {
+        if (event != null && event.getMsg().equals("loading_ok")) {
+            finish();
         }
     }
 }

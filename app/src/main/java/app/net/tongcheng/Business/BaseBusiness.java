@@ -105,6 +105,9 @@ public class BaseBusiness implements ConnectListener {
         if (mMessageold != null && mMessageold.isShowing()) {
             mMessageold.dismiss();
         }
+        if(mConnectResult.getObject() == null){
+            return;
+        }
         if (mConnectResult.getObject() instanceof BaseModel) {
             BaseModel mBaseModel = (BaseModel) mConnectResult.getObject();
             if (mBaseModel.getResult() != 0 && mBaseModel.getResult() != 62 && mBaseModel.getResult() != 64 && mBaseModel.getResult() != 70) {

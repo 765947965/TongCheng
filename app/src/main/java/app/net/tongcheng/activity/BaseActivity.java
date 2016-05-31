@@ -125,6 +125,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
         return ivRight;
     }
 
+    public ImageView getLeftClose(){
+        return bt_close;
+    }
+
     public void setTileLineGONE() {
         findViewById(R.id.viewBaseLine).setVisibility(View.GONE);
     }
