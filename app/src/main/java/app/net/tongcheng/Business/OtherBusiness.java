@@ -5,6 +5,8 @@ import android.os.Handler;
 
 import org.xutils.http.RequestParams;
 
+import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.RegisterCode;
 import app.net.tongcheng.model.RegisterInviteflagModel;
 import app.net.tongcheng.model.UserInfo;
@@ -12,6 +14,7 @@ import app.net.tongcheng.util.CancelableClear;
 import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.HttpUrls;
 import app.net.tongcheng.util.MD5;
+import app.net.tongcheng.util.Misc;
 
 /**
  * Created by 76594 on 2016/5/29.
@@ -81,5 +84,16 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("authcode", authcode);
         params.removeParameter("netmode");
         goConnect(mLoding_Type, params, message, UserInfo.class.getName());
+    }
+
+    public void registerChangePassword(int mLoding_Type, String message, String newPassword) {
+        RequestParams params = getRequestParams(HttpUrls.ChangePWD_URL_V2, TCApplication.getmUserInfo().getPhone(), null);
+        params.addQueryStringParameter("account", TCApplication.getmUserInfo().getPhone());
+        params.removeParameter("phone");
+        params.removeParameter("netmode");
+        params.removeParameter("brandname");
+        params.addQueryStringParameter("old_pwd", TCApplication.getmUserInfo().getPwd());
+        params.addQueryStringParameter("new_pwd", Misc.cryptDataByPwd(newPassword.trim()));
+        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
     }
 }

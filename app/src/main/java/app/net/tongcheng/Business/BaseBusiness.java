@@ -54,7 +54,7 @@ public class BaseBusiness implements ConnectListener {
     }
 
     public RequestParams getRequestParams(String url) {
-        return getRequestParams(url, null, null);
+        return getRequestParams(url, TCApplication.getmUserInfo() == null ? null : TCApplication.getmUserInfo().getPhone(), TCApplication.getmUserInfo() == null ? null : Misc.cryptDataByPwd(TCApplication.getmUserInfo().getPwd()));
     }
 
     public RequestParams getRequestParams(String url, String phone, String pwd) {
@@ -105,7 +105,7 @@ public class BaseBusiness implements ConnectListener {
         if (mMessageold != null && mMessageold.isShowing()) {
             mMessageold.dismiss();
         }
-        if(mConnectResult.getObject() == null){
+        if (mConnectResult.getObject() == null) {
             return;
         }
         if (mConnectResult.getObject() instanceof BaseModel) {

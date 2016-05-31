@@ -6,7 +6,7 @@ package app.net.tongcheng.model;
 public class UserInfo extends BaseModel{
     private String uid;
     private String phone;
-    private String password;
+    private String pwd;
     private String agent_id;
     private double bounty;
 
@@ -26,14 +26,6 @@ public class UserInfo extends BaseModel{
         this.phone = phone;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getAgent_id() {
         return agent_id;
     }
@@ -48,5 +40,13 @@ public class UserInfo extends BaseModel{
 
     public void setBounty(double bounty) {
         this.bounty = bounty;
+    }
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 }

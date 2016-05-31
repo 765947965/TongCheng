@@ -108,6 +108,17 @@ public class RegisterInputCodeActivity extends BaseActivity implements View.OnCl
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     UserInfo mUserInfo = (UserInfo) mConnectResult.getObject();
                     TCApplication.setmUserInfo(mUserInfo);
+                    DialogUtil.showTipsDialog(this, "恭喜您，注册成功!", new DialogUtil.OnConfirmListener() {
+                        @Override
+                        public void clickConfirm() {
+                            startActivity(new Intent(TCApplication.mContext, RegisterChangPassword.class));
+                        }
+
+                        @Override
+                        public void clickCancel() {
+
+                        }
+                    });
                 }
                 break;
         }

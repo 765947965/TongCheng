@@ -9,4 +9,5 @@ public class HttpUrls {
     public static final String Checkyaoqingma = "http://mobile.8hbao.com:8899/v2/check_inviteflag_v2";//登录
     public static final String REG_GETCODE = "http://mobile.8hbao.com:8899/v2/reg_sendauthcode_v2";//注册验证码
     public static final String REG_V2 = "http://mobile.8hbao.com:8899/v2/reg_v2";//注册
+    public static final String ChangePWD_URL_V2 = "http://mobile.8hbao.com:8899/v2/change_pwd_v2";//修改密码
 }
