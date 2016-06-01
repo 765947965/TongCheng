@@ -24,23 +24,26 @@ import app.net.tongcheng.util.CancelableClear;
 public abstract class BaseFragment extends Fragment implements CancelableClear {
 
 
-
     private List<Callback.Cancelable> mCancelableList = new ArrayList<>();
 
     public Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            mHandDoSomeThing(msg);
-            switch (msg.what) {
-                case APPCationStation.SUCCESS:
-                    Bundle mBundleSuccess = msg.getData();
-                    BusinessOnSuccess(mBundleSuccess.getInt("mLoding_Type"), (ConnectResult) mBundleSuccess.getSerializable("ConnectResult"));
-                    break;
-                case APPCationStation.FAIL:
-                    Bundle mBundleFail = msg.getData();
-                    BusinessOnFail(mBundleFail.getInt("mLoding_Type"));
-                    break;
+            try {
+                mHandDoSomeThing(msg);
+                switch (msg.what) {
+                    case APPCationStation.SUCCESS:
+                        Bundle mBundleSuccess = msg.getData();
+                        BusinessOnSuccess(mBundleSuccess.getInt("mLoding_Type"), (ConnectResult) mBundleSuccess.getSerializable("ConnectResult"));
+                        break;
+                    case APPCationStation.FAIL:
+                        Bundle mBundleFail = msg.getData();
+                        BusinessOnFail(mBundleFail.getInt("mLoding_Type"));
+                        break;
+                }
+            } catch (Exception e) {
+                e.toString();
             }
         }
     };

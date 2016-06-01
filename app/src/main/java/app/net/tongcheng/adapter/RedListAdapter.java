@@ -7,6 +7,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import app.net.tongcheng.R;
+import app.net.tongcheng.model.GiftsBean;
 import app.net.tongcheng.model.RedModel;
 import app.net.tongcheng.util.MyRecyclerViewHolder;
 
@@ -17,20 +18,20 @@ import app.net.tongcheng.util.MyRecyclerViewHolder;
  * @Copyright: Copyright (c) 2016 Tuandai Inc. All rights reserved.
  * @date: 2016/5/24 16:07
  */
-public class RedListAdapter extends MyBaseRecyclerViewAdapter<RedModel.GiftsBean> {
+public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
 
 
-    public RedListAdapter(Context mContext, List<RedModel.GiftsBean> mDatas) {
+    public RedListAdapter(Context mContext, List<GiftsBean> mDatas) {
         super(mContext, mDatas, R.layout.red_listviewadapter);
     }
 
     @Override
-    public void onItemClick(View view, RedModel.GiftsBean itemdata, List<RedModel.GiftsBean> list, int position) {
+    public void onItemClick(View view, GiftsBean itemdata, List<GiftsBean> list, int position) {
 
     }
 
     @Override
-    public void onCreateItemView(MyRecyclerViewHolder holder, RedModel.GiftsBean itemdata, List<RedModel.GiftsBean> list, int position) {
+    public void onCreateItemView(MyRecyclerViewHolder holder, GiftsBean itemdata, List<GiftsBean> list, int position) {
         if (itemdata != null) {
             ((TextView) holder.getView(R.id.red_type_text)).setText("红包：" + itemdata.getFromnickname());
             ((TextView) holder.getView(R.id.red_creatime_text)).setText("收到：" + itemdata.getCreate_time());

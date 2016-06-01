@@ -70,6 +70,7 @@ public class NativieDataUtils {
     }
 
     public static void setRedModel(RedModel mRedModel) {
-        OperationUtils.PutString("red_model", JSON.toJSONString(mRedModel));
+        String str = JSON.toJSONString(mRedModel);
+        OperationUtils.PutString("red_model", str);
     }
 }

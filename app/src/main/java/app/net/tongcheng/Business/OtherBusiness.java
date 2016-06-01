@@ -52,6 +52,9 @@ public class OtherBusiness extends BaseBusiness {
         RequestParams params = getRequestParams(HttpUrls.Checkyaoqingma, null, null);
         params.addQueryStringParameter("sign", MD5.toMD5(params.getStringParameter("sn") + inviteflag + Common.SIGN_KEY));
         params.addQueryStringParameter("inviteflag", inviteflag);
+        params.removeParameter("pv");
+        params.removeParameter("v");
+        params.removeParameter("netmode");
         goConnect(mLoding_Type, params, message, RegisterInviteflagModel.class.getName());
     }
 

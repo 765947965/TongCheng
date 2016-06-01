@@ -22,6 +22,7 @@ import app.net.tongcheng.activity.PayMoneyActivity;
 import app.net.tongcheng.adapter.RedListAdapter;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.model.GiftsBean;
 import app.net.tongcheng.model.RedModel;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.NativieDataUtils;
@@ -41,7 +42,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
     private RecyclerView mRecyclerView;
     private RedListAdapter mRedListAdapter;
     private RedBusiness mRedBusiness;
-    private List<RedModel.GiftsBean> mDatas;
+    private List<GiftsBean> mDatas;
     public static boolean isfirstloaddata;
 
 
