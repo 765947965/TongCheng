@@ -182,6 +182,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
         if (isRegistEventBus) {
             EventBus.getDefault().unregister(this);
         }
+
     }
 
     @Override
