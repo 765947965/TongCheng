@@ -45,6 +45,10 @@ public class StartPageModel extends BaseModel {
     private String pic_mdpi;
     private String pic_ldpi_md5;
 
+    private String update;//数据更新日期
+    private String todayShowTimesupdate;//暂时次数更新日期
+    private int todayShowTimes;//当天暂时次数
+
     public String getPic_xhdpi() {
         return pic_xhdpi;
     }
@@ -171,5 +175,29 @@ public class StartPageModel extends BaseModel {
 
     public void setPic_ldpi_md5(String pic_ldpi_md5) {
         this.pic_ldpi_md5 = pic_ldpi_md5;
+    }
+
+    public String getUpdate() {
+        return update;
+    }
+
+    public void setUpdate(String update) {
+        this.update = update;
+    }
+
+    public int getTodayShowTimes() {
+        return todayShowTimes;
+    }
+
+    public void setTodayShowTimes(int todayShowTimes) {
+        this.todayShowTimes = todayShowTimes;
+    }
+
+    public String getTodayShowTimesupdate() {
+        return todayShowTimesupdate;
+    }
+
+    public void setTodayShowTimesupdate(String todayShowTimesupdate) {
+        this.todayShowTimesupdate = todayShowTimesupdate;
     }
 }

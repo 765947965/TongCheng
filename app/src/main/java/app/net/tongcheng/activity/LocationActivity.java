@@ -7,9 +7,14 @@ import android.view.View;
 
 import org.greenrobot.eventbus.Subscribe;
 
+import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.R;
+import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.model.StartPageModel;
+import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -22,6 +27,7 @@ import app.net.tongcheng.util.ViewHolder;
 public class LocationActivity extends BaseActivity implements View.OnClickListener {
 
     private ViewHolder mViewHolder;
+    private OtherBusiness mOtherBusiness;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +35,7 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.location_layout);
         initView();
         setEventBus();
+        mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 
     private void initView() {
@@ -40,6 +47,10 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void loadData() {
         mHandler.sendEmptyMessage(101);
+        StartPageModel mStartPageModel = NativieDataUtils.getStartPageModel(false);//启动页更新检查
+        if (mStartPageModel == null || !NativieDataUtils.getTodyYMD().equals(mStartPageModel.getUpdate())) {
+            mOtherBusiness.getStartPageImage(APPCationStation.GETSTARTPAGE, "");
+        }
     }
 
     @Override
@@ -51,7 +62,17 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-
+        switch (mLoding_Type) {
+            case APPCationStation.GETSTARTPAGE:
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    StartPageModel mStartPageModel = (StartPageModel) mConnectResult.getObject();
+                    mStartPageModel.setUpdate(NativieDataUtils.getTodyYMD());
+                    mStartPageModel.setTodayShowTimesupdate(mStartPageModel.getUpdate());
+                    mStartPageModel.setTodayShowTimes(0);
+                    NativieDataUtils.setStartPageModel(mStartPageModel);
+                }
+                break;
+        }
     }
 
     @Override

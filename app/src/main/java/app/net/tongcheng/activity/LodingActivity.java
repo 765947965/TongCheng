@@ -37,6 +37,7 @@ import app.net.tongcheng.model.StartPageModel;
 import app.net.tongcheng.model.UserInfo;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
+import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.OraLodingUserTools;
 import app.net.tongcheng.util.Utils;
@@ -62,8 +63,6 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
     private TextView r_loding4v2_lodingbt;
     private ListView lplist;
     private OtherBusiness mOtherBusiness;
-    private String startPageUrl;
-    private int times;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +104,6 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
     public void loadData() {
         setData();
         Utils.setInputMethodVisiable(r_loding4v2_phnum, 250);
-        mOtherBusiness.getStartPageImage(APPCationStation.GETSTARTPAGE, "");
     }
 
     @Override
@@ -133,9 +131,10 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
                         @Override
                         public void clickConfirm() {
                             LodingActivity.this.sendEventBusMessage("loading_ok");
-                            if (startPageUrl != null) {
+                            StartPageModel mStartPageModel = NativieDataUtils.getStartPageModel(true);
+                            if (mStartPageModel != null) {
                                 // 开启启动页
-                                LodingActivity.this.startActivity(new Intent(TCApplication.mContext, StartPageActivity.class).putExtra("startPageUrl", startPageUrl).putExtra("times", times + 1));
+                                LodingActivity.this.startActivity(new Intent(TCApplication.mContext, StartPageActivity.class).putExtra("mStartPageModel", mStartPageModel));
                             } else {
                                 // 开启主页
                                 LodingActivity.this.startActivity(new Intent(TCApplication.mContext, MainActivity.class));
@@ -148,24 +147,6 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
 
                         }
                     });
-                }
-                break;
-            case APPCationStation.GETSTARTPAGE:
-                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
-                    StartPageModel mStartPageModel = (StartPageModel) mConnectResult.getObject();
-                    long nowTime = Long.parseLong(new SimpleDateFormat("yyyyMMddHHmm").format(new Date()));
-                    long startTime = Long.parseLong(mStartPageModel.getStart_time());
-                    long endTime = Long.parseLong(mStartPageModel.getEnd_time());
-                    String times_str = OperationUtils.getString("start_page_show_times");
-                    times = 0;
-                    if (!TextUtils.isEmpty(times_str)) {
-                        if (times_str.substring(0, 8).equals(new SimpleDateFormat("yyyyMMdd").format(new Date()))) {
-                            times = Integer.parseInt(times_str.substring(8));
-                        }
-                    }
-                    if (nowTime >= startTime && nowTime <= endTime && times <= mStartPageModel.getShow_times_daily()) {
-                        startPageUrl = mStartPageModel.getPic_prefix() + mStartPageModel.getPic_xhdpi();
-                    }
                 }
                 break;
         }

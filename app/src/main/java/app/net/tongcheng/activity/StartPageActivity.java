@@ -16,6 +16,7 @@ import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.StartPageModel;
 import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.ViewHolder;
 
@@ -24,16 +25,14 @@ import app.net.tongcheng.util.ViewHolder;
  */
 public class StartPageActivity extends BaseActivity implements View.OnClickListener {
     private ViewHolder mViewHolder;
-    private String startPageUrl;
-    private int times;
+    private StartPageModel mStartPageModel;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_page_layout);
-        startPageUrl = getIntent().getStringExtra("startPageUrl");
-        times = getIntent().getIntExtra("times", 0);
+        mStartPageModel = (StartPageModel) getIntent().getSerializableExtra("mStartPageModel");
         initView();
     }
 
@@ -43,9 +42,10 @@ public class StartPageActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void loadData() {
-        if (!TextUtils.isEmpty(startPageUrl)) {
-            OperationUtils.PutString("start_page_show_times", new SimpleDateFormat("yyyyMMdd").format(new Date()) + times);
-            mViewHolder.setImage(R.id.iv_start_image, startPageUrl);
+        if (mStartPageModel != null) {
+            mStartPageModel.setTodayShowTimes(mStartPageModel.getTodayShowTimes() + 1);
+            NativieDataUtils.setStartPageModel(mStartPageModel);
+            mViewHolder.setImage(R.id.iv_start_image, mStartPageModel.getPic_prefix() + mStartPageModel.getPic_xhdpi());
         }
         mHandler.sendEmptyMessageDelayed(10001, 3000);
     }
