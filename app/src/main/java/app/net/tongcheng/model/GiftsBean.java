@@ -42,6 +42,12 @@ public class GiftsBean {
     private String sub_type;
     private String sender_gift_id;
     private String name;
+    private int splitsnumber;
+    private String shake_ratio;
+    private double received_money;
+    private String status;
+    private double returned_money;
+    private String command;
 
     public String getFrom() {
         return from;
@@ -185,5 +191,53 @@ public class GiftsBean {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getSplitsnumber() {
+        return splitsnumber;
+    }
+
+    public void setSplitsnumber(int splitsnumber) {
+        this.splitsnumber = splitsnumber;
+    }
+
+    public String getShake_ratio() {
+        return shake_ratio;
+    }
+
+    public void setShake_ratio(String shake_ratio) {
+        this.shake_ratio = shake_ratio;
+    }
+
+    public double getReceived_money() {
+        return received_money;
+    }
+
+    public void setReceived_money(double received_money) {
+        this.received_money = received_money;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public double getReturned_money() {
+        return returned_money;
+    }
+
+    public void setReturned_money(double returned_money) {
+        this.returned_money = returned_money;
+    }
+
+    public String getCommand() {
+        return command;
+    }
+
+    public void setCommand(String command) {
+        this.command = command;
     }
 }
