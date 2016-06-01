@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -54,6 +55,16 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void mHandDoSomeThing(Message msg) {
+
+    }
+
+    @Override
+    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
+
+    }
+
+    @Override
+    public void BusinessOnFail(int mLoding_Type) {
 
     }
 

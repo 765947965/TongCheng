@@ -11,11 +11,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.activity.BalanceActivity;
 import app.net.tongcheng.activity.PayMoneyActivity;
 import app.net.tongcheng.adapter.RedListAdapter;
+import app.net.tongcheng.model.BaseModel;
+import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.model.RedModel;
+import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -31,6 +40,8 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private RedListAdapter mRedListAdapter;
+    private RedBusiness mRedBusiness;
+    private List<RedModel.GiftsBean> mDatas;
     public static boolean isfirstloaddata;
 
 
@@ -40,6 +51,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
         View view = LayoutInflater.from(TCApplication.mContext).inflate(R.layout.fragment_red_packet_layout, null);
         initView(view);
         isfirstloaddata = false;
+        mRedBusiness = new RedBusiness(this, getActivity(), mHandler);
         return view;
     }
 
@@ -64,23 +76,64 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
             return;
         }
         isfirstloaddata = true;
-        mHandler.sendEmptyMessageDelayed(102, 500);
+        mHandler.sendEmptyMessageDelayed(10001, 100);
     }
 
     @Override
     public void mHandDoSomeThing(Message msg) {
-        if (msg.what == 101) {
-            mSwipeRefreshLayout.setRefreshing(false);
+        switch (msg.what) {
+            case 10001:
+                RedModel mRedModel = NativieDataUtils.getRedModel();
+                if (mRedModel == null || !NativieDataUtils.getTodyYMD().equals(mRedModel.getUpdate())) {
+                    mSwipeRefreshLayout.setRefreshing(true);
+                    mRedBusiness.getRedList(APPCationStation.LOADING, "", NativieDataUtils.getTodyY(), "received");
+                }
+                if (mRedModel == null || mRedModel.getGifts() == null || mRedModel.getGifts().size() == 0) {
+                    return;
+                }
+                // 显示数据
+                if (mRedListAdapter == null) {
+                    mDatas = new ArrayList<>();
+                    mDatas.addAll(mRedModel.getGifts());
+                    mRedListAdapter = new RedListAdapter(TCApplication.mContext, mDatas);
+                    mRecyclerView.setAdapter(mRedListAdapter);
+                } else {
+                    mDatas.clear();
+                    mDatas.addAll(mRedModel.getGifts());
+                    mRedListAdapter.notifyDataSetChanged();
+                }
+                break;
         }
-        if (msg.what == 102) {
-            mSwipeRefreshLayout.setRefreshing(true);
-            onRefresh();
+    }
+
+    @Override
+    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
+        switch (mLoding_Type) {
+            case APPCationStation.LOADING:
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    RedModel mRedModel = (RedModel) mConnectResult.getObject();
+                    mRedModel.setUpdate(NativieDataUtils.getTodyYMD());
+                    NativieDataUtils.setRedModel(mRedModel);
+                    isfirstloaddata = false;
+                    loadData();
+                }
+                mSwipeRefreshLayout.setRefreshing(false);
+                break;
+        }
+    }
+
+    @Override
+    public void BusinessOnFail(int mLoding_Type) {
+        switch (mLoding_Type) {
+            case APPCationStation.LOADING:
+                mSwipeRefreshLayout.setRefreshing(false);
+                break;
         }
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.llt_fukuang://付款
                 startActivity(new Intent(TCApplication.mContext, PayMoneyActivity.class));
                 break;
@@ -92,7 +145,6 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onRefresh() {
-        //模拟延迟
-        mHandler.sendEmptyMessageDelayed(101, 3000);
+        mRedBusiness.getRedList(APPCationStation.LOADING, "", NativieDataUtils.getTodyY(), "received");
     }
 }

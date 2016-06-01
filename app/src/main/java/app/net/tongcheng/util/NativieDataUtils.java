@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSON;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import app.net.tongcheng.model.RedModel;
 import app.net.tongcheng.model.StartPageModel;
 
 /**
@@ -24,6 +25,10 @@ public class NativieDataUtils {
 
     public static String getTodyYMD() {
         return new SimpleDateFormat("yyyyMMdd").format(new Date());
+    }
+
+    public static String getTodyY() {
+        return new SimpleDateFormat("yyyy").format(new Date());
     }
 
     public static StartPageModel getStartPageModel(boolean ischeck) {
@@ -54,5 +59,17 @@ public class NativieDataUtils {
 
     public static void setStartPageModel(StartPageModel mStartPageModel) {
         OperationUtils.PutString("start_page", JSON.toJSONString(mStartPageModel), false);
+    }
+
+    public static RedModel getRedModel() {
+        String str = OperationUtils.getString("red_model");
+        if (TextUtils.isEmpty(str)) {
+            return null;
+        }
+        return JSON.parseObject(str, RedModel.class);
+    }
+
+    public static void setRedModel(RedModel mRedModel) {
+        OperationUtils.PutString("red_model", JSON.toJSONString(mRedModel));
     }
 }

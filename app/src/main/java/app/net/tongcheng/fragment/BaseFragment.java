@@ -1,5 +1,6 @@
 package app.net.tongcheng.fragment;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,8 @@ import org.xutils.common.Callback;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.CancelableClear;
 
 /**
@@ -29,6 +32,16 @@ public abstract class BaseFragment extends Fragment implements CancelableClear {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             mHandDoSomeThing(msg);
+            switch (msg.what) {
+                case APPCationStation.SUCCESS:
+                    Bundle mBundleSuccess = msg.getData();
+                    BusinessOnSuccess(mBundleSuccess.getInt("mLoding_Type"), (ConnectResult) mBundleSuccess.getSerializable("ConnectResult"));
+                    break;
+                case APPCationStation.FAIL:
+                    Bundle mBundleFail = msg.getData();
+                    BusinessOnFail(mBundleFail.getInt("mLoding_Type"));
+                    break;
+            }
         }
     };
 
@@ -58,4 +71,8 @@ public abstract class BaseFragment extends Fragment implements CancelableClear {
     public abstract void loadData();
 
     public abstract void mHandDoSomeThing(Message msg);
+
+    public abstract void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult);
+
+    public abstract void BusinessOnFail(int mLoding_Type);
 }
