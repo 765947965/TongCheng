@@ -68,6 +68,7 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
                     // 开启主页
                     startActivity(new Intent(TCApplication.mContext, MainActivity.class));
                 }
+                finish();
             }
         }
     }

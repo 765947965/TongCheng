@@ -88,8 +88,8 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
                                 + itemdata.getName());
                     } else {
                         if (!TextUtils.isEmpty(itemdata.getFrom())) {
-                            if ("system".equals(itemdata.getFrom().trim())) {
-                                red_type_text.setText("红包: 同城商城的" + itemdata.getName());
+                            if ("aixin_money".equals(itemdata.getFrom().trim()) || "system".equals(itemdata.getFrom().trim())) {
+                                red_type_text.setText("红包: " + itemdata.getName());
                             } else {
                                 red_type_text.setText("红包: "
                                         + itemdata.getFrom().trim() + "的"
