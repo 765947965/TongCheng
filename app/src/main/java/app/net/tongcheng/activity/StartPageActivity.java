@@ -55,6 +55,7 @@ public class StartPageActivity extends BaseActivity implements View.OnClickListe
         switch (msg.what) {
             case 10001:
                 startActivity(new Intent(TCApplication.mContext, MainActivity.class));
+                finish();
                 break;
         }
     }
