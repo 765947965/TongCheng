@@ -73,7 +73,7 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
 
     @Subscribe
     public void onEvent(CheckEvent event) {
-        if (event.getMsg().equals("LocationActivity.close")) {
+        if (event.getMsg().equals("loading_ok")) {
             finish();
         }
     }

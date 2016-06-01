@@ -46,7 +46,6 @@ public class RegisterChangPassword extends BaseActivity implements View.OnClickL
 
     @Override
     public void loadData() {
-        sendEventBusMessage("loading_ok");
         mViewHolder.setText(R.id.rg4v2_pwdcodeshow, "您的密码为: " + Misc.cryptDataByPwd(TCApplication.getmUserInfo().getPwd()));
     }
 
@@ -67,6 +66,7 @@ public class RegisterChangPassword extends BaseActivity implements View.OnClickL
                         public void clickConfirm() {
                             // 开启启动页
                             RegisterChangPassword.this.startActivity(new Intent(TCApplication.mContext, StartPageActivity.class));
+                            RegisterChangPassword.this.finish();
                         }
 
                         @Override
@@ -124,9 +124,9 @@ public class RegisterChangPassword extends BaseActivity implements View.OnClickL
         DialogUtil.showTipsDialog(this, "提示", "确定不修改密码？", "确定", "取消", new DialogUtil.OnConfirmListener() {
             @Override
             public void clickConfirm() {
-                RegisterChangPassword.this.finish();
                 // 开启启动页
                 RegisterChangPassword.this.startActivity(new Intent(TCApplication.mContext, StartPageActivity.class));
+                RegisterChangPassword.this.finish();
             }
 
             @Override

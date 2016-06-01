@@ -122,6 +122,20 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
                     UserInfo mUserInfo = (UserInfo) mConnectResult.getObject();
                     TCApplication.setmUserInfo(mUserInfo);
                     OperationUtils.setUserInfo(JSON.toJSONString(mUserInfo));
+                    DialogUtil.showTipsDialog(this, "登录成功!", new DialogUtil.OnConfirmListener() {
+                        @Override
+                        public void clickConfirm() {
+                            // 开启启动页
+                            LodingActivity.this.sendEventBusMessage("loading_ok");
+                            LodingActivity.this.startActivity(new Intent(TCApplication.mContext, StartPageActivity.class));
+                            LodingActivity.this.finish();
+                        }
+
+                        @Override
+                        public void clickCancel() {
+
+                        }
+                    });
                 }
                 break;
         }

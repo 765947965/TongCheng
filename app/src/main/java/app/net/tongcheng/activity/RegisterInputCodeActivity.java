@@ -111,7 +111,9 @@ public class RegisterInputCodeActivity extends BaseActivity implements View.OnCl
                     DialogUtil.showTipsDialog(this, "恭喜您，注册成功!", new DialogUtil.OnConfirmListener() {
                         @Override
                         public void clickConfirm() {
-                            startActivity(new Intent(TCApplication.mContext, RegisterChangPassword.class));
+                            RegisterInputCodeActivity.this.sendEventBusMessage("loading_ok");
+                            RegisterInputCodeActivity.this.startActivity(new Intent(TCApplication.mContext, RegisterChangPassword.class));
+                            RegisterInputCodeActivity.this.finish();
                         }
 
                         @Override
