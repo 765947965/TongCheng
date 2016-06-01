@@ -9,6 +9,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.R;
+import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
@@ -46,7 +47,7 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void loadData() {
-        mHandler.sendEmptyMessage(101);
+        mHandler.sendEmptyMessageDelayed(10001, 2000);
         StartPageModel mStartPageModel = NativieDataUtils.getStartPageModel(false);//启动页更新检查
         if (mStartPageModel == null || !NativieDataUtils.getTodyYMD().equals(mStartPageModel.getUpdate())) {
             mOtherBusiness.getStartPageImage(APPCationStation.GETSTARTPAGE, "");
@@ -55,8 +56,19 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void mHandDoSomeThing(Message msg) {
-        if (msg.what == 101) {
-            mViewHolder.setVisibility(R.id.llt_loding, View.VISIBLE);
+        if (msg.what == 10001) {
+            if (TCApplication.getmUserInfo() == null) {
+                mViewHolder.setVisibility(R.id.llt_loding, View.VISIBLE);
+            } else {
+                StartPageModel mStartPageModel = NativieDataUtils.getStartPageModel(true);
+                if (mStartPageModel != null) {
+                    // 开启启动页
+                    startActivity(new Intent(TCApplication.mContext, StartPageActivity.class).putExtra("mStartPageModel", mStartPageModel));
+                } else {
+                    // 开启主页
+                    startActivity(new Intent(TCApplication.mContext, MainActivity.class));
+                }
+            }
         }
     }
 
