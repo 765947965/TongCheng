@@ -10,4 +10,5 @@ public class HttpUrls {
     public static final String REG_GETCODE = "http://mobile.8hbao.com:8899/v2/reg_sendauthcode_v2";//注册验证码
     public static final String REG_V2 = "http://mobile.8hbao.com:8899/v2/reg_v2";//注册
     public static final String ChangePWD_URL_V2 = "http://mobile.8hbao.com:8899/v2/change_pwd_v2";//修改密码
+    public static final String STARTPAGER_URL = "http://mobile.zjtytx.com:8899/config/start_page";//启动页
 }

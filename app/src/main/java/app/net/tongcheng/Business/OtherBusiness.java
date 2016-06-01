@@ -9,6 +9,7 @@ import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.RegisterCode;
 import app.net.tongcheng.model.RegisterInviteflagModel;
+import app.net.tongcheng.model.StartPageModel;
 import app.net.tongcheng.model.UserInfo;
 import app.net.tongcheng.util.CancelableClear;
 import app.net.tongcheng.util.Common;
@@ -86,6 +87,13 @@ public class OtherBusiness extends BaseBusiness {
         goConnect(mLoding_Type, params, message, UserInfo.class.getName());
     }
 
+    /**
+     * 修改密码
+     *
+     * @param mLoding_Type
+     * @param message
+     * @param newPassword
+     */
     public void registerChangePassword(int mLoding_Type, String message, String newPassword) {
         RequestParams params = getRequestParams(HttpUrls.ChangePWD_URL_V2, TCApplication.getmUserInfo().getPhone(), null);
         params.addQueryStringParameter("account", TCApplication.getmUserInfo().getPhone());
@@ -96,4 +104,23 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("new_pwd", Misc.cryptDataByPwd(newPassword.trim()));
         goConnect(mLoding_Type, params, message, BaseModel.class.getName());
     }
+
+    /**
+     * 获取启动页数据
+     *
+     * @param mLoding_Type
+     * @param message
+     */
+    public void getStartPageImage(int mLoding_Type, String message) {
+        RequestParams params = getRequestParams(HttpUrls.STARTPAGER_URL, null, null);
+        params.removeParameter("sn");
+        params.removeParameter("brand");
+        params.removeParameter("model");
+        params.removeParameter("product");
+        params.removeParameter("netmode");
+        params.addQueryStringParameter("pix_level", "mdpi");
+        params.addQueryStringParameter("ver", "1.0");
+        goConnect(mLoding_Type, params, message, StartPageModel.class.getName());
+    }
+
 }

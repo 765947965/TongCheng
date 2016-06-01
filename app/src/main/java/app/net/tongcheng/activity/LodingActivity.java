@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -17,7 +18,9 @@ import com.alibaba.fastjson.JSON;
 
 import org.greenrobot.eventbus.Subscribe;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -30,6 +33,7 @@ import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.OraLodingUser;
+import app.net.tongcheng.model.StartPageModel;
 import app.net.tongcheng.model.UserInfo;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
@@ -58,6 +62,8 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
     private TextView r_loding4v2_lodingbt;
     private ListView lplist;
     private OtherBusiness mOtherBusiness;
+    private String startPageUrl;
+    private int times;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +105,7 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
     public void loadData() {
         setData();
         Utils.setInputMethodVisiable(r_loding4v2_phnum, 250);
+        mOtherBusiness.getStartPageImage(APPCationStation.GETSTARTPAGE, "");
     }
 
     @Override
@@ -125,9 +132,14 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
                     DialogUtil.showTipsDialog(this, "登录成功!", new DialogUtil.OnConfirmListener() {
                         @Override
                         public void clickConfirm() {
-                            // 开启启动页
                             LodingActivity.this.sendEventBusMessage("loading_ok");
-                            LodingActivity.this.startActivity(new Intent(TCApplication.mContext, StartPageActivity.class));
+                            if (startPageUrl != null) {
+                                // 开启启动页
+                                LodingActivity.this.startActivity(new Intent(TCApplication.mContext, StartPageActivity.class).putExtra("startPageUrl", startPageUrl).putExtra("times", times + 1));
+                            } else {
+                                // 开启主页
+                                LodingActivity.this.startActivity(new Intent(TCApplication.mContext, MainActivity.class));
+                            }
                             LodingActivity.this.finish();
                         }
 
@@ -136,6 +148,24 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
 
                         }
                     });
+                }
+                break;
+            case APPCationStation.GETSTARTPAGE:
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    StartPageModel mStartPageModel = (StartPageModel) mConnectResult.getObject();
+                    long nowTime = Long.parseLong(new SimpleDateFormat("yyyyMMddHHmm").format(new Date()));
+                    long startTime = Long.parseLong(mStartPageModel.getStart_time());
+                    long endTime = Long.parseLong(mStartPageModel.getEnd_time());
+                    String times_str = OperationUtils.getString("start_page_show_times");
+                    times = 0;
+                    if (!TextUtils.isEmpty(times_str)) {
+                        if (times_str.substring(0, 8).equals(new SimpleDateFormat("yyyyMMdd").format(new Date()))) {
+                            times = Integer.parseInt(times_str.substring(8));
+                        }
+                    }
+                    if (nowTime >= startTime && nowTime <= endTime && times <= mStartPageModel.getShow_times_daily()) {
+                        startPageUrl = mStartPageModel.getPic_prefix() + mStartPageModel.getPic_xhdpi();
+                    }
                 }
                 break;
         }
