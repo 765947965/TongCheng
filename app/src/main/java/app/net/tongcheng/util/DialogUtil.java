@@ -204,7 +204,7 @@ public class DialogUtil {
         if (mActivity == null || mActivity.isFinishing()) {
             return null;
         }
-        AlertDialog dialog = new AlertDialog.Builder(mActivity, R.style.dialog_style).create();
+        AlertDialog dialog = new AlertDialog.Builder(mActivity, R.style.quick_red_option_dialog).create();
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
         View view = LayoutInflater.from(mActivity).inflate(R.layout.red_excrete_dialog_layout, null);
