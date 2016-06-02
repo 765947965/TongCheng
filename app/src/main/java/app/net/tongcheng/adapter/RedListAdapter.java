@@ -12,10 +12,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.fragment.RedPacketFragment;
 import app.net.tongcheng.model.GiftsBean;
 import app.net.tongcheng.model.RedModel;
+import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.MyRecyclerViewHolder;
 import app.net.tongcheng.util.ToastUtil;
 
@@ -36,12 +39,16 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
     private int datestr_today;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private Activity mActivity;
+    private RedBusiness mRedBusiness;
+    private RedPacketFragment mRedPacketFragment;
 
-    public RedListAdapter(Activity mActivity, List<GiftsBean> mDatas, SwipeRefreshLayout mSwipeRefreshLayout) {
+    public RedListAdapter(Activity mActivity, List<GiftsBean> mDatas, SwipeRefreshLayout mSwipeRefreshLayout, RedBusiness mRedBusiness, RedPacketFragment mRedPacketFragment) {
         super(TCApplication.mContext, mDatas, R.layout.red_listviewadapter);
         datestr_today = Integer.parseInt(sdformat_5.format(new Date()));
         this.mSwipeRefreshLayout = mSwipeRefreshLayout;
         this.mActivity = mActivity;
+        this.mRedBusiness = mRedBusiness;
+        this.mRedPacketFragment = mRedPacketFragment;
     }
 
     @Override
@@ -54,7 +61,7 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
 
             } else {
                 // 拆
-
+                mRedPacketFragment.setmAlertDialog(DialogUtil.getExcreteRedDilaog(mActivity, itemdata, mRedBusiness));
             }
         }
     }

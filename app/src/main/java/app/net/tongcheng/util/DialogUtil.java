@@ -3,13 +3,19 @@ package app.net.tongcheng.util;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.graphics.drawable.AnimationDrawable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
+import app.net.tongcheng.model.GiftsBean;
 
 /**
  * @author: xiewenliang
@@ -191,5 +197,55 @@ public class DialogUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    public static AlertDialog getExcreteRedDilaog(Activity mActivity, GiftsBean mGiftsBean, RedBusiness mRedBusiness) {
+        if (mActivity == null || mActivity.isFinishing()) {
+            return null;
+        }
+        AlertDialog dialog = new AlertDialog.Builder(mActivity, R.style.dialog_style).create();
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+        View view = LayoutInflater.from(mActivity).inflate(R.layout.red_excrete_dialog_layout, null);
+        dialog.setContentView(view);
+        TextView sendfromname_text = (TextView) view.findViewById(R.id.sendfromname_text);
+        if (!TextUtils.isEmpty(mGiftsBean.getFromnickname())) {
+            sendfromname_text.setText(mGiftsBean.getFromnickname());
+        } else {
+            if ("aixin_money".equals(mGiftsBean.getType()) || "system".equals(mGiftsBean.getFrom().trim())) {
+                sendfromname_text.setText("同城商城");
+            } else {
+                sendfromname_text.setText(mGiftsBean.getFrom());
+            }
+        }
+        TextView sendfromname_messages_text = (TextView) view.findViewById(R.id.sendfromname_messages_text);
+        if (!TextUtils.isEmpty(mGiftsBean.getName())) {
+            sendfromname_messages_text.setText("给您发来" + mGiftsBean.getName());
+        }
+        TextView red_anim_text = (TextView) view.findViewById(R.id.red_anim_text);
+        red_anim_text.setText(mGiftsBean.getTips());
+        final TextView red_errortext = (TextView) view.findViewById(R.id.red_errortext);
+        final ImageView red_anim_image = (ImageView) view.findViewById(R.id.red_anim_image);
+        red_anim_image.setImageResource(R.drawable.rpopen);
+        red_anim_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                red_anim_image.setEnabled(false);
+                red_errortext.setText("");
+                // 开启动画
+                try {
+                    red_anim_image.setImageResource(R.drawable.redcheckoutanim);
+                    AnimationDrawable animationDrawable = (AnimationDrawable) red_anim_image
+                            .getDrawable();
+                    animationDrawable.start();
+                } catch (Exception e) {
+                    red_anim_image.setImageResource(R.drawable.rpopen);
+                } catch (Error e) {
+                    red_anim_image.setImageResource(R.drawable.rpopen);
+                }
+            }
+        });
+        return dialog;
     }
 }

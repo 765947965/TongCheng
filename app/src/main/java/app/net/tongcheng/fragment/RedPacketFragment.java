@@ -1,5 +1,6 @@
 package app.net.tongcheng.fragment;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
@@ -43,6 +44,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
     private RedListAdapter mRedListAdapter;
     private RedBusiness mRedBusiness;
     private List<GiftsBean> mDatas;
+    private AlertDialog mAlertDialog;
     public static boolean isfirstloaddata;
 
 
@@ -96,7 +98,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                 if (mRedListAdapter == null) {
                     mDatas = new ArrayList<>();
                     mDatas.addAll(mRedModel.getGifts());
-                    mRedListAdapter = new RedListAdapter(getActivity(), mDatas, mSwipeRefreshLayout);
+                    mRedListAdapter = new RedListAdapter(getActivity(), mDatas, mSwipeRefreshLayout, mRedBusiness, this);
                     mRecyclerView.setAdapter(mRedListAdapter);
                 } else {
                     mDatas.clear();
@@ -147,5 +149,9 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onRefresh() {
         mRedBusiness.getRedList(APPCationStation.LOADING, "", NativieDataUtils.getTodyY(), "received");
+    }
+
+    public void setmAlertDialog(AlertDialog mAlertDialog) {
+        this.mAlertDialog = mAlertDialog;
     }
 }
