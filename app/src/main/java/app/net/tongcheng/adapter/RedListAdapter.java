@@ -21,6 +21,7 @@ import app.net.tongcheng.model.RedModel;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.MyRecyclerViewHolder;
 import app.net.tongcheng.util.ToastUtil;
+import app.net.tongcheng.util.Utils;
 
 /**
  * @author: xiewenliang
@@ -30,12 +31,7 @@ import app.net.tongcheng.util.ToastUtil;
  * @date: 2016/5/24 16:07
  */
 public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
-    private SimpleDateFormat sdformat = new SimpleDateFormat(
-            "yyyy-MM-dd HH:mm:ss");
-    private SimpleDateFormat sdformat_2 = new SimpleDateFormat("MM月dd日-HH:mm");
-    private SimpleDateFormat sdformat_3 = new SimpleDateFormat("yyyy-MM-dd");
-    private SimpleDateFormat sdformat_4 = new SimpleDateFormat("MM月dd日");
-    private SimpleDateFormat sdformat_5 = new SimpleDateFormat("yyyyMMdd");
+
     private int datestr_today;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private Activity mActivity;
@@ -44,7 +40,7 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
 
     public RedListAdapter(Activity mActivity, List<GiftsBean> mDatas, SwipeRefreshLayout mSwipeRefreshLayout, RedBusiness mRedBusiness, RedPacketFragment mRedPacketFragment) {
         super(TCApplication.mContext, mDatas, R.layout.red_listviewadapter);
-        datestr_today = Integer.parseInt(sdformat_5.format(new Date()));
+        datestr_today = Integer.parseInt(Utils.sdformat_5.format(new Date()));
         this.mSwipeRefreshLayout = mSwipeRefreshLayout;
         this.mActivity = mActivity;
         this.mRedBusiness = mRedBusiness;
@@ -61,7 +57,7 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
 
             } else {
                 // 拆
-                mRedPacketFragment.setmAlertDialog(DialogUtil.getExcreteRedDilaog(mActivity, itemdata, mRedBusiness));
+                mRedPacketFragment.setmAlertDialog(DialogUtil.getExcreteRedDilaog(mActivity, itemdata, mRedBusiness), position);
             }
         }
     }
@@ -78,7 +74,7 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
                 red_moneys.setText(itemdata.getMoney() / (double) 100 + "元");
                 if (itemdata.getDirect().equals("sended")) {
 
-                    red_type_text.setText("发出: " + sdformat_2.format(sdformat.parse(itemdata.getCreate_time().trim())));
+                    red_type_text.setText("发出: " + Utils.sdformat_2.format(Utils.sdformat.parse(itemdata.getCreate_time().trim())));
                     String status = itemdata.getStatus();
                     if ("has_sended".equals(status)) {
                         red_has_open_text.setText("领取中...");
@@ -146,8 +142,8 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
                     // 日期
                     String creatime = itemdata.getCreate_time();
                     if (creatime != null && creatime.trim().length() == 19) {
-                        Date date = sdformat.parse(creatime.trim());
-                        red_creatime_text.setText("收到: " + sdformat_2.format(date));
+                        Date date = Utils.sdformat.parse(creatime.trim());
+                        red_creatime_text.setText("收到: " + Utils.sdformat_2.format(date));
                     }
 
                     // 设置是否已拆动作
@@ -170,15 +166,15 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
                         // 格式化日期
                         String exp_time = itemdata.getExp_time();
                         if (exp_time != null && exp_time.trim().length() == 10) {
-                            Date date = sdformat_3.parse(exp_time.trim());
-                            red_has_open_text.setText("未拆: " + sdformat_4.format(date) + " 前有效");
+                            Date date = Utils.sdformat_3.parse(exp_time.trim());
+                            red_has_open_text.setText("未拆: " + Utils.sdformat_4.format(date) + " 前有效");
                         }
                     } else if (itemdata.getHas_open() == 1) {
                         // 格式化日期
                         String open_time = itemdata.getOpen_time();
                         if (open_time != null && open_time.length() == 19) {
-                            Date date = sdformat.parse(open_time.trim());
-                            red_has_open_text.setText("拆开: " + sdformat_2.format(date));
+                            Date date = Utils.sdformat.parse(open_time.trim());
+                            red_has_open_text.setText("拆开: " + Utils.sdformat_2.format(date));
                         }
                     }
                 }

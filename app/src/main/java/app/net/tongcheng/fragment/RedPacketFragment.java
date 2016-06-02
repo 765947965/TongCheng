@@ -11,8 +11,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import app.net.tongcheng.Business.RedBusiness;
@@ -23,10 +26,13 @@ import app.net.tongcheng.activity.PayMoneyActivity;
 import app.net.tongcheng.adapter.RedListAdapter;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.model.ExcreteRedModel;
 import app.net.tongcheng.model.GiftsBean;
 import app.net.tongcheng.model.RedModel;
 import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.ErrorInfoUtil;
 import app.net.tongcheng.util.NativieDataUtils;
+import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -44,7 +50,9 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
     private RedListAdapter mRedListAdapter;
     private RedBusiness mRedBusiness;
     private List<GiftsBean> mDatas;
+    private RedModel mRedModel;
     private AlertDialog mAlertDialog;
+    private int selectRedModel;
     public static boolean isfirstloaddata;
 
 
@@ -86,7 +94,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
     public void mHandDoSomeThing(Message msg) {
         switch (msg.what) {
             case 10001:
-                RedModel mRedModel = NativieDataUtils.getRedModel();
+                mRedModel = NativieDataUtils.getRedModel();
                 if (mRedModel == null || !NativieDataUtils.getTodyYMD().equals(mRedModel.getUpdate())) {
                     mSwipeRefreshLayout.setRefreshing(true);
                     mRedBusiness.getRedList(APPCationStation.LOADING, "", NativieDataUtils.getTodyY(), "received");
@@ -122,6 +130,29 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                 }
                 mSwipeRefreshLayout.setRefreshing(false);
                 break;
+            case APPCationStation.EXCRETERED:
+                if (mConnectResult != null && mConnectResult.getObject() != null) {
+                    ExcreteRedModel mExcreteRedModel = (ExcreteRedModel) mConnectResult.getObject();
+                    if (mExcreteRedModel.getResult() == 0) {
+                        GiftsBean itemdata = mDatas.get(selectRedModel);
+                        itemdata.setHas_open(1);
+                        itemdata.setMoney(mExcreteRedModel.getAward_money());
+                        itemdata.setOpen_time(Utils.sdformat.format(new Date()));
+                        mRedListAdapter.notifyDataSetChanged();
+                        NativieDataUtils.setRedModel(mRedModel);
+                        if (mAlertDialog != null && mAlertDialog.isShowing()) {
+                            mAlertDialog.dismiss();
+                        }
+                        // 启动详情页
+                    } else {
+                        if (mAlertDialog != null && mAlertDialog.isShowing()) {
+                            ((ImageView) mAlertDialog.findViewById(R.id.red_anim_image)).setImageResource(R.drawable.rpopen);
+                            mAlertDialog.findViewById(R.id.red_anim_image).setEnabled(true);
+                            ((TextView) mAlertDialog.findViewById(R.id.red_errortext)).setText(ErrorInfoUtil.getErrorMessage(mExcreteRedModel.getResult()));
+                        }
+                    }
+                }
+                break;
         }
     }
 
@@ -130,6 +161,12 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
         switch (mLoding_Type) {
             case APPCationStation.LOADING:
                 mSwipeRefreshLayout.setRefreshing(false);
+                break;
+            case APPCationStation.EXCRETERED:
+                if (mAlertDialog != null && mAlertDialog.isShowing()) {
+                    ((ImageView) mAlertDialog.findViewById(R.id.red_anim_image)).setImageResource(R.drawable.rpopen);
+                    mAlertDialog.findViewById(R.id.red_anim_image).setEnabled(true);
+                }
                 break;
         }
     }
@@ -151,7 +188,8 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
         mRedBusiness.getRedList(APPCationStation.LOADING, "", NativieDataUtils.getTodyY(), "received");
     }
 
-    public void setmAlertDialog(AlertDialog mAlertDialog) {
+    public void setmAlertDialog(AlertDialog mAlertDialog, int selectRedModel) {
         this.mAlertDialog = mAlertDialog;
+        this.selectRedModel = selectRedModel;
     }
 }

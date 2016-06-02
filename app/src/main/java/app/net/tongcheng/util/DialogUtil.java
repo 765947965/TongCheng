@@ -200,7 +200,7 @@ public class DialogUtil {
     }
 
 
-    public static AlertDialog getExcreteRedDilaog(Activity mActivity, GiftsBean mGiftsBean, RedBusiness mRedBusiness) {
+    public static AlertDialog getExcreteRedDilaog(Activity mActivity, final GiftsBean mGiftsBean, final RedBusiness mRedBusiness) {
         if (mActivity == null || mActivity.isFinishing()) {
             return null;
         }
@@ -241,9 +241,8 @@ public class DialogUtil {
                     animationDrawable.start();
                 } catch (Exception e) {
                     red_anim_image.setImageResource(R.drawable.rpopen);
-                } catch (Error e) {
-                    red_anim_image.setImageResource(R.drawable.rpopen);
                 }
+                mRedBusiness.excreteRed(APPCationStation.EXCRETERED, "", mGiftsBean.getGift_id(), "open");
             }
         });
         return dialog;

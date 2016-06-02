@@ -22,6 +22,7 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
@@ -41,6 +42,12 @@ import app.net.tongcheng.TCApplication;
  * @date: 2016/4/6 13:41
  */
 public class Utils {
+
+    public static SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static SimpleDateFormat sdformat_2 = new SimpleDateFormat("MM月dd日-HH:mm");
+    public static SimpleDateFormat sdformat_3 = new SimpleDateFormat("yyyy-MM-dd");
+    public static SimpleDateFormat sdformat_4 = new SimpleDateFormat("MM月dd日");
+    public static SimpleDateFormat sdformat_5 = new SimpleDateFormat("yyyyMMdd");
 
     /**
      * 是否有网络

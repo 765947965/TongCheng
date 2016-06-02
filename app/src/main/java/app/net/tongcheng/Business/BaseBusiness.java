@@ -30,6 +30,7 @@ import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.ErrorInfoUtil;
 import app.net.tongcheng.util.MD5;
 import app.net.tongcheng.util.Misc;
+import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.VerificationCode;
 
@@ -86,6 +87,10 @@ public class BaseBusiness implements ConnectListener {
     }
 
     public void goConnect(int mLoding_Type, RequestParams params, String message, String className) {
+        goConnect(mLoding_Type, params, message, className, 0);
+    }
+
+    public void goConnect(final int mLoding_Type, final RequestParams params, final String message, final String className, long delaytime) {
         if (!TextUtils.isEmpty(message)) {
             Dialog mMessage = DialogUtil.loadingDialog(mActivity, message);
             if (mMessage != null) {
@@ -96,7 +101,16 @@ public class BaseBusiness implements ConnectListener {
                 mMessagesDialog.put(mLoding_Type, mMessage);
             }
         }
-        mCancelableClear.addCancelable(ConnectUtil.Connect(mLoding_Type, params, message, this, className));
+        if (delaytime > 0) {
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mCancelableClear.addCancelable(ConnectUtil.Connect(mLoding_Type, params, message, BaseBusiness.this, className));
+                }
+            }, delaytime);
+        } else {
+            mCancelableClear.addCancelable(ConnectUtil.Connect(mLoding_Type, params, message, this, className));
+        }
     }
 
     @Override
@@ -110,9 +124,8 @@ public class BaseBusiness implements ConnectListener {
         }
         if (mConnectResult.getObject() instanceof BaseModel) {
             BaseModel mBaseModel = (BaseModel) mConnectResult.getObject();
-            if (mBaseModel.getResult() != 0 && mBaseModel.getResult() != 62 && mBaseModel.getResult() != 64 && mBaseModel.getResult() != 70) {
-                DialogUtil.showTipsDialog(mActivity, ErrorInfoUtil.getErrorMessage(mBaseModel.getResult()), null);
-                mConnectResult.setObject(null);
+            if (mBaseModel.getResult() != 0) {
+                ToastUtil.showToast(ErrorInfoUtil.getErrorMessage(mBaseModel.getResult()));
             }
         }
         Bundle mBundle = new Bundle();
