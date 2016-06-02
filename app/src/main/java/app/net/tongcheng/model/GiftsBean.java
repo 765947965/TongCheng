@@ -2,10 +2,12 @@ package app.net.tongcheng.model;
 
 import java.io.Serializable;
 
+import app.net.tongcheng.util.NativieDataUtils;
+
 /**
  * Created by 76594 on 2016/6/1.
  */
-public class GiftsBean implements Serializable {
+public class GiftsBean implements Serializable, Comparable<GiftsBean> {
     /**
      * from : system
      * uid : 600001
@@ -241,5 +243,69 @@ public class GiftsBean implements Serializable {
 
     public void setCommand(String command) {
         this.command = command;
+    }
+
+    @Override
+    public int compareTo(GiftsBean another) {
+        if (another.direct.equals("sended") && this.direct.equals("sended")) {
+            if (another.create_time.equals(this.create_time)) {
+                return another.gift_id.compareTo(this.gift_id);
+            } else {
+                return another.create_time.compareTo(this.create_time);
+            }
+        } else if (another.direct.equals("sended")
+                && this.direct.equals("received")) {
+            return -1;
+        } else if (another.direct.equals("received")
+                && this.direct.equals("sended")) {
+            return 1;
+        } else if (another.direct.equals("received")
+                && this.direct.equals("received")) {
+            if ((this.has_open == 0 && (this.exp_time
+                    .compareTo(NativieDataUtils.getTodyY_M_D()) < 0))
+                    && (another.has_open == 0 && (another.exp_time
+                    .compareTo(NativieDataUtils.getTodyY_M_D()) < 0))) {
+                if (another.create_time.equals(this.create_time)) {
+                    return another.gift_id.compareTo(this.gift_id);
+                } else {
+                    return another.create_time.compareTo(this.create_time);
+                }
+            } else if ((this.has_open == 0 && (this.exp_time
+                    .compareTo(NativieDataUtils.getTodyY_M_D()) < 0))
+                    && (another.has_open == 0 && (another.exp_time
+                    .compareTo(NativieDataUtils.getTodyY_M_D()) >= 0))) {
+                return 1;
+            } else if ((this.has_open == 0 && (this.exp_time
+                    .compareTo(NativieDataUtils.getTodyY_M_D()) < 0))
+                    && another.has_open == 1) {
+                return 1;
+            } else if ((this.has_open == 0 && (this.exp_time
+                    .compareTo(NativieDataUtils.getTodyY_M_D()) >= 0))
+                    && (another.has_open == 0 && (another.exp_time
+                    .compareTo(NativieDataUtils.getTodyY_M_D()) < 0))) {
+                return -1;
+            } else if (this.has_open == 1
+                    && (another.has_open == 0 && (another.exp_time
+                    .compareTo(NativieDataUtils.getTodyY_M_D()) < 0))) {
+                return -1;
+            } else if (another.has_open == 0 && this.has_open == 1) {
+                return 1;
+            } else if (another.has_open == 1 && this.has_open == 0) {
+                return -1;
+            } else if (another.has_open == 0 && this.has_open == 0) {
+                if (another.create_time.equals(this.create_time)) {
+                    return another.gift_id.compareTo(this.gift_id);
+                } else {
+                    return another.create_time.compareTo(this.create_time);
+                }
+            } else if (another.has_open == 1 && this.has_open == 1) {
+                if (another.open_time.equals(this.open_time)) {
+                    return another.gift_id.compareTo(this.gift_id);
+                } else {
+                    return another.open_time.compareTo(this.open_time);
+                }
+            }
+        }
+        return 0;
     }
 }

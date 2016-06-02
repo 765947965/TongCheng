@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -114,6 +115,10 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                     mRedListAdapter.notifyDataSetChanged();
                 }
                 break;
+            case 10002:
+                mSwipeRefreshLayout.setRefreshing(false);
+                mHandler.sendEmptyMessage(10001);
+                break;
         }
     }
 
@@ -122,13 +127,18 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
         switch (mLoding_Type) {
             case APPCationStation.LOADING:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
-                    RedModel mRedModel = (RedModel) mConnectResult.getObject();
+                    final RedModel mRedModel = (RedModel) mConnectResult.getObject();
                     mRedModel.setUpdate(NativieDataUtils.getTodyYMD());
-                    NativieDataUtils.setRedModel(mRedModel);
-                    isfirstloaddata = false;
-                    loadData();
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            // 排序(耗时)
+                            Collections.sort(mRedModel.getGifts());
+                            NativieDataUtils.setRedModel(mRedModel);
+                            mHandler.sendEmptyMessage(10002);
+                        }
+                    });
                 }
-                mSwipeRefreshLayout.setRefreshing(false);
                 break;
             case APPCationStation.EXCRETERED:
                 if (mConnectResult != null && mConnectResult.getObject() != null) {

@@ -27,6 +27,10 @@ public class NativieDataUtils {
         return new SimpleDateFormat("yyyyMMdd").format(new Date());
     }
 
+    public static String getTodyY_M_D() {
+        return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+    }
+
     public static String getTodyY() {
         return new SimpleDateFormat("yyyy").format(new Date());
     }

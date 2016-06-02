@@ -204,7 +204,7 @@ public class DialogUtil {
         if (mActivity == null || mActivity.isFinishing()) {
             return null;
         }
-        AlertDialog dialog = new AlertDialog.Builder(mActivity, R.style.quick_red_option_dialog).create();
+        final AlertDialog dialog = new AlertDialog.Builder(mActivity, R.style.quick_red_option_dialog).create();
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
         View view = LayoutInflater.from(mActivity).inflate(R.layout.red_excrete_dialog_layout, null);
@@ -243,6 +243,12 @@ public class DialogUtil {
                     red_anim_image.setImageResource(R.drawable.rpopen);
                 }
                 mRedBusiness.excreteRed(APPCationStation.EXCRETERED, "", mGiftsBean.getGift_id(), "open");
+            }
+        });
+        view.findViewById(R.id.red_closedbt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
             }
         });
         return dialog;
