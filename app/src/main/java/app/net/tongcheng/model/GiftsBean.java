@@ -1,9 +1,11 @@
 package app.net.tongcheng.model;
 
+import java.io.Serializable;
+
 /**
  * Created by 76594 on 2016/6/1.
  */
-public class GiftsBean {
+public class GiftsBean implements Serializable {
     /**
      * from : system
      * uid : 600001
