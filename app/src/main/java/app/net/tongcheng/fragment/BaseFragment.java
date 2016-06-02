@@ -54,8 +54,8 @@ public abstract class BaseFragment extends Fragment implements CancelableClear {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onDestroy() {
+        super.onDestroy();
         for (Callback.Cancelable mCancelable : mCancelableList) {
             if (mCancelable != null && !mCancelable.isCancelled()) {
                 mCancelable.cancel();
