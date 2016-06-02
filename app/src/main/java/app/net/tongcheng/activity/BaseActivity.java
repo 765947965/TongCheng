@@ -54,16 +54,19 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            mHandDoSomeThing(msg);
-            switch (msg.what) {
-                case APPCationStation.SUCCESS:
-                    Bundle mBundleSuccess = msg.getData();
-                    BusinessOnSuccess(mBundleSuccess.getInt("mLoding_Type"), (ConnectResult) mBundleSuccess.getSerializable("ConnectResult"));
-                    break;
-                case APPCationStation.FAIL:
-                    Bundle mBundleFail = msg.getData();
-                    BusinessOnFail(mBundleFail.getInt("mLoding_Type"));
-                    break;
+            try {
+                mHandDoSomeThing(msg);
+                switch (msg.what) {
+                    case APPCationStation.SUCCESS:
+                        Bundle mBundleSuccess = msg.getData();
+                        BusinessOnSuccess(mBundleSuccess.getInt("mLoding_Type"), (ConnectResult) mBundleSuccess.getSerializable("ConnectResult"));
+                        break;
+                    case APPCationStation.FAIL:
+                        Bundle mBundleFail = msg.getData();
+                        BusinessOnFail(mBundleFail.getInt("mLoding_Type"));
+                        break;
+                }
+            } catch (Exception e) {
             }
         }
     };
@@ -125,7 +128,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
         return ivRight;
     }
 
-    public ImageView getLeftClose(){
+    public ImageView getLeftClose() {
         return bt_close;
     }
 
