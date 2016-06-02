@@ -27,7 +27,7 @@ public abstract class BaseFragment extends Fragment implements CancelableClear {
 
 
 
-    private List<Callback.Cancelable> mCancelableList;
+    private List<Callback.Cancelable> mCancelableList = new ArrayList<>();
 
     public Handler mHandler = new Handler() {
         @Override
@@ -42,16 +42,9 @@ public abstract class BaseFragment extends Fragment implements CancelableClear {
         mCancelableList.add(mCancelable);
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mCancelableList = new ArrayList<>();
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onDestroy() {
+        super.onDestroy();
         for (Callback.Cancelable mCancelable : mCancelableList) {
             if (mCancelable != null && !mCancelable.isCancelled()) {
                 mCancelable.cancel();
