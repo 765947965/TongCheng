@@ -13,4 +13,5 @@ public class HttpUrls {
     public static final String STARTPAGER_URL = "http://mobile.zjtytx.com:8899/config/start_page";//启动页
     public static final String RED_GETDATA_URL = "http://mobile.8hbao.com:8899/gift/get_gift_records_v2";//获取红包数据
     public static final String RED_Checkout_URL = "http://mobile.8hbao.com:8899/gift/checkout_gift_v2";//拆红包
+    public static final String servicePage_URL = "http://mobile.8hbao.com:8899/config/get_service_page_config";//发现页数据
 }

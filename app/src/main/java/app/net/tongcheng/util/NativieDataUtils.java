@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSON;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import app.net.tongcheng.model.LifeDataModel;
 import app.net.tongcheng.model.RedModel;
 import app.net.tongcheng.model.StartPageModel;
 
@@ -65,16 +66,29 @@ public class NativieDataUtils {
         OperationUtils.PutString("start_page", JSON.toJSONString(mStartPageModel), false);
     }
 
-    public static RedModel getRedModel() {
-        String str = OperationUtils.getString("red_model");
+    public static RedModel getRedModel(String year, String direct) {
+        String str = OperationUtils.getString(year + direct + "red_model");
         if (TextUtils.isEmpty(str)) {
             return null;
         }
         return JSON.parseObject(str, RedModel.class);
     }
 
-    public static void setRedModel(RedModel mRedModel) {
+    public static void setRedModel(RedModel mRedModel, String year, String direct) {
         String str = JSON.toJSONString(mRedModel);
-        OperationUtils.PutString("red_model", str);
+        OperationUtils.PutString(year + direct + "red_model", str);
+    }
+
+    public static LifeDataModel getLifeDataModel() {
+        String str = OperationUtils.getString("life_data_model");
+        if (TextUtils.isEmpty(str)) {
+            return null;
+        }
+        return JSON.parseObject(str, LifeDataModel.class);
+    }
+
+    public static void setLifeDataModel(LifeDataModel mLifeDataModel) {
+        String str = JSON.toJSONString(mLifeDataModel);
+        OperationUtils.PutString("life_data_model", str);
     }
 }

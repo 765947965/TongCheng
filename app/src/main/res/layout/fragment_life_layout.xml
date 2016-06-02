@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llt_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_start"
-        android:layout_width="wrap_content"
+    <com.looppager.BannerView
+        android:id="@+id/image_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <GridView
+        android:id="@+id/gridlayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="222"
-        android:textColor="@color/text_content"
-        android:textSize="@dimen/sp14" />
-</RelativeLayout>
+        android:background="@color/white"
+        android:horizontalSpacing="0.5dp"
+        android:numColumns="4"
+        android:orientation="horizontal"
+        android:verticalSpacing="0.5dp" />
+</LinearLayout>

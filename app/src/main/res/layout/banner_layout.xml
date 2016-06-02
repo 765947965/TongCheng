@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.junte.view.looppager.LoopViewPager
+    <com.looppager.LoopViewPager
         android:id="@+id/mLoopViewPager"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />

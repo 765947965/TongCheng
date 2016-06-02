@@ -95,7 +95,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
     public void mHandDoSomeThing(Message msg) {
         switch (msg.what) {
             case 10001:
-                mRedModel = NativieDataUtils.getRedModel();
+                mRedModel = NativieDataUtils.getRedModel(NativieDataUtils.getTodyY(), "received");
                 if (mRedModel == null || !NativieDataUtils.getTodyYMD().equals(mRedModel.getUpdate())) {
                     mSwipeRefreshLayout.setRefreshing(true);
                     mRedBusiness.getRedList(APPCationStation.LOADING, "", NativieDataUtils.getTodyY(), "received");
@@ -134,7 +134,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                         public void run() {
                             // 排序(耗时)
                             Collections.sort(mRedModel.getGifts());
-                            NativieDataUtils.setRedModel(mRedModel);
+                            NativieDataUtils.setRedModel(mRedModel, NativieDataUtils.getTodyY(), "received");
                             mHandler.sendEmptyMessage(10002);
                         }
                     });
@@ -149,7 +149,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                         itemdata.setMoney(mExcreteRedModel.getAward_money());
                         itemdata.setOpen_time(Utils.sdformat.format(new Date()));
                         mRedListAdapter.notifyDataSetChanged();
-                        NativieDataUtils.setRedModel(mRedModel);
+                        NativieDataUtils.setRedModel(mRedModel, NativieDataUtils.getTodyY(), "received");
                         if (mAlertDialog != null && mAlertDialog.isShowing()) {
                             mAlertDialog.dismiss();
                         }
