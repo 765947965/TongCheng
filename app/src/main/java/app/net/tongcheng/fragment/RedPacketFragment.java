@@ -43,7 +43,7 @@ import app.net.tongcheng.util.ViewHolder;
  * @Copyright: Copyright (c) 2016 Tuandai Inc. All rights reserved.
  * @date: 2016/4/16 15:42
  */
-public class RedPacketFragment extends BaseFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class RedPacketFragment extends BaseFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, RedListAdapter.RedListAdapterSetDialog {
 
     private ViewHolder mViewHolder;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -198,6 +198,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
         mRedBusiness.getRedList(APPCationStation.LOADING, "", NativieDataUtils.getTodyY(), "received");
     }
 
+    @Override
     public void setmAlertDialog(AlertDialog mAlertDialog, int selectRedModel) {
         this.mAlertDialog = mAlertDialog;
         this.selectRedModel = selectRedModel;
