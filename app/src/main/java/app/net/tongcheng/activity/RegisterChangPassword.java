@@ -106,15 +106,15 @@ public class RegisterChangPassword extends BaseActivity implements View.OnClickL
             case R.id.rg4v2_surecpwdbt://修改密码
                 password = rg4v2_npwdcodeinput.getText().toString();
                 if (TextUtils.isEmpty(password)) {
-                    ToastUtil.showResultToast("新密码不能为空!");
+                    ToastUtil.showToast("新密码不能为空!");
                     return;
                 }
                 if (!password.trim().matches("[0-9a-zA-Z]+")) {
-                    ToastUtil.showResultToast("密码只能由数字或字母组成!");
+                    ToastUtil.showToast("密码只能由数字或字母组成!");
                     return;
                 }
                 if (password.length() < 4) {
-                    ToastUtil.showResultToast("新密码太短!");
+                    ToastUtil.showToast("新密码太短!");
                     return;
                 }
                 mOtherBusiness.registerChangePassword(APPCationStation.SUMBIT, "提交中...", password);

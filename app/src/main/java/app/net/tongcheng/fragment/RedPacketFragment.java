@@ -96,7 +96,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                 if (mRedListAdapter == null) {
                     mDatas = new ArrayList<>();
                     mDatas.addAll(mRedModel.getGifts());
-                    mRedListAdapter = new RedListAdapter(TCApplication.mContext, mDatas);
+                    mRedListAdapter = new RedListAdapter(TCApplication.mContext, mDatas, mSwipeRefreshLayout);
                     mRecyclerView.setAdapter(mRedListAdapter);
                 } else {
                     mDatas.clear();

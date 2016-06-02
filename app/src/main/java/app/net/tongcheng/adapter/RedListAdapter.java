@@ -1,6 +1,7 @@
 package app.net.tongcheng.adapter;
 
 import android.content.Context;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ import app.net.tongcheng.R;
 import app.net.tongcheng.model.GiftsBean;
 import app.net.tongcheng.model.RedModel;
 import app.net.tongcheng.util.MyRecyclerViewHolder;
+import app.net.tongcheng.util.ToastUtil;
 
 /**
  * @author: xiewenliang
@@ -30,15 +32,20 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
     private SimpleDateFormat sdformat_4 = new SimpleDateFormat("MM月dd日");
     private SimpleDateFormat sdformat_5 = new SimpleDateFormat("yyyyMMdd");
     private int datestr_today;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
-    public RedListAdapter(Context mContext, List<GiftsBean> mDatas) {
+    public RedListAdapter(Context mContext, List<GiftsBean> mDatas, SwipeRefreshLayout mSwipeRefreshLayout) {
         super(mContext, mDatas, R.layout.red_listviewadapter);
         datestr_today = Integer.parseInt(sdformat_5.format(new Date()));
+        this.mSwipeRefreshLayout = mSwipeRefreshLayout;
     }
 
     @Override
     public void onItemClick(View view, GiftsBean itemdata, List<GiftsBean> list, int position) {
-
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            ToastUtil.showToast("正在同步数据...");
+        } else {
+        }
     }
 
     @Override
