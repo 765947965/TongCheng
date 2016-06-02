@@ -3,7 +3,11 @@ package app.net.tongcheng.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import org.xutils.common.Callback;
 
@@ -24,7 +28,7 @@ import app.net.tongcheng.util.CancelableClear;
 public abstract class BaseFragment extends Fragment implements CancelableClear {
 
 
-    private List<Callback.Cancelable> mCancelableList = new ArrayList<>();
+    private List<Callback.Cancelable> mCancelableList;
 
     public Handler mHandler = new Handler() {
         @Override
@@ -53,9 +57,16 @@ public abstract class BaseFragment extends Fragment implements CancelableClear {
         mCancelableList.add(mCancelable);
     }
 
+    @Nullable
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mCancelableList = new ArrayList<>();
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
         for (Callback.Cancelable mCancelable : mCancelableList) {
             if (mCancelable != null && !mCancelable.isCancelled()) {
                 mCancelable.cancel();
