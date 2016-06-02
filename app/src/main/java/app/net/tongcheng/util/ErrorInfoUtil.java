@@ -138,6 +138,6 @@ public class ErrorInfoUtil {
                 message = "服务器异常";
                 break;
         }
-        return message + ":" + type;
+        return message;
     }
 }

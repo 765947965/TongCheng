@@ -78,7 +78,6 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
                 ImageView red_has_open_image = holder.getView(R.id.red_has_open_image);
                 red_moneys.setText(itemdata.getMoney() / (double) 100 + "元");
                 if (itemdata.getDirect().equals("sended")) {
-
                     red_type_text.setText("发出: " + Utils.sdformat_2.format(Utils.sdformat.parse(itemdata.getCreate_time().trim())));
                     String status = itemdata.getStatus();
                     if ("has_sended".equals(status)) {
@@ -167,6 +166,8 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
                         }
                         if (pasedata) {
                             red_moneys.setText("已失效");
+                        }else{
+                            red_moneys.setText("￥");
                         }
                         // 格式化日期
                         String exp_time = itemdata.getExp_time();

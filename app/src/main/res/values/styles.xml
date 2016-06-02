@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" mce_bogus="1" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/traditiondialbanck</item>
+        <item name="colorPrimary">@color/refurush_color</item>
+        <item name="colorPrimaryDark">@color/refurush_color_dark</item>
+        <item name="colorAccent">@color/refurush_color</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="windowActionBar">false</item>
