@@ -67,7 +67,7 @@ public class NativieDataUtils {
     }
 
     public static RedModel getRedModel(String year, String direct) {
-        String str = OperationUtils.getString(year + direct + "red_model");
+        String str = RedDateUtils.getString(year + direct + "red_model");
         if (TextUtils.isEmpty(str)) {
             return null;
         }
@@ -76,7 +76,7 @@ public class NativieDataUtils {
 
     public static void setRedModel(RedModel mRedModel, String year, String direct) {
         String str = JSON.toJSONString(mRedModel);
-        OperationUtils.PutString(year + direct + "red_model", str);
+        RedDateUtils.PutString(year + direct + "red_model", str);
     }
 
     public static LifeDataModel getLifeDataModel() {

@@ -12,17 +12,17 @@ import app.net.tongcheng.TCApplication;
  * @Copyright: Copyright (c) 2016 Tuandai Inc. All rights reserved.
  * @date: 2016/2/25 14:01
  */
-public class OperationUtils {
-    private static final String FILENAME = "OperationData";
-    private static final String USERINFO = "nowuserinfo";
-    private static OperationUtils instance;
+public class UserDateUtils {
+    private static final String FILENAME = "UserDate";
+    public static final String LODINGUSERJSON = "lodinguserjson";
+    private static UserDateUtils instance;
     private SharedPreferences mSp;
 
     private static SharedPreferences getSharedPreference() {
         if (instance == null || instance.mSp == null) {
-            synchronized (OperationUtils.class) {
+            synchronized (UserDateUtils.class) {
                 if (instance == null || instance.mSp == null) {
-                    instance = new OperationUtils();
+                    instance = new UserDateUtils();
                     instance.mSp = TCApplication.mContext.getSharedPreferences(FILENAME, Context.MODE_PRIVATE);
                 }
             }
@@ -30,13 +30,6 @@ public class OperationUtils {
         return instance.mSp;
     }
 
-    public static void setUserInfo(String userinfo) {
-        getSharedPreference().edit().putString(USERINFO, userinfo).commit();
-    }
-
-    public static String getUserInfo() {
-        return getSharedPreference().getString(USERINFO, "");
-    }
 
     public static void PutString(String key, String value) {
         PutString(key, value, true);

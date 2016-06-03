@@ -13,7 +13,7 @@ import app.net.tongcheng.model.OraLodingUser;
 public class OraLodingUserTools {
 
     public static ArrayList<OraLodingUser> getolus(Context context) {
-        String json_str = OperationUtils.getString(OperationUtils.LODINGUSERJSON);
+        String json_str = UserDateUtils.getString(UserDateUtils.LODINGUSERJSON);
         if (json_str == null || "".equals(json_str)) {
             return null;
         }
@@ -73,7 +73,7 @@ public class OraLodingUserTools {
             }
             JSONObject json = new JSONObject();
             json.put("users", jsay);
-            OperationUtils.PutString(OperationUtils.LODINGUSERJSON, json.toString());
+            UserDateUtils.PutString(UserDateUtils.LODINGUSERJSON, json.toString());
             tmaplist.clear();
             tmaplist = null;
         } catch (Exception e) {
