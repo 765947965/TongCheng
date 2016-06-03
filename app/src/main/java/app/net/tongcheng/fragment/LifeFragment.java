@@ -1,5 +1,6 @@
 package app.net.tongcheng.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import java.util.List;
 import app.net.tongcheng.Business.LifeBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.activity.PublicWebview;
 import app.net.tongcheng.adapter.MyBaseAdapter;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
@@ -132,8 +134,8 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
 
                 @Override
                 protected void MyonItemClick(AdapterView<?> parent, View view, LifeDataModel.ItemsBean item, List<LifeDataModel.ItemsBean> list, int position, long id) {
-                    if (item != null) {
-
+                    if (item != null && item.getTo().startsWith("http")) {
+                        startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", item.getName()).putExtra("url", item.getTo()));
                     }
                 }
             });

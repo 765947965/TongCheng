@@ -46,10 +46,10 @@ public class PublicWebview extends BaseActivity {
         webview.getSettings().setDefaultTextEncodingName("utf-8");
         webview.getSettings().setTextSize(WebSettings.TextSize.NORMAL);
         webview.getSettings().setUseWideViewPort(true);
-        webview.getSettings().setSupportZoom(true);
-        webview.getSettings().setBuiltInZoomControls(true);
-        webview.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webview.getSettings().setLoadWithOverviewMode(true);
+        webview.getSettings().setBuiltInZoomControls(true);
+        webview.getSettings().setDisplayZoomControls(false);
+        webview.getSettings().setSupportZoom(true);
         if (android.os.Build.VERSION.SDK_INT < 21) {
             webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null); //低版本系统兼容性 不留空白页
         }
@@ -60,7 +60,12 @@ public class PublicWebview extends BaseActivity {
     WebViewClient wvc = new WebViewClient() {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            return false;
+            if (!url.startsWith("http")) {
+                return false;
+            } else {
+                view.loadUrl(url);
+                return true;
+            }
         }
     };
 
