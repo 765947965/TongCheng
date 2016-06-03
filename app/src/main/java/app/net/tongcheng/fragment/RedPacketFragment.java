@@ -31,6 +31,7 @@ import app.net.tongcheng.model.ExcreteRedModel;
 import app.net.tongcheng.model.GiftsBean;
 import app.net.tongcheng.model.RedModel;
 import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.ErrorInfoUtil;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.Utils;
@@ -54,6 +55,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
     private RedModel mRedModel;
     private AlertDialog mAlertDialog;
     private int selectRedModel;
+    private int notERedNum;
     public static boolean isfirstloaddata;
 
 
@@ -100,10 +102,17 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                     mSwipeRefreshLayout.setRefreshing(true);
                     mRedBusiness.getRedList(APPCationStation.LOADING, "", NativieDataUtils.getTodyY(), "received");
                 }
+                mHandler.sendEmptyMessage(10003);
+                break;
+            case 10002:
+                mSwipeRefreshLayout.setRefreshing(false);
+                mHandler.sendEmptyMessage(10003);
+                break;
+            case 10003:
+                // 显示数据
                 if (mRedModel == null || mRedModel.getGifts() == null || mRedModel.getGifts().size() == 0) {
                     return;
                 }
-                // 显示数据
                 if (mRedListAdapter == null) {
                     mDatas = new ArrayList<>();
                     mDatas.addAll(mRedModel.getGifts());
@@ -115,9 +124,14 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                     mRedListAdapter.notifyDataSetChanged();
                 }
                 break;
-            case 10002:
-                mSwipeRefreshLayout.setRefreshing(false);
-                mHandler.sendEmptyMessage(10001);
+            case 10004:
+                if (notERedNum > 0) {
+                    if (notERedNum == 1) {
+                        setmAlertDialog(DialogUtil.getExcreteRedDilaog(getActivity(), mRedModel.getGifts().get(0), mRedBusiness), 0);
+                    } else {
+                        DialogUtil.showExcreteRedTipsDilaog(getActivity(), notERedNum);
+                    }
+                }
                 break;
         }
     }
@@ -135,7 +149,25 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                             // 排序(耗时)
                             Collections.sort(mRedModel.getGifts());
                             NativieDataUtils.setRedModel(mRedModel, NativieDataUtils.getTodyY(), "received");
+                            RedPacketFragment.this.mRedModel = mRedModel;
                             mHandler.sendEmptyMessage(10002);
+                            // 提示未拆红包
+                            notERedNum = 0;
+                            String datestr_today = Utils.sdformat_3.format(new Date());
+                            if (mRedModel.getGifts() != null && mRedModel.getGifts().size() > 0) {
+                                for (GiftsBean mGiftsBean : mRedModel.getGifts()) {
+                                    if (mGiftsBean.getHas_open() == 1) {
+                                        break;
+                                    }
+                                    if (mGiftsBean.getHas_open() == 0) {
+                                        if (datestr_today.compareTo(mGiftsBean.getExp_time()) < 0) {
+                                            break;
+                                        }
+                                    }
+                                    notERedNum += 1;
+                                }
+                            }
+                            mHandler.sendEmptyMessage(10004);
                         }
                     });
                 }

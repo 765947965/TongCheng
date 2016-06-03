@@ -33,7 +33,7 @@ import app.net.tongcheng.util.Utils;
  */
 public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
 
-    private int datestr_today;
+    private String datestr_today;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private Activity mActivity;
     private RedBusiness mRedBusiness;
@@ -41,7 +41,7 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
 
     public RedListAdapter(Activity mActivity, List<GiftsBean> mDatas, SwipeRefreshLayout mSwipeRefreshLayout, RedBusiness mRedBusiness, RedListAdapterSetDialog mRedListAdapterSetDialog) {
         super(TCApplication.mContext, mDatas, R.layout.red_listviewadapter);
-        datestr_today = Integer.parseInt(Utils.sdformat_5.format(new Date()));
+        datestr_today = Utils.sdformat_3.format(new Date());
         this.mSwipeRefreshLayout = mSwipeRefreshLayout;
         this.mActivity = mActivity;
         this.mRedBusiness = mRedBusiness;
@@ -97,28 +97,21 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
                     double money_temp = itemdata.getMoney() / (double) 100;
                     double returned_money_d = itemdata.getReturned_money() / (double) 100;
                     double received_money_d = itemdata.getReceived_money() / (double) 100;
-                    red_creatime_text.setText("已领取 "
-                            + itemdata.getHas_open() + "/"
-                            + itemdata.getSplitsnumber() + "个,共"
-                            + received_money_d + "元/" + money_temp + "元");
+                    red_creatime_text.setText("已领取 " + itemdata.getHas_open() + "/" + itemdata.getSplitsnumber() + "个,共" + received_money_d + "元/" + money_temp + "元");
                     if (returned_money_d != 0) {
-                        red_has_open_text.setText("已结束  已退回"
-                                + returned_money_d + "元");
+                        red_has_open_text.setText("已结束  已退回" + returned_money_d + "元");
                     }
                 } else {
 
                     // 设置发红包方
                     if (!TextUtils.isEmpty(itemdata.getFromnickname())) {
-                        red_type_text.setText("红包: " + itemdata.getFromnickname().trim() + "的"
-                                + itemdata.getName());
+                        red_type_text.setText("红包: " + itemdata.getFromnickname().trim() + "的" + itemdata.getName());
                     } else {
                         if (!TextUtils.isEmpty(itemdata.getFrom())) {
                             if ("aixin_money".equals(itemdata.getFrom().trim()) || "system".equals(itemdata.getFrom().trim())) {
                                 red_type_text.setText("红包: " + itemdata.getName());
                             } else {
-                                red_type_text.setText("红包: "
-                                        + itemdata.getFrom().trim() + "的"
-                                        + itemdata.getName());
+                                red_type_text.setText("红包: " + itemdata.getFrom().trim() + "的" + itemdata.getName());
                             }
                         }
                     }
@@ -153,20 +146,9 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
                     // 设置是否已拆动作
                     if (itemdata.getHas_open() == 0) {
                         // (如果是未拆红包)定义未拆红包是否过期
-                        boolean pasedata = false;// true为过期
-                        if (itemdata.getHas_open() == 0) {
-                            String exp_time = itemdata.getExp_time();
-                            if (exp_time != null && exp_time.trim().length() == 10) {
-                                // 过期日期
-                                int datestr = Integer.parseInt(itemdata.getExp_time()
-                                        .trim().replaceAll("-", "")
-                                        .replaceAll(" ", "").replaceAll(":", ""));
-                                pasedata = datestr_today > datestr;
-                            }
-                        }
-                        if (pasedata) {
+                        if (datestr_today.compareTo(itemdata.getExp_time()) < 0) {
                             red_moneys.setText("已失效");
-                        }else{
+                        } else {
                             red_moneys.setText("￥");
                         }
                         // 格式化日期

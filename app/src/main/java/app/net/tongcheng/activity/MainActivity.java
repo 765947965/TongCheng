@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,7 @@ import app.net.tongcheng.fragment.LifeFragment;
 import app.net.tongcheng.fragment.MyFragment;
 import app.net.tongcheng.fragment.RedPacketFragment;
 import app.net.tongcheng.fragment.ShareFragment;
+import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.util.ViewHolder;
 import app.net.tongcheng.view.materialtabs.MaterialTab;
@@ -60,6 +63,7 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
         setContentView(R.layout.main_layout);
         setCanSlidingClose(false);
         initView();
+        setEventBus();
     }
 
     private void initView() {
@@ -95,7 +99,7 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
 
     @Override
     public void loadData() {
-        if(mRedPacketFragment != null){
+        if (mRedPacketFragment != null) {
             // 首页加载数据
             mRedPacketFragment.loadData();
         }
@@ -233,5 +237,16 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Subscribe
+    public void onEvent(CheckEvent event) {
+        if (event != null) {
+            switch (event.getMsg()) {
+                case "MainActivity.page.0":
+                    mPager.setCurrentItem(0);
+                    break;
+            }
+        }
     }
 }

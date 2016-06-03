@@ -11,10 +11,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
 import org.w3c.dom.Text;
 
 import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
+import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.GiftsBean;
 
 /**
@@ -252,5 +254,32 @@ public class DialogUtil {
             }
         });
         return dialog;
+    }
+
+    public static void showExcreteRedTipsDilaog(Activity mActivity, int nums) {
+        if (mActivity == null || mActivity.isFinishing()) {
+            return;
+        }
+        final AlertDialog dialog = new AlertDialog.Builder(mActivity, R.style.quick_red_option_dialog).create();
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+        View view = LayoutInflater.from(mActivity).inflate(R.layout.red_excrete_dialog_nums, null);
+        dialog.setContentView(view);
+        ViewHolder mViewHolder = new ViewHolder(view);
+        mViewHolder.setText(R.id.numstext, nums + "");
+        mViewHolder.setText(R.id.sendfromname_messages_text, "你有" + nums + "个未拆红包");
+        mViewHolder.getView(R.id.red_anim_image).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new CheckEvent("MainActivity.page.0"));
+                dialog.dismiss();
+            }
+        });
+        mViewHolder.getView(R.id.red_closedbt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 }
