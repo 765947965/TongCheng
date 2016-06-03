@@ -30,7 +30,7 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.from(getActivity()).inflate(R.layout.fragment_friend_layout, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_friend_layout, null);
         initView(view);
         return view;
     }

@@ -47,7 +47,11 @@ public abstract class MyBaseAdapter<T> extends ArrayAdapter<T> implements Adapte
 
     @Override
     public T getItem(int position) {
-        return mDatas.get(position);
+        if (mDatas.size() > position) {
+            return mDatas.get(position);
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -71,10 +75,10 @@ public abstract class MyBaseAdapter<T> extends ArrayAdapter<T> implements Adapte
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        MyonItemClick(parent, view, getItem(position), position, id);
+        MyonItemClick(parent, view, getItem(position), mDatas, position, id);
     }
 
     protected abstract void convert(ViewHolder holder, T item, List<T> list, int position);
 
-    protected abstract void MyonItemClick(AdapterView<?> parent, View view, T item, int position, long id);
+    protected abstract void MyonItemClick(AdapterView<?> parent, View view, T item, List<T> list, int position, long id);
 }

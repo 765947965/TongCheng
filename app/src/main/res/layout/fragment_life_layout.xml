@@ -10,13 +10,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <GridView
-        android:id="@+id/gridlayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:horizontalSpacing="0.5dp"
-        android:numColumns="4"
-        android:orientation="horizontal"
-        android:verticalSpacing="0.5dp" />
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/life_head_layout" />
+
+            <app.net.tongcheng.view.ScrollViewGridView
+                android:id="@+id/gridlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:horizontalSpacing="0.5dp"
+                android:numColumns="4"
+                android:orientation="horizontal"
+                android:verticalSpacing="0.5dp" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
