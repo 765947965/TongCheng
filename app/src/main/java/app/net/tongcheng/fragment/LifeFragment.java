@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import app.net.tongcheng.Business.LifeBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.activity.PublicWebview;
+import app.net.tongcheng.adapter.LoopBaseAdapter;
 import app.net.tongcheng.adapter.MyBaseAdapter;
 import app.net.tongcheng.model.ADListModel;
 import app.net.tongcheng.model.BaseModel;
@@ -59,6 +61,8 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
 
     private void initView(View view) {
         mViewHolder = new ViewHolder(view, this);
+        mViewHolder.setText(R.id.tv_title, "生活");
+        mViewHolder.setVisibility(R.id.bt_close, View.GONE);
         mBannerView = mViewHolder.getView(R.id.image_banner);
         mGridView = mViewHolder.getView(R.id.gridlayout);
         mViewHolder.setOnClickListener(R.id.flt_life_head_1);
@@ -156,7 +160,7 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
 
                 @Override
                 protected void MyonItemClick(AdapterView<?> parent, View view, LifeDataModel.ItemsBean item, List<LifeDataModel.ItemsBean> list, int position, long id) {
-                    if (item != null && item.getTo().startsWith("http")) {
+                    if (item != null && !TextUtils.isEmpty(item.getTo()) && item.getTo().startsWith("http")) {
                         startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", item.getName()).putExtra("url", item.getTo()));
                     }
                 }
@@ -167,21 +171,43 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void setADListData() {
-
+        mBannerView.setAdapter(new LoopBaseAdapter<ADListModel.PnBean>(TCApplication.mContext, mADListModel.getPn(), R.layout.row_banner) {
+            @Override
+            public void createView(ViewHolder mViewHolder, final ADListModel.PnBean item, List<ADListModel.PnBean> mDatas, int position) {
+                if (item != null) {
+                    mViewHolder.setImage(R.id.banner_top_IV, mADListModel.getUrlprefix() + item.getN());
+                    mViewHolder.getView(R.id.rlt_main).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (!TextUtils.isEmpty(item.getTo()) && item.getTo().startsWith("http")) {
+                                startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "同城商城").putExtra("url", item.getTo()));
+                            }
+                        }
+                    });
+                }
+            }
+        }, mADListModel.getPn().size(), 1.0d, 2);
     }
 
     @Override
     public void onClick(View v) {
+        LifeDataModel.ItemsBean item = null;
         switch (v.getId()) {
             case R.id.flt_life_head_1:
+                item = mLifeDataModel.getItems().get(0);
                 break;
             case R.id.flt_life_head_2:
+                item = mLifeDataModel.getItems().get(1);
                 break;
             case R.id.flt_life_head_3:
+                item = mLifeDataModel.getItems().get(2);
                 break;
             case R.id.flt_life_head_4:
+                item = mLifeDataModel.getItems().get(3);
                 break;
         }
-
+        if (item != null && !TextUtils.isEmpty(item.getTo()) && item.getTo().startsWith("http")) {
+            startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", item.getName()).putExtra("url", item.getTo()));
+        }
     }
 }

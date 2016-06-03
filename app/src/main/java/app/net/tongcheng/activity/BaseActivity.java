@@ -206,7 +206,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
     private boolean isFastDoubleClick() {
         long time = System.currentTimeMillis();
         long timeD = time - lastClickTime;
-        if (timeD >= 0 && timeD <= 500) {
+        if (timeD >= 0 && timeD <= 200) {
             return true;
         } else {
             lastClickTime = time;
