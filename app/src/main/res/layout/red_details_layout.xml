@@ -93,7 +93,7 @@
                         android:layout_centerHorizontal="true"
                         android:src="@drawable/red_head_image" />
 
-                    <org.aisin.sipphone.myview.CircleImageView
+                    <ImageView
                         android:id="@+id/reddetails_from_iamge"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -150,7 +150,7 @@
             android:layout_weight="2.88"
             android:orientation="vertical">
 
-            <org.aisin.sipphone.AlwaysMarqueeTextView
+            <app.net.tongcheng.view.AlwaysMarqueeTextView
                 android:id="@+id/reddetails_from_tips"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -218,30 +218,15 @@
         </LinearLayout>
     </LinearLayout>
 
-    <org.aisin.sipphone.myview.ScrollViewExtend
+    <app.net.tongcheng.view.ScrollViewExtend
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <RelativeLayout
+        <com.looppager.BannerView
+            android:id="@+id/image_banner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/reddetails_ggtp"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"></android.support.v4.view.ViewPager>
-
-            <LinearLayout
-                android:id="@+id/lineviewGroup"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="2dp"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal"></LinearLayout>
-        </RelativeLayout>
-    </org.aisin.sipphone.myview.ScrollViewExtend>
+            android:layout_height="wrap_content" />
+    </app.net.tongcheng.view.ScrollViewExtend>
 
 </LinearLayout>

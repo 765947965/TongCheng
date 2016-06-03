@@ -61,6 +61,18 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
         return view;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        mBannerView.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mBannerView.onResume();
+    }
+
     private void initView(View view) {
         mViewHolder = new ViewHolder(view, this);
         mViewHolder.setText(R.id.tv_title, "生活");

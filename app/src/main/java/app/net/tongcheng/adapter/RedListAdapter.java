@@ -120,7 +120,7 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
 
                     // 设置图片
                     if (itemdata.getHas_open() == 1) {
-                        if ("aixin_money".equals(itemdata.getType()) || "system".equals(itemdata.getFrom().trim())) {
+                        if ("aixin_money".equals(itemdata.getFrom().trim()) || "system".equals(itemdata.getFrom().trim())) {
                             if ("invite_recharge_return".equals(itemdata.getSub_type())) {
                                 red_has_open_image
                                         .setImageResource(R.drawable.red_image_fenxiang);
