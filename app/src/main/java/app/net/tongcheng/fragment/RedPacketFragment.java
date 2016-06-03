@@ -24,6 +24,7 @@ import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.activity.BalanceActivity;
 import app.net.tongcheng.activity.PayMoneyActivity;
+import app.net.tongcheng.activity.RedShareInfoActivity;
 import app.net.tongcheng.adapter.RedListAdapter;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
@@ -188,6 +189,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                             mAlertDialog.dismiss();
                         }
                         // 启动详情页
+                        startActivity(new Intent(TCApplication.mContext, RedShareInfoActivity.class).putExtra("GiftsBean", itemdata));
                     } else {
                         if (mAlertDialog != null && mAlertDialog.isShowing()) {
                             ((ImageView) mAlertDialog.findViewById(R.id.red_anim_image)).setImageResource(R.drawable.rpopen);

@@ -3,6 +3,7 @@ package app.net.tongcheng.adapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,6 +17,7 @@ import java.util.List;
 import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.activity.RedShareInfoActivity;
 import app.net.tongcheng.fragment.RedPacketFragment;
 import app.net.tongcheng.model.GiftsBean;
 import app.net.tongcheng.model.RedModel;
@@ -55,7 +57,7 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
         } else if (itemdata != null) {
             if (itemdata.getHas_open() == 1) {
                 // 详情
-
+                mActivity.startActivity(new Intent(TCApplication.mContext, RedShareInfoActivity.class).putExtra("GiftsBean", itemdata));
             } else {
                 // 拆
                 mRedListAdapterSetDialog.setmAlertDialog(DialogUtil.getExcreteRedDilaog(mActivity, itemdata, mRedBusiness), position);
