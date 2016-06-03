@@ -1,14 +1,14 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" mce_bogus="1" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/refurush_color</item>
         <item name="colorPrimaryDark">@color/refurush_color_dark</item>
         <item name="colorAccent">@color/refurush_color</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowAnimationStyle">@style/activityAnimation</item>
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+        <!--<item name="android:windowBackground">@android:color/transparent</item>-->
+        <!--<item name="android:windowAnimationStyle">@style/activityAnimation</item>-->
     </style>
 
     <style name="dialog_style" parent="Theme.AppCompat.Dialog">

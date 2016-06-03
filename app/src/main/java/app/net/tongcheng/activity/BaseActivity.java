@@ -84,8 +84,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
 //            status = findViewById(R.id.view_status_bar);
 //            status.setVisibility(View.VISIBLE);
 //        }
-        rootView = new SlidingLayout(this);
-        rootView.bindActivity(this);
+//        rootView = new SlidingLayout(this);
+//        rootView.bindActivity(this);
     }
 
     public void setEventBus() {
