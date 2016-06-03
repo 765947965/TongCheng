@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ScrollView;
 
 import com.looppager.BannerView;
 
@@ -43,6 +44,7 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
     private ViewHolder mViewHolder;
     private LifeBusiness mLifeBusiness;
     private BannerView mBannerView;
+    private ScrollView mScrollView;
     private ScrollViewGridView mGridView;
     private LifeDataModel mLifeDataModel;
     private ADListModel mADListModel;
@@ -65,6 +67,7 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
         mViewHolder.setVisibility(R.id.bt_close, View.GONE);
         mBannerView = mViewHolder.getView(R.id.image_banner);
         mGridView = mViewHolder.getView(R.id.gridlayout);
+        mScrollView = mViewHolder.getView(R.id.sll_view);
         mViewHolder.setOnClickListener(R.id.flt_life_head_1);
         mViewHolder.setOnClickListener(R.id.flt_life_head_2);
         mViewHolder.setOnClickListener(R.id.flt_life_head_3);
@@ -73,6 +76,7 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void loadData() {
+        mHandler.sendEmptyMessageDelayed(10003, 100);
         if (isfirstloaddata) {
             return;
         }
@@ -106,6 +110,9 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
                 }
                 this.mADListModel = mADListModel;
                 setADListData();
+                break;
+            case 10003:
+                mScrollView.scrollTo(0, 0);
                 break;
         }
     }

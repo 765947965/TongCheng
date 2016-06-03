@@ -15,3 +15,5 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+-dontwarn app.net.tongcheng.model.**
+-keep class app.net.tongcheng.model.** { *;}
