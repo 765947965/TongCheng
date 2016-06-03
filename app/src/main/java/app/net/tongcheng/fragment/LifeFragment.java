@@ -20,6 +20,7 @@ import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.activity.PublicWebview;
 import app.net.tongcheng.adapter.MyBaseAdapter;
+import app.net.tongcheng.model.ADListModel;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.LifeDataModel;
@@ -42,6 +43,7 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
     private BannerView mBannerView;
     private ScrollViewGridView mGridView;
     private LifeDataModel mLifeDataModel;
+    private ADListModel mADListModel;
     public static boolean isfirstloaddata;
 
 
@@ -72,6 +74,7 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
         }
         isfirstloaddata = true;
         mHandler.sendEmptyMessageDelayed(10001, 100);
+        mHandler.sendEmptyMessageDelayed(10002, 100);
     }
 
     @Override
@@ -89,6 +92,17 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
                 // 设置数据
                 setLifeData();
                 break;
+            case 10002:
+                ADListModel mADListModel = NativieDataUtils.getADListDataModel();
+                if (mADListModel == null || !NativieDataUtils.getTodyYMD().equals(mADListModel.getUpdate())) {
+                    mLifeBusiness.getADData(APPCationStation.LOADINGAD, "");
+                }
+                if (mADListModel == null || mADListModel.getPn() == null || mADListModel.getPn().size() == 0) {
+                    return;
+                }
+                this.mADListModel = mADListModel;
+                setADListData();
+                break;
         }
     }
 
@@ -101,6 +115,14 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
                     mLifeDataModel.setUpdate(NativieDataUtils.getTodyYMD());
                     NativieDataUtils.setLifeDataModel(mLifeDataModel);
                     mHandler.sendEmptyMessage(10001);
+                }
+                break;
+            case APPCationStation.LOADINGAD:
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    ADListModel mADListModel = (ADListModel) mConnectResult.getObject();
+                    mADListModel.setUpdate(NativieDataUtils.getTodyYMD());
+                    NativieDataUtils.setADListDataModel(mADListModel);
+                    mHandler.sendEmptyMessage(10002);
                 }
                 break;
         }
@@ -142,6 +164,10 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
         } else {
             mGridView.setAdapter(null);
         }
+    }
+
+    private void setADListData() {
+
     }
 
     @Override

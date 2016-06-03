@@ -147,7 +147,9 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                         @Override
                         public void run() {
                             // 排序(耗时)
-                            Collections.sort(mRedModel.getGifts());
+                            if (mRedModel.getGifts() != null && mRedModel.getGifts().size() > 0) {
+                                Collections.sort(mRedModel.getGifts());
+                            }
                             NativieDataUtils.setRedModel(mRedModel, NativieDataUtils.getTodyY(), "received");
                             RedPacketFragment.this.mRedModel = mRedModel;
                             mHandler.sendEmptyMessage(10002);
