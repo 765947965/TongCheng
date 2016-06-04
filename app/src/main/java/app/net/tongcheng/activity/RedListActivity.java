@@ -84,6 +84,8 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
         mHeadViewHolder = new ViewHolder(headView, this);
         mHeadViewHolder.setOnClickListener(R.id.myred_changeredtype);
         mHeadViewHolder.setOnClickListener(R.id.redslat_yearchange_layout);
+        mHeadViewHolder.setText(R.id.redslat_yearchange, year);
+        mHeadViewHolder.setText(R.id.myred_changeredtype, "收到的红包");
         mRecyclerView.addHeaderView(headView);
         initPOPView();
     }
@@ -274,7 +276,7 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
 
     /**
      * 显示popWindow
-     * */
+     */
     public void showPop(View parent) {
         if (mPopupWindow == null) {
             return;
@@ -297,5 +299,13 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
     public void setmAlertDialog(AlertDialog mAlertDialog, int selectRedModel) {
         this.mAlertDialog = mAlertDialog;
         this.selectRedModel = selectRedModel;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mPopupWindow != null) {
+            mPopupWindow.dismiss();
+        }
     }
 }

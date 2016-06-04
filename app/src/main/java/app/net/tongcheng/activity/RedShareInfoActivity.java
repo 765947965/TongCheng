@@ -99,6 +99,7 @@ public class RedShareInfoActivity extends BaseActivity implements View.OnClickLi
         mViewHolder.setText(R.id.reddetails_from_money, money_temp + "");
         mViewHolder.setText(R.id.reddetails_from_money_dj, "元");
         mViewHolder.setText(R.id.reddetails_from_money_time, money_temp + "已存入钱包");
+        mViewHolder.setText(R.id.reddetails_from_tips, mGiftsBean.getTips());
         // 设置头像
     }
 
