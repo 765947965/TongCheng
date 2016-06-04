@@ -15,7 +15,8 @@
         <ImageView
             android:id="@+id/iv_life_head_1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true" />
 
         <TextView
             android:id="@+id/tv_life_head_1"
@@ -45,7 +46,8 @@
             <ImageView
                 android:id="@+id/iv_life_head_2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true" />
 
             <TextView
                 android:id="@+id/tv_life_head_2"
@@ -75,7 +77,8 @@
                 <ImageView
                     android:id="@+id/iv_life_head_3"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true" />
 
                 <TextView
                     android:id="@+id/tv_life_head_3"
@@ -100,7 +103,8 @@
                 <ImageView
                     android:id="@+id/iv_life_head_4"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true" />
 
                 <TextView
                     android:id="@+id/tv_life_head_4"

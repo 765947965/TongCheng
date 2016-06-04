@@ -128,7 +128,7 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
     @Override
     public void onTabSelected(MaterialTab tab) {
         flag = true;
-        mPager.setCurrentItem(tab.getPosition());
+        mPager.setCurrentItem(tab.getPosition(), false);
     }
 
     @Override

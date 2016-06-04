@@ -111,19 +111,16 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                 break;
             case 10003:
                 // 显示数据
-                if (mRedModel == null || mRedModel.getGifts() == null || mRedModel.getGifts().size() == 0) {
-                    return;
-                }
                 if (mRedListAdapter == null) {
                     mDatas = new ArrayList<>();
-                    mDatas.addAll(mRedModel.getGifts());
                     mRedListAdapter = new RedListAdapter(getActivity(), mDatas, mSwipeRefreshLayout, mRedBusiness, this);
                     mRecyclerView.setAdapter(mRedListAdapter);
-                } else {
-                    mDatas.clear();
-                    mDatas.addAll(mRedModel.getGifts());
-                    mRedListAdapter.notifyDataSetChanged();
                 }
+                mDatas.clear();
+                if (mRedModel != null && mRedModel.getGifts() != null && mRedModel.getGifts().size() > 0) {
+                    mDatas.addAll(mRedModel.getGifts());
+                }
+                mRedListAdapter.notifyDataSetChanged();
                 break;
             case 10004:
                 if (notERedNum > 0) {
@@ -212,6 +209,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                 if (mAlertDialog != null && mAlertDialog.isShowing()) {
                     ((ImageView) mAlertDialog.findViewById(R.id.red_anim_image)).setImageResource(R.drawable.rpopen);
                     mAlertDialog.findViewById(R.id.red_anim_image).setEnabled(true);
+                    ((TextView) mAlertDialog.findViewById(R.id.red_errortext)).setText("请检查网络连接!");
                 }
                 break;
         }
