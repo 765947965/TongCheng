@@ -90,6 +90,10 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
         if (isfirstloaddata) {
             return;
         }
+        if (NativieDataUtils.getTodyY().compareTo("2016") < 0) {
+            DialogUtil.showTipsDialog(getActivity(), "手机时间不正确，请调整手机时间后刷新！", null);
+            return;
+        }
         isfirstloaddata = true;
         mHandler.sendEmptyMessageDelayed(10001, 100);
     }

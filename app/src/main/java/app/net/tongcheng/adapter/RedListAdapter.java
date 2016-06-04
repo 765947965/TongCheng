@@ -148,7 +148,7 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
                     // 设置是否已拆动作
                     if (itemdata.getHas_open() == 0) {
                         // (如果是未拆红包)定义未拆红包是否过期
-                        if (datestr_today.compareTo(itemdata.getExp_time()) < 0) {
+                        if (datestr_today.compareTo(itemdata.getExp_time()) > 0) {
                             red_moneys.setText("已失效");
                         } else {
                             red_moneys.setText("￥");
