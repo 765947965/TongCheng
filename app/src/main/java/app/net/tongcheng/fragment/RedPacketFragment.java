@@ -36,6 +36,7 @@ import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.ErrorInfoUtil;
 import app.net.tongcheng.util.NativieDataUtils;
+import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
 
@@ -231,6 +232,10 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                 startActivity(new Intent(TCApplication.mContext, BalanceActivity.class));
                 break;
             case R.id.llt_redlist://红包列表
+                if (mSwipeRefreshLayout.isRefreshing()) {
+                    ToastUtil.showToast("正在同步数据...");
+                    return;
+                }
                 startActivity(new Intent(TCApplication.mContext, RedListActivity.class));
                 break;
         }
