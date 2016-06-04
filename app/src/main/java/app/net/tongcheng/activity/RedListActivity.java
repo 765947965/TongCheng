@@ -1,18 +1,21 @@
-package app.net.tongcheng.fragment;
+package app.net.tongcheng.activity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+
+import com.kevin.wraprecyclerview.WrapRecyclerView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,10 +25,6 @@ import java.util.List;
 import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
-import app.net.tongcheng.activity.BalanceActivity;
-import app.net.tongcheng.activity.PayMoneyActivity;
-import app.net.tongcheng.activity.RedListActivity;
-import app.net.tongcheng.activity.RedShareInfoActivity;
 import app.net.tongcheng.adapter.RedListAdapter;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
@@ -36,6 +35,7 @@ import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.ErrorInfoUtil;
 import app.net.tongcheng.util.NativieDataUtils;
+import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
 
@@ -44,59 +44,74 @@ import app.net.tongcheng.util.ViewHolder;
  * @Filename:
  * @Description:
  * @Copyright: Copyright (c) 2016 Tuandai Inc. All rights reserved.
- * @date: 2016/4/16 15:42
+ * @date: 2016/6/4 10:43
  */
-public class RedPacketFragment extends BaseFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, RedListAdapter.RedListAdapterSetDialog {
-
-    private ViewHolder mViewHolder;
+public class RedListActivity extends BaseActivity implements View.OnClickListener, RedListAdapter.RedListAdapterSetDialog, SwipeRefreshLayout.OnRefreshListener {
+    private ViewHolder mViewHolder, mHeadViewHolder;
+    private String year, direct;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private RecyclerView mRecyclerView;
+    private WrapRecyclerView mRecyclerView;
     private RedListAdapter mRedListAdapter;
     private RedBusiness mRedBusiness;
     private List<GiftsBean> mDatas;
     private RedModel mRedModel;
     private AlertDialog mAlertDialog;
     private int selectRedModel;
-    private int notERedNum;
-    public static boolean isfirstloaddata;
+    private boolean isFilterExcrete;
+    private PopupWindow mPopupWindow;
 
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(TCApplication.mContext).inflate(R.layout.fragment_red_packet_layout, null);
-        initView(view);
-        isfirstloaddata = false;
-        mRedBusiness = new RedBusiness(this, getActivity(), mHandler);
-        return view;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.red_list_data_layout);
+        initView();
+        year = NativieDataUtils.getTodyY();
+        direct = "received";
+        mRedBusiness = new RedBusiness(this, this, mHandler);
     }
 
-
-    private void initView(View view) {
-        mViewHolder = new ViewHolder(view, this);
+    private void initView() {
+        mViewHolder = new ViewHolder(findViewById(R.id.llt_main), this);
         mSwipeRefreshLayout = mViewHolder.getView(R.id.mSwipeRefreshLayout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.refurush_color);
         mSwipeRefreshLayout.setOnRefreshListener(this);
+        mViewHolder.setOnClickListener(R.id.iv_close);
         mRecyclerView = mViewHolder.getView(R.id.mRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(TCApplication.mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        mViewHolder.setOnClickListener(R.id.llt_fukuang);
-        mViewHolder.setOnClickListener(R.id.llt_balance);
-        mViewHolder.setOnClickListener(R.id.llt_redlist);
+        View headView = LayoutInflater.from(TCApplication.mContext).inflate(R.layout.red_list_head_data_layout, null);
+        mHeadViewHolder = new ViewHolder(headView, this);
+        mHeadViewHolder.setOnClickListener(R.id.myred_changeredtype);
+        mHeadViewHolder.setOnClickListener(R.id.redslat_yearchange_layout);
+        mRecyclerView.addHeaderView(headView);
+        initPOPView();
+    }
+
+    private void initPOPView() {
+        View popView = LayoutInflater.from(RedListActivity.this).inflate(
+                R.layout.red_popupwindow, null);
+        mPopupWindow = new PopupWindow(popView, ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        ColorDrawable dw = new ColorDrawable(Color.parseColor("#00000000"));
+        mPopupWindow.setBackgroundDrawable(dw);
+        TextView ppwindow_redall = (TextView) popView
+                .findViewById(R.id.ppwindow_redall);
+        TextView ppwindow_rednot = (TextView) popView
+                .findViewById(R.id.ppwindow_rednot);
+        TextView sendoutred_bt = (TextView) popView
+                .findViewById(R.id.sendoutred_bt);
+        ppwindow_redall.setOnClickListener(this);
+        ppwindow_rednot.setOnClickListener(this);
+        sendoutred_bt.setOnClickListener(this);
     }
 
     @Override
-    public void loadData() {//第一次加载或者主动加载
-        //读取数据
-        if (isfirstloaddata) {
-            return;
-        }
+    public void loadData() {
         if (NativieDataUtils.getTodyY().compareTo("2016") < 0) {
-            DialogUtil.showTipsDialog(getActivity(), "手机时间不正确，请调整手机时间后刷新！", null);
+            DialogUtil.showTipsDialog(this, "手机时间不正确，请调整手机时间后刷新！", null);
             return;
         }
-        isfirstloaddata = true;
         mHandler.sendEmptyMessageDelayed(10001, 100);
     }
 
@@ -104,10 +119,10 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
     public void mHandDoSomeThing(Message msg) {
         switch (msg.what) {
             case 10001:
-                mRedModel = NativieDataUtils.getRedModel(NativieDataUtils.getTodyY(), "received");
+                mRedModel = NativieDataUtils.getRedModel(year, direct);
                 if (mRedModel == null || !NativieDataUtils.getTodyYMD().equals(mRedModel.getUpdate())) {
                     mSwipeRefreshLayout.setRefreshing(true);
-                    mRedBusiness.getRedList(APPCationStation.LOADING, "", NativieDataUtils.getTodyY(), "received");
+                    mRedBusiness.getRedList(APPCationStation.LOADING, "", year, direct);
                 }
                 mHandler.sendEmptyMessage(10003);
                 break;
@@ -119,23 +134,22 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                 // 显示数据
                 if (mRedListAdapter == null) {
                     mDatas = new ArrayList<>();
-                    mRedListAdapter = new RedListAdapter(getActivity(), mDatas, mSwipeRefreshLayout, mRedBusiness, this);
+                    mRedListAdapter = new RedListAdapter(this, mDatas, mSwipeRefreshLayout, mRedBusiness, this);
                     mRecyclerView.setAdapter(mRedListAdapter);
                 }
                 mDatas.clear();
                 if (mRedModel != null && mRedModel.getGifts() != null && mRedModel.getGifts().size() > 0) {
-                    mDatas.addAll(mRedModel.getGifts());
-                }
-                mRedListAdapter.notifyDataSetChanged();
-                break;
-            case 10004:
-                if (notERedNum > 0) {
-                    if (notERedNum == 1) {
-                        setmAlertDialog(DialogUtil.getExcreteRedDilaog(getActivity(), mRedModel.getGifts().get(0), mRedBusiness), 0);
+                    if ("received".equals(direct) && isFilterExcrete) {
+                        for (GiftsBean mGiftsBean : mRedModel.getGifts()) {
+                            if (mGiftsBean.getHas_open() == 0) {
+                                mDatas.add(mGiftsBean);
+                            }
+                        }
                     } else {
-                        DialogUtil.showExcreteRedTipsDilaog(getActivity(), notERedNum);
+                        mDatas.addAll(mRedModel.getGifts());
                     }
                 }
+                mRedListAdapter.notifyDataSetChanged();
                 break;
         }
     }
@@ -154,26 +168,9 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                             if (mRedModel.getGifts() != null && mRedModel.getGifts().size() > 0) {
                                 Collections.sort(mRedModel.getGifts());
                             }
-                            NativieDataUtils.setRedModel(mRedModel, NativieDataUtils.getTodyY(), "received");
-                            RedPacketFragment.this.mRedModel = mRedModel;
+                            NativieDataUtils.setRedModel(mRedModel, year, direct);
+                            RedListActivity.this.mRedModel = mRedModel;
                             mHandler.sendEmptyMessage(10002);
-                            // 提示未拆红包
-                            notERedNum = 0;
-                            String datestr_today = Utils.sdformat_3.format(new Date());
-                            if (mRedModel.getGifts() != null && mRedModel.getGifts().size() > 0) {
-                                for (GiftsBean mGiftsBean : mRedModel.getGifts()) {
-                                    if (mGiftsBean.getHas_open() == 1) {
-                                        break;
-                                    }
-                                    if (mGiftsBean.getHas_open() == 0) {
-                                        if (datestr_today.compareTo(mGiftsBean.getExp_time()) < 0) {
-                                            break;
-                                        }
-                                    }
-                                    notERedNum += 1;
-                                }
-                            }
-                            mHandler.sendEmptyMessage(10004);
                         }
                     });
                 }
@@ -187,7 +184,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                         itemdata.setMoney(mExcreteRedModel.getAward_money());
                         itemdata.setOpen_time(Utils.sdformat.format(new Date()));
                         mRedListAdapter.notifyDataSetChanged();
-                        NativieDataUtils.setRedModel(mRedModel, NativieDataUtils.getTodyY(), "received");
+                        NativieDataUtils.setRedModel(mRedModel, year, direct);
                         if (mAlertDialog != null && mAlertDialog.isShowing()) {
                             mAlertDialog.dismiss();
                         }
@@ -224,25 +221,76 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.llt_fukuang://付款
-                startActivity(new Intent(TCApplication.mContext, PayMoneyActivity.class));
+            case R.id.iv_close:
+                finish();
                 break;
-            case R.id.llt_balance://余额
-                startActivity(new Intent(TCApplication.mContext, BalanceActivity.class));
+            case R.id.myred_changeredtype://改变类型
+                if (mSwipeRefreshLayout.isRefreshing()) {
+                    ToastUtil.showToast("正在同步数据...");
+                    return;
+                }
+                showPop(mHeadViewHolder.getView(R.id.myred_changeredtype));
                 break;
-            case R.id.llt_redlist://红包列表
-                startActivity(new Intent(TCApplication.mContext, RedListActivity.class));
+            case R.id.redslat_yearchange_layout://改变年份
+                if (mSwipeRefreshLayout.isRefreshing()) {
+                    ToastUtil.showToast("正在同步数据...");
+                    return;
+                }
+                break;
+            case R.id.ppwindow_redall:
+                mPopupWindow.dismiss();
+                if ("received".equals(direct) && !isFilterExcrete) {
+                    return;
+                }
+                direct = "received";
+                isFilterExcrete = false;
+                mHeadViewHolder.setText(R.id.myred_changeredtype, "收到的红包");
+                mHeadViewHolder.setText(R.id.sendorrecevedtext, "已收到");
+                loadData();
+                break;
+            case R.id.ppwindow_rednot:
+                mPopupWindow.dismiss();
+                if ("received".equals(direct) && isFilterExcrete) {
+                    return;
+                }
+                direct = "received";
+                isFilterExcrete = true;
+                mHeadViewHolder.setText(R.id.myred_changeredtype, "未拆红包");
+                mHeadViewHolder.setText(R.id.sendorrecevedtext, "已收到");
+                loadData();
+                break;
+            case R.id.sendoutred_bt:
+                mPopupWindow.dismiss();
+                if ("sended".equals(direct)) {
+                    return;
+                }
+                direct = "sended";
+                mHeadViewHolder.setText(R.id.myred_changeredtype, "发出的红包");
+                mHeadViewHolder.setText(R.id.sendorrecevedtext, "已发出");
+                loadData();
                 break;
         }
+    }
+
+    /**
+     * 显示popWindow
+     * */
+    public void showPop(View parent) {
+        if (mPopupWindow == null) {
+            return;
+        }
+        mPopupWindow.showAsDropDown(parent);
+        mPopupWindow.setOutsideTouchable(true);
+        mPopupWindow.update();
     }
 
     @Override
     public void onRefresh() {
         if (NativieDataUtils.getTodyY().compareTo("2016") < 0) {
-            DialogUtil.showTipsDialog(getActivity(), "手机时间不正确，请调整手机时间后刷新！", null);
+            DialogUtil.showTipsDialog(this, "手机时间不正确，请调整手机时间后刷新！", null);
             return;
         }
-        mRedBusiness.getRedList(APPCationStation.LOADING, "", NativieDataUtils.getTodyY(), "received");
+        mRedBusiness.getRedList(APPCationStation.LOADING, "", year, direct);
     }
 
     @Override
