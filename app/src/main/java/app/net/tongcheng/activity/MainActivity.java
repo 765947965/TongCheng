@@ -14,6 +14,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.fragment.BaseFragment;
 import app.net.tongcheng.fragment.FriendFragment;
@@ -21,8 +22,12 @@ import app.net.tongcheng.fragment.LifeFragment;
 import app.net.tongcheng.fragment.MyFragment;
 import app.net.tongcheng.fragment.RedPacketFragment;
 import app.net.tongcheng.fragment.ShareFragment;
+import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.model.UpContentModel;
+import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ViewHolder;
 import app.net.tongcheng.view.materialtabs.MaterialTab;
 import app.net.tongcheng.view.materialtabs.MaterialTabHost;
@@ -46,6 +51,7 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
     private FriendFragment mFriendFragment;
     private ShareFragment mShareFragment;
     private MyFragment mMyFragment;
+    private OtherBusiness mOtherBusiness;
     private List<BaseFragment> listFragment = new ArrayList<>();
     // 定义数组来存放按钮图片
 //    private String mTextViewArray[] = {"红包", "生活", "好友", "分享", "我的"};
@@ -64,6 +70,7 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
         setCanSlidingClose(false);
         initView();
         setEventBus();
+        mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 
     private void initView() {
@@ -103,6 +110,12 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
             // 首页加载数据
             mRedPacketFragment.loadData();
         }
+        // 上传本地通讯录
+        UpContentModel mUpContentModel = NativieDataUtils.getUpContentModel();
+        if (mUpContentModel == null || !NativieDataUtils.getTodyYMD().equals(mUpContentModel.getUpdate())) {
+            // 读取本地通讯录
+            mOtherBusiness.upContentModel(APPCationStation.SUMBIT, "");
+        }
     }
 
     @Override
@@ -112,7 +125,15 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
 
     @Override
     public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-
+        switch (mLoding_Type) {
+            case APPCationStation.SUMBIT:
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    UpContentModel mUpContentModel = (UpContentModel) mConnectResult.getObject();
+                    mUpContentModel.setUpdate(NativieDataUtils.getTodyYMD());
+                    NativieDataUtils.setUpContentModel(mUpContentModel);
+                }
+                break;
+        }
     }
 
     @Override
@@ -181,51 +202,6 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
             return listFragment.size();
         }
 
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        if (mRedPacketFragment != null && mRedPacketFragment.isAdded() && mRedPacketFragment.isVisible()) {
-            getSupportFragmentManager().putFragment(outState, RedPacketFragment.class.getName(), mRedPacketFragment);
-        }
-        if (mLifeFragment != null && mLifeFragment.isAdded() && mLifeFragment.isVisible()) {
-            getSupportFragmentManager().putFragment(outState, LifeFragment.class.getName(), mLifeFragment);
-        }
-        if (mFriendFragment != null && mFriendFragment.isAdded() && mFriendFragment.isVisible()) {
-            getSupportFragmentManager().putFragment(outState, FriendFragment.class.getName(), mFriendFragment);
-        }
-        if (mShareFragment != null && mShareFragment.isAdded() && mShareFragment.isVisible()) {
-            getSupportFragmentManager().putFragment(outState, ShareFragment.class.getName(), mShareFragment);
-        }
-        if (mMyFragment != null && mMyFragment.isAdded() && mMyFragment.isVisible()) {
-            getSupportFragmentManager().putFragment(outState, MyFragment.class.getName(), mMyFragment);
-        }
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        Fragment temp_mRedPacketFragment = getSupportFragmentManager().getFragment(savedInstanceState, RedPacketFragment.class.getName());
-        if (temp_mRedPacketFragment != null) {
-            mRedPacketFragment = (RedPacketFragment) temp_mRedPacketFragment;
-        }
-        Fragment temp_mLifeFragment = getSupportFragmentManager().getFragment(savedInstanceState, LifeFragment.class.getName());
-        if (temp_mLifeFragment != null) {
-            mLifeFragment = (LifeFragment) temp_mLifeFragment;
-        }
-        Fragment temp_mFriendFragment = getSupportFragmentManager().getFragment(savedInstanceState, FriendFragment.class.getName());
-        if (temp_mFriendFragment != null) {
-            mFriendFragment = (FriendFragment) temp_mFriendFragment;
-        }
-        Fragment temp_mShareFragment = getSupportFragmentManager().getFragment(savedInstanceState, ShareFragment.class.getName());
-        if (temp_mShareFragment != null) {
-            mShareFragment = (ShareFragment) temp_mShareFragment;
-        }
-        Fragment temp_mMyFragment = getSupportFragmentManager().getFragment(savedInstanceState, MyFragment.class.getName());
-        if (temp_mMyFragment != null) {
-            mMyFragment = (MyFragment) temp_mMyFragment;
-        }
-        super.onRestoreInstanceState(savedInstanceState);
     }
 
     public static void setTabHintSpotVisibility(int item, int visibility) {

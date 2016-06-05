@@ -42,10 +42,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:id="@+id/rlt_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true">
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/dividing_line_light"/>
+
+            <TextView
+                android:id="@+id/tv_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/bt_reg_drawable"
+                android:enabled="false"
+                android:text="@string/nextbt"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/mRecyclerViewH"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_toLeftOf="@id/tv_next" />
+        </RelativeLayout>
+
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/mSwipeRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_above="@id/rlt_bottom">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/mRecyclerView"
@@ -58,6 +93,7 @@
             android:id="@+id/mlist_abclist"
             android:layout_width="25dp"
             android:layout_height="match_parent"
+            android:layout_above="@id/rlt_bottom"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="10dp" />
     </RelativeLayout>

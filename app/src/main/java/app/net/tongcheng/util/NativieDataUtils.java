@@ -11,6 +11,7 @@ import app.net.tongcheng.model.ADListModel;
 import app.net.tongcheng.model.LifeDataModel;
 import app.net.tongcheng.model.RedModel;
 import app.net.tongcheng.model.StartPageModel;
+import app.net.tongcheng.model.UpContentModel;
 
 /**
  * @author: xiewenliang
@@ -104,5 +105,18 @@ public class NativieDataUtils {
     public static void setADListDataModel(ADListModel mADListModel) {
         String str = JSON.toJSONString(mADListModel);
         OperationUtils.PutString("life_ad_list_model", str);
+    }
+
+    public static UpContentModel getUpContentModel() {
+        String str = OperationUtils.getString("UpContentModel_model");
+        if (TextUtils.isEmpty(str)) {
+            return null;
+        }
+        return JSON.parseObject(str, UpContentModel.class);
+    }
+
+    public static void setUpContentModel(UpContentModel mUpContentModel) {
+        String str = JSON.toJSONString(mUpContentModel);
+        OperationUtils.PutString("UpContentModel_model", str);
     }
 }

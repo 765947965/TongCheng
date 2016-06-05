@@ -15,4 +15,6 @@ public class HttpUrls {
     public static final String RED_Checkout_URL = "http://mobile.8hbao.com:8899/gift/checkout_gift_v2";//拆红包
     public static final String servicePage_URL = "http://mobile.8hbao.com:8899/config/get_service_page_config";//发现页数据
     public static final String URL = "http://mobile.8hbao.com:8899/";
+    public static final String COMMITFRIEND = "http://mobile.8hbao.com:8899/friend/uploadAixinContact";//上传通讯录
+    public static final String GETAixinFriends = "http://mobile.8hbao.com:8899/friend/getAixinFriends";//获取好友列表
 }

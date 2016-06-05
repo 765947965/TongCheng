@@ -1,0 +1,35 @@
+package app.net.tongcheng.Business;
+
+import android.app.Activity;
+import android.os.Handler;
+
+import org.xutils.http.RequestParams;
+
+import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.model.BaseModel;
+import app.net.tongcheng.util.CancelableClear;
+import app.net.tongcheng.util.HttpUrls;
+
+/**
+ * Created by 76594 on 2016/6/5.
+ */
+public class FriendBusiness extends BaseBusiness {
+
+
+    public FriendBusiness(CancelableClear mCancelableClear, Activity mActivity, Handler mHandler) {
+        super(mCancelableClear, mActivity, mHandler);
+    }
+
+    public void uploadContens(int mLoding_Type, String message) {
+        RequestParams params = new RequestParams(HttpUrls.COMMITFRIEND);
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+    }
+
+    public void getFriends(int mLoding_Type, String message) {
+        RequestParams params = new RequestParams(HttpUrls.GETAixinFriends);
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        params.addQueryStringParameter("ver", "1.0");
+        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+    }
+}

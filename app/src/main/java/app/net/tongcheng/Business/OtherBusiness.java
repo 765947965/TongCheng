@@ -10,6 +10,7 @@ import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.RegisterCode;
 import app.net.tongcheng.model.RegisterInviteflagModel;
 import app.net.tongcheng.model.StartPageModel;
+import app.net.tongcheng.model.UpContentModel;
 import app.net.tongcheng.model.UserInfo;
 import app.net.tongcheng.util.CancelableClear;
 import app.net.tongcheng.util.Common;
@@ -124,6 +125,13 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("pix_level", "mdpi");
         params.addQueryStringParameter("ver", "1.0");
         goConnect(mLoding_Type, params, message, StartPageModel.class.getName());
+    }
+
+
+    public void upContentModel(int mLoding_Type, String message){
+        RequestParams params = new RequestParams(HttpUrls.COMMITFRIEND);
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        goConnect(mLoding_Type, params, message, UpContentModel.class.getName());
     }
 
 }

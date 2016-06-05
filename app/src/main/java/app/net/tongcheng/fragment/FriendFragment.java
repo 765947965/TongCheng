@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import app.net.tongcheng.Business.FriendBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -25,13 +27,16 @@ import app.net.tongcheng.util.ViewHolder;
 public class FriendFragment extends BaseFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     private ViewHolder mViewHolder;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private RecyclerView mRecyclerView;
+    private RecyclerView mRecyclerView, mRecyclerViewH;
+    private FriendBusiness mFriendBusiness;
+    public static boolean isfirstloaddata;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_friend_layout, null);
         initView(view);
+        mFriendBusiness = new FriendBusiness(this, getActivity(), mHandler);
         return view;
     }
 
@@ -46,11 +51,19 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(TCApplication.mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerViewH = mViewHolder.getView(R.id.mRecyclerViewH);
+        LinearLayoutManager linearLayoutManagerH = new LinearLayoutManager(TCApplication.mContext);
+        linearLayoutManagerH.setOrientation(LinearLayoutManager.HORIZONTAL);
+        mRecyclerViewH.setLayoutManager(linearLayoutManagerH);
     }
 
     @Override
     public void loadData() {
-
+        if (isfirstloaddata) {
+            return;
+        }
+        isfirstloaddata = true;
+        mFriendBusiness.getFriends(APPCationStation.LOADING, "");
     }
 
     @Override
