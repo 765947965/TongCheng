@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:divider="@color/dividing_line_light"
                 android:dividerHeight="0.5dp"
-                android:listSelector="#00000000" />
+                android:listSelector="#10000000" />
         </ScrollView>
     </LinearLayout>
 </RelativeLayout>
