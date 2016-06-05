@@ -4,7 +4,17 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/refurush_color</item>
-        <item name="colorPrimaryDark">@color/refurush_color_dark</item>
+        <item name="colorPrimaryDark">@color/refurush_color</item>
+        <item name="colorAccent">@color/refurush_color</item>
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+        <!--<item name="android:windowBackground">@android:color/transparent</item>-->
+        <!--<item name="android:windowAnimationStyle">@style/activityAnimation</item>-->
+    </style>
+
+    <style name="WhiteAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
         <item name="colorAccent">@color/refurush_color</item>
         <!--<item name="android:windowIsTranslucent">true</item>-->
         <!--<item name="android:windowBackground">@android:color/transparent</item>-->

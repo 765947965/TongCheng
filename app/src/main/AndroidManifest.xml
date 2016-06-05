@@ -42,7 +42,8 @@
         <activity
             android:name=".activity.LocationActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/WhiteAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -65,6 +66,7 @@
             android:name=".activity.RegisterActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
+            android:theme="@style/WhiteAppTheme"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name=".activity.PayMoneyActivity"
@@ -93,7 +95,8 @@
         <activity
             android:name=".activity.StartPageActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/WhiteAppTheme" />
         <activity
             android:name=".activity.RedShareInfoActivity"
             android:launchMode="singleTop"
