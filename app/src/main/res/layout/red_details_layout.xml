@@ -27,7 +27,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="2"
                     android:scaleType="fitXY"
-                    android:src="@drawable/red_details_bg_head" />
+                    android:src="@drawable/red_head_top_image" />
 
                 <View
                     android:layout_width="match_parent"
@@ -91,7 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_centerHorizontal="true"
-                        android:src="@drawable/red_head_image" />
+                        android:src="@drawable/red_dialog_head_image" />
 
                     <ImageView
                         android:id="@+id/reddetails_from_iamge"
