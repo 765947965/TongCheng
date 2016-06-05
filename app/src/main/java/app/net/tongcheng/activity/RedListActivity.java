@@ -46,7 +46,7 @@ import app.net.tongcheng.util.ViewHolder;
  * @Copyright: Copyright (c) 2016 Tuandai Inc. All rights reserved.
  * @date: 2016/6/4 10:43
  */
-public class RedListActivity extends BaseActivity implements View.OnClickListener, RedListAdapter.RedListAdapterSetDialog, SwipeRefreshLayout.OnRefreshListener {
+public class RedListActivity extends BaseActivity implements View.OnClickListener, RedListAdapter.RedListAdapterSetDialog, SwipeRefreshLayout.OnRefreshListener, DialogUtil.OnListDialogListener<String> {
     private ViewHolder mViewHolder, mHeadViewHolder;
     private String year, direct;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -54,6 +54,7 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
     private RedListAdapter mRedListAdapter;
     private RedBusiness mRedBusiness;
     private List<GiftsBean> mDatas;
+    private List<String> cities;
     private RedModel mRedModel;
     private AlertDialog mAlertDialog;
     private int selectRedModel;
@@ -64,8 +65,7 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.red_list_data_layout);
-        year = NativieDataUtils.getTodyY();
-        direct = "received";
+        setData();
         initView();
         mRedBusiness = new RedBusiness(this, this, mHandler);
     }
@@ -106,6 +106,15 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
         ppwindow_redall.setOnClickListener(this);
         ppwindow_rednot.setOnClickListener(this);
         sendoutred_bt.setOnClickListener(this);
+    }
+
+    private void setData() {
+        year = NativieDataUtils.getTodyY();
+        direct = "received";
+        cities = new ArrayList<>();
+        for (int yr = Integer.parseInt(year); yr >= 2016; yr--) {
+            cities.add(yr + "");
+        }
     }
 
     @Override
@@ -257,6 +266,7 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
                     ToastUtil.showToast("正在同步数据...");
                     return;
                 }
+                DialogUtil.showListDilaog(this, cities, "请选择年份", R.layout.text_item_layout, this);
                 break;
             case R.id.ppwindow_redall:
                 mPopupWindow.dismiss();
@@ -326,5 +336,22 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
         if (mPopupWindow != null) {
             mPopupWindow.dismiss();
         }
+    }
+
+    @Override
+    public void CreateItem(ViewHolder holder, String item, List<String> list, int position) {
+        // 年份dialog创建Item
+        holder.setText(R.id.tv_item, item);
+    }
+
+    @Override
+    public void OnItemSelect(View view, List<String> mDatas, String mItemdata, int position) {
+        // 年份dialog点击Item
+        if (year.equals(mItemdata)) {
+            return;
+        }
+        year = mItemdata;
+        mHeadViewHolder.setText(R.id.redslat_yearchange, year);
+        loadData();
     }
 }

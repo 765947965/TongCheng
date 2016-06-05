@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/bg_rounded_box"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:textColor="@color/refurush_color_dark"
+            android:textSize="@dimen/sp18" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/dividing_line_light" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <app.net.tongcheng.view.ScrollViewListView
+                android:id="@+id/mListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@color/dividing_line_light"
+                android:dividerHeight="0.5dp"
+                android:listSelector="#00000000" />
+        </ScrollView>
+    </LinearLayout>
+</RelativeLayout>

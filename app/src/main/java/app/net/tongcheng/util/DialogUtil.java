@@ -7,15 +7,20 @@ import android.graphics.drawable.AnimationDrawable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.w3c.dom.Text;
 
+import java.util.List;
+
 import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
+import app.net.tongcheng.adapter.MyBaseAdapter;
 import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.GiftsBean;
 
@@ -121,6 +126,12 @@ public class DialogUtil {
         public void clickConfirm(boolean isCheckMenoy);
 
         public void clickCancel();
+    }
+
+    public interface OnListDialogListener<T> {
+        void CreateItem(ViewHolder holder, String item, List<String> list, int position);
+
+        void OnItemSelect(View view, List<T> mDatas, T mItemdata, int position);
     }
 
     public static void showTipsDialog(Activity activity, String message, final OnConfirmListener listener) {
@@ -278,6 +289,35 @@ public class DialogUtil {
         mViewHolder.getView(R.id.red_closedbt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+    public static void showListDilaog(Activity mActivity, List<String> mDatas, String title, int itemLayoutId, final OnListDialogListener<String> mOnListDialogListener) {
+        if (mActivity == null || mActivity.isFinishing()) {
+            return;
+        }
+        final AlertDialog dialog = new AlertDialog.Builder(mActivity, R.style.quick_red_option_dialog).create();
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+        View view = LayoutInflater.from(mActivity).inflate(R.layout.red_change_year_dialog_layout, null);
+        dialog.setContentView(view);
+        ((TextView) view.findViewById(R.id.tv_title)).setText(title);
+        ListView mListView = (ListView) view.findViewById(R.id.mListView);
+        mListView.setAdapter(new MyBaseAdapter<String>(mListView, mActivity, mDatas, itemLayoutId) {
+            @Override
+            protected void convert(ViewHolder holder, String item, List<String> list, int position) {
+                if (mOnListDialogListener != null) {
+                    mOnListDialogListener.CreateItem(holder, item, list, position);
+                }
+            }
+
+            @Override
+            protected void MyonItemClick(AdapterView<?> parent, View view, String item, List<String> list, int position, long id) {
+                if (mOnListDialogListener != null) {
+                    mOnListDialogListener.OnItemSelect(view, list, item, position);
+                }
                 dialog.dismiss();
             }
         });
