@@ -64,9 +64,9 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.red_list_data_layout);
-        initView();
         year = NativieDataUtils.getTodyY();
         direct = "received";
+        initView();
         mRedBusiness = new RedBusiness(this, this, mHandler);
     }
 
@@ -152,6 +152,8 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
                     }
                 }
                 mRedListAdapter.notifyDataSetChanged();
+                // 统计金额
+
                 break;
         }
     }
