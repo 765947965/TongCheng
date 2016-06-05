@@ -153,7 +153,24 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
                 }
                 mRedListAdapter.notifyDataSetChanged();
                 // 统计金额
-
+                mHeadViewHolder.setText(R.id.myred_allmoneynum, mDatas.size() + "个");
+                if ("received".equals(direct) && isFilterExcrete) {
+                    mHeadViewHolder.setText(R.id.myred_allmoney, "未知");
+                } else if ("received".equals(direct) && !isFilterExcrete) {
+                    double money_all = 0;
+                    for (GiftsBean mGiftsBean : mDatas) {
+                        if (mGiftsBean.getHas_open() == 1) {
+                            money_all += mGiftsBean.getMoney();
+                        }
+                    }
+                    mHeadViewHolder.setText(R.id.myred_allmoney, money_all / 100d + "元");
+                } else {
+                    double money_all = 0;
+                    for (GiftsBean mGiftsBean : mDatas) {
+                        money_all += mGiftsBean.getMoney();
+                    }
+                    mHeadViewHolder.setText(R.id.myred_allmoney, money_all / 100d + "元");
+                }
                 break;
         }
     }

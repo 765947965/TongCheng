@@ -167,7 +167,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                                         break;
                                     }
                                     if (mGiftsBean.getHas_open() == 0) {
-                                        if (datestr_today.compareTo(mGiftsBean.getExp_time()) < 0) {
+                                        if (datestr_today.compareTo(mGiftsBean.getExp_time()) > 0) {
                                             break;
                                         }
                                     }
