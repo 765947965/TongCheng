@@ -14,7 +14,9 @@ import app.net.tongcheng.Business.FriendBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.model.FriendModel;
 import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -29,6 +31,7 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView, mRecyclerViewH;
     private FriendBusiness mFriendBusiness;
+    private FriendModel mFriendModel;
     public static boolean isfirstloaddata;
 
     @Nullable
@@ -63,17 +66,50 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
             return;
         }
         isfirstloaddata = true;
-        mFriendBusiness.getFriends(APPCationStation.LOADING, "");
+        mHandler.sendEmptyMessage(10001);
+        mHandler.sendEmptyMessageDelayed(10001, 100);
     }
 
     @Override
     public void mHandDoSomeThing(Message msg) {
+        switch (msg.what) {
+            case 10001:
+                mFriendModel = NativieDataUtils.getFriendModel();
+                if (mFriendModel == null || !NativieDataUtils.getTodyYMD().equals(mFriendModel.getUpdate())) {
+                    mSwipeRefreshLayout.setRefreshing(true);
+                    mFriendBusiness.getFriends(APPCationStation.LOADING, "", mFriendModel == null ? "1.0" : mFriendModel.getVer());
+                }
+                mHandler.sendEmptyMessage(10003);
+                break;
+            case 10002:
+                mSwipeRefreshLayout.setRefreshing(false);
+                mHandler.sendEmptyMessage(10003);
+                break;
+            case 10003:
 
+                break;
+        }
     }
 
     @Override
     public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-
+        switch (mLoding_Type) {
+            case APPCationStation.LOADING:
+                if (mConnectResult != null && mConnectResult.getObject() != null) {
+                    FriendModel mFriendModel = (FriendModel) mConnectResult.getObject();
+                    if (mFriendModel.getResult() == 0) {
+                        // 处理拼音
+                        mFriendModel.setUpdate(NativieDataUtils.getTodyYMD());
+                        NativieDataUtils.setFriendModel(mFriendModel);
+                        FriendFragment.this.mFriendModel = mFriendModel;
+                        mHandler.sendEmptyMessage(10002);
+                    } else if (mFriendModel.getResult() == 64) {
+                        FriendFragment.this.mFriendModel.setUpdate(NativieDataUtils.getTodyYMD());
+                        NativieDataUtils.setFriendModel(FriendFragment.this.mFriendModel);
+                    }
+                }
+                break;
+        }
     }
 
     @Override

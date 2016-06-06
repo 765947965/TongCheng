@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import app.net.tongcheng.model.ADListModel;
+import app.net.tongcheng.model.FriendModel;
 import app.net.tongcheng.model.LifeDataModel;
 import app.net.tongcheng.model.RedModel;
 import app.net.tongcheng.model.StartPageModel;
@@ -118,5 +119,18 @@ public class NativieDataUtils {
     public static void setUpContentModel(UpContentModel mUpContentModel) {
         String str = JSON.toJSONString(mUpContentModel);
         OperationUtils.PutString("UpContentModel_model", str);
+    }
+
+    public static FriendModel getFriendModel() {
+        String str = OperationUtils.getString("mFriendModel");
+        if (TextUtils.isEmpty(str)) {
+            return null;
+        }
+        return JSON.parseObject(str, FriendModel.class);
+    }
+
+    public static void setFriendModel(FriendModel mFriendModel) {
+        String str = JSON.toJSONString(mFriendModel);
+        OperationUtils.PutString("mFriendModel", str);
     }
 }
