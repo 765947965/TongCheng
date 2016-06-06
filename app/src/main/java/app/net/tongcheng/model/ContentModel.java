@@ -11,16 +11,16 @@ import java.util.List;
  */
 public class ContentModel {
 
-    public ContentModel(long id, String name, List<String> phones) {
+    public ContentModel(long id, String name, List<String> mobile) {
         this.id = id;
         this.name = name;
-        this.phones = phones;
+        this.mobile = mobile;
     }
 
 
     private long id;
     private String name;
-    private List<String> phones;
+    private List<String> mobile;
 
     public long getId() {
         return id;
@@ -38,11 +38,11 @@ public class ContentModel {
         this.name = name;
     }
 
-    public List<String> getPhones() {
-        return phones;
+    public List<String> getMobile() {
+        return mobile;
     }
 
-    public void setPhones(List<String> phones) {
-        this.phones = phones;
+    public void setMobile(List<String> mobile) {
+        this.mobile = mobile;
     }
 }

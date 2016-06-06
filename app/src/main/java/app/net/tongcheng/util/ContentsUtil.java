@@ -57,7 +57,7 @@ public class ContentsUtil {
             if (mContentModel == null) {
                 continue;
             }
-            mContentModel.getPhones().add(phoneCursor.getString(1));
+            mContentModel.getMobile().add(phoneCursor.getString(1));
         } while (phoneCursor.moveToNext());
         phoneCursor.close();
         List<ContentModel> datas = new ArrayList<>();
