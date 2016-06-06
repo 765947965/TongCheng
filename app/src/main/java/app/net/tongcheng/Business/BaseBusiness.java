@@ -113,6 +113,33 @@ public class BaseBusiness implements ConnectListener {
         }
     }
 
+    public void goPostConnect(int mLoding_Type, RequestParams params, String message, String className) {
+        goPostConnect(mLoding_Type, params, message, className, 0);
+    }
+
+    public void goPostConnect(final int mLoding_Type, final RequestParams params, final String message, final String className, long delaytime) {
+        if (!TextUtils.isEmpty(message)) {
+            Dialog mMessage = DialogUtil.loadingDialog(mActivity, message);
+            if (mMessage != null) {
+                Dialog mMessageold = mMessagesDialog.get(mLoding_Type);
+                if (mMessageold != null && mMessageold.isShowing()) {
+                    mMessageold.dismiss();
+                }
+                mMessagesDialog.put(mLoding_Type, mMessage);
+            }
+        }
+        if (delaytime > 0) {
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mCancelableClear.addCancelable(ConnectUtil.PostConnect(mLoding_Type, params, message, BaseBusiness.this, className));
+                }
+            }, delaytime);
+        } else {
+            mCancelableClear.addCancelable(ConnectUtil.PostConnect(mLoding_Type, params, message, this, className));
+        }
+    }
+
     @Override
     public void ConnectOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
         Dialog mMessageold = mMessagesDialog.get(mLoding_Type);

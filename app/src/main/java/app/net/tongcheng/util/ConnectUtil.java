@@ -68,4 +68,49 @@ public class ConnectUtil {
             }
         });
     }
+
+    public static Callback.Cancelable PostConnect(final int mLoding_Type, final RequestParams params, String message, final ConnectListener mConnectListener, final String className) {
+        return x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                if(isDebugModel){
+                    Log.i(tag, params.getUri() + "\r\n"+ result);
+                }
+                ConnectResult cr = new ConnectResult();
+                if (mConnectListener != null) {
+                    if (!TextUtils.isEmpty(className)) {
+                        try {
+                            cr.setObject(JSON.parseObject(result, Class.forName(className)));
+                        } catch (Exception e) {
+                            ToastUtil.showResultToast("数据解析错误");
+                        }
+                    } else {
+                        cr.setObject(result);
+                    }
+                    mConnectListener.ConnectOnSuccess(mLoding_Type, cr);
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                if (mConnectListener != null) {
+                    mConnectListener.ConnectOnError(mLoding_Type, ex, isOnCallback);
+                }
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+                if (mConnectListener != null) {
+                    mConnectListener.ConnectOnCancelled(mLoding_Type, cex);
+                }
+            }
+
+            @Override
+            public void onFinished() {
+                if (mConnectListener != null) {
+                    mConnectListener.ConnectOnFinished(mLoding_Type);
+                }
+            }
+        });
+    }
 }

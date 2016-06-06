@@ -127,11 +127,4 @@ public class OtherBusiness extends BaseBusiness {
         goConnect(mLoding_Type, params, message, StartPageModel.class.getName());
     }
 
-
-    public void upContentModel(int mLoding_Type, String message){
-        RequestParams params = new RequestParams(HttpUrls.COMMITFRIEND);
-        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
-        goConnect(mLoding_Type, params, message, UpContentModel.class.getName());
-    }
-
 }

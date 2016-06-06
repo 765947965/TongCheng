@@ -7,6 +7,7 @@ import org.xutils.http.RequestParams;
 
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
+import app.net.tongcheng.model.UpContentModel;
 import app.net.tongcheng.util.CancelableClear;
 import app.net.tongcheng.util.HttpUrls;
 
@@ -20,10 +21,11 @@ public class FriendBusiness extends BaseBusiness {
         super(mCancelableClear, mActivity, mHandler);
     }
 
-    public void uploadContens(int mLoding_Type, String message) {
+    public void uploadContens(int mLoding_Type, String message, String data) {
         RequestParams params = new RequestParams(HttpUrls.COMMITFRIEND);
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
-        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+        params.addBodyParameter("aixinContact", data);
+        goPostConnect(mLoding_Type, params, message, UpContentModel.class.getName());
     }
 
     public void getFriends(int mLoding_Type, String message) {

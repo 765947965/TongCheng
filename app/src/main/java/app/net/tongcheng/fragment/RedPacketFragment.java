@@ -148,7 +148,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     final RedModel mRedModel = (RedModel) mConnectResult.getObject();
                     mRedModel.setUpdate(NativieDataUtils.getTodyYMD());
-                    mHandler.post(new Runnable() {
+                    new Thread(new Runnable() {
                         @Override
                         public void run() {
                             // 排序(耗时)
@@ -176,7 +176,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                             }
                             mHandler.sendEmptyMessage(10004);
                         }
-                    });
+                    }).start();
                 }
                 break;
             case APPCationStation.EXCRETERED:

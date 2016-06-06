@@ -191,7 +191,7 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     final RedModel mRedModel = (RedModel) mConnectResult.getObject();
                     mRedModel.setUpdate(NativieDataUtils.getTodyYMD());
-                    mHandler.post(new Runnable() {
+                    new Thread(new Runnable() {
                         @Override
                         public void run() {
                             // 排序(耗时)
@@ -202,7 +202,7 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
                             RedListActivity.this.mRedModel = mRedModel;
                             mHandler.sendEmptyMessage(10002);
                         }
-                    });
+                    }).start();
                 }
                 break;
             case APPCationStation.EXCRETERED:

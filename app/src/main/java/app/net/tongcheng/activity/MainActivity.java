@@ -1,21 +1,25 @@
 package app.net.tongcheng.activity;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.telephony.TelephonyManager;
 import android.view.View;
+
+import com.alibaba.fastjson.JSON;
 
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import app.net.tongcheng.Business.OtherBusiness;
+import app.net.tongcheng.Business.FriendBusiness;
 import app.net.tongcheng.R;
+import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.fragment.BaseFragment;
 import app.net.tongcheng.fragment.FriendFragment;
 import app.net.tongcheng.fragment.LifeFragment;
@@ -25,8 +29,11 @@ import app.net.tongcheng.fragment.ShareFragment;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.model.ContentModel;
+import app.net.tongcheng.model.UpContentJSONModel;
 import app.net.tongcheng.model.UpContentModel;
 import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.ContentsUtil;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ViewHolder;
 import app.net.tongcheng.view.materialtabs.MaterialTab;
@@ -51,7 +58,7 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
     private FriendFragment mFriendFragment;
     private ShareFragment mShareFragment;
     private MyFragment mMyFragment;
-    private OtherBusiness mOtherBusiness;
+    private FriendBusiness mFriendBusiness;
     private List<BaseFragment> listFragment = new ArrayList<>();
     // 定义数组来存放按钮图片
 //    private String mTextViewArray[] = {"红包", "生活", "好友", "分享", "我的"};
@@ -70,7 +77,7 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
         setCanSlidingClose(false);
         initView();
         setEventBus();
-        mOtherBusiness = new OtherBusiness(this, this, mHandler);
+        mFriendBusiness = new FriendBusiness(this, this, mHandler);
     }
 
     private void initView() {
@@ -113,14 +120,30 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
         // 上传本地通讯录
         UpContentModel mUpContentModel = NativieDataUtils.getUpContentModel();
         if (mUpContentModel == null || !NativieDataUtils.getTodyYMD().equals(mUpContentModel.getUpdate())) {
-            // 读取本地通讯录
-            mOtherBusiness.upContentModel(APPCationStation.SUMBIT, "");
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    UpContentJSONModel mUpContentJSONModel = new UpContentJSONModel();
+                    List<ContentModel> mData = ContentsUtil.getContacts(TCApplication.mContext);
+                    if (mData == null || mData.size() == 0) return;
+                    mUpContentJSONModel.setContactlist(mData);
+                    mUpContentJSONModel.setMac(((TelephonyManager) TCApplication.mContext.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId());
+                    Message mMessage = new Message();
+                    mMessage.what = 10001;
+                    mMessage.obj = JSON.toJSONString(mUpContentJSONModel);
+                    mHandler.sendMessage(mMessage);
+                }
+            }).start();
         }
     }
 
     @Override
     public void mHandDoSomeThing(Message msg) {
-
+        switch (msg.what) {
+            case 10001:
+                mFriendBusiness.uploadContens(APPCationStation.SUMBIT, "", (String) msg.obj);
+                break;
+        }
     }
 
     @Override
@@ -130,7 +153,7 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     UpContentModel mUpContentModel = (UpContentModel) mConnectResult.getObject();
                     mUpContentModel.setUpdate(NativieDataUtils.getTodyYMD());
-                    NativieDataUtils.setUpContentModel(mUpContentModel);
+                    //NativieDataUtils.setUpContentModel(mUpContentModel);
                 }
                 break;
         }
