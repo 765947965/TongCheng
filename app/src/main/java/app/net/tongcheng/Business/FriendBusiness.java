@@ -40,7 +40,7 @@ public class FriendBusiness extends BaseBusiness {
     public void getFriendsInfo(int mLoding_Type, String message, String data) {
         RequestParams params = new RequestParams(HttpUrls.GETAixinFriendInfo);
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
-        params.addQueryStringParameter("friends", data);
-        goConnect(mLoding_Type, params, message, UpFriendInfoModel.class.getName());
+        params.addBodyParameter("friends", data);
+        goPostConnect(mLoding_Type, params, message, UpFriendInfoModel.class.getName());
     }
 }
