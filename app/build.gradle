@@ -50,4 +50,5 @@ dependencies {
     compile 'me.drakeet.materialdialog:library:1.3.1'//dialog https://github.com/drakeet/MaterialDialog
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.kevin:wraprecyclerview:1.0.6'//可添加头部的recyclerview
+    compile 'com.github.promeg:tinypinyin:1.0.0'//拼音处理
 }
