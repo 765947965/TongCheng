@@ -74,7 +74,6 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
             return;
         }
         isfirstloaddata = true;
-        mHandler.sendEmptyMessage(10001);
         mHandler.sendEmptyMessageDelayed(10001, 100);
     }
 
