@@ -11,13 +11,13 @@ import java.util.List;
  */
 public class UpFriendInfoModel extends BaseModel {
 
-    private List<FriendModel.FriendsBean> friendslist;
+    private List<FriendsBean> friendslist;
 
-    public List<FriendModel.FriendsBean> getFriendslist() {
+    public List<FriendsBean> getFriendslist() {
         return friendslist;
     }
 
-    public void setFriendslist(List<FriendModel.FriendsBean> friendslist) {
+    public void setFriendslist(List<FriendsBean> friendslist) {
         this.friendslist = friendslist;
     }
 }

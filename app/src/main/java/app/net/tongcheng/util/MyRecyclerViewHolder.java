@@ -3,6 +3,8 @@ package app.net.tongcheng.util;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * @author: xiewenliang
@@ -24,6 +26,26 @@ public class MyRecyclerViewHolder extends RecyclerView.ViewHolder {
             view = itemView.findViewById(viewId);
             views.put(viewId, view);
         }
+        return (T) view;
+    }
+
+    public TextView setText(int resource, CharSequence mCharSequence) {
+        TextView mTextView = getView(resource);
+        mTextView.setText(mCharSequence);
+        return mTextView;
+    }
+
+    public void setImage(int resource, int resourceImage) {
+        ((ImageView) getView(resource)).setImageResource(resourceImage);
+    }
+
+    public void setImage(int resource, String imageUri) {
+        new PictureLoader(0).displayImage(imageUri, (ImageView) getView(resource));
+    }
+
+    public <T extends View> T setVisibility(int resource, int visibility) {
+        View view = getView(resource);
+        view.setVisibility(visibility);
         return (T) view;
     }
 }
