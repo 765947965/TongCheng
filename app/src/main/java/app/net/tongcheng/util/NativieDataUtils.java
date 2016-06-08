@@ -38,6 +38,10 @@ public class NativieDataUtils {
     public static String getTodyY() {
         return new SimpleDateFormat("yyyy").format(new Date());
     }
+    public static String getTodyYMDHMS() {
+        return new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+    }
+
 
     public static StartPageModel getStartPageModel(boolean ischeck) {
         String str = OperationUtils.getString("start_page", false);

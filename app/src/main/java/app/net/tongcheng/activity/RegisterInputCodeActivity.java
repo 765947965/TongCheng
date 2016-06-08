@@ -134,6 +134,7 @@ public class RegisterInputCodeActivity extends BaseActivity implements View.OnCl
                 cannotsevedcode.setEnabled(true);
                 break;
         }
+        ToastUtil.showToast("网络不可用，请检查网络连接！");
     }
 
     @Override

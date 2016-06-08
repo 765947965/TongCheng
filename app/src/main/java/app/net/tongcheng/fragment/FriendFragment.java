@@ -1,5 +1,6 @@
 package app.net.tongcheng.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
@@ -28,6 +29,7 @@ import java.util.List;
 import app.net.tongcheng.Business.FriendBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.activity.PersonalRedEnvelopeConfig;
 import app.net.tongcheng.adapter.FriendHAdater;
 import app.net.tongcheng.adapter.FriendVAdater;
 import app.net.tongcheng.model.BaseModel;
@@ -57,7 +59,7 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
     private RecyclerView mRecyclerView, mRecyclerViewH;
     private MailList_abcList mMailList;
     private EditText et_search;
-    private TextView tv_show;
+    private TextView tv_show, tv_next;
     private FriendBusiness mFriendBusiness;
     private FriendModel mFriendModel, mFriendModelTemp;
     private List<FriendsBean> mDataVList = new ArrayList<>();//竖直方向
@@ -87,6 +89,8 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
         mMailList = mViewHolder.getView(R.id.mlist_abclist);
         mMailList.setOnTouchListener(this);
         tv_show = mViewHolder.getView(R.id.tv_show);
+        tv_next = mViewHolder.getView(R.id.tv_next);
+        tv_next.setOnClickListener(this);
         mSwipeRefreshLayout = mViewHolder.getView(R.id.mSwipeRefreshLayout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.refurush_color);
         mSwipeRefreshLayout.setOnRefreshListener(this);
@@ -153,6 +157,13 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
                 }
                 mFriendVAdater.notifyDataSetChanged();
                 mFriendHAdater.notifyDataSetChanged();
+                if (mDataHList.size() > 0) {
+                    tv_next.setEnabled(true);
+                    tv_next.setText("下一步(" + mDataHList.size() + ")");
+                } else {
+                    tv_next.setEnabled(false);
+                    tv_next.setText("下一步");
+                }
                 // 添加索引
                 if (mDataVList.size() < 6) {
                     return;
@@ -262,6 +273,17 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
         if (mSwipeRefreshLayout.isRefreshing()) {
             ToastUtil.showToast("数据同步中...");
             return;
+        }
+        switch (v.getId()) {
+            case R.id.tv_next:
+                StringBuilder uidstrb = new StringBuilder();
+                for (FriendsBean mFriendsBean : mDataHList) {
+                    uidstrb.append(mFriendsBean.getUid() + "|");
+                }
+                String uids = uidstrb.toString();
+                uids = uids.substring(0, uids.length() - 1);
+                startActivity(new Intent(TCApplication.mContext, PersonalRedEnvelopeConfig.class).putExtra("uids", uids).putExtra("name", mDataHList.get(0).getRemark()).putExtra("nums", mDataHList.size()));
+                break;
         }
     }
 

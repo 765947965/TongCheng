@@ -40,6 +40,7 @@ import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.OraLodingUserTools;
+import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
 import app.net.tongcheng.view.LineEditText;
@@ -154,7 +155,7 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void BusinessOnFail(int mLoding_Type) {
-
+        ToastUtil.showToast("网络不可用，请检查网络连接！");
     }
 
     @Override

@@ -18,4 +18,5 @@ public class HttpUrls {
     public static final String COMMITFRIEND = "http://mobile.8hbao.com:8899/friend/uploadAixinContact";//上传通讯录
     public static final String GETAixinFriends = "http://mobile.8hbao.com:8899/friend/getAixinFriends";//获取好友列表
     public static final String GETAixinFriendInfo = "http://mobile.8hbao.com:8899/friend/getAixinFriendInfo";//获取好友信息
+    public static final String add_gift_record_v2 = "http://mobile.8hbao.com:8899/gift/add_gift_record_v2";//发红包
 }

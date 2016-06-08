@@ -107,6 +107,10 @@
             android:name=".activity.RedListActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PersonalRedEnvelopeConfig"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

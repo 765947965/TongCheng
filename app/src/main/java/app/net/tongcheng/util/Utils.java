@@ -446,15 +446,15 @@ public class Utils {
      * @author longluliu
      * @date 2015-5-11 下午5:12:13
      */
-    public static double numPoint2NoRounded(double num) {
+    public static String numPoint2NoRounded(double num) {
         try {
-            DecimalFormat df = new DecimalFormat("#,####.##");// 保留2位
+            DecimalFormat df = new DecimalFormat("#,###0.00");// 保留2位
             df.setRoundingMode(RoundingMode.FLOOR);
-            return Double.valueOf(df.format(num));
+            return df.format(num);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return 0;
+        return "0";
     }
 
     /**

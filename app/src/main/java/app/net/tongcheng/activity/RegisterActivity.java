@@ -103,7 +103,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void BusinessOnFail(int mLoding_Type) {
-
+        ToastUtil.showToast("网络不可用，请检查网络连接！");
     }
 
     @Override

@@ -12,6 +12,8 @@ import app.net.tongcheng.util.CancelableClear;
 import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.HttpUrls;
 import app.net.tongcheng.util.MD5;
+import app.net.tongcheng.util.NativieDataUtils;
+import app.net.tongcheng.util.VerificationCode;
 
 /**
  * @author: xiewenliang
@@ -58,6 +60,24 @@ public class RedBusiness extends BaseBusiness {
         params.addQueryStringParameter("gift_id", gift_id);
         params.addQueryStringParameter("action", action);
         goConnect(mLoding_Type, params, message, ExcreteRedModel.class.getName(), 1500);
+    }
+
+
+    public void sendRed(int mLoding_Type, String message, String name, String money, String moneytype, String gift_tips, String uids, String nums) {
+        RequestParams params = new RequestParams(HttpUrls.add_gift_record_v2);
+        params.addQueryStringParameter("uid", uids);
+        params.addQueryStringParameter("receiver_gifts_number", nums);
+        params.addQueryStringParameter("from", TCApplication.getmUserInfo().getUid());
+        params.addQueryStringParameter("gift_id", NativieDataUtils.getTodyYMDHMS() + TCApplication.getmUserInfo().getUid() + VerificationCode.getCode2());
+        params.addQueryStringParameter("gift_type", "p2p_money");
+        params.addQueryStringParameter("gift_subtype", "personnocommand");
+        params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
+        params.addQueryStringParameter("money", money);
+        params.addQueryStringParameter("money_type", moneytype);
+        params.addQueryStringParameter("gift_name", moneytype.equals("0") ? "拼手气红包" : "普通红包");
+        params.addQueryStringParameter("gift_tips", gift_tips);
+        params.addQueryStringParameter("fromnickname", name);
+        goConnect(mLoding_Type, params, message, "");
     }
 
 

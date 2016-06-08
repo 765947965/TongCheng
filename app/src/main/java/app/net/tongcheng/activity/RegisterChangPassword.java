@@ -93,7 +93,7 @@ public class RegisterChangPassword extends BaseActivity implements View.OnClickL
 
     @Override
     public void BusinessOnFail(int mLoding_Type) {
-
+        ToastUtil.showToast("网络不可用，请检查网络连接！");
     }
 
     @Override
