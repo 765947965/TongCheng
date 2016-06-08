@@ -9,10 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.github.promeg.pinyinhelper.Pinyin;
@@ -36,8 +39,10 @@ import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.FriendBeanUtils;
 import app.net.tongcheng.util.NativieDataUtils;
+import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
+import app.net.tongcheng.view.MailList_abcList;
 
 /**
  * @author: xiewenliang
@@ -46,17 +51,21 @@ import app.net.tongcheng.util.ViewHolder;
  * @Copyright: Copyright (c) 2016 Tuandai Inc. All rights reserved.
  * @date: 2016/4/16 15:53
  */
-public class FriendFragment extends BaseFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, TextWatcher {
+public class FriendFragment extends BaseFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, TextWatcher, View.OnTouchListener {
     private ViewHolder mViewHolder;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView, mRecyclerViewH;
+    private MailList_abcList mMailList;
     private EditText et_search;
+    private TextView tv_show;
     private FriendBusiness mFriendBusiness;
     private FriendModel mFriendModel, mFriendModelTemp;
     private List<FriendsBean> mDataVList = new ArrayList<>();//竖直方向
     private List<FriendsBean> mDataHList = new ArrayList<>();//横方向
+    private HashMap<String, Integer> searmap = new HashMap<>();//检索用
     private FriendVAdater mFriendVAdater;
     private FriendHAdater mFriendHAdater;
+    private String[] jss = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "~"};
     public static boolean isfirstloaddata;
 
     @Nullable
@@ -75,6 +84,9 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
         mViewHolder.setVisibility(R.id.bt_close, View.GONE);
         et_search = mViewHolder.getView(R.id.et_search);
         et_search.addTextChangedListener(this);
+        mMailList = mViewHolder.getView(R.id.mlist_abclist);
+        mMailList.setOnTouchListener(this);
+        tv_show = mViewHolder.getView(R.id.tv_show);
         mSwipeRefreshLayout = mViewHolder.getView(R.id.mSwipeRefreshLayout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.refurush_color);
         mSwipeRefreshLayout.setOnRefreshListener(this);
@@ -119,15 +131,16 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
                 break;
             case 10003:
                 if (mFriendVAdater == null) {
-                    mFriendVAdater = new FriendVAdater(TCApplication.mContext, mDataVList, R.layout.personalredenvelopeadapter, mHandler, et_search);
+                    mFriendVAdater = new FriendVAdater(TCApplication.mContext, mDataVList, R.layout.personalredenvelopeadapter, mHandler, et_search, mSwipeRefreshLayout);
                     mRecyclerView.setAdapter(mFriendVAdater);
-                    mFriendHAdater = new FriendHAdater(TCApplication.mContext, mDataHList, R.layout.horizontallistviewadapter, mHandler);
+                    mFriendHAdater = new FriendHAdater(TCApplication.mContext, mDataHList, R.layout.horizontallistviewadapter, mHandler, mSwipeRefreshLayout);
                     mRecyclerViewH.setAdapter(mFriendHAdater);
                 }
+                searmap.clear();
                 mDataVList.clear();
                 mDataHList.clear();
                 if (mFriendModel != null && mFriendModel.getFriends() != null) {
-                    String searchstr = et_search.getText().toString();
+                    String searchstr = et_search.getText().toString().toUpperCase();
                     boolean issearchEmpty = TextUtils.isEmpty(searchstr);
                     for (FriendsBean mFriendsBean : mFriendModel.getFriends()) {
                         if (issearchEmpty || mFriendsBean.getSearchString().contains(searchstr)) {
@@ -140,10 +153,37 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
                 }
                 mFriendVAdater.notifyDataSetChanged();
                 mFriendHAdater.notifyDataSetChanged();
+                // 添加索引
+                if (mDataVList.size() < 6) {
+                    return;
+                }
+                for (int i = 0; i < mDataVList.size(); i++) {
+                    if (i == 0) {
+                        searmap.put(mDataVList.get(i).getFY(), i);
+                    } else {
+                        if (!mDataVList.get(i - 1).getFY().equals(mDataVList.get(i).getFY())) {
+                            searmap.put(mDataVList.get(i).getFY(), i);
+                        }
+                    }
+                }
+                for (int i = 0; i < jss.length; i++) {
+                    if (i == 0) {
+                        if (searmap.get(jss[i]) == null) {
+                            searmap.put(jss[i], 0);
+                        }
+                    } else {
+                        if (searmap.get(jss[i]) == null) {
+                            searmap.put(jss[i], searmap.get(jss[i - 1]));
+                        }
+                    }
+                }
                 break;
             case 10004:
                 // 处理好友资料
                 mFriendBusiness.getFriendsInfo(APPCationStation.LOADINGAD, "", JSON.toJSONString(mFriendModelTemp).replace("friends", "friendslist"));
+                break;
+            case 10005:
+                tv_show.setVisibility(View.GONE);
                 break;
         }
     }
@@ -219,7 +259,10 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            ToastUtil.showToast("数据同步中...");
+            return;
+        }
     }
 
     @Override
@@ -248,11 +291,51 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            return;
+        }
         mHandler.sendEmptyMessage(10003);
     }
 
     @Override
     public void afterTextChanged(Editable s) {
 
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            ToastUtil.showToast("数据同步中...");
+            return true;
+        }
+        if (mDataVList.isEmpty()) {
+            return true;
+        }
+        if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE) {
+            float one_vy = (float) v.getHeight() / 27f;
+            float ey = event.getY();
+            int key = (int) (ey / one_vy);
+            if (key < 0 || key > 26) {
+                return true;
+            }
+            String key_value = jss[key];
+
+            // 开启显示提示框
+            if ("~".equals(key_value)) {
+                tv_show.setText("#");
+                tv_show.setVisibility(View.VISIBLE);
+            } else {
+                tv_show.setText(key_value);
+                tv_show.setVisibility(View.VISIBLE);
+            }
+            if (mDataVList.size() > 5) {
+                mRecyclerView.smoothScrollToPosition(searmap.get(key_value));
+            }
+        }
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            mHandler.removeMessages(10005);
+            mHandler.sendEmptyMessageDelayed(10005, 1000);
+        }
+        return true;
     }
 }

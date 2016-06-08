@@ -14,9 +14,9 @@ import app.net.tongcheng.model.FriendsBean;
  */
 public class FriendBeanUtils {
 
-    private static  Random mRandom = new Random();
+    private static Random mRandom = new Random();
 
-    public static  void pinYin4Remark(FriendsBean mFriendsBean){
+    public static void pinYin4Remark(FriendsBean mFriendsBean) {
         StringBuilder SearchStringBuilder = new StringBuilder();
         SearchStringBuilder.append(mFriendsBean.getPhone() + ",");
         SearchStringBuilder.append(mFriendsBean.getRemark() + ",");
@@ -24,9 +24,9 @@ public class FriendBeanUtils {
         char[] remarks = mFriendsBean.getRemark().toCharArray();
         StringBuilder SearchStringBuilder_Q = new StringBuilder();
         StringBuilder SearchStringBuilder_S = new StringBuilder();
-        if(String.valueOf(remarks[0]).matches("[a-zA-Z\\u4e00-\\u9fa5]")){
-            mFriendsBean.setFY(Pinyin.toPinyin(remarks[0]));
-        }else{
+        if (String.valueOf(remarks[0]).matches("[a-zA-Z\\u4e00-\\u9fa5]")) {
+            mFriendsBean.setFY(Pinyin.toPinyin(remarks[0]).substring(0, 1));
+        } else {
             mFriendsBean.setFY("~");
         }
         for (char c : remarks) {
@@ -39,7 +39,7 @@ public class FriendBeanUtils {
         mFriendsBean.setSearchString(SearchStringBuilder.toString());
     }
 
-    public static  void pinYin4Name(FriendsBean mFriendsBean){
+    public static void pinYin4Name(FriendsBean mFriendsBean) {
         StringBuilder SearchStringBuilder = new StringBuilder();
         SearchStringBuilder.append(mFriendsBean.getSearchString());
         char[] names = mFriendsBean.getName().toCharArray();

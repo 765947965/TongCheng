@@ -51,7 +51,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/dividing_line_light"/>
+                android:background="@color/dividing_line_light" />
 
             <TextView
                 android:id="@+id/tv_next"
@@ -86,7 +86,7 @@
                 android:id="@+id/mRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white" />
+                android:background="#F5F5F5" />
         </android.support.v4.widget.SwipeRefreshLayout>
 
         <app.net.tongcheng.view.MailList_abcList
@@ -96,5 +96,17 @@
             android:layout_above="@id/rlt_bottom"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:id="@+id/tv_show"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/mail_list_abct_image"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="invisible" />
     </RelativeLayout>
 </LinearLayout>
