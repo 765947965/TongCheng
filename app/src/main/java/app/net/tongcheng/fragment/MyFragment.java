@@ -40,6 +40,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_my_layout, null);
         initView(view);
+        isfirstloaddata = false;
         return view;
     }
 

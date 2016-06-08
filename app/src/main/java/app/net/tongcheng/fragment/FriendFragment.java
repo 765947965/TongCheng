@@ -52,7 +52,7 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
     private RecyclerView mRecyclerView, mRecyclerViewH;
     private EditText et_search;
     private FriendBusiness mFriendBusiness;
-    private FriendModel mFriendModel;
+    private FriendModel mFriendModel, mFriendModelTemp;
     private List<FriendsBean> mDataVList = new ArrayList<>();//竖直方向
     private List<FriendsBean> mDataHList = new ArrayList<>();//横方向
     private FriendVAdater mFriendVAdater;
@@ -64,6 +64,7 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_friend_layout, null);
         initView(view);
+        isfirstloaddata = false;
         mFriendBusiness = new FriendBusiness(this, getActivity(), mHandler);
         return view;
     }
@@ -142,7 +143,7 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
                 break;
             case 10004:
                 // 处理好友资料
-                mFriendBusiness.getFriendsInfo(APPCationStation.LOADINGAD, "", JSON.toJSONString(mFriendModel).replace("friends", "friendslist"));
+                mFriendBusiness.getFriendsInfo(APPCationStation.LOADINGAD, "", JSON.toJSONString(mFriendModelTemp).replace("friends", "friendslist"));
                 break;
         }
     }
@@ -166,8 +167,7 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
                                     Collections.sort(mFriendModel.getFriends());
                                 }
                                 mFriendModel.setUpdate(NativieDataUtils.getTodyYMD());
-                                NativieDataUtils.setFriendModel(mFriendModel);
-                                FriendFragment.this.mFriendModel = mFriendModel;
+                                FriendFragment.this.mFriendModelTemp = mFriendModel;
                                 mHandler.sendEmptyMessage(10004);
                             }
                         }).start();
@@ -189,7 +189,7 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
                                 for (FriendsBean mFriendsBean : mUpFriendInfoModel.getFriendslist()) {
                                     maps.put(mFriendsBean.getUid(), mFriendsBean);
                                 }
-                                for (FriendsBean mFriendsBean : mFriendModel.getFriends()) {
+                                for (FriendsBean mFriendsBean : mFriendModelTemp.getFriends()) {
                                     FriendsBean mFriendsBeanNew = maps.get(mFriendsBean.getUid());
                                     if (mFriendsBeanNew != null) {
                                         mFriendsBean.setInfo(mFriendsBeanNew.getProvince(), mFriendsBeanNew.getPicture(), mFriendsBeanNew.getPicmd5(),
@@ -200,8 +200,10 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
                                         }
                                     }
                                 }
-                                NativieDataUtils.setFriendModel(mFriendModel);
                             }
+                            NativieDataUtils.setFriendModel(mFriendModelTemp);
+                            mFriendModel = mFriendModelTemp;
+                            mFriendModelTemp = null;
                             mHandler.sendEmptyMessage(10002);
                         }
                     }).start();

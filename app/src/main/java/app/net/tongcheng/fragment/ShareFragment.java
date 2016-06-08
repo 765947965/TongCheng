@@ -23,12 +23,14 @@ import app.net.tongcheng.util.ViewHolder;
  */
 public class ShareFragment extends BaseFragment implements View.OnClickListener {
     private ViewHolder mViewHolder;
+    public static boolean isfirstloaddata;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_share_layout, null);
         initView(view);
+        isfirstloaddata = false;
         return view;
     }
 
@@ -42,7 +44,10 @@ public class ShareFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     public void loadData() {
-
+        if (isfirstloaddata) {
+            return;
+        }
+        isfirstloaddata = true;
     }
 
     @Override
