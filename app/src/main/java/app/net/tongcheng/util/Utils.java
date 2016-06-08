@@ -458,6 +458,25 @@ public class Utils {
     }
 
     /**
+     * 不四舍五入不保留小数
+     *
+     * @param num
+     * @return double
+     * @author longluliu
+     * @date 2015-5-11 下午5:12:13
+     */
+    public static String numPointNoRounded(double num) {
+        try {
+            DecimalFormat df = new DecimalFormat("#,###0");// 保留2位
+            df.setRoundingMode(RoundingMode.FLOOR);
+            return df.format(num);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "0";
+    }
+
+    /**
      * 判断是否需要更新
      *
      * @param currentTimeMillis_now

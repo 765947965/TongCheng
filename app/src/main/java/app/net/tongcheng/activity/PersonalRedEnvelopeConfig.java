@@ -98,7 +98,7 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
                 } else if (Double.parseDouble(outmoney) <= 0) {
                     ToastUtil.showToast("金额必须大于零");
                 } else {
-                    mRedBusiness.sendRed(APPCationStation.SUMBIT, "发送中...", name, outmoney, moneytype + "", tips, uids, nums + "");
+                    mRedBusiness.sendRed(APPCationStation.SUMBIT, "发送中...", name, Utils.numPointNoRounded(Double.parseDouble(outmoney) * 100d), moneytype + "", tips, uids, nums + "");
                 }
                 break;
         }
