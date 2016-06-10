@@ -10,6 +10,7 @@ import java.util.Date;
 import app.net.tongcheng.model.ADListModel;
 import app.net.tongcheng.model.FriendModel;
 import app.net.tongcheng.model.LifeDataModel;
+import app.net.tongcheng.model.MoneyInfoModel;
 import app.net.tongcheng.model.RedModel;
 import app.net.tongcheng.model.StartPageModel;
 import app.net.tongcheng.model.UpContentModel;
@@ -38,6 +39,7 @@ public class NativieDataUtils {
     public static String getTodyY() {
         return new SimpleDateFormat("yyyy").format(new Date());
     }
+
     public static String getTodyYMDHMS() {
         return new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
     }
@@ -136,5 +138,18 @@ public class NativieDataUtils {
     public static void setFriendModel(FriendModel mFriendModel) {
         String str = JSON.toJSONString(mFriendModel);
         OperationUtils.PutString("mFriendModel", str);
+    }
+
+    public static MoneyInfoModel getMoneyInfoModel() {
+        String str = OperationUtils.getString("MoneyInfoModel");
+        if (TextUtils.isEmpty(str)) {
+            return null;
+        }
+        return JSON.parseObject(str, MoneyInfoModel.class);
+    }
+
+    public static void setMoneyInfoModel(MoneyInfoModel mMoneyInfoModel) {
+        String str = JSON.toJSONString(mMoneyInfoModel);
+        OperationUtils.PutString("MoneyInfoModel", str);
     }
 }

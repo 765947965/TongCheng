@@ -237,6 +237,7 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
         switch (mLoding_Type) {
             case APPCationStation.LOADING:
                 mSwipeRefreshLayout.setRefreshing(false);
+                ToastUtil.showToast("网络不可用，请检查网络连接！");
                 break;
             case APPCationStation.EXCRETERED:
                 if (mAlertDialog != null && mAlertDialog.isShowing()) {

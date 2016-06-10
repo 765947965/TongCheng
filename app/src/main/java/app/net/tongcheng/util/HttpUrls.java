@@ -10,7 +10,7 @@ public class HttpUrls {
     public static final String REG_GETCODE = "http://mobile.8hbao.com:8899/v2/reg_sendauthcode_v2";//注册验证码
     public static final String REG_V2 = "http://mobile.8hbao.com:8899/v2/reg_v2";//注册
     public static final String ChangePWD_URL_V2 = "http://mobile.8hbao.com:8899/v2/change_pwd_v2";//修改密码
-    public static final String STARTPAGER_URL = "http://mobile.zjtytx.com:8899/config/start_page";//启动页
+    public static final String STARTPAGER_URL = "http://mobile.8hbao.com:8899/config/start_page";//启动页
     public static final String RED_GETDATA_URL = "http://mobile.8hbao.com:8899/gift/get_gift_records_v2";//获取红包数据
     public static final String RED_Checkout_URL = "http://mobile.8hbao.com:8899/gift/checkout_gift_v2";//拆红包
     public static final String servicePage_URL = "http://mobile.8hbao.com:8899/config/get_service_page_config";//发现页数据
@@ -19,4 +19,5 @@ public class HttpUrls {
     public static final String GETAixinFriends = "http://mobile.8hbao.com:8899/friend/getAixinFriends";//获取好友列表
     public static final String GETAixinFriendInfo = "http://mobile.8hbao.com:8899/friend/getAixinFriendInfo";//获取好友信息
     public static final String add_gift_record_v2 = "http://mobile.8hbao.com:8899/gift/add_gift_record_v2";//发红包
+    public static final String getMoneyInfo = "http://pay.8hbao.com:8060/recharge/service/accountinfo.php";//查询余额
 }

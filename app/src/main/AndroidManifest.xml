@@ -101,7 +101,7 @@
             android:theme="@style/WhiteAppTheme" />
         <activity
             android:name=".activity.RedShareInfoActivity"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.RedListActivity"
@@ -109,6 +109,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.PersonalRedEnvelopeConfig"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PersonRedSendSucess"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
     </application>

@@ -6,7 +6,9 @@ import android.os.Handler;
 import org.xutils.http.RequestParams;
 
 import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ExcreteRedModel;
+import app.net.tongcheng.model.MoneyInfoModel;
 import app.net.tongcheng.model.RedModel;
 import app.net.tongcheng.util.CancelableClear;
 import app.net.tongcheng.util.Common;
@@ -77,8 +79,13 @@ public class RedBusiness extends BaseBusiness {
         params.addQueryStringParameter("gift_name", moneytype.equals("0") ? "拼手气红包" : "普通红包");
         params.addQueryStringParameter("gift_tips", gift_tips);
         params.addQueryStringParameter("fromnickname", name);
-        goConnect(mLoding_Type, params, message, "");
+        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
     }
 
-
+    public void getMoneyInfo(int mLoding_Type, String message){
+        RequestParams params = new RequestParams(HttpUrls.getMoneyInfo);
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
+        goConnect(mLoding_Type, params, message, MoneyInfoModel.class.getName());
+    }
 }
