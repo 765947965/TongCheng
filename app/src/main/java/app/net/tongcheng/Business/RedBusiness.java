@@ -7,6 +7,7 @@ import org.xutils.http.RequestParams;
 
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
+import app.net.tongcheng.model.CardListModel;
 import app.net.tongcheng.model.ExcreteRedModel;
 import app.net.tongcheng.model.MoneyInfoModel;
 import app.net.tongcheng.model.RedModel;
@@ -82,10 +83,37 @@ public class RedBusiness extends BaseBusiness {
         goConnect(mLoding_Type, params, message, BaseModel.class.getName());
     }
 
-    public void getMoneyInfo(int mLoding_Type, String message){
+    public void getMoneyInfo(int mLoding_Type, String message) {
         RequestParams params = new RequestParams(HttpUrls.getMoneyInfo);
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
         goConnect(mLoding_Type, params, message, MoneyInfoModel.class.getName());
+    }
+
+    public void getCarList(int mLoding_Type, String message) {
+        RequestParams params = new RequestParams(HttpUrls.carlist);
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
+        goConnect(mLoding_Type, params, message, CardListModel.class.getName());
+    }
+
+    public void changeCard(int mLoding_Type, String message, String cardNo) {
+        RequestParams params = new RequestParams(HttpUrls.changecard);
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
+        params.addQueryStringParameter("cardid", cardNo);
+        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+    }
+
+
+    public void bandingCard(int mLoding_Type, String message, String bank_name, String bank_card_no, String card_holder, String branch_name) {
+        RequestParams params = new RequestParams(HttpUrls.bandingCard);
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
+        params.addQueryStringParameter("bank_name", bank_name);
+        params.addQueryStringParameter("branch_name", branch_name);
+        params.addQueryStringParameter("bank_card_no", bank_card_no);
+        params.addQueryStringParameter("card_holder", card_holder);
+        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
     }
 }

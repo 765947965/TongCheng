@@ -20,4 +20,7 @@ public class HttpUrls {
     public static final String GETAixinFriendInfo = "http://mobile.8hbao.com:8899/friend/getAixinFriendInfo";//获取好友信息
     public static final String add_gift_record_v2 = "http://mobile.8hbao.com:8899/gift/add_gift_record_v2";//发红包
     public static final String getMoneyInfo = "http://pay.8hbao.com:8060/recharge/service/accountinfo.php";//查询余额
+    public static final String carlist = "http://pay.8hbao.com:8060/recharge/service/wallet_banklist.php";//获取卡列表
+    public static final String changecard = "http://pay.8hbao.com:8060/recharge/service/set_bankdefault.php";//改变银行卡
+    public static final String bandingCard = "http://pay.8hbao.com:8060/recharge/service/set_wallet_bank.php";//绑定银行卡
 }

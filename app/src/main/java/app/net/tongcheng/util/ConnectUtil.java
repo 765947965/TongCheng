@@ -37,7 +37,7 @@ public class ConnectUtil {
                         try {
                             cr.setObject(JSON.parseObject(result, Class.forName(className)));
                         } catch (Exception e) {
-                            ToastUtil.showResultToast("数据解析错误");
+                            ToastUtil.showToast("数据解析错误");
                         }
                     } else {
                         cr.setObject(result);
@@ -82,7 +82,7 @@ public class ConnectUtil {
                         try {
                             cr.setObject(JSON.parseObject(result, Class.forName(className)));
                         } catch (Exception e) {
-                            ToastUtil.showResultToast("数据解析错误");
+                            ToastUtil.showToast("数据解析错误");
                         }
                     } else {
                         cr.setObject(result);

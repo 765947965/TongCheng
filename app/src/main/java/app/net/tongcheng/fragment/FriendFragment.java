@@ -298,7 +298,7 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
 
                 @Override
                 public void clickCancel() {
-
+                    mSwipeRefreshLayout.setRefreshing(false);
                 }
             });
         } else {

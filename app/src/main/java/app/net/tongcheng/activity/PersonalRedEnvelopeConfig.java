@@ -42,6 +42,7 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
     private ViewHolder mViewHolder;
     private EditText whoimisedit, money_input, palpc_inputzfy;
     private String uids, name;
+    private TextView sendpalpcredbt;
     private int nums;
     private double Almoney = -1d;
     private RedBusiness mRedBusiness;
@@ -65,6 +66,7 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
         whoimisedit = mViewHolder.getView(R.id.whoimisedit);
         money_input = mViewHolder.getView(R.id.money_input);
         palpc_inputzfy = mViewHolder.getView(R.id.palpc_inputzfy);
+        sendpalpcredbt = mViewHolder.getView(R.id.sendpalpcredbt);
         money_input.addTextChangedListener(this);
         mViewHolder.setOnClickListener(R.id.sendpalpcredbt);
         mViewHolder.setOnClickListener(R.id.red_lx);
@@ -124,6 +126,9 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
     @Override
     public void BusinessOnFail(int mLoding_Type) {
         ToastUtil.showToast("网络不可用，请检查网络连接！");
+        if (mLoding_Type == APPCationStation.SUMBIT) {
+            sendpalpcredbt.setEnabled(true);
+        }
     }
 
     @Override
@@ -145,6 +150,7 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
                 } else if (Almoney != -1d && Double.parseDouble(outmoney) > Almoney) {
                     ToastUtil.showToast("金额不能大于可用金额");
                 } else {
+                    sendpalpcredbt.setEnabled(false);
                     mRedBusiness.sendRed(APPCationStation.SUMBIT, "发送中...", name, Utils.numPointNoRounded(Double.parseDouble(outmoney) * 100d), moneytype + "", tips, uids, nums + "");
                 }
                 break;
