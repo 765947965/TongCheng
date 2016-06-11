@@ -17,6 +17,7 @@ import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.adapter.MyBaseAdapter;
+import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.RechargeInfoModel;
 import app.net.tongcheng.util.APPCationStation;
@@ -62,7 +63,7 @@ public class ReChargeActivity extends BaseActivity implements View.OnClickListen
             case 10001:
                 RechargeInfoModel mRechargeInfoModel = NativieDataUtils.getRechargeInfoModel();
                 if (mRechargeInfoModel == null || !NativieDataUtils.getTodyYMD().equals(mRechargeInfoModel.getUpdate())) {
-                    mRedBusiness.getMoneyInfo(APPCationStation.LOADING, "");
+                    mRedBusiness.rechargeInfo(APPCationStation.LOADING, "");
                 }
                 if (mRechargeInfoModel != null && mRechargeInfoModel.getData() != null && mRechargeInfoModel.getData().size() > 0) {
                     datas.clear();
@@ -82,7 +83,16 @@ public class ReChargeActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-
+        switch (mLoding_Type) {
+            case APPCationStation.LOADING:
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    RechargeInfoModel mRechargeInfoModel = (RechargeInfoModel) mConnectResult.getObject();
+                    mRechargeInfoModel.setUpdate(NativieDataUtils.getTodyYMD());
+                    NativieDataUtils.setRechargeInfoModel(mRechargeInfoModel);
+                    mHandler.sendEmptyMessage(10001);
+                }
+                break;
+        }
     }
 
     @Override
@@ -98,7 +108,7 @@ public class ReChargeActivity extends BaseActivity implements View.OnClickListen
                     ToastUtil.showToast("网络不可用,请检查网络连接!");
                 } else {
                     // 充值
-                    selectbean.setPrice(10d);
+                    selectbean.setPrice(1d);
                     new PayDemoActivity(this, selectbean.getGoodsName(), selectbean.getGoodsInfo(), selectbean.getPrice() / 100d + "").pay();
                 }
                 break;
