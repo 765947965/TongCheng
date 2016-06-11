@@ -6,6 +6,7 @@ import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -39,8 +40,11 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
 
     private ViewHolder mViewHolder;
     private RecyclerView mRecyclerView;
+    private Button bt_withdraw_action;
     private RedBusiness mRedBusiness;
     private String checkcardId;
+    private MoneyInfoModel mMoneyInfoModel;
+    private CardListModel mCardListModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,7 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
         getRightBtn().setOnClickListener(this);
         setTileLineGONE();
         mRecyclerView = mViewHolder.getView(R.id.mRecyclerView);
+        bt_withdraw_action = mViewHolder.getView(R.id.bt_withdraw_action);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(TCApplication.mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
@@ -78,7 +83,7 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
     public void mHandDoSomeThing(Message msg) {
         switch (msg.what) {
             case 10001:
-                MoneyInfoModel mMoneyInfoModel = NativieDataUtils.getMoneyInfoModel();
+                mMoneyInfoModel = NativieDataUtils.getMoneyInfoModel();
                 if (mMoneyInfoModel != null) {
                     mViewHolder.setText(R.id.tv_total, "总余额:￥" + mMoneyInfoModel.getData().getBalance() / 100d + "元");
                     mViewHolder.setText(R.id.tv_withdraw_ing, "提现中:￥" + mMoneyInfoModel.getData().getFetching_amount() / 100d + "元");
@@ -90,13 +95,13 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
                 mRedBusiness.getCarList(APPCationStation.LOADINGAD, "");
                 break;
             case 10003://显示银行卡
-                CardListModel mCardListModel = NativieDataUtils.getCardListModel();
+                mCardListModel = NativieDataUtils.getCardListModel();
                 if (mCardListModel != null && mCardListModel.getData() != null && mCardListModel.getData().size() > 0) {
                     mRecyclerView.setAdapter(new MyBaseRecyclerViewAdapter<CardListModel.DataBean>(TCApplication.mContext, mCardListModel.getData(), R.layout.balance_card_info_list_item) {
                         @Override
                         public void onItemClick(View view, CardListModel.DataBean itemdata, List<CardListModel.DataBean> list, int position) {
                             if (itemdata.getIs_default() == 0) {
-                                changeMCard(itemdata.getBank_card_no());
+                                changeMCard(itemdata.getId());
                             }
                         }
 
@@ -107,7 +112,7 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
                             holder.setText(R.id.tv_cardinfo, itemdata.getBank_name() + "(****" + itemdata.getBank_card_no().substring(itemdata.getBank_card_no().length() - 4) + ")");
                             holder.setImage(R.id.iv_check, itemdata.getIs_default() == 1 ? R.drawable.check : R.drawable.uncheck);
                             if (itemdata.getIs_default() == 1) {
-                                checkcardId = itemdata.getBank_card_no();
+                                checkcardId = itemdata.getId();
                             }
                         }
                     });
@@ -141,20 +146,47 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
                     DialogUtil.showTipsDialog(this, "设置成功!", null);
                 }
                 break;
+            case APPCationStation.MONEYOUT://提现
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    DialogUtil.showTipsDialog(this, "提现成功!", new DialogUtil.OnConfirmListener() {
+                        @Override
+                        public void clickConfirm() {
+                            // 进入提现列表
+                            startActivity(new Intent(TCApplication.mContext, TiXianListActivity.class));
+                            finish();
+                        }
+
+                        @Override
+                        public void clickCancel() {
+
+                        }
+                    });
+                } else {
+                    bt_withdraw_action.setEnabled(true);
+                }
+                break;
         }
     }
 
     @Override
     public void BusinessOnFail(int mLoding_Type) {
         ToastUtil.showToast("网络不可用,请检查网络连接!");
+        if (mLoding_Type == APPCationStation.MONEYOUT) {
+            bt_withdraw_action.setEnabled(true);
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnRight://提现记录
+                startActivity(new Intent(TCApplication.mContext, TiXianListActivity.class));
                 break;
             case R.id.bt_withdraw_action://提现
+                if (mMoneyInfoModel == null || mCardListModel == null) {
+                    ToastUtil.showToast("网络不可用,请检查网络连接!");
+                    return;
+                }
                 if (checkcardId == null) {
                     DialogUtil.showTipsDialog(this, "提示", "请先绑定银行卡!", "确定", "取消", new DialogUtil.OnConfirmListener() {
                         @Override
@@ -168,7 +200,9 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
                         }
                     });
                 } else {
-                    // 进入提现页面
+                    // 提现
+                    bt_withdraw_action.setEnabled(false);
+                    mRedBusiness.moneyOut(APPCationStation.MONEYOUT, "提现中...", checkcardId, mMoneyInfoModel.getData().getCanfetch_amount());
                 }
                 break;
             case R.id.tv_banding_new_card:
@@ -198,4 +232,11 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mMoneyInfoModel == null || mCardListModel == null) {
+            isload = false;
+        }
+    }
 }

@@ -40,7 +40,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
     private LinearLayout llt_main;
     private RelativeLayout rlt_title;
     private FrameLayout flt_root;
-    private boolean isload;
+    public boolean isload;
     private TextView tv_title;
     private ImageView bt_close;
     private Button btnRight;

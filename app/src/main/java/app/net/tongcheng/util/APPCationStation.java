@@ -14,4 +14,5 @@ public class APPCationStation {
     public static final int GETSTARTPAGE = GETAOUTHCODE + 1;
     public static final int EXCRETERED = GETSTARTPAGE + 1;
     public static final int LOADINGAD = EXCRETERED + 1;
+    public static final int MONEYOUT = LOADINGAD + 1;
 }
