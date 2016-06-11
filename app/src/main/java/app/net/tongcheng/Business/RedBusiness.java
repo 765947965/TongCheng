@@ -10,6 +10,7 @@ import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.CardListModel;
 import app.net.tongcheng.model.ExcreteRedModel;
 import app.net.tongcheng.model.MoneyInfoModel;
+import app.net.tongcheng.model.RechargeInfoModel;
 import app.net.tongcheng.model.RedModel;
 import app.net.tongcheng.util.CancelableClear;
 import app.net.tongcheng.util.Common;
@@ -124,6 +125,12 @@ public class RedBusiness extends BaseBusiness {
         params.addQueryStringParameter("money", String.valueOf(money));
         params.addQueryStringParameter("cardid", cardid);
         goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+    }
+
+
+    public void rechargeInfo(int mLoding_Type, String message){
+        RequestParams params = new RequestParams(HttpUrls.rechage);
+        goConnect(mLoding_Type, params, message, RechargeInfoModel.class.getName());
     }
 
 

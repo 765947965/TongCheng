@@ -24,6 +24,7 @@ import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.activity.BalanceActivity;
 import app.net.tongcheng.activity.PayMoneyActivity;
+import app.net.tongcheng.activity.ReChargeActivity;
 import app.net.tongcheng.activity.RedListActivity;
 import app.net.tongcheng.activity.RedShareInfoActivity;
 import app.net.tongcheng.adapter.RedListAdapter;
@@ -85,6 +86,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
         mViewHolder.setOnClickListener(R.id.llt_fukuang);
         mViewHolder.setOnClickListener(R.id.llt_balance);
         mViewHolder.setOnClickListener(R.id.llt_redlist);
+        mViewHolder.setOnClickListener(R.id.llt_rechage);
     }
 
     @Override
@@ -237,6 +239,9 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                     return;
                 }
                 startActivity(new Intent(TCApplication.mContext, RedListActivity.class));
+                break;
+            case R.id.llt_rechage:
+                startActivity(new Intent(TCApplication.mContext, ReChargeActivity.class));
                 break;
         }
     }
