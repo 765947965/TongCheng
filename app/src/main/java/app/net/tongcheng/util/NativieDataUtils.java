@@ -16,6 +16,7 @@ import app.net.tongcheng.model.RechargeInfoModel;
 import app.net.tongcheng.model.RedModel;
 import app.net.tongcheng.model.StartPageModel;
 import app.net.tongcheng.model.UpContentModel;
+import app.net.tongcheng.model.UserMoreInfoModel;
 
 /**
  * @author: xiewenliang
@@ -179,5 +180,18 @@ public class NativieDataUtils {
     public static void setRechargeInfoModel(RechargeInfoModel mRechargeInfoModel) {
         String str = JSON.toJSONString(mRechargeInfoModel);
         OperationUtils.PutString("RechargeInfoModel", str);
+    }
+
+    public static UserMoreInfoModel getUserMoreInfoModel() {
+        String str = OperationUtils.getString("UserMoreInfoModel");
+        if (TextUtils.isEmpty(str)) {
+            return null;
+        }
+        return JSON.parseObject(str, UserMoreInfoModel.class);
+    }
+
+    public static void setUserMoreInfoModel(UserMoreInfoModel mUserMoreInfoModel) {
+        String str = JSON.toJSONString(mUserMoreInfoModel);
+        OperationUtils.PutString("UserMoreInfoModel", str);
     }
 }

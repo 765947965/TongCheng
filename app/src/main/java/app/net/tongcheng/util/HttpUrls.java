@@ -25,4 +25,8 @@ public class HttpUrls {
     public static final String bandingCard = "http://pay.8hbao.com:8060/recharge/service/set_wallet_bank.php";//绑定银行卡
     public static final String moneyout = "http://pay.8hbao.com:8060/recharge/service/cash_apply.php";//提现
     public static final String rechage = "http://pay.8hbao.com:8060/recharge/service/goodsinfo.php";//充值信息
+    public static final String getUserInfo = "http://mobile.8hbao.com:8899/user/getUserProfile";//获取用户信息
+    public static final String UPUserHeadURL = "http://mobile.8hbao.com:8899/user/uploadUserHead";//上传头像
+    public static final String UPUSERDATAURL = "http://mobile.8hbao.com:8899/user/uploadUserProfile";//上传用户其它信息
+    public static final String ADVICE = "http://mobile.8hbao.com:8899/config/advice";//上传问题
 }

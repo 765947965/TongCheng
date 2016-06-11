@@ -19,8 +19,8 @@
 
             <ImageView
                 android:id="@+id/iv_head_image"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_centerVertical="true" />
 
             <LinearLayout
@@ -72,6 +72,7 @@
                 android:background="@color/dividing_line_light" />
 
             <LinearLayout
+                android:id="@+id/llt_fk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -99,6 +100,7 @@
                 android:background="@color/dividing_line_light" />
 
             <LinearLayout
+                android:id="@+id/llt_abouttc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"

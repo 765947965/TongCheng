@@ -37,10 +37,9 @@
 
                 <ImageView
                     android:id="@+id/iv_head_image"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="14.6dp"
                     android:layout_toLeftOf="@id/iv_head_image_right" />
             </RelativeLayout>
 
@@ -56,6 +55,7 @@
                 android:padding="14.6dp">
 
                 <TextView
+                    android:id="@+id/tv_name_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -73,11 +73,13 @@
 
                 <TextView
                     android:id="@+id/tv_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="14.6dp"
                     android:layout_toLeftOf="@id/iv_name_right"
+                    android:layout_toRightOf="@id/tv_name_title"
+                    android:gravity="right"
+
                     android:textColor="@color/text_hint"
                     android:textSize="@dimen/sp14" />
             </RelativeLayout>
@@ -115,7 +117,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="14.6dp"
                     android:layout_toLeftOf="@id/iv_num_right"
                     android:textColor="@color/text_hint"
                     android:textSize="@dimen/sp14" />
@@ -153,7 +154,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="14.6dp"
                     android:layout_toLeftOf="@id/iv_password_right"
                     android:textColor="@color/text_hint"
                     android:textSize="@dimen/sp14" />
@@ -171,6 +171,7 @@
                 android:padding="14.6dp">
 
                 <TextView
+                    android:id="@+id/tv_address_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -191,8 +192,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="14.6dp"
                     android:layout_toLeftOf="@id/iv_address_right"
+                    android:layout_toRightOf="@id/tv_address_title"
+                    android:gravity="right"
                     android:textColor="@color/text_hint"
                     android:textSize="@dimen/sp14" />
             </RelativeLayout>
@@ -229,7 +231,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="14.6dp"
                     android:layout_toLeftOf="@id/iv_sex_right"
                     android:textColor="@color/text_hint"
                     android:textSize="@dimen/sp14" />
@@ -267,7 +268,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="14.6dp"
                     android:layout_toLeftOf="@id/iv_area_right"
                     android:textColor="@color/text_hint"
                     android:textSize="@dimen/sp14" />
@@ -305,7 +305,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="14.6dp"
                     android:layout_toLeftOf="@id/iv_signature_right"
                     android:textColor="@color/text_hint"
                     android:textSize="@dimen/sp14" />
@@ -317,11 +316,12 @@
                 android:background="@color/dividing_line_light" />
 
             <Button
+                android:id="@+id/bt_sumbit"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="50dp"
                 android:layout_marginBottom="30dp"
+                android:layout_marginTop="50dp"
                 android:background="@drawable/red_button_box_select"
                 android:minHeight="35dp"
                 android:text="保存"

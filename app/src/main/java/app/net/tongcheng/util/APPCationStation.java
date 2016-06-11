@@ -15,4 +15,6 @@ public class APPCationStation {
     public static final int EXCRETERED = GETSTARTPAGE + 1;
     public static final int LOADINGAD = EXCRETERED + 1;
     public static final int MONEYOUT = LOADINGAD + 1;
+    public static final int UPIMAGE = MONEYOUT + 1;
+    public static final int UPOTHERINFO = UPIMAGE + 1;
 }

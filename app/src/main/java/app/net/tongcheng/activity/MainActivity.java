@@ -253,6 +253,14 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
                         }
                     }
                     break;
+                case "MyFragment.Refresh":
+                    if (mMyFragment != null && MyFragment.isfirstloaddata) {
+                        MyFragment.isfirstloaddata = false;
+                        if (mPager.getCurrentItem() == 4) {
+                            mMyFragment.loadData();
+                        }
+                    }
+                    break;
             }
         }
     }
