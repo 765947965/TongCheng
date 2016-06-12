@@ -49,14 +49,15 @@ public class CardListModel extends BaseModel {
         private String id;
         private String field_account_id;
         private String uid;
-        private String bank_name;
-        private String branch_name;
+        private String bank_name;//银行名称
+        private String branch_name;//支行名称
         private String bank_card_no;
-        private String card_holder;
+        private String card_holder;//持卡人姓名
         private String bank_type;
         private String status;
         private int is_default;
         private String addtime;
+        private String logo_url;//银行LOGO
 
         public String getId() {
             return id;
@@ -72,6 +73,14 @@ public class CardListModel extends BaseModel {
 
         public void setField_account_id(String field_account_id) {
             this.field_account_id = field_account_id;
+        }
+
+        public String getLogo_url() {
+            return logo_url;
+        }
+
+        public void setLogo_url(String logo_url) {
+            this.logo_url = logo_url;
         }
 
         public String getUid() {

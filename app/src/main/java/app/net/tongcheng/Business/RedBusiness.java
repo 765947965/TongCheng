@@ -106,6 +106,14 @@ public class RedBusiness extends BaseBusiness {
         goConnect(mLoding_Type, params, message, BaseModel.class.getName());
     }
 
+    public void deleteCard(int mLoding_Type, String message, String cardNo) {
+        RequestParams params = new RequestParams(HttpUrls.deletecard);
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
+        params.addQueryStringParameter("cardid", cardNo);
+        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+    }
+
 
     public void bandingCard(int mLoding_Type, String message, String bank_name, String bank_card_no, String card_holder, String branch_name) {
         RequestParams params = new RequestParams(HttpUrls.bandingCard);

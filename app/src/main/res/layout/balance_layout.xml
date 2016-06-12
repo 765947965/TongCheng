@@ -71,11 +71,14 @@
         android:textColor="@color/white"
         android:textSize="@dimen/sp14" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/mRecyclerView"
+    <ListView
+        android:id="@+id/mListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bt_withdraw_action"
         android:layout_below="@id/llt_balance"
-        android:background="@color/white" />
+        android:background="@color/white"
+        android:divider="@color/dividing_line_light"
+        android:dividerHeight="0.5dp"
+        android:listSelector="#10000000" />
 </RelativeLayout>
