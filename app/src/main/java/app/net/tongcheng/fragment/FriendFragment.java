@@ -16,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -29,6 +30,7 @@ import java.util.List;
 import app.net.tongcheng.Business.FriendBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.activity.AddFriendActivity;
 import app.net.tongcheng.activity.PersonalRedEnvelopeConfig;
 import app.net.tongcheng.adapter.FriendHAdater;
 import app.net.tongcheng.adapter.FriendVAdater;
@@ -57,6 +59,7 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
     private ViewHolder mViewHolder;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView, mRecyclerViewH;
+    private ImageView ivRight;
     private MailList_abcList mMailList;
     private EditText et_search;
     private TextView tv_show, tv_next;
@@ -102,6 +105,8 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
         LinearLayoutManager linearLayoutManagerH = new LinearLayoutManager(TCApplication.mContext);
         linearLayoutManagerH.setOrientation(LinearLayoutManager.HORIZONTAL);
         mRecyclerViewH.setLayoutManager(linearLayoutManagerH);
+        ivRight = mViewHolder.setVisibility(R.id.ivRight, View.VISIBLE);
+        ivRight.setOnClickListener(this);
     }
 
     @Override
@@ -283,6 +288,9 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
                 String uids = uidstrb.toString();
                 uids = uids.substring(0, uids.length() - 1);
                 startActivity(new Intent(TCApplication.mContext, PersonalRedEnvelopeConfig.class).putExtra("uids", uids).putExtra("name", mDataHList.get(0).getRemark()).putExtra("nums", mDataHList.size()));
+                break;
+            case R.id.ivRight://添加好友
+                startActivity(new Intent(TCApplication.mContext, AddFriendActivity.class));
                 break;
         }
     }

@@ -43,4 +43,11 @@ public class FriendBusiness extends BaseBusiness {
         params.addBodyParameter("friends", data);
         goPostConnect(mLoding_Type, params, message, UpFriendInfoModel.class.getName());
     }
+
+    public void checkFriend(int mLoding_Type, String message, String sdata){
+        RequestParams params = new RequestParams(HttpUrls.CHECKF);
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        params.addQueryStringParameter("account", sdata);
+        goConnect(mLoding_Type, params, message, UpFriendInfoModel.class.getName());
+    }
 }
