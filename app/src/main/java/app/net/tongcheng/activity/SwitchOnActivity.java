@@ -61,7 +61,7 @@ public class SwitchOnActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void initView() {
-        mViewHolder = new ViewHolder(findViewById(R.id.llt_main), this);
+        mViewHolder = new ViewHolder(findViewById(R.id.rlt_main), this);
         r_loding4v2_phnum = mViewHolder.getView(R.id.r_loding4v2_phnum);
         r_loding4v2_pwd = mViewHolder.getView(R.id.r_loding4v2_pwd);
         r_loding4v2_phnum.addTextChangedListener(this);

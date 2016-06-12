@@ -64,6 +64,7 @@ public class AccountSetActivity extends BaseActivity implements View.OnClickList
                 startActivity(new Intent(TCApplication.mContext, SwitchOnActivity.class));
                 break;
             case R.id.setts_retrieve_password_relayout:
+                startActivity(new Intent(TCApplication.mContext, SetRetrievePassword.class));
                 break;
             case R.id.setts_change_password_relayout:
                 break;

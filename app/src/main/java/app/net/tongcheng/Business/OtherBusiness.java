@@ -7,6 +7,7 @@ import org.xutils.http.RequestParams;
 
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
+import app.net.tongcheng.model.GetPassordModel;
 import app.net.tongcheng.model.RegisterCode;
 import app.net.tongcheng.model.RegisterInviteflagModel;
 import app.net.tongcheng.model.StartPageModel;
@@ -17,6 +18,8 @@ import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.HttpUrls;
 import app.net.tongcheng.util.MD5;
 import app.net.tongcheng.util.Misc;
+import app.net.tongcheng.util.Utils;
+import app.net.tongcheng.util.VerificationCode;
 
 /**
  * Created by 76594 on 2016/5/29.
@@ -110,6 +113,24 @@ public class OtherBusiness extends BaseBusiness {
     }
 
     /**
+     * 修改密码
+     *
+     * @param mLoding_Type
+     * @param message
+     * @param newPassword
+     */
+    public void registerChangePassword(int mLoding_Type, String message, String phone, String oldPassword, String newPassword) {
+        RequestParams params = getRequestParams(HttpUrls.ChangePWD_URL_V2, phone, null);
+        params.addQueryStringParameter("account", phone);
+        params.removeParameter("phone");
+        params.removeParameter("netmode");
+        params.removeParameter("brandname");
+        params.addQueryStringParameter("old_pwd", oldPassword);
+        params.addQueryStringParameter("new_pwd", Misc.cryptDataByPwd(newPassword.trim()));
+        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+    }
+
+    /**
      * 获取启动页数据
      *
      * @param mLoding_Type
@@ -125,6 +146,40 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("pix_level", "mdpi");
         params.addQueryStringParameter("ver", "1.0");
         goConnect(mLoding_Type, params, message, StartPageModel.class.getName());
+    }
+
+
+    public void getPassword(int mLoding_Type, String message, String phone) {
+        RequestParams params = new RequestParams(HttpUrls.PWDPS);
+        String sn = VerificationCode.getCode2();
+        params.addQueryStringParameter("sn", sn);
+        params.addQueryStringParameter("agent_id", TCApplication.getmUserInfo().getAgent_id());
+        params.addQueryStringParameter("account", phone);
+        params.addQueryStringParameter("pv", "android");
+        params.addQueryStringParameter("v", Utils.getVersionName());
+        params.addQueryStringParameter("sign", MD5.toMD5(sn + phone + Common.SIGN_KEY));
+        params.addQueryStringParameter("brand", Utils.getBrand());
+        params.addQueryStringParameter("model", Utils.getModel());
+        params.addQueryStringParameter("product", Common.BrandName);
+        params.addQueryStringParameter("brandname", Common.BrandName);
+        goConnect(mLoding_Type, params, message, RegisterCode.class.getName());
+    }
+
+
+    public void getChagnePasswordColde(int mLoding_Type, String message, String phone, String authcode){
+        RequestParams params = new RequestParams(HttpUrls.CPGHD);
+        String sn = VerificationCode.getCode2();
+        params.addQueryStringParameter("sn", sn);
+        params.addQueryStringParameter("agent_id", TCApplication.getmUserInfo().getAgent_id());
+        params.addQueryStringParameter("account", phone);
+        params.addQueryStringParameter("pv", "android");
+        params.addQueryStringParameter("v", Utils.getVersionName());
+        params.addQueryStringParameter("sign", MD5.toMD5(sn + phone + Common.SIGN_KEY));
+        params.addQueryStringParameter("brand", Utils.getBrand());
+        params.addQueryStringParameter("model", Utils.getModel());
+        params.addQueryStringParameter("product", Common.BrandName);
+        params.addQueryStringParameter("authcode", authcode);
+        goConnect(mLoding_Type, params, message, GetPassordModel.class.getName());
     }
 
 }

@@ -29,4 +29,6 @@ public class HttpUrls {
     public static final String UPUserHeadURL = "http://mobile.8hbao.com:8899/user/uploadUserHead";//上传头像
     public static final String UPUSERDATAURL = "http://mobile.8hbao.com:8899/user/uploadUserProfile";//上传用户其它信息
     public static final String ADVICE = "http://mobile.8hbao.com:8899/config/advice";//上传问题
+    public static final String PWDPS = "http://mobile.8hbao.com:8899/v2/send_findpwd_authcode_v2";//获取密码验证码
+    public static final String CPGHD = "http://mobile.8hbao.com:8899/v2/find_password_v2";//获取密码
 }
