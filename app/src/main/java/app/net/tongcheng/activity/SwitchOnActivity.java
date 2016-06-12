@@ -72,6 +72,7 @@ public class SwitchOnActivity extends BaseActivity implements View.OnClickListen
         mViewHolder.setOnClickListener(R.id.rl4v2_clearpnum);
         mViewHolder.setOnClickListener(R.id.r_loding4v2_getpassword);
         r_loding4v2_lodingbt.setOnClickListener(this);
+        mViewHolder.setVisibility(R.id.r_loding4v2_getpassword, View.GONE);
     }
 
 

@@ -8,6 +8,7 @@ import android.view.View;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -67,8 +68,23 @@ public class AccountSetActivity extends BaseActivity implements View.OnClickList
                 startActivity(new Intent(TCApplication.mContext, SetRetrievePassword.class));
                 break;
             case R.id.setts_change_password_relayout:
+                startActivity(new Intent(TCApplication.mContext, ChagnePassoword.class));
                 break;
             case R.id.setaccout_sign_out:
+                DialogUtil.showTipsDialog(this, "提示", "确定退出登录？", "确定", "取消", new DialogUtil.OnConfirmListener() {
+                    @Override
+                    public void clickConfirm() {
+                        sendEventBusMessage("MainActivity.Close");
+                        TCApplication.setmUserInfo(null);
+                        startActivity(new Intent(TCApplication.mContext, LocationActivity.class));
+                        finish();
+                    }
+
+                    @Override
+                    public void clickCancel() {
+
+                    }
+                });
                 break;
         }
     }

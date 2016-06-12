@@ -96,9 +96,10 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
                     mSwipeRefreshLayout.setRefreshing(true);
                     mMyBusiness.getuserInfo(APPCationStation.LOADING, "");
                 }
-                if (mUserMoreInfoModel != null) {
-                    setData(mUserMoreInfoModel);
+                if (mUserMoreInfoModel == null) {
+                    mUserMoreInfoModel = new UserMoreInfoModel();
                 }
+                setData(mUserMoreInfoModel);
                 break;
         }
     }
@@ -158,10 +159,6 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if (mUserMoreInfoModel == null) {
-            ToastUtil.showToast("网络不可用,请检查网络连接!");
-            return;
-        }
         switch (v.getId()) {
             case R.id.rlt_head_image:
                 ImageSelector.open(this, getImageConfig());

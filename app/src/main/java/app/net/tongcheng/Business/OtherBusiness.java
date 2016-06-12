@@ -153,7 +153,7 @@ public class OtherBusiness extends BaseBusiness {
         RequestParams params = new RequestParams(HttpUrls.PWDPS);
         String sn = VerificationCode.getCode2();
         params.addQueryStringParameter("sn", sn);
-        params.addQueryStringParameter("agent_id", TCApplication.getmUserInfo().getAgent_id());
+        params.addQueryStringParameter("agent_id", "1.0");
         params.addQueryStringParameter("account", phone);
         params.addQueryStringParameter("pv", "android");
         params.addQueryStringParameter("v", Utils.getVersionName());
@@ -170,7 +170,7 @@ public class OtherBusiness extends BaseBusiness {
         RequestParams params = new RequestParams(HttpUrls.CPGHD);
         String sn = VerificationCode.getCode2();
         params.addQueryStringParameter("sn", sn);
-        params.addQueryStringParameter("agent_id", TCApplication.getmUserInfo().getAgent_id());
+        params.addQueryStringParameter("agent_id", "1.0");
         params.addQueryStringParameter("account", phone);
         params.addQueryStringParameter("pv", "android");
         params.addQueryStringParameter("v", Utils.getVersionName());

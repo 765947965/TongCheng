@@ -533,10 +533,14 @@ public class Utils {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                InputMethodManager inputManager = (InputMethodManager) edt.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputManager.showSoftInput(edt, 0);
-                edt.setSelection(edt.getText().toString().length());
+                try {
+                    InputMethodManager inputManager = (InputMethodManager) edt.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputManager.showSoftInput(edt, 0);
+                    edt.setSelection(edt.getText().toString().length());
+                } catch (Exception e) {
+                }
             }
         }, time);
+
     }
 }

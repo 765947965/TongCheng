@@ -84,9 +84,10 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 if (mUserMoreInfoModel == null || !NativieDataUtils.getTodyYMD().equals(mUserMoreInfoModel.getUpdate())) {
                     mMyBusiness.getuserInfo(APPCationStation.LOADING, "");
                 }
-                if (mUserMoreInfoModel != null) {
-                    setData(mUserMoreInfoModel);
+                if (mUserMoreInfoModel == null) {
+                    mUserMoreInfoModel = new UserMoreInfoModel();
                 }
+                setData(mUserMoreInfoModel);
                 break;
         }
     }

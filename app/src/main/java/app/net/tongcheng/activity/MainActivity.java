@@ -278,6 +278,9 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
                 case "ALL.UpData":
                     louData();
                     break;
+                case "MainActivity.Close":
+                    finish();
+                    break;
             }
         }
     }

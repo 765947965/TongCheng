@@ -40,6 +40,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="14.6dp"
                     android:layout_toLeftOf="@id/iv_head_image_right" />
             </RelativeLayout>
 
@@ -76,10 +77,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="14.6dp"
                     android:layout_toLeftOf="@id/iv_name_right"
                     android:layout_toRightOf="@id/tv_name_title"
                     android:gravity="right"
-
                     android:textColor="@color/text_hint"
                     android:textSize="@dimen/sp14" />
             </RelativeLayout>
@@ -117,6 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="14.6dp"
                     android:layout_toLeftOf="@id/iv_num_right"
                     android:textColor="@color/text_hint"
                     android:textSize="@dimen/sp14" />
@@ -154,6 +156,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="14.6dp"
                     android:layout_toLeftOf="@id/iv_password_right"
                     android:textColor="@color/text_hint"
                     android:textSize="@dimen/sp14" />
@@ -192,6 +195,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="14.6dp"
                     android:layout_toLeftOf="@id/iv_address_right"
                     android:layout_toRightOf="@id/tv_address_title"
                     android:gravity="right"
@@ -231,6 +235,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="14.6dp"
                     android:layout_toLeftOf="@id/iv_sex_right"
                     android:textColor="@color/text_hint"
                     android:textSize="@dimen/sp14" />
@@ -268,6 +273,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="14.6dp"
                     android:layout_toLeftOf="@id/iv_area_right"
                     android:textColor="@color/text_hint"
                     android:textSize="@dimen/sp14" />
@@ -305,6 +311,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="14.6dp"
                     android:layout_toLeftOf="@id/iv_signature_right"
                     android:textColor="@color/text_hint"
                     android:textSize="@dimen/sp14" />

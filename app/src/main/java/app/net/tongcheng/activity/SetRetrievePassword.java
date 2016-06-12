@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 
 import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.R;
@@ -29,7 +30,7 @@ import app.net.tongcheng.view.LineEditText;
 public class SetRetrievePassword extends BaseActivity implements View.OnClickListener {
 
     private ViewHolder mViewHolder;
-    private LineEditText setrpd4v2_phnum;
+    private EditText setrpd4v2_phnum;
     private OtherBusiness mOtherBusiness;
     private String phone;
 
@@ -90,7 +91,7 @@ public class SetRetrievePassword extends BaseActivity implements View.OnClickLis
 
     @Override
     public void BusinessOnFail(int mLoding_Type) {
-
+        ToastUtil.showToast("网络不可用,请检查网络连接");
     }
 
     @Override

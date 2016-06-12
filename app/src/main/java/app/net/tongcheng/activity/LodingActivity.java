@@ -168,6 +168,7 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
                 mOtherBusiness.loadingBusiness(APPCationStation.SUMBIT, "登录中", r_loding4v2_phnum.getText().toString(), r_loding4v2_pwd.getText().toString());
                 break;
             case R.id.r_loding4v2_getpassword://忘记密码
+                startActivity(new Intent(TCApplication.mContext, SetRetrievePassword.class));
                 break;
         }
     }
