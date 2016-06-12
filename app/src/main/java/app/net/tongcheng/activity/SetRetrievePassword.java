@@ -61,7 +61,7 @@ public class SetRetrievePassword extends BaseActivity implements View.OnClickLis
                 if (TCApplication.getmUserInfo() != null) {
                     setrpd4v2_phnum.setText(TCApplication.getmUserInfo().getPhone());
                 }
-//                Utils.setInputMethodVisiable(setrpd4v2_phnum, 250);
+                Utils.setInputMethodVisiable(setrpd4v2_phnum, 250);
                 break;
         }
     }
