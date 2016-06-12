@@ -20,12 +20,14 @@ import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.model.OraLodingUser;
 import app.net.tongcheng.model.RegisterCode;
 import app.net.tongcheng.model.UserInfo;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.OperationUtils;
+import app.net.tongcheng.util.OraLodingUserTools;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
 
@@ -108,6 +110,7 @@ public class RegisterInputCodeActivity extends BaseActivity implements View.OnCl
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     UserInfo mUserInfo = (UserInfo) mConnectResult.getObject();
                     TCApplication.setmUserInfo(mUserInfo);
+                    OraLodingUserTools.addolus(TCApplication.mContext, new OraLodingUser(mUserInfo.getPhone(), System.currentTimeMillis()));
                     DialogUtil.showTipsDialog(this, "恭喜您，注册成功!", new DialogUtil.OnConfirmListener() {
                         @Override
                         public void clickConfirm() {

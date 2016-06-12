@@ -144,6 +144,14 @@
             android:name=".activity.FeedbackActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AccountSetActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SwitchOnActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

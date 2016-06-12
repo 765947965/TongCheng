@@ -20,6 +20,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import app.net.tongcheng.Business.MyBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.activity.AccountSetActivity;
 import app.net.tongcheng.activity.FeedbackActivity;
 import app.net.tongcheng.activity.MyUserInfoActivity;
 import app.net.tongcheng.activity.PublicWebview;
@@ -62,6 +63,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         mViewHolder.setOnClickListener(R.id.rlt_user_info);
         mViewHolder.setOnClickListener(R.id.llt_abouttc);
         mViewHolder.setOnClickListener(R.id.llt_fk);
+        mViewHolder.setOnClickListener(R.id.llt_zh);
     }
 
     @Override
@@ -119,6 +121,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.llt_fk:
                 startActivity(new Intent(TCApplication.mContext, FeedbackActivity.class));
+                break;
+            case R.id.llt_zh:
+                startActivity(new Intent(TCApplication.mContext, AccountSetActivity.class));
                 break;
         }
     }

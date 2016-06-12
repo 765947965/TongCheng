@@ -38,7 +38,7 @@ public class UserDateUtils {
     public static void PutString(String key, String value, boolean addUserID) {
         SharedPreferences.Editor editor = getSharedPreference().edit();
         if (addUserID) {
-            editor.putString(TCApplication.getmUserInfo() == null ? "" : TCApplication.getmUserInfo().getUid() + key, value);
+            editor.putString(key, value);
         } else {
             editor.putString(key, value);
         }
@@ -51,7 +51,7 @@ public class UserDateUtils {
 
     public static String getString(String key, boolean addUserID) {
         if (addUserID) {
-            return getSharedPreference().getString(TCApplication.getmUserInfo() == null ? "" : TCApplication.getmUserInfo().getUid() + key, null);
+            return getSharedPreference().getString(key, null);
         } else {
             return getSharedPreference().getString(key, null);
         }
@@ -64,7 +64,7 @@ public class UserDateUtils {
     public static void PutInt(String key, int value, boolean addUserID) {
         SharedPreferences.Editor editor = getSharedPreference().edit();
         if (addUserID) {
-            editor.putInt(TCApplication.getmUserInfo() == null ? "" : TCApplication.getmUserInfo().getUid() + key, value);
+            editor.putInt(key, value);
         } else {
             editor.putInt(key, value);
         }
@@ -77,7 +77,7 @@ public class UserDateUtils {
 
     public static int getInt(String key, boolean addUserID) {
         if (addUserID) {
-            return getSharedPreference().getInt(TCApplication.getmUserInfo() == null ? "" : TCApplication.getmUserInfo().getUid() + key, 0);
+            return getSharedPreference().getInt(key, 0);
         } else {
             return getSharedPreference().getInt(key, 0);
         }
@@ -90,7 +90,7 @@ public class UserDateUtils {
     public static void PutBoolean(String key, boolean value, boolean addUserID) {
         SharedPreferences.Editor editor = getSharedPreference().edit();
         if (addUserID) {
-            editor.putBoolean(TCApplication.getmUserInfo() == null ? "" : TCApplication.getmUserInfo().getUid() + key, value);
+            editor.putBoolean(key, value);
         } else {
             editor.putBoolean(key, value);
         }
@@ -103,7 +103,7 @@ public class UserDateUtils {
 
     public static boolean getBoolean(String key, boolean addUserID) {
         if (addUserID) {
-            return getSharedPreference().getBoolean(TCApplication.getmUserInfo() == null ? "" : TCApplication.getmUserInfo().getUid() + key, false);
+            return getSharedPreference().getBoolean(key, false);
         } else {
             return getSharedPreference().getBoolean(key, false);
         }

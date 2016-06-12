@@ -72,6 +72,34 @@
                 android:background="@color/dividing_line_light" />
 
             <LinearLayout
+                android:id="@+id/llt_zh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="14.6dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/my_fankui" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="账号设置"
+                    android:textColor="@color/text_content"
+                    android:textSize="@dimen/sp14" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/dividing_line_light" />
+
+            <LinearLayout
                 android:id="@+id/llt_fk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

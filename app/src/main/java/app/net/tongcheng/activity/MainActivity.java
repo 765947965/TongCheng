@@ -117,6 +117,10 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
             // 首页加载数据
             mRedPacketFragment.loadData();
         }
+        louData();
+    }
+
+    private void louData() {
         // 上传本地通讯录
         UpContentModel mUpContentModel = NativieDataUtils.getUpContentModel();
         if (mUpContentModel == null || !NativieDataUtils.getTodyYMD().equals(mUpContentModel.getUpdate())) {
@@ -260,6 +264,19 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
                             mMyFragment.loadData();
                         }
                     }
+                    break;
+                case "ALL.Refresh":
+                    RedPacketFragment.isfirstloaddata = false;
+                    LifeFragment.isfirstloaddata = false;
+                    FriendFragment.isfirstloaddata = false;
+                    ShareFragment.isfirstloaddata = false;
+                    MyFragment.isfirstloaddata = false;
+                    if (mPager.getCurrentItem() == 4 && mMyFragment != null) {
+                        mMyFragment.loadData();
+                    }
+                    break;
+                case "ALL.UpData":
+                    louData();
                     break;
             }
         }

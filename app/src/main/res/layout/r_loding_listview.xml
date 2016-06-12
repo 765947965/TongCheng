@@ -3,9 +3,11 @@
     android:id="@+id/rllvtextpn"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
-    android:padding="12dp"
-    android:textColor="#000000"
-    android:textSize="18sp" >
+    android:paddingBottom="12dp"
+    android:paddingLeft="100dp"
+    android:paddingRight="12dp"
+    android:paddingTop="12dp"
+    android:textColor="@color/text_content"
+    android:textSize="15sp">
 
 </TextView>

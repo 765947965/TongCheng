@@ -1,44 +1,30 @@
 package app.net.tongcheng.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 
-import org.greenrobot.eventbus.Subscribe;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.adapter.R_Loding4v2_SPLIST;
 import app.net.tongcheng.model.BaseModel;
-import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.OraLodingUser;
-import app.net.tongcheng.model.StartPageModel;
 import app.net.tongcheng.model.UserInfo;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
-import app.net.tongcheng.util.NativieDataUtils;
-import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.OraLodingUserTools;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
@@ -51,45 +37,46 @@ import app.net.tongcheng.view.OnListnerShearch;
  * @Filename:
  * @Description:
  * @Copyright: Copyright (c) 2016 Tuandai Inc. All rights reserved.
- * @date: 2016/5/21 10:26
+ * @date: 2016/6/12 9:48
  */
-public class LodingActivity extends BaseActivity implements View.OnClickListener, TextWatcher, OnListnerShearch, AdapterView.OnItemClickListener {
+public class SwitchOnActivity extends BaseActivity implements View.OnClickListener, TextWatcher, OnListnerShearch, AdapterView.OnItemClickListener {
 
     private ViewHolder mViewHolder;
     private List<OraLodingUser> oldus;
-    private ArrayList<OraLodingUser> oldus_showlist = new ArrayList<>();
     private R_Loding4v2_SPLIST rl4v2sadapter;
-    private LineEditText r_loding4v2_pwd;
-    private EditText r_loding4v2_phnum;
-    private TextView r_loding4v2_lodingbt;
     private ListView lplist;
+    private ArrayList<OraLodingUser> oldus_showlist = new ArrayList<>();
+    private LineEditText r_loding4v2_phnum, r_loding4v2_pwd;
+    private TextView r_loding4v2_lodingbt;
     private OtherBusiness mOtherBusiness;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.loding_layout);
-        setTitle("登录");
+        setContentView(R.layout.switch_out_layout);
+        setTitle("切换账号");
         initView();
-        setEventBus();
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 
     private void initView() {
-        mViewHolder = new ViewHolder(findViewById(R.id.flt_main), this);
-        r_loding4v2_pwd = mViewHolder.getView(R.id.r_loding4v2_pwd);
-        r_loding4v2_pwd.setShearchListner(this);
+        mViewHolder = new ViewHolder(findViewById(R.id.llt_main), this);
         r_loding4v2_phnum = mViewHolder.getView(R.id.r_loding4v2_phnum);
+        r_loding4v2_pwd = mViewHolder.getView(R.id.r_loding4v2_pwd);
         r_loding4v2_phnum.addTextChangedListener(this);
-        r_loding4v2_lodingbt = mViewHolder.getView(R.id.r_loding4v2_lodingbt);
+        r_loding4v2_pwd.setShearchListner(this);
         lplist = mViewHolder.getView(R.id.lplist);
+        r_loding4v2_lodingbt = mViewHolder.getView(R.id.r_loding4v2_lodingbt);
         lplist.setOnItemClickListener(this);
         mViewHolder.setOnClickListener(R.id.rl4v2_clearpnum);
         mViewHolder.setOnClickListener(R.id.r_loding4v2_getpassword);
         r_loding4v2_lodingbt.setOnClickListener(this);
     }
 
-    private void setData() {
+
+    @Override
+    public void loadData() {
         oldus = OraLodingUserTools.getolus(this);
         if (oldus == null) {
             oldus = new ArrayList<>();
@@ -98,12 +85,6 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
             r_loding4v2_phnum.setText(oldus.get(0).getPhonenum());
             r_loding4v2_phnum.setSelection(r_loding4v2_phnum.getText().toString().length());
         }
-    }
-
-
-    @Override
-    public void loadData() {
-        setData();
         Utils.setInputMethodVisiable(r_loding4v2_phnum, 250);
     }
 
@@ -127,20 +108,13 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     UserInfo mUserInfo = (UserInfo) mConnectResult.getObject();
                     TCApplication.setmUserInfo(mUserInfo);
+                    sendEventBusMessage("ALL.Refresh");
+                    sendEventBusMessage("ALL.UpData");
                     OraLodingUserTools.addolus(TCApplication.mContext, new OraLodingUser(mUserInfo.getPhone(), System.currentTimeMillis()));
                     DialogUtil.showTipsDialog(this, "登录成功!", new DialogUtil.OnConfirmListener() {
                         @Override
                         public void clickConfirm() {
-                            LodingActivity.this.sendEventBusMessage("loading_ok");
-                            StartPageModel mStartPageModel = NativieDataUtils.getStartPageModel(true);
-                            if (mStartPageModel != null) {
-                                // 开启启动页
-                                LodingActivity.this.startActivity(new Intent(TCApplication.mContext, StartPageActivity.class).putExtra("mStartPageModel", mStartPageModel));
-                            } else {
-                                // 开启主页
-                                LodingActivity.this.startActivity(new Intent(TCApplication.mContext, MainActivity.class));
-                            }
-                            LodingActivity.this.finish();
+                            finish();
                         }
 
                         @Override
@@ -220,17 +194,9 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position,
-                            long id) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         mViewHolder.setVisibility(R.id.lplist, View.GONE);
         r_loding4v2_phnum.setText(oldus_showlist.get(position).getPhonenum());
         r_loding4v2_phnum.setSelection(r_loding4v2_phnum.getText().toString().length());
-    }
-
-    @Subscribe
-    public void onEvent(CheckEvent event) {
-        if (event != null && event.getMsg().equals("loading_ok")) {
-            finish();
-        }
     }
 }
