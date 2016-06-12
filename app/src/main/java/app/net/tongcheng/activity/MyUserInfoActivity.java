@@ -167,6 +167,7 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
                 startActivity(new Intent(TCApplication.mContext, ChangeNameActivity.class).putExtra("name", mUserMoreInfoModel.getName()));
                 break;
             case R.id.rlt_password://登录密码
+                startActivity(new Intent(TCApplication.mContext, ChagnePassoword.class));
                 break;
             case R.id.rlt_address://地址
                 startActivity(new Intent(TCApplication.mContext, UserInfoAddressActivity.class).putExtra("location", mUserMoreInfoModel.getLocation()));
@@ -186,6 +187,7 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
                 });
                 break;
             case R.id.rlt_area://地区
+                startActivity(new Intent(TCApplication.mContext, ChangeProvince.class));
                 break;
             case R.id.rlt_signature://个性签名
                 startActivity(new Intent(TCApplication.mContext, QianmingActivity.class).putExtra("signature", mUserMoreInfoModel.getSignature()));
@@ -256,7 +258,7 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
 
     private void setData(UserMoreInfoModel mUserMoreInfoModel) {
         if (!TextUtils.isEmpty(mUserMoreInfoModel.getPicture()) && !TextUtils.isEmpty(mUserMoreInfoModel.getPicurl_prefix())) {
-            mViewHolder.setImage(R.id.iv_head_image, mUserMoreInfoModel.getPicurl_prefix() + mUserMoreInfoModel.getPicture(), 360);
+            mViewHolder.setImage(R.id.iv_head_image, mUserMoreInfoModel.getPicurl_prefix() + mUserMoreInfoModel.getPicture(), 0, 360);
         } else {
             mViewHolder.setImage(R.id.iv_head_image, R.drawable.content5);
         }
@@ -293,6 +295,12 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
         }
         if (event.getMsg().startsWith("location=")) {
             mUserMoreInfoModel.setLocation(event.getMsg().replace("location=", ""));
+            setData(mUserMoreInfoModel);
+        }
+        if (event.getMsg().startsWith("provinceCity=")) {
+            String[] vlues = event.getMsg().split("=")[1].split(":");
+            mUserMoreInfoModel.setProvince(vlues[0]);
+            mUserMoreInfoModel.setCity(vlues[1]);
             setData(mUserMoreInfoModel);
         }
     }

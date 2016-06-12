@@ -131,7 +131,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
     private void setData(UserMoreInfoModel mUserMoreInfoModel) {
         if (!TextUtils.isEmpty(mUserMoreInfoModel.getPicture()) && !TextUtils.isEmpty(mUserMoreInfoModel.getPicurl_prefix())) {
-            mViewHolder.setImage(R.id.iv_head_image, mUserMoreInfoModel.getPicurl_prefix() + mUserMoreInfoModel.getPicture(), 360);
+            mViewHolder.setImage(R.id.iv_head_image, mUserMoreInfoModel.getPicurl_prefix() + mUserMoreInfoModel.getPicture(), 0,360);
         } else {
             mViewHolder.setImage(R.id.iv_head_image, R.drawable.content5);
         }

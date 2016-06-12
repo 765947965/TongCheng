@@ -84,6 +84,11 @@ public class ViewHolder {
         new PictureLoader(defaultReId, imageScaleType).displayImage(imageUri, (ImageView) getView(resource));
     }
 
+    // 加载圆角图片
+    public void setImage(int resource, String imageUri, int defaultReId, int cornerRadiusPixels) {
+        new PictureLoader(defaultReId, cornerRadiusPixels).displayImage(imageUri, (ImageView) getView(resource));
+    }
+
     public <T extends View> T setOnClickListener(int resource) {
         View view = getView(resource);
         if (mOnClickListener != null) {
