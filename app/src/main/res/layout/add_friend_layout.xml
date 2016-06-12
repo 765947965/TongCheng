@@ -28,7 +28,7 @@
             android:paddingLeft="30dp"
             android:paddingRight="50dp"
             android:singleLine="true"
-            android:textSize="15sp"></EditText>
+            android:textSize="15sp" />
 
         <ImageView
             android:layout_width="20dp"
@@ -102,7 +102,9 @@
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical" />
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/text_content"
+                    android:textSize="15sp" />
 
                 <ImageView
                     android:id="@+id/seximage"
@@ -114,7 +116,9 @@
             <TextView
                 android:id="@+id/phone"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textColor="@color/remark_tips"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <TextView

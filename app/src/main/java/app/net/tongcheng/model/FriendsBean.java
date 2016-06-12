@@ -26,6 +26,7 @@ public class FriendsBean implements Serializable, Comparable<FriendsBean> {
     private String SearchString;
     private String FY;
     private boolean select;
+    private String mobileNumber;
 
     public void setInfo(String province, String picture, String picmd5, String company, String profession, String school, String sex, String birthday, String signature, String city, String name) {
         this.province = province;
@@ -39,6 +40,14 @@ public class FriendsBean implements Serializable, Comparable<FriendsBean> {
         this.signature = signature;
         this.city = city;
         this.name = name;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 
     public String getPhone() {

@@ -1,18 +1,28 @@
 package app.net.tongcheng.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Message;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import app.net.tongcheng.Business.FriendBusiness;
 import app.net.tongcheng.R;
+import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.model.ContentModel;
 import app.net.tongcheng.model.FriendModel;
 import app.net.tongcheng.model.FriendsBean;
+import app.net.tongcheng.model.UpContentJSONModel;
 import app.net.tongcheng.model.UpFriendInfoModel;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
@@ -34,6 +44,7 @@ public class AddFriendActivity extends BaseActivity implements View.OnClickListe
     private EditText searchtext;
     private FriendModel mFriendModel;
     private TextView addbt;
+    private String name, phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +60,7 @@ public class AddFriendActivity extends BaseActivity implements View.OnClickListe
         mViewHolder.setOnClickListener(R.id.seartchbt);
         searchtext = mViewHolder.getView(R.id.searchtext);
         addbt = mViewHolder.getView(R.id.addbt);
+        addbt.setOnClickListener(this);
     }
 
 
@@ -86,16 +98,18 @@ public class AddFriendActivity extends BaseActivity implements View.OnClickListe
                         }
                         if (!TextUtils.isEmpty(mFriendsBean.getSex())) {
                             if ("男".equals(mFriendsBean.getSex())) {
-                                mViewHolder.setImage(R.id.seximage, R.drawable.one_profile_male_left_dark);
+                                mViewHolder.setImage(R.id.seximage, R.drawable.one_profile_male_left_dark).setVisibility(View.VISIBLE);
                             } else if ("女".equals(mFriendsBean.getSex())) {
-                                mViewHolder.setImage(R.id.seximage, R.drawable.one_profile_female_left_dark);
+                                mViewHolder.setImage(R.id.seximage, R.drawable.one_profile_female_left_dark).setVisibility(View.VISIBLE);
                             }
                         } else {
                             mViewHolder.setVisibility(R.id.seximage, View.INVISIBLE);
                         }
+                        name = TextUtils.isEmpty(mFriendsBean.getName()) ? "用户" : mFriendsBean.getName();
+                        phone = mFriendsBean.getMobileNumber();
                         addbt.setText("添加");
                         addbt.setEnabled(true);
-                        mViewHolder.setText(R.id.phone, mFriendsBean.getPhone());
+                        mViewHolder.setText(R.id.phone, mFriendsBean.getMobileNumber());
                         if (mFriendModel != null && mFriendModel.getFriends() != null && mFriendModel.getFriends().size() > 0) {
                             for (FriendsBean mFriendsBeanSun : mFriendModel.getFriends()) {
                                 if (mFriendsBeanSun.getUid().equals(mFriendsBean.getUid())) {
@@ -108,12 +122,24 @@ public class AddFriendActivity extends BaseActivity implements View.OnClickListe
                     }
                 }
                 break;
+            case APPCationStation.SUMBIT:
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    if (mFriendModel != null && NativieDataUtils.getTodyYMD().equals(mFriendModel.getUpdate())) {
+                        mFriendModel.setUpdate("00000000");
+                        NativieDataUtils.setFriendModel(mFriendModel);
+                    }
+                    sendEventBusMessage("FriendFragment.Refresh");
+                    DialogUtil.showTipsDialog(this, "添加好友成功!", null);
+                } else {
+                    DialogUtil.showTipsDialog(this, "添加好友失败!", null);
+                }
+                break;
         }
     }
 
     @Override
     public void BusinessOnFail(int mLoding_Type) {
-
+        ToastUtil.showToast("网络不可用,请检查网络！");
     }
 
     @Override
@@ -128,6 +154,14 @@ public class AddFriendActivity extends BaseActivity implements View.OnClickListe
                 }
                 break;
             case R.id.addbt:
+                UpContentJSONModel mUpContentJSONModel = new UpContentJSONModel();
+                List<ContentModel> mData = new ArrayList<>();
+                List<String> phones = new ArrayList<>();
+                phones.add(phone);
+                mData.add(new ContentModel(System.currentTimeMillis(), name, phones));
+                mUpContentJSONModel.setContactlist(mData);
+                mUpContentJSONModel.setMac(((TelephonyManager) TCApplication.mContext.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId());
+                mFriendBusiness.uploadContens(APPCationStation.SUMBIT, "添加中...", JSON.toJSONString(mUpContentJSONModel));
                 break;
         }
     }

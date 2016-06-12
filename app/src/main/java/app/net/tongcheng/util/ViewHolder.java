@@ -64,29 +64,41 @@ public class ViewHolder {
         return mTextView;
     }
 
-    public void setImage(int resource, int resourceImage) {
-        ((ImageView) getView(resource)).setImageResource(resourceImage);
+    public ImageView setImage(int resource, int resourceImage) {
+        ImageView imageView = getView(resource);
+        imageView.setImageResource(resourceImage);
+        return imageView;
     }
 
-    public void setImage(int resource, String imageUri) {
-        new PictureLoader(0).displayImage(imageUri, (ImageView) getView(resource));
+    public ImageView setImage(int resource, String imageUri) {
+        ImageView imageView = getView(resource);
+        new PictureLoader(0).displayImage(imageUri, imageView);
+        return imageView;
     }
 
-    public void setImage(int resource, String imageUri, ImageScaleType imageScaleType) {
-        new PictureLoader(0, imageScaleType).displayImage(imageUri, (ImageView) getView(resource));
+    public ImageView setImage(int resource, String imageUri, ImageScaleType imageScaleType) {
+        ImageView imageView = getView(resource);
+        new PictureLoader(0, imageScaleType).displayImage(imageUri, imageView);
+        return imageView;
     }
 
-    public void setImage(int resource, String imageUri, int defaultReId) {
-        new PictureLoader(defaultReId).displayImage(imageUri, (ImageView) getView(resource));
+    public ImageView setImage(int resource, String imageUri, int defaultReId) {
+        ImageView imageView = getView(resource);
+        new PictureLoader(defaultReId).displayImage(imageUri, imageView);
+        return imageView;
     }
 
-    public void setImage(int resource, String imageUri, int defaultReId, ImageScaleType imageScaleType) {
-        new PictureLoader(defaultReId, imageScaleType).displayImage(imageUri, (ImageView) getView(resource));
+    public ImageView setImage(int resource, String imageUri, int defaultReId, ImageScaleType imageScaleType) {
+        ImageView imageView = getView(resource);
+        new PictureLoader(defaultReId, imageScaleType).displayImage(imageUri, imageView);
+        return imageView;
     }
 
     // 加载圆角图片
-    public void setImage(int resource, String imageUri, int defaultReId, int cornerRadiusPixels) {
-        new PictureLoader(defaultReId, cornerRadiusPixels).displayImage(imageUri, (ImageView) getView(resource));
+    public ImageView setImage(int resource, String imageUri, int defaultReId, int cornerRadiusPixels) {
+        ImageView imageView = getView(resource);
+        new PictureLoader(defaultReId, cornerRadiusPixels).displayImage(imageUri, imageView);
+        return imageView;
     }
 
     public <T extends View> T setOnClickListener(int resource) {
