@@ -10,6 +10,7 @@ import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.CardListModel;
 import app.net.tongcheng.model.ExcreteRedModel;
 import app.net.tongcheng.model.MoneyInfoModel;
+import app.net.tongcheng.model.MoneyOutListModel;
 import app.net.tongcheng.model.RechargeInfoModel;
 import app.net.tongcheng.model.RedModel;
 import app.net.tongcheng.util.CancelableClear;
@@ -143,6 +144,9 @@ public class RedBusiness extends BaseBusiness {
 
 
     public void moneyOutList(int mLoding_Type, String message){
-
+        RequestParams params = new RequestParams(HttpUrls.moneyoutList);
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
+        goConnect(mLoding_Type, params, message, MoneyOutListModel.class.getName());
     }
 }

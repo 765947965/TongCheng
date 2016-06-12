@@ -12,6 +12,7 @@ import app.net.tongcheng.model.CardListModel;
 import app.net.tongcheng.model.FriendModel;
 import app.net.tongcheng.model.LifeDataModel;
 import app.net.tongcheng.model.MoneyInfoModel;
+import app.net.tongcheng.model.MoneyOutListModel;
 import app.net.tongcheng.model.RechargeInfoModel;
 import app.net.tongcheng.model.RedModel;
 import app.net.tongcheng.model.StartPageModel;
@@ -193,5 +194,18 @@ public class NativieDataUtils {
     public static void setUserMoreInfoModel(UserMoreInfoModel mUserMoreInfoModel) {
         String str = JSON.toJSONString(mUserMoreInfoModel);
         OperationUtils.PutString("UserMoreInfoModel", str);
+    }
+
+    public static MoneyOutListModel getMoneyOutListModel() {
+        String str = OperationUtils.getString("MoneyOutListModel");
+        if (TextUtils.isEmpty(str)) {
+            return null;
+        }
+        return JSON.parseObject(str, MoneyOutListModel.class);
+    }
+
+    public static void setMoneyOutListModel(MoneyOutListModel mMoneyOutListModel) {
+        String str = JSON.toJSONString(mMoneyOutListModel);
+        OperationUtils.PutString("MoneyOutListModel", str);
     }
 }

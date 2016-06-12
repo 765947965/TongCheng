@@ -7,10 +7,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.adapter.MyBaseRecyclerViewAdapter;
+import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.model.MoneyOutListModel;
+import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.MyRecyclerViewHolder;
+import app.net.tongcheng.util.NativieDataUtils;
+import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -22,6 +32,7 @@ public class TiXianListActivity extends BaseActivity implements View.OnClickList
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private RedBusiness mRedBusiness;
+    private List<MoneyOutListModel.DataBean> mLists = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,22 +56,61 @@ public class TiXianListActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void loadData() {
-
+        mHandler.sendEmptyMessage(10001);
     }
 
     @Override
     public void mHandDoSomeThing(Message msg) {
+        switch (msg.what) {
+            case 10001:
+                MoneyOutListModel mMoneyOutListModel = NativieDataUtils.getMoneyOutListModel();
+                if (mMoneyOutListModel == null || !NativieDataUtils.getTodyYMD().equals(mMoneyOutListModel.getUpdate())) {
+                    mRedBusiness.moneyOutList(APPCationStation.LOADING, "");
+                }
+                mLists.clear();
+                if (mMoneyOutListModel != null && mMoneyOutListModel.getData() != null && mMoneyOutListModel.getData().size() > 0) {
+                    mLists.addAll(mMoneyOutListModel.getData());
+                }
+                if (mRecyclerView.getAdapter() == null) {
+                    mRecyclerView.setAdapter(new MyBaseRecyclerViewAdapter<MoneyOutListModel.DataBean>(TCApplication.mContext, mLists, R.layout.tixian_list_item_layout) {
+                        @Override
+                        public void onItemClick(View view, MoneyOutListModel.DataBean itemdata, List<MoneyOutListModel.DataBean> list, int position) {
 
+                        }
+
+                        @Override
+                        public void onCreateItemView(MyRecyclerViewHolder holder, MoneyOutListModel.DataBean itemdata, List<MoneyOutListModel.DataBean> list, int position) {
+                            holder.setImage(R.id.iv_title, itemdata.getLogo_url());
+                            holder.setText(R.id.tv_name, "提现至" + itemdata.getBank_name() + "(" + itemdata.getBank_card_no().substring(itemdata.getBank_card_no().length() - 4) + ")");
+                            holder.setText(R.id.tv_time, itemdata.getAddtime());
+                            holder.setText(R.id.tv_money, itemdata.getMoney() / 100d + "");
+                        }
+                    });
+                }
+                mRecyclerView.getAdapter().notifyDataSetChanged();
+                break;
+        }
     }
 
     @Override
     public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-
+        switch (mLoding_Type) {
+            case APPCationStation.LOADING:
+                mSwipeRefreshLayout.setRefreshing(false);
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    MoneyOutListModel mMoneyOutListModel = (MoneyOutListModel) mConnectResult.getObject();
+                    mMoneyOutListModel.setUpdate(NativieDataUtils.getTodyYMD());
+                    NativieDataUtils.setMoneyOutListModel(mMoneyOutListModel);
+                    mHandler.sendEmptyMessage(10001);
+                }
+                break;
+        }
     }
 
     @Override
     public void BusinessOnFail(int mLoding_Type) {
-
+        ToastUtil.showToast("网络不可用,请检查网络连接!");
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -70,6 +120,6 @@ public class TiXianListActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onRefresh() {
-
+        mRedBusiness.moneyOutList(APPCationStation.LOADING, "");
     }
 }
