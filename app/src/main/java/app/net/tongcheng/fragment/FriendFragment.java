@@ -86,6 +86,7 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
     private void initView(View view) {
         mViewHolder = new ViewHolder(view, this);
         mViewHolder.setText(R.id.tv_title, "好友");
+        mViewHolder.setVisibility(R.id.viewBaseLine, View.GONE);
         mViewHolder.setVisibility(R.id.bt_close, View.GONE);
         et_search = mViewHolder.getView(R.id.et_search);
         et_search.addTextChangedListener(this);
@@ -106,6 +107,7 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
         linearLayoutManagerH.setOrientation(LinearLayoutManager.HORIZONTAL);
         mRecyclerViewH.setLayoutManager(linearLayoutManagerH);
         ivRight = mViewHolder.setVisibility(R.id.ivRight, View.VISIBLE);
+        ivRight.setImageResource(R.drawable.image_add_friend);
         ivRight.setOnClickListener(this);
     }
 

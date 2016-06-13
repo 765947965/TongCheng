@@ -34,4 +34,8 @@ public class HttpUrls {
     public static final String CPGHD = "http://mobile.8hbao.com:8899/v2/find_password_v2";//获取密码
     public static final String CHECKF = "http://mobile.8hbao.com:8899/friend/queryAixinFriendInfo";//好友查询搜索
     public static final String moneyoutList = "http://pay.8hbao.com:8060/recharge/service/cashlist.php";//提现记录
+    public static final String ShareTips = "http://user.8hbao.com:8060/share_instructions.php";//提现记录
+    public static final String getShareCode = "http://mobile.8hbao.com:8899/v2/get_my_invite_flag_v2";//获取专属邀请码
+    public static final String msglist = "http://mobile.8hbao.com:8899/config/msglist";
+    public static final String tixianxianqing = "http://pay.8hbao.com:8060/recharge/service/cashinfo.php";//提现详情
 }

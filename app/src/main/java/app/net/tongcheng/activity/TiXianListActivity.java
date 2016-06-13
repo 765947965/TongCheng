@@ -1,5 +1,6 @@
 package app.net.tongcheng.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -75,7 +76,7 @@ public class TiXianListActivity extends BaseActivity implements View.OnClickList
                     mRecyclerView.setAdapter(new MyBaseRecyclerViewAdapter<MoneyOutListModel.DataBean>(TCApplication.mContext, mLists, R.layout.tixian_list_item_layout) {
                         @Override
                         public void onItemClick(View view, MoneyOutListModel.DataBean itemdata, List<MoneyOutListModel.DataBean> list, int position) {
-
+                            startActivity(new Intent(TCApplication.mContext, TiXianMoreInfo.class).putExtra("id", itemdata.getId()));
                         }
 
                         @Override

@@ -76,6 +76,7 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
     private void initView(View view) {
         mViewHolder = new ViewHolder(view, this);
         mViewHolder.setText(R.id.tv_title, "生活");
+        mViewHolder.setVisibility(R.id.viewBaseLine, View.GONE);
         mViewHolder.setVisibility(R.id.bt_close, View.GONE);
         mBannerView = mViewHolder.getView(R.id.image_banner);
         mGridView = mViewHolder.getView(R.id.gridlayout);

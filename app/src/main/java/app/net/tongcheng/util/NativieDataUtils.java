@@ -11,10 +11,13 @@ import app.net.tongcheng.model.ADListModel;
 import app.net.tongcheng.model.CardListModel;
 import app.net.tongcheng.model.FriendModel;
 import app.net.tongcheng.model.LifeDataModel;
+import app.net.tongcheng.model.MSGModel;
 import app.net.tongcheng.model.MoneyInfoModel;
 import app.net.tongcheng.model.MoneyOutListModel;
 import app.net.tongcheng.model.RechargeInfoModel;
 import app.net.tongcheng.model.RedModel;
+import app.net.tongcheng.model.ShareCodeModel;
+import app.net.tongcheng.model.ShareTipsModel;
 import app.net.tongcheng.model.StartPageModel;
 import app.net.tongcheng.model.UpContentModel;
 import app.net.tongcheng.model.UserMoreInfoModel;
@@ -207,5 +210,45 @@ public class NativieDataUtils {
     public static void setMoneyOutListModel(MoneyOutListModel mMoneyOutListModel) {
         String str = JSON.toJSONString(mMoneyOutListModel);
         OperationUtils.PutString("MoneyOutListModel", str);
+    }
+
+    public static ShareTipsModel getShareTipsModel() {
+        String str = OperationUtils.getString("ShareTipsModel");
+        if (TextUtils.isEmpty(str)) {
+            return null;
+        }
+        return JSON.parseObject(str, ShareTipsModel.class);
+    }
+
+    public static void setShareTipsModel(ShareTipsModel mShareTipsModel) {
+        String str = JSON.toJSONString(mShareTipsModel);
+        OperationUtils.PutString("ShareTipsModel", str);
+    }
+
+
+    public static ShareCodeModel getShareCodeModel() {
+        String str = OperationUtils.getString("ShareCodeModel");
+        if (TextUtils.isEmpty(str)) {
+            return null;
+        }
+        return JSON.parseObject(str, ShareCodeModel.class);
+    }
+
+    public static void setShareCodeModel(ShareCodeModel mShareCodeModel) {
+        String str = JSON.toJSONString(mShareCodeModel);
+        OperationUtils.PutString("ShareCodeModel", str);
+    }
+
+    public static MSGModel getMSGModel() {
+        String str = OperationUtils.getString("MSGModel");
+        if (TextUtils.isEmpty(str)) {
+            return null;
+        }
+        return JSON.parseObject(str, MSGModel.class);
+    }
+
+    public static void setMSGModel(MSGModel mMSGModel) {
+        String str = JSON.toJSONString(mMSGModel);
+        OperationUtils.PutString("MSGModel", str);
     }
 }

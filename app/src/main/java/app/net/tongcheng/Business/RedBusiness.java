@@ -13,6 +13,7 @@ import app.net.tongcheng.model.MoneyInfoModel;
 import app.net.tongcheng.model.MoneyOutListModel;
 import app.net.tongcheng.model.RechargeInfoModel;
 import app.net.tongcheng.model.RedModel;
+import app.net.tongcheng.model.TiXianMoreInfoModel;
 import app.net.tongcheng.util.CancelableClear;
 import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.HttpUrls;
@@ -148,5 +149,14 @@ public class RedBusiness extends BaseBusiness {
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
         goConnect(mLoding_Type, params, message, MoneyOutListModel.class.getName());
+    }
+
+
+    public void getTiXianInfo(int mLoding_Type, String message, String id){
+        RequestParams params = new RequestParams(HttpUrls.tixianxianqing);
+        params.addQueryStringParameter("id", id);
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
+        goConnect(mLoding_Type, params, message, TiXianMoreInfoModel.class.getName());
     }
 }

@@ -20,7 +20,7 @@ import cn.sharesdk.wechat.moments.WechatMoments;
  */
 public class ShareUtils {
 
-    private static void SendIMInfo(Activity mActivity, String platform, String title, String shareContent, String shareUrl) {
+    public static void SendIMInfo(Activity mActivity, String platform, String title, String shareContent, String shareUrl) {
         if (ShortMessage.NAME.equals(platform)) {
             try {
                 // 短信

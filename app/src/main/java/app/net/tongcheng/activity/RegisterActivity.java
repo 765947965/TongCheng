@@ -62,6 +62,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         mViewHolder.setOnClickListener(R.id.iv_clearphone);
         bt_register.setOnClickListener(this);
         et_phone.addTextChangedListener(this);
+        tv_protocol.setOnClickListener(this);
     }
 
 
@@ -113,6 +114,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 et_phone.setText("");
                 break;
             case R.id.tv_protocol://查看合同
+                startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "用户协议").putExtra("url", "http://user.8hbao.com:8060/agreement.html"));
                 break;
             case R.id.bt_register://注册
                 if (TextUtils.isEmpty(et_phone.getText().toString())) {

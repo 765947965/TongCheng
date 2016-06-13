@@ -1,13 +1,16 @@
 package app.net.tongcheng.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.alibaba.fastjson.JSON;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.net.tongcheng.Business.FriendBusiness;
+import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.fragment.BaseFragment;
@@ -30,10 +34,12 @@ import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.ContentModel;
+import app.net.tongcheng.model.MSGModel;
 import app.net.tongcheng.model.UpContentJSONModel;
 import app.net.tongcheng.model.UpContentModel;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.ContentsUtil;
+import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ViewHolder;
 import app.net.tongcheng.view.materialtabs.MaterialTab;
@@ -59,6 +65,7 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
     private ShareFragment mShareFragment;
     private MyFragment mMyFragment;
     private FriendBusiness mFriendBusiness;
+    private OtherBusiness mOtherBusiness;
     private List<BaseFragment> listFragment = new ArrayList<>();
     // 定义数组来存放按钮图片
 //    private String mTextViewArray[] = {"红包", "生活", "好友", "分享", "我的"};
@@ -78,6 +85,7 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
         initView();
         setEventBus();
         mFriendBusiness = new FriendBusiness(this, this, mHandler);
+        mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 
     private void initView() {
@@ -139,6 +147,10 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
                 }
             }).start();
         }
+        MSGModel mMSGModel = NativieDataUtils.getMSGModel();
+        if (mMSGModel == null || !NativieDataUtils.getTodyYMD().equals(mMSGModel.getUpdate())) {
+            mOtherBusiness.getMSGModel(APPCationStation.LOADINGAD, "");
+        }
     }
 
     @Override
@@ -157,7 +169,30 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     UpContentModel mUpContentModel = (UpContentModel) mConnectResult.getObject();
                     mUpContentModel.setUpdate(NativieDataUtils.getTodyYMD());
-                    //NativieDataUtils.setUpContentModel(mUpContentModel);
+                    NativieDataUtils.setUpContentModel(mUpContentModel);
+                }
+                break;
+            case APPCationStation.LOADINGAD:
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    MSGModel mMSGModel = (MSGModel) mConnectResult.getObject();
+                    mMSGModel.setUpdate(NativieDataUtils.getTodyYMD());
+                    NativieDataUtils.setMSGModel(mMSGModel);
+                    if (!TextUtils.isEmpty(mMSGModel.getUpdate_addr()) && mMSGModel.getUpdate_addr().startsWith("http")) {
+                        final String addr = mMSGModel.getUpdate_addr();
+                        DialogUtil.showTipsDialog(this, "发现新版本", mMSGModel.getUpdate_tips() + "", "确定更新", "下次再说", new DialogUtil.OnConfirmListener() {
+                            @Override
+                            public void clickConfirm() {
+                                Intent uppdate = new Intent("android.intent.action.VIEW", Uri.parse(addr));
+                                uppdate.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(uppdate);
+                            }
+
+                            @Override
+                            public void clickCancel() {
+
+                            }
+                        });
+                    }
                 }
                 break;
         }

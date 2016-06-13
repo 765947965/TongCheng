@@ -8,6 +8,7 @@ import org.xutils.http.RequestParams;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.GetPassordModel;
+import app.net.tongcheng.model.MSGModel;
 import app.net.tongcheng.model.RegisterCode;
 import app.net.tongcheng.model.RegisterInviteflagModel;
 import app.net.tongcheng.model.StartPageModel;
@@ -180,6 +181,19 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("product", Common.BrandName);
         params.addQueryStringParameter("authcode", authcode);
         goConnect(mLoding_Type, params, message, GetPassordModel.class.getName());
+    }
+
+
+    public void getMSGModel(int mLoding_Type, String message){
+        RequestParams params = new RequestParams(HttpUrls.msglist);
+        params.addQueryStringParameter("account", TCApplication.getmUserInfo().getPhone());
+        params.addQueryStringParameter("pv", "android");
+        params.addQueryStringParameter("v", Utils.getVersionName());
+        params.addQueryStringParameter("sc", "10240");
+        params.addQueryStringParameter("agent_id", TCApplication.getmUserInfo().getAgent_id());
+        params.addQueryStringParameter("product", Common.BrandName);
+        params.addQueryStringParameter("brandname", Common.BrandName);
+        goConnect(mLoding_Type, params, message, MSGModel.class.getName());
     }
 
 }
