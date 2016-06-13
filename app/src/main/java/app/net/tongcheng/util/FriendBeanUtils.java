@@ -20,7 +20,10 @@ public class FriendBeanUtils {
         StringBuilder SearchStringBuilder = new StringBuilder();
         SearchStringBuilder.append(mFriendsBean.getPhone() + ",");
         SearchStringBuilder.append(mFriendsBean.getRemark() + ",");
-        if (TextUtils.isEmpty(mFriendsBean.getRemark())) return;
+        if (TextUtils.isEmpty(mFriendsBean.getRemark())) {
+            mFriendsBean.setFY("~");
+            return;
+        }
         char[] remarks = mFriendsBean.getRemark().toCharArray();
         StringBuilder SearchStringBuilder_Q = new StringBuilder();
         StringBuilder SearchStringBuilder_S = new StringBuilder();
@@ -42,6 +45,7 @@ public class FriendBeanUtils {
     public static void pinYin4Name(FriendsBean mFriendsBean) {
         StringBuilder SearchStringBuilder = new StringBuilder();
         SearchStringBuilder.append(mFriendsBean.getSearchString());
+        if (TextUtils.isEmpty(mFriendsBean.getName())) return;
         char[] names = mFriendsBean.getName().toCharArray();
         StringBuilder SearchStringBuilder_Q = new StringBuilder();
         StringBuilder SearchStringBuilder_S = new StringBuilder();

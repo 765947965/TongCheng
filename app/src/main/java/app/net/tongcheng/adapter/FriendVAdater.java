@@ -51,10 +51,10 @@ public class FriendVAdater extends MyBaseRecyclerViewAdapter<FriendsBean> {
         }
         String searth = et_search.getText().toString().toUpperCase();
         if (TextUtils.isEmpty(searth)) {
-            holder.setText(R.id.nametext, TextUtils.isEmpty(itemdata.getRemark()) ? (TextUtils.isEmpty(itemdata.getName()) ? "用户" : itemdata.getName()) : itemdata.getRemark());
+            holder.setText(R.id.nametext, TextUtils.isEmpty(itemdata.getRemark()) ? itemdata.getPhone() : itemdata.getRemark());
             holder.setText(R.id.phonetext, itemdata.getPhone());
         } else {
-            holder.setText(R.id.nametext, Html.fromHtml((TextUtils.isEmpty(itemdata.getRemark()) ? (TextUtils.isEmpty(itemdata.getName()) ? "用户" : itemdata.getName()) : itemdata.getRemark()).replace(searth, "<font color=#FF6666>" + searth + "</font>")));
+            holder.setText(R.id.nametext, Html.fromHtml((TextUtils.isEmpty(itemdata.getRemark()) ? itemdata.getPhone() : itemdata.getRemark()).replace(searth, "<font color=#FF6666>" + searth + "</font>")));
             holder.setText(R.id.phonetext, Html.fromHtml(itemdata.getPhone().replace(searth, "<font color=#FF6666>" + searth + "</font>")));
         }
         if (itemdata.isSelect()) {
