@@ -91,11 +91,12 @@
                         android:id="@+id/reddetails_from_iamge"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
-                        android:adjustViewBounds="true"
                         android:layout_centerInParent="true"
+                        android:adjustViewBounds="true"
                         android:src="@drawable/red_dialog_head_image" />
 
                     <LinearLayout
+                        android:id="@+id/llt_linpaitips"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -125,6 +126,17 @@
                             android:src="@drawable/red_details_lingimage"
                             android:visibility="gone" />
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_linqutips"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@id/llt_linpaitips"
+                        android:layout_marginRight="10dp"
+                        android:gravity="bottom"
+                        android:textColor="#EF0603"
+                        android:textSize="12sp" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -210,6 +222,55 @@
                     android:textColor="#BD1816"
                     android:textSize="12sp"
                     android:visibility="invisible" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textinfosendred"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="bottom"
+                    android:textColor="#EF0603"
+                    android:textSize="12sp" />
+
+                <RelativeLayout
+                    android:id="@+id/llt_daxie"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:visibility="gone">
+
+                    <EditText
+                        android:id="@+id/mythankstext"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/radianwriteb_1"
+                        android:singleLine="true"
+                        android:text="@string/thanks"
+                        android:textColor="#BD1816"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/surethangkstext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/mythankstext"
+                        android:background="@drawable/bttwriteaction"
+                        android:clickable="true"
+                        android:text="@string/thankfriend"
+                        android:textColor="#BD1816"
+                        android:textSize="15sp"
+                        android:visibility="visible" />
+                </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

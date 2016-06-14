@@ -48,6 +48,7 @@ public class Utils {
     public static SimpleDateFormat sdformat_3 = new SimpleDateFormat("yyyy-MM-dd");
     public static SimpleDateFormat sdformat_4 = new SimpleDateFormat("MM月dd日");
     public static SimpleDateFormat sdformat_5 = new SimpleDateFormat("yyyyMMdd");
+    public static SimpleDateFormat sdformat_6 = new SimpleDateFormat("yyyy年MM月dd日-HH:mm");
 
     /**
      * 是否有网络

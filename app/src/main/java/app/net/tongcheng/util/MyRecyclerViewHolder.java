@@ -39,6 +39,13 @@ public class MyRecyclerViewHolder extends RecyclerView.ViewHolder {
         ((ImageView) getView(resource)).setImageResource(resourceImage);
     }
 
+    // 加载圆角图片
+    public ImageView setImage(int resource, String imageUri, int defaultReId, int cornerRadiusPixels) {
+        ImageView imageView = getView(resource);
+        new PictureLoader(defaultReId, cornerRadiusPixels).displayImage(imageUri, imageView);
+        return imageView;
+    }
+
     public void setImage(int resource, String imageUri) {
         new PictureLoader(0).displayImage(imageUri, (ImageView) getView(resource));
     }

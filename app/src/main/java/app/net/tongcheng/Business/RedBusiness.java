@@ -128,7 +128,7 @@ public class RedBusiness extends BaseBusiness {
         goConnect(mLoding_Type, params, message, BaseModel.class.getName());
     }
 
-    public void moneyOut(int mLoding_Type, String message,String cardid,  double money){
+    public void moneyOut(int mLoding_Type, String message, String cardid, double money) {
         RequestParams params = new RequestParams(HttpUrls.moneyout);
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
@@ -138,13 +138,13 @@ public class RedBusiness extends BaseBusiness {
     }
 
 
-    public void rechargeInfo(int mLoding_Type, String message){
+    public void rechargeInfo(int mLoding_Type, String message) {
         RequestParams params = new RequestParams(HttpUrls.rechage);
         goConnect(mLoding_Type, params, message, RechargeInfoModel.class.getName());
     }
 
 
-    public void moneyOutList(int mLoding_Type, String message){
+    public void moneyOutList(int mLoding_Type, String message) {
         RequestParams params = new RequestParams(HttpUrls.moneyoutList);
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
@@ -152,11 +152,20 @@ public class RedBusiness extends BaseBusiness {
     }
 
 
-    public void getTiXianInfo(int mLoding_Type, String message, String id){
+    public void getTiXianInfo(int mLoding_Type, String message, String id) {
         RequestParams params = new RequestParams(HttpUrls.tixianxianqing);
         params.addQueryStringParameter("id", id);
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
         goConnect(mLoding_Type, params, message, TiXianMoreInfoModel.class.getName());
+    }
+
+    public void sendThank(int mLoding_Type, String message, String thanks, String gift_id) {
+        RequestParams params = new RequestParams(HttpUrls.thank);
+        params.addQueryStringParameter("gift_id", gift_id);
+        params.addQueryStringParameter("thankyou", thanks);
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
+        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
     }
 }

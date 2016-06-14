@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 
 import com.looppager.BannerView;
 
 import java.util.List;
 
 import app.net.tongcheng.Business.LifeBusiness;
+import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.adapter.LoopBaseAdapter;
@@ -21,7 +23,10 @@ import app.net.tongcheng.model.FriendModel;
 import app.net.tongcheng.model.FriendsBean;
 import app.net.tongcheng.model.GiftsBean;
 import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.NativieDataUtils;
+import app.net.tongcheng.util.ToastUtil;
+import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -36,6 +41,7 @@ public class RedShareInfoActivity extends BaseActivity implements View.OnClickLi
     private ViewHolder mViewHolder;
     private GiftsBean mGiftsBean;
     private LifeBusiness mLifeBusiness;
+    private RedBusiness mRedBusiness;
     private BannerView mBannerView;
     private ADListModel mADListModel;
 
@@ -46,6 +52,7 @@ public class RedShareInfoActivity extends BaseActivity implements View.OnClickLi
         mGiftsBean = (GiftsBean) getIntent().getSerializableExtra("GiftsBean");
         initView();
         mLifeBusiness = new LifeBusiness(this, this, mHandler);
+        mRedBusiness = new RedBusiness(this, this, mHandler);
     }
 
     @Override
@@ -100,8 +107,41 @@ public class RedShareInfoActivity extends BaseActivity implements View.OnClickLi
         double money_temp = mGiftsBean.getMoney() / (double) 100;
         mViewHolder.setText(R.id.reddetails_from_money, money_temp + "");
         mViewHolder.setText(R.id.reddetails_from_money_dj, "元");
-        mViewHolder.setText(R.id.reddetails_from_money_time, money_temp + "已存入钱包");
         mViewHolder.setText(R.id.reddetails_from_tips, mGiftsBean.getTips());
+
+        if (mGiftsBean.getDirect().equals("sended")) {
+            try {
+                // 查看红包拆开情况
+                if (mGiftsBean.getReturned_money() == 0) {
+                    mViewHolder.setText(R.id.textinfosendred, Utils.sdformat_6.format(Utils.sdformat.parse(mGiftsBean.getCreate_time())) + " 包好 ,已领取" + mGiftsBean.getHas_open() + "/" + mGiftsBean.getSplitsnumber() + "个,共" + mGiftsBean.getReceived_money() / 100d + "元/" + money_temp + "元");
+                } else {
+                    mViewHolder.setText(R.id.textinfosendred, Utils.sdformat_6.format(Utils.sdformat.parse(mGiftsBean.getCreate_time())) + " 包好 ,已领取" + mGiftsBean.getHas_open() + "/" + mGiftsBean.getSplitsnumber() + "个,共" + mGiftsBean.getReceived_money() / 100d + "元/" + mGiftsBean.getMoney() / 100d + "元,已退回" + mGiftsBean.getReturned_money() / 100d + "元");
+                }
+                if ("has_sended".equals(mGiftsBean.getStatus())) {
+                    mViewHolder.setText(R.id.tv_linqutips, "领取中...");
+                } else if ("has_packed".equals(mGiftsBean.getStatus())) {
+                    mViewHolder.setText(R.id.tv_linqutips, "已包好");
+                } else if ("has_ended".equals(mGiftsBean.getStatus())) {
+                    if (mGiftsBean.getHas_open() == mGiftsBean.getSplitsnumber()) {
+                        mViewHolder.setText(R.id.tv_linqutips, "已领完");
+                    } else {
+                        mViewHolder.setText(R.id.tv_linqutips, "已过期");
+                    }
+                }
+                // 查看手气
+                mViewHolder.setVisibility(R.id.showathorinfo, View.VISIBLE).setOnClickListener(this);
+            } catch (Exception e) {
+            }
+        } else {
+            mViewHolder.setText(R.id.reddetails_from_money_time, money_temp + "已存入钱包");
+            if (mGiftsBean.getFrom().matches("[0-9]+")) {
+                // 显示答谢
+                mViewHolder.setVisibility(R.id.llt_daxie, View.VISIBLE);
+                mViewHolder.setOnClickListener(R.id.surethangkstext);
+            }
+        }
+
+
         // 设置头像
         if (mGiftsBean.getFrom().matches("[0-9]+")) {
             FriendModel mFriendModel = NativieDataUtils.getFriendModel();
@@ -147,6 +187,11 @@ public class RedShareInfoActivity extends BaseActivity implements View.OnClickLi
                     mHandler.sendEmptyMessage(10001);
                 }
                 break;
+            case APPCationStation.SUMBIT:
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    DialogUtil.showTipsDialog(this, "答谢成功!", null);
+                }
+                break;
         }
     }
 
@@ -160,6 +205,16 @@ public class RedShareInfoActivity extends BaseActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.reddllclosebt:
                 finish();
+                break;
+            case R.id.showathorinfo:
+                break;
+            case R.id.surethangkstext:
+                String thankyou = ((EditText) mViewHolder.getView(R.id.mythankstext)).getText().toString();
+                if (TextUtils.isEmpty(thankyou)) {
+                    ToastUtil.showToast("答谢语不能为空!");
+                    return;
+                }
+                mRedBusiness.sendThank(APPCationStation.SUMBIT, "提交中...", thankyou, mGiftsBean.getGift_id());
                 break;
         }
     }

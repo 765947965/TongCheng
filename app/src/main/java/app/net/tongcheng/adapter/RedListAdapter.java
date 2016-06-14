@@ -55,12 +55,12 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
         if (mSwipeRefreshLayout.isRefreshing()) {
             ToastUtil.showToast("正在同步数据...");
         } else if (itemdata != null) {
-            if (itemdata.getHas_open() == 1) {
-                // 详情
-                mActivity.startActivity(new Intent(TCApplication.mContext, RedShareInfoActivity.class).putExtra("GiftsBean", itemdata));
-            } else {
+            if (itemdata.getHas_open() == 0 && itemdata.getDirect().equals("received")) {
                 // 拆
                 mRedListAdapterSetDialog.setmAlertDialog(DialogUtil.getExcreteRedDilaog(mActivity, itemdata, mRedBusiness), position);
+            } else {
+                // 详情
+                mActivity.startActivity(new Intent(TCApplication.mContext, RedShareInfoActivity.class).putExtra("GiftsBean", itemdata));
             }
         }
     }

@@ -38,4 +38,5 @@ public class HttpUrls {
     public static final String getShareCode = "http://mobile.8hbao.com:8899/v2/get_my_invite_flag_v2";//获取专属邀请码
     public static final String msglist = "http://mobile.8hbao.com:8899/config/msglist";
     public static final String tixianxianqing = "http://pay.8hbao.com:8060/recharge/service/cashinfo.php";//提现详情
+    public static final String thank = "http://mobile.8hbao.com:8899/gift/add_gift_thankyou";//提现详情
 }
