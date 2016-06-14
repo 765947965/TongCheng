@@ -17,6 +17,8 @@ import app.net.tongcheng.adapter.LoopBaseAdapter;
 import app.net.tongcheng.model.ADListModel;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.model.FriendModel;
+import app.net.tongcheng.model.FriendsBean;
 import app.net.tongcheng.model.GiftsBean;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.NativieDataUtils;
@@ -101,6 +103,20 @@ public class RedShareInfoActivity extends BaseActivity implements View.OnClickLi
         mViewHolder.setText(R.id.reddetails_from_money_time, money_temp + "已存入钱包");
         mViewHolder.setText(R.id.reddetails_from_tips, mGiftsBean.getTips());
         // 设置头像
+        if (mGiftsBean.getFrom().matches("[0-9]+")) {
+            FriendModel mFriendModel = NativieDataUtils.getFriendModel();
+            if (mFriendModel != null && mFriendModel.getFriends() != null && mFriendModel.getFriends().size() > 0) {
+                for (FriendsBean mFriendsBean : mFriendModel.getFriends()) {
+                    if (mFriendsBean.getUid().equals(mGiftsBean.getFrom())) {
+                        if (!TextUtils.isEmpty(mFriendsBean.getPicture())) {
+                            mViewHolder.setImage(R.id.reddetails_from_iamge, mFriendsBean.getPicture(), R.drawable.red_dialog_head_image, 360);
+                        }
+                        break;
+                    }
+
+                }
+            }
+        }
     }
 
     @Override

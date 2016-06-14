@@ -88,16 +88,12 @@
                     android:layout_weight="1.6">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/red_dialog_head_image" />
-
-                    <ImageView
                         android:id="@+id/reddetails_from_iamge"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerHorizontal="true" />
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:adjustViewBounds="true"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/red_dialog_head_image" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"

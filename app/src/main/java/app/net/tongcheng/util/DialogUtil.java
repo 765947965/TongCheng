@@ -22,6 +22,8 @@ import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.adapter.MyBaseAdapter;
 import app.net.tongcheng.model.CheckEvent;
+import app.net.tongcheng.model.FriendModel;
+import app.net.tongcheng.model.FriendsBean;
 import app.net.tongcheng.model.GiftsBean;
 
 /**
@@ -264,6 +266,21 @@ public class DialogUtil {
                 dialog.dismiss();
             }
         });
+        // 设置头像
+        if (mGiftsBean.getFrom().matches("[0-9]+")) {
+            FriendModel mFriendModel = NativieDataUtils.getFriendModel();
+            if (mFriendModel != null && mFriendModel.getFriends() != null && mFriendModel.getFriends().size() > 0) {
+                for (FriendsBean mFriendsBean : mFriendModel.getFriends()) {
+                    if (mFriendsBean.getUid().equals(mGiftsBean.getFrom())) {
+                        if (!TextUtils.isEmpty(mFriendsBean.getPicture())) {
+                            new PictureLoader(R.drawable.red_dialog_head_image, 360).displayImage(mFriendsBean.getPicture(), (ImageView) view.findViewById(R.id.sendfromname_image));
+                        }
+                        break;
+                    }
+
+                }
+            }
+        }
         return dialog;
     }
 
