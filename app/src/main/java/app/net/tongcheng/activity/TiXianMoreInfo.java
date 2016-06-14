@@ -2,7 +2,9 @@ package app.net.tongcheng.activity;
 
 import android.os.Bundle;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 
 import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
@@ -67,18 +69,18 @@ public class TiXianMoreInfo extends BaseActivity implements View.OnClickListener
                                 mViewHolder.getView(R.id.view_two).setBackgroundColor(getResources().getColor(R.color.refurush_color));
                                 mViewHolder.setImage(R.id.image_one, R.drawable.out_list_info_red_point);
                                 mViewHolder.setImage(R.id.image_two, R.drawable.out_list_info_success);
+                                mViewHolder.setText(R.id.tv_banck_status, "银行处理中");
+                                mViewHolder.setText(R.id.tv_result_status, "提现成功");
+                                mViewHolder.setText(R.id.tv_to_creat_time, mDataBean.getAddtime());
                                 String[] times = mDataBean.getAddtime().split(" ");
                                 mViewHolder.setText(R.id.tv_time_day_sq, times[0]);
                                 mViewHolder.setText(R.id.tv_time_house_sq, times[1]);
                                 String[] paytimes = mDataBean.getPay_time().split(" ");
                                 mViewHolder.setText(R.id.tv_time_day_banck, paytimes[0]);
                                 mViewHolder.setText(R.id.tv_time_house_banck, paytimes[1]);
-                                mViewHolder.setText(R.id.tv_banck_status, "银行处理中");
                                 String[] finishtimes = mDataBean.getFinish_time().split(" ");
                                 mViewHolder.setText(R.id.tv_time_day_result, finishtimes[0]);
                                 mViewHolder.setText(R.id.tv_time_house_result, finishtimes[1]);
-                                mViewHolder.setText(R.id.tv_result_status, "提现成功");
-                                mViewHolder.setText(R.id.tv_to_creat_time, mDataBean.getAddtime());
                             }
                             break;
                         case "fail"://提现失败
@@ -93,23 +95,80 @@ public class TiXianMoreInfo extends BaseActivity implements View.OnClickListener
                                 mViewHolder.getView(R.id.view_two).setBackgroundColor(getResources().getColor(R.color.refurush_color));
                                 mViewHolder.setImage(R.id.image_one, R.drawable.out_list_info_red_point);
                                 mViewHolder.setImage(R.id.image_two, R.drawable.out_list_info_error);
+                                mViewHolder.setText(R.id.tv_banck_status, "银行处理中");
+                                mViewHolder.setText(R.id.tv_result_status, "提现失败");
+                                mViewHolder.setText(R.id.tv_to_creat_time, mDataBean.getAddtime());
                                 String[] times = mDataBean.getAddtime().split(" ");
                                 mViewHolder.setText(R.id.tv_time_day_sq, times[0]);
                                 mViewHolder.setText(R.id.tv_time_house_sq, times[1]);
                                 String[] paytimes = mDataBean.getPay_time().split(" ");
                                 mViewHolder.setText(R.id.tv_time_day_banck, paytimes[0]);
                                 mViewHolder.setText(R.id.tv_time_house_banck, paytimes[1]);
-                                mViewHolder.setText(R.id.tv_banck_status, "银行处理中");
                                 String[] finishtimes = mDataBean.getFinish_time().split(" ");
                                 mViewHolder.setText(R.id.tv_time_day_result, finishtimes[0]);
                                 mViewHolder.setText(R.id.tv_time_house_result, finishtimes[1]);
-                                mViewHolder.setText(R.id.tv_result_status, "提现失败");
-                                mViewHolder.setText(R.id.tv_to_creat_time, mDataBean.getAddtime());
                             }
                             break;
                         case "pail"://已提交至银行
+                            if (mDataBean.getStatus().equals("pail")) {
+                                mViewHolder.setText(R.id.tv_result_tips, "银行处理中");
+                                mViewHolder.setText(R.id.tv_money, "-" + mDataBean.getMoney() / 100d + "元");
+                                mViewHolder.setImage(R.id.iv_banck_card, mDataBean.getLogo_url());
+                                mViewHolder.setText(R.id.tv_cardname, "提现至" + mDataBean.getBank_name() + "(" + mDataBean.getBank_card_no().substring(mDataBean.getBank_card_no().length() - 4) + ")");
+                                mViewHolder.setText(R.id.tv_to_card_info, "提现至" + mDataBean.getBank_name() + "(" + mDataBean.getBank_card_no().substring(mDataBean.getBank_card_no().length() - 4) + ")");
+                                mViewHolder.getView(R.id.view_one).setBackgroundColor(getResources().getColor(R.color.refurush_color));
+                                mViewHolder.getView(R.id.view_two).setBackgroundColor(getResources().getColor(R.color.refurush_gray));
+                                mViewHolder.setImage(R.id.image_one, R.drawable.out_list_info_red_point);
+                                mViewHolder.setImage(R.id.image_two, R.drawable.out_list_info_gerd_point);
+                                mViewHolder.setText(R.id.tv_banck_status, "银行处理中");
+                                mViewHolder.setText(R.id.tv_result_status, "提现结果");
+                                mViewHolder.setText(R.id.tv_to_creat_time, mDataBean.getAddtime());
+                                ((TextView) mViewHolder.getView(R.id.tv_result_status)).setTextColor(getResources().getColor(R.color.remark_tips));
+                                String[] times = mDataBean.getAddtime().split(" ");
+                                mViewHolder.setText(R.id.tv_time_day_sq, times[0]);
+                                mViewHolder.setText(R.id.tv_time_house_sq, times[1]);
+                                if (!TextUtils.isEmpty(mDataBean.getPay_time())) {
+                                    String[] paytimes = mDataBean.getPay_time().split(" ");
+                                    mViewHolder.setText(R.id.tv_time_day_banck, paytimes[0]);
+                                    mViewHolder.setText(R.id.tv_time_house_banck, paytimes[1]);
+                                }
+                                if (!TextUtils.isEmpty(mDataBean.getFinish_time())) {
+                                    String[] finishtimes = mDataBean.getFinish_time().split(" ");
+                                    mViewHolder.setText(R.id.tv_time_day_result, finishtimes[0]);
+                                    mViewHolder.setText(R.id.tv_time_house_result, finishtimes[1]);
+                                }
+                            }
                             break;
                         case "apply"://申请中
+                            if (mDataBean.getStatus().equals("apply")) {
+                                mViewHolder.setText(R.id.tv_result_tips, "提交申请中");
+                                mViewHolder.setText(R.id.tv_money, "-" + mDataBean.getMoney() / 100d + "元");
+                                mViewHolder.setImage(R.id.iv_banck_card, mDataBean.getLogo_url());
+                                mViewHolder.setText(R.id.tv_cardname, "提现至" + mDataBean.getBank_name() + "(" + mDataBean.getBank_card_no().substring(mDataBean.getBank_card_no().length() - 4) + ")");
+                                mViewHolder.setText(R.id.tv_to_card_info, "提现至" + mDataBean.getBank_name() + "(" + mDataBean.getBank_card_no().substring(mDataBean.getBank_card_no().length() - 4) + ")");
+                                mViewHolder.getView(R.id.view_one).setBackgroundColor(getResources().getColor(R.color.refurush_gray));
+                                mViewHolder.getView(R.id.view_two).setBackgroundColor(getResources().getColor(R.color.refurush_gray));
+                                mViewHolder.setImage(R.id.image_one, R.drawable.out_list_info_gerd_point);
+                                mViewHolder.setImage(R.id.image_two, R.drawable.out_list_info_gerd_point);
+                                mViewHolder.setText(R.id.tv_banck_status, "银行处理中");
+                                mViewHolder.setText(R.id.tv_result_status, "提现结果");
+                                mViewHolder.setText(R.id.tv_to_creat_time, mDataBean.getAddtime());
+                                ((TextView) mViewHolder.getView(R.id.tv_banck_status)).setTextColor(getResources().getColor(R.color.remark_tips));
+                                ((TextView) mViewHolder.getView(R.id.tv_result_status)).setTextColor(getResources().getColor(R.color.remark_tips));
+                                String[] times = mDataBean.getAddtime().split(" ");
+                                mViewHolder.setText(R.id.tv_time_day_sq, times[0]);
+                                mViewHolder.setText(R.id.tv_time_house_sq, times[1]);
+                                if (!TextUtils.isEmpty(mDataBean.getPay_time())) {
+                                    String[] paytimes = mDataBean.getPay_time().split(" ");
+                                    mViewHolder.setText(R.id.tv_time_day_banck, paytimes[0]);
+                                    mViewHolder.setText(R.id.tv_time_house_banck, paytimes[1]);
+                                }
+                                if (!TextUtils.isEmpty(mDataBean.getFinish_time())) {
+                                    String[] finishtimes = mDataBean.getFinish_time().split(" ");
+                                    mViewHolder.setText(R.id.tv_time_day_result, finishtimes[0]);
+                                    mViewHolder.setText(R.id.tv_time_house_result, finishtimes[1]);
+                                }
+                            }
                             break;
                     }
 
