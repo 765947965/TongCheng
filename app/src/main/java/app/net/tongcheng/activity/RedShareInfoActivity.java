@@ -197,7 +197,7 @@ public class RedShareInfoActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void BusinessOnFail(int mLoding_Type) {
-
+        ToastUtil.showToast("网络不可用,请检查网络连接!");
     }
 
     @Override
@@ -207,6 +207,7 @@ public class RedShareInfoActivity extends BaseActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.showathorinfo:
+                startActivity(new Intent(TCApplication.mContext, ShowOtherLuck.class).putExtra("mGiftsBean", mGiftsBean));
                 break;
             case R.id.surethangkstext:
                 String thankyou = ((EditText) mViewHolder.getView(R.id.mythankstext)).getText().toString();

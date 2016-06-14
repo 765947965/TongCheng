@@ -220,6 +220,7 @@
                     android:layout_toRightOf="@id/reddetails_from_money_time"
                     android:background="@drawable/bttwriteaction"
                     android:textColor="#BD1816"
+                    android:text="查看他们手气"
                     android:textSize="12sp"
                     android:visibility="invisible" />
             </RelativeLayout>

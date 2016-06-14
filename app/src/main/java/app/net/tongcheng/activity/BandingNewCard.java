@@ -1,5 +1,6 @@
 package app.net.tongcheng.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
@@ -8,9 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
+import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
+import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.ToastUtil;
@@ -34,6 +39,7 @@ public class BandingNewCard extends BaseActivity implements View.OnClickListener
         setContentView(R.layout.banding_new_card_info);
         setTitle("绑定新银行卡");
         initView();
+        setEventBus();
         mRedBusiness = new RedBusiness(this, this, mHandler);
     }
 
@@ -46,6 +52,8 @@ public class BandingNewCard extends BaseActivity implements View.OnClickListener
         et_bank_card_no = mViewHolder.getView(R.id.et_bank_card_no);
         et_name = mViewHolder.getView(R.id.et_name);
         bt_banding = mViewHolder.getView(R.id.bt_banding);
+        mViewHolder.setOnClickListener(R.id.et_bank_name);
+        mViewHolder.setOnClickListener(R.id.tv_address);
     }
 
 
@@ -92,10 +100,6 @@ public class BandingNewCard extends BaseActivity implements View.OnClickListener
                 String bank_card_no = et_bank_card_no.getText().toString();
                 String card_holder = et_name.getText().toString();
 
-                bank_name = "中国银行";
-                str_address = "广东省东莞市";
-                str_port_address = "东城支行";
-
                 if (TextUtils.isEmpty(card_holder)) {
                     ToastUtil.showToast("请输入开户名");
                 } else if (TextUtils.isEmpty(bank_card_no)) {
@@ -113,6 +117,29 @@ public class BandingNewCard extends BaseActivity implements View.OnClickListener
                     mRedBusiness.bandingCard(APPCationStation.SUMBIT, "提交中...", bank_name, bank_card_no, card_holder, str_address + str_port_address);
                 }
                 break;
+            case R.id.et_bank_name:
+                startActivity(new Intent(TCApplication.mContext, ChangeBanckName.class));
+                break;
+            case R.id.tv_address:
+                startActivity(new Intent(TCApplication.mContext, ChangeProvince.class));
+                break;
+        }
+    }
+
+
+    @Subscribe
+    public void onEvent(CheckEvent event) {
+        if (event != null) {
+            try {
+                if (event.getMsg().startsWith("bank_name=")) {
+                    et_bank_name.setText(event.getMsg().split("=")[1]);
+                }
+                if (event.getMsg().startsWith("provinceCity=")) {
+                    String[] vlues = event.getMsg().split("=")[1].split(":");
+                    tv_address.setText(vlues[0] + vlues[1] + vlues[2]);
+                }
+            } catch (Exception e) {
+            }
         }
     }
 }

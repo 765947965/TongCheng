@@ -6,6 +6,7 @@ import android.os.Handler;
 import org.xutils.http.RequestParams;
 
 import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.model.BanckListModel;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.CardListModel;
 import app.net.tongcheng.model.ExcreteRedModel;
@@ -13,6 +14,7 @@ import app.net.tongcheng.model.MoneyInfoModel;
 import app.net.tongcheng.model.MoneyOutListModel;
 import app.net.tongcheng.model.RechargeInfoModel;
 import app.net.tongcheng.model.RedModel;
+import app.net.tongcheng.model.SplideGiftModel;
 import app.net.tongcheng.model.TiXianMoreInfoModel;
 import app.net.tongcheng.util.CancelableClear;
 import app.net.tongcheng.util.Common;
@@ -167,5 +169,18 @@ public class RedBusiness extends BaseBusiness {
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
         goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+    }
+
+    public void getListGiftInfo(int mLoding_Type, String message, String sender_gift_id){
+        RequestParams params = new RequestParams(HttpUrls.ListGiftInfo);
+        params.addQueryStringParameter("sender_gift_id", sender_gift_id);
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
+        goConnect(mLoding_Type, params, message, SplideGiftModel.class.getName());
+    }
+
+    public void getBanckCardList(int mLoding_Type, String message){
+        RequestParams params = new RequestParams(HttpUrls.bank_list);
+        goConnect(mLoding_Type, params, message, BanckListModel.class.getName());
     }
 }

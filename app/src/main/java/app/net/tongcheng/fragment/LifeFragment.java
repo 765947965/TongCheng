@@ -28,6 +28,7 @@ import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.LifeDataModel;
 import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.CastToUtil;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ViewHolder;
 import app.net.tongcheng.view.ScrollViewGridView;
@@ -180,8 +181,15 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
 
                 @Override
                 protected void MyonItemClick(AdapterView<?> parent, View view, LifeDataModel.ItemsBean item, List<LifeDataModel.ItemsBean> list, int position, long id) {
-                    if (item != null && !TextUtils.isEmpty(item.getTo()) && item.getTo().startsWith("http")) {
-                        startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", item.getName()).putExtra("url", item.getTo()));
+                    if (item != null && !TextUtils.isEmpty(item.getTo())) {
+                        if (item.getTo().startsWith("http")) {
+                            startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", item.getName()).putExtra("url", item.getTo()));
+                        } else {
+                            Intent mIntent = CastToUtil.getIntent(item.getTo());
+                            if (mIntent != null) {
+                                startActivity(mIntent);
+                            }
+                        }
                     }
                 }
             });
@@ -199,8 +207,15 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
                     mViewHolder.getView(R.id.rlt_main).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (!TextUtils.isEmpty(item.getTo()) && item.getTo().startsWith("http")) {
-                                startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "同城商城").putExtra("url", item.getTo()));
+                            if (!TextUtils.isEmpty(item.getTo())) {
+                                if (item.getTo().startsWith("http")) {
+                                    startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "同城商城").putExtra("url", item.getTo()));
+                                } else {
+                                    Intent mIntent = CastToUtil.getIntent(item.getTo());
+                                    if (mIntent != null) {
+                                        startActivity(mIntent);
+                                    }
+                                }
                             }
                         }
                     });
@@ -226,8 +241,15 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
                 item = mLifeDataModel.getItems().get(3);
                 break;
         }
-        if (item != null && !TextUtils.isEmpty(item.getTo()) && item.getTo().startsWith("http")) {
-            startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", item.getName()).putExtra("url", item.getTo()));
+        if (item != null && !TextUtils.isEmpty(item.getTo())) {
+            if (item.getTo().startsWith("http")) {
+                startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", item.getName()).putExtra("url", item.getTo()));
+            } else {
+                Intent mIntent = CastToUtil.getIntent(item.getTo());
+                if (mIntent != null) {
+                    startActivity(mIntent);
+                }
+            }
         }
     }
 }

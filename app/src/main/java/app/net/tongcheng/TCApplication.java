@@ -47,6 +47,7 @@ public class TCApplication extends Application {
     }
 
     public static void setmUserInfo(UserInfo mUserInfo) {
+        OperationUtils.getSharedPreference().edit().clear().commit();// 清楚用户数据
         OperationUtils.setUserInfo(mUserInfo == null ? "" : JSON.toJSONString(mUserInfo));
         TCApplication.mUserInfo = mUserInfo;
     }

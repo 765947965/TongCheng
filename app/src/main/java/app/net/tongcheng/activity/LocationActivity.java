@@ -48,10 +48,10 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void loadData() {
         mHandler.sendEmptyMessageDelayed(10001, 2000);
-        StartPageModel mStartPageModel = NativieDataUtils.getStartPageModel(false);//启动页更新检查
-        if (mStartPageModel == null || !NativieDataUtils.getTodyYMD().equals(mStartPageModel.getUpdate())) {
-            mOtherBusiness.getStartPageImage(APPCationStation.GETSTARTPAGE, "");
-        }
+//        StartPageModel mStartPageModel = NativieDataUtils.getStartPageModel(false);//启动页更新检查
+//        if (mStartPageModel == null || !NativieDataUtils.getTodyYMD().equals(mStartPageModel.getUpdate())) {
+//            mOtherBusiness.getStartPageImage(APPCationStation.GETSTARTPAGE, "");
+//        }
     }
 
     @Override

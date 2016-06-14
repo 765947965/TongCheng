@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import app.net.tongcheng.model.ADListModel;
+import app.net.tongcheng.model.BanckListModel;
 import app.net.tongcheng.model.CardListModel;
 import app.net.tongcheng.model.FriendModel;
 import app.net.tongcheng.model.LifeDataModel;
@@ -250,5 +251,18 @@ public class NativieDataUtils {
     public static void setMSGModel(MSGModel mMSGModel) {
         String str = JSON.toJSONString(mMSGModel);
         OperationUtils.PutString("MSGModel", str);
+    }
+
+    public static BanckListModel getBanckListModel() {
+        String str = OperationUtils.getString("BanckListModel");
+        if (TextUtils.isEmpty(str)) {
+            return null;
+        }
+        return JSON.parseObject(str, BanckListModel.class);
+    }
+
+    public static void setBanckListModel(BanckListModel mBanckListModel) {
+        String str = JSON.toJSONString(mBanckListModel);
+        OperationUtils.PutString("BanckListModel", str);
     }
 }

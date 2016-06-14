@@ -18,7 +18,7 @@ public class OperationUtils {
     private static OperationUtils instance;
     private SharedPreferences mSp;
 
-    private static SharedPreferences getSharedPreference() {
+    public static SharedPreferences getSharedPreference() {
         if (instance == null || instance.mSp == null) {
             synchronized (OperationUtils.class) {
                 if (instance == null || instance.mSp == null) {

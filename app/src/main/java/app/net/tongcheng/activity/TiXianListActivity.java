@@ -58,6 +58,7 @@ public class TiXianListActivity extends BaseActivity implements View.OnClickList
     @Override
     public void loadData() {
         mHandler.sendEmptyMessage(10001);
+        mRedBusiness.moneyOutList(APPCationStation.LOADING, "");
     }
 
     @Override
@@ -65,9 +66,9 @@ public class TiXianListActivity extends BaseActivity implements View.OnClickList
         switch (msg.what) {
             case 10001:
                 MoneyOutListModel mMoneyOutListModel = NativieDataUtils.getMoneyOutListModel();
-                if (mMoneyOutListModel == null || !NativieDataUtils.getTodyYMD().equals(mMoneyOutListModel.getUpdate())) {
-                    mRedBusiness.moneyOutList(APPCationStation.LOADING, "");
-                }
+//                if (mMoneyOutListModel == null || !NativieDataUtils.getTodyYMD().equals(mMoneyOutListModel.getUpdate())) {
+//                    mRedBusiness.moneyOutList(APPCationStation.LOADING, "");
+//                }
                 mLists.clear();
                 if (mMoneyOutListModel != null && mMoneyOutListModel.getData() != null && mMoneyOutListModel.getData().size() > 0) {
                     mLists.addAll(mMoneyOutListModel.getData());

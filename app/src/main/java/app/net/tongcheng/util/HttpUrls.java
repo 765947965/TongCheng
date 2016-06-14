@@ -38,5 +38,7 @@ public class HttpUrls {
     public static final String getShareCode = "http://mobile.8hbao.com:8899/v2/get_my_invite_flag_v2";//获取专属邀请码
     public static final String msglist = "http://mobile.8hbao.com:8899/config/msglist";
     public static final String tixianxianqing = "http://pay.8hbao.com:8060/recharge/service/cashinfo.php";//提现详情
-    public static final String thank = "http://mobile.8hbao.com:8899/gift/add_gift_thankyou";//提现详情
+    public static final String thank = "http://mobile.8hbao.com:8899/gift/add_gift_thankyou";//答谢
+    public static final String ListGiftInfo = "http://mobile.8hbao.com:8899/gift/get_gift_receive_info_v2";//看其它人手气
+    public static final String bank_list = "http://pay.8hbao.com:8060/recharge/service/bank_list.php";//银行卡列表
 }
