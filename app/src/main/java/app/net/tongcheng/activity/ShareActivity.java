@@ -58,6 +58,7 @@ public class ShareActivity extends BaseActivity implements View.OnClickListener 
     public void loadData() {
         mHandler.sendEmptyMessage(10001);
         mHandler.sendEmptyMessage(10002);
+        mShareBusiness.getShareCode(APPCationStation.LOADING, "");
     }
 
     @Override
@@ -68,7 +69,6 @@ public class ShareActivity extends BaseActivity implements View.OnClickListener 
                 if (mShareCodeModel != null && !TextUtils.isEmpty(mShareCodeModel.getMy_invite_flag())) {
                     mViewHolder.setText(R.id.tv_share_code, mShareCodeModel.getMy_invite_flag());
                 }
-                mShareBusiness.getShareCode(APPCationStation.LOADING, "");
                 break;
             case 10002:
                 mMSGModel = NativieDataUtils.getMSGModel();

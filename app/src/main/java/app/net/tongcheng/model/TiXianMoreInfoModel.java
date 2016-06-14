@@ -1,7 +1,5 @@
 package app.net.tongcheng.model;
 
-import java.util.List;
-
 /**
  * Created by 76594 on 2016/6/13.
  */
@@ -9,28 +7,29 @@ public class TiXianMoreInfoModel extends BaseModel {
 
     /**
      * message : 请求成功
-     * data : [{"id":"4","field_account_id":"1638","uid":"601636","card_id":"1","money":"140","balance_before":"540","balance_after":"400","status":"apply","reason":null,"is_delete":"0","card_holder":"林沛煌","bank_name":"中国建设银行","bank_card_no":"6217007200032958673","logo_url":"http://pay.8hbao.com:8060/recharge/images/bank_logo/3.png","addtime":"2016-05-05 18:04:04","pay_time":null,"finish_time":null}]
+     * data : {"id":"5","field_account_id":"3","user_name":"600002","card_id":"1","money":"0","balance_before":"50000","balance_after":"50000","orderno":"P201606122051141890600002","status":"finish","reason":"","is_delete":"0","phone_num":"15625589537","addtime":"2016-06-12 20:51:14","pay_time":"2016-06-13 21:45:02","finish_time":"2016-06-13 21:45:06","bank_name":"中国银行","bank_card_no":"6228480402564890018","logo_url":"http://pay.8hbao.com:8060/recharge/images/bank_logo/3.png"}
      */
 
     private String message;
     /**
-     * id : 4
-     * field_account_id : 1638
-     * uid : 601636
+     * id : 5
+     * field_account_id : 3
+     * user_name : 600002
      * card_id : 1
-     * money : 140
-     * balance_before : 540
-     * balance_after : 400
-     * status : apply
-     * reason : null
+     * money : 0
+     * balance_before : 50000
+     * balance_after : 50000
+     * orderno : P201606122051141890600002
+     * status : finish
+     * reason :
      * is_delete : 0
-     * card_holder : 林沛煌
-     * bank_name : 中国建设银行
-     * bank_card_no : 6217007200032958673
+     * phone_num : 15625589537
+     * addtime : 2016-06-12 20:51:14
+     * pay_time : 2016-06-13 21:45:02
+     * finish_time : 2016-06-13 21:45:06
+     * bank_name : 中国银行
+     * bank_card_no : 6228480402564890018
      * logo_url : http://pay.8hbao.com:8060/recharge/images/bank_logo/3.png
-     * addtime : 2016-05-05 18:04:04
-     * pay_time : null
-     * finish_time : null
      */
 
     private DataBean data;
@@ -54,21 +53,22 @@ public class TiXianMoreInfoModel extends BaseModel {
     public static class DataBean {
         private String id;
         private String field_account_id;
-        private String uid;
+        private String user_name;
         private String card_id;
         private double money;
         private double balance_before;
         private double balance_after;
+        private String orderno;
         private String status;
         private String reason;
-        private int is_delete;
-        private String card_holder;
-        private String bank_name;
-        private String bank_card_no;
-        private String logo_url;
+        private String is_delete;
+        private String phone_num;
         private String addtime;
         private String pay_time;
         private String finish_time;
+        private String bank_name;
+        private String bank_card_no;
+        private String logo_url;
 
         public String getId() {
             return id;
@@ -86,12 +86,12 @@ public class TiXianMoreInfoModel extends BaseModel {
             this.field_account_id = field_account_id;
         }
 
-        public String getUid() {
-            return uid;
+        public String getUser_name() {
+            return user_name;
         }
 
-        public void setUid(String uid) {
-            this.uid = uid;
+        public void setUser_name(String user_name) {
+            this.user_name = user_name;
         }
 
         public String getCard_id() {
@@ -126,6 +126,14 @@ public class TiXianMoreInfoModel extends BaseModel {
             this.balance_after = balance_after;
         }
 
+        public String getOrderno() {
+            return orderno;
+        }
+
+        public void setOrderno(String orderno) {
+            this.orderno = orderno;
+        }
+
         public String getStatus() {
             return status;
         }
@@ -142,44 +150,20 @@ public class TiXianMoreInfoModel extends BaseModel {
             this.reason = reason;
         }
 
-        public int getIs_delete() {
+        public String getIs_delete() {
             return is_delete;
         }
 
-        public void setIs_delete(int is_delete) {
+        public void setIs_delete(String is_delete) {
             this.is_delete = is_delete;
         }
 
-        public String getCard_holder() {
-            return card_holder;
+        public String getPhone_num() {
+            return phone_num;
         }
 
-        public void setCard_holder(String card_holder) {
-            this.card_holder = card_holder;
-        }
-
-        public String getBank_name() {
-            return bank_name;
-        }
-
-        public void setBank_name(String bank_name) {
-            this.bank_name = bank_name;
-        }
-
-        public String getBank_card_no() {
-            return bank_card_no;
-        }
-
-        public void setBank_card_no(String bank_card_no) {
-            this.bank_card_no = bank_card_no;
-        }
-
-        public String getLogo_url() {
-            return logo_url;
-        }
-
-        public void setLogo_url(String logo_url) {
-            this.logo_url = logo_url;
+        public void setPhone_num(String phone_num) {
+            this.phone_num = phone_num;
         }
 
         public String getAddtime() {
@@ -204,6 +188,30 @@ public class TiXianMoreInfoModel extends BaseModel {
 
         public void setFinish_time(String finish_time) {
             this.finish_time = finish_time;
+        }
+
+        public String getBank_name() {
+            return bank_name;
+        }
+
+        public void setBank_name(String bank_name) {
+            this.bank_name = bank_name;
+        }
+
+        public String getBank_card_no() {
+            return bank_card_no;
+        }
+
+        public void setBank_card_no(String bank_card_no) {
+            this.bank_card_no = bank_card_no;
+        }
+
+        public String getLogo_url() {
+            return logo_url;
+        }
+
+        public void setLogo_url(String logo_url) {
+            this.logo_url = logo_url;
         }
     }
 }
