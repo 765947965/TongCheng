@@ -45,6 +45,7 @@ public class ShowOtherLuck extends BaseActivity implements View.OnClickListener 
     private void initView() {
         mViewHolder = new ViewHolder(findViewById(R.id.llt_main), this);
         mListView = mViewHolder.getView(R.id.listview);
+        mViewHolder.setOnClickListener(R.id.reddllclosebt);
     }
 
     @Override
@@ -112,7 +113,11 @@ public class ShowOtherLuck extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.reddllclosebt:
+                finish();
+                break;
+        }
     }
 
     private void setData(SplideGiftModel data) {

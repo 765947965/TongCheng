@@ -55,6 +55,7 @@ public class ReChargeActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void loadData() {
         mHandler.sendEmptyMessage(10001);
+        mRedBusiness.rechargeInfo(APPCationStation.LOADING, "");
     }
 
     @Override
@@ -62,9 +63,6 @@ public class ReChargeActivity extends BaseActivity implements View.OnClickListen
         switch (msg.what) {
             case 10001:
                 RechargeInfoModel mRechargeInfoModel = NativieDataUtils.getRechargeInfoModel();
-                if (mRechargeInfoModel == null || !NativieDataUtils.getTodyYMD().equals(mRechargeInfoModel.getUpdate())) {
-                    mRedBusiness.rechargeInfo(APPCationStation.LOADING, "");
-                }
                 if (mRechargeInfoModel != null && mRechargeInfoModel.getData() != null && mRechargeInfoModel.getData().size() > 0) {
                     datas.clear();
                     datas.addAll(mRechargeInfoModel.getData());
