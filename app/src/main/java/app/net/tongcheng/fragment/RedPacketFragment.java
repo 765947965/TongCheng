@@ -24,6 +24,7 @@ import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.activity.BalanceActivity;
 import app.net.tongcheng.activity.PayMoneyActivity;
+import app.net.tongcheng.activity.PublicWebview;
 import app.net.tongcheng.activity.ReChargeActivity;
 import app.net.tongcheng.activity.RedListActivity;
 import app.net.tongcheng.activity.RedShareInfoActivity;
@@ -87,6 +88,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
         mViewHolder.setOnClickListener(R.id.llt_balance);
         mViewHolder.setOnClickListener(R.id.llt_redlist);
         mViewHolder.setOnClickListener(R.id.llt_rechage);
+        mViewHolder.setOnClickListener(R.id.llt_rechage_remark);
     }
 
     @Override
@@ -228,7 +230,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.llt_fukuang://付款
-                startActivity(new Intent(TCApplication.mContext, PayMoneyActivity.class));
+                //startActivity(new Intent(TCApplication.mContext, PayMoneyActivity.class));
                 break;
             case R.id.llt_balance://余额
                 startActivity(new Intent(TCApplication.mContext, BalanceActivity.class));
@@ -242,6 +244,10 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                 break;
             case R.id.llt_rechage:
                 startActivity(new Intent(TCApplication.mContext, ReChargeActivity.class));
+                break;
+            case R.id.llt_rechage_remark:
+                String url = "http://user.8hbao.com:8060/usercenter/mobile_chargelog.php?phone=" + TCApplication.getmUserInfo().getPhone() + "&uid=" + TCApplication.getmUserInfo().getUid();
+                startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "充值记录").putExtra("url", url));
                 break;
         }
     }
