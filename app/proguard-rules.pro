@@ -172,3 +172,7 @@
  -keep class com.alipay.android.app.IRemoteServiceCallback{*;}
  -keep class com.alipay.android.app.lib.ResourceMap{*;}
 
+ #fastjson
+ -dontwarn com.alibaba.fastjson.**
+ -keep class com.alibaba.fastjson.** { *;}
+ #fastjson
