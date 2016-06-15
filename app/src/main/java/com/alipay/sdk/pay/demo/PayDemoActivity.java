@@ -5,79 +5,75 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.alipay.sdk.app.PayTask;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Toast;
-
-import com.alipay.sdk.app.PayTask;
 
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.util.DialogUtil;
 
 public class PayDemoActivity {
 
-    private Activity context;
-    private String subject;
-    private String body;
-    private String price;
-
-    public PayDemoActivity(Activity context, String subject, String body,
-                           String price) {
-        this.context = context;
+    public PayDemoActivity (Activity mActivity, String subject,String body,String price){
+        this.mActivity = mActivity;
         this.subject = subject;
         this.body = body;
         this.price = price;
     }
 
+
+    private Activity mActivity;
+    private String subject;
+    private String body;
+    private String price;
+
+
     // 商户PID
-    public final String PARTNER = "2088121327291341";
+    public static final String PARTNER = "2088121327291341";
     // 商户收款账号
-    public final String SELLER = "tongchengtx@sina.com";
+    public static final String SELLER = "tongchengtx@sina.com";
     // 商户私钥，pkcs8格式
-    public final String RSA_PRIVATE = "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAMnFFe6SNX+FKTKPvgOFpXWTUMMjVuqvZrzeEBLzG66HBFiK+2052GVN1qyc5Muqy0CzK2pYo+C/P/5XqcWigLdhtxjoVhR8K3HTvDuPmrcTsvq0OAKabULmcAk01nsFJbpMVkvkPmLJE4c1tpC9PowH4jhaXbgI9Fk2aXH6rNYpAgMBAAECgYBKwRtcFY1+nn5h/kGfGm/v/NGKStiUAMJmrTt1Wd7iraFdkLiQgkL7XXhw4XwfPTsq0HcAYrDsvs7d0+rRj2ByaDzMGXcTPfUvCgxh4SgHMJj1yZvFze5+hUTf2tBkKCaQr31DAzrSv8/YEsTI1v4Dt3+fSwAvbfHmevEb9TuMJQJBAO+AADp6gHZ3MuPN/zDoKDTBcnodXZjyRAXTC4Hg+KWmeMuDxNuuImy0y20EWIgM3wsZ2Qkq73YlluXoImwK5OMCQQDXq6XvOU+AZB4M64bnokPhgQAQ17DT7jpwRWLVO4GLgedpKfe5izOQsJeipa1ggdQQ1RRA31cC02+NRSGQY1KDAkEA4pXUIX9SWEHvmIyEuY16tGasWpG7wn66ElSXl3nzZCz6LXjt3vSBRx1JNEufQqACyOrcZgsD4GAxwjN7lYI9BwJATq/Sp9hqGDbu+9nG66Y5TAJL6tk3K+ukKKg4KgI+/o5TxvvH5UtTcfvsJyx5eFeF7uo/LHgP//jyn0FUwKBsTwJBAOYXezablWx5onfvGvmRP68qNDH9ilYFsM2wPzUMzgIOXiLyaAnw1cSmStkaxhs4w5XyBBG19KwrffUVut10G/I=";
+    public static final String RSA_PRIVATE = "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAMnFFe6SNX+FKTKPvgOFpXWTUMMjVuqvZrzeEBLzG66HBFiK+2052GVN1qyc5Muqy0CzK2pYo+C/P/5XqcWigLdhtxjoVhR8K3HTvDuPmrcTsvq0OAKabULmcAk01nsFJbpMVkvkPmLJE4c1tpC9PowH4jhaXbgI9Fk2aXH6rNYpAgMBAAECgYBKwRtcFY1+nn5h/kGfGm/v/NGKStiUAMJmrTt1Wd7iraFdkLiQgkL7XXhw4XwfPTsq0HcAYrDsvs7d0+rRj2ByaDzMGXcTPfUvCgxh4SgHMJj1yZvFze5+hUTf2tBkKCaQr31DAzrSv8/YEsTI1v4Dt3+fSwAvbfHmevEb9TuMJQJBAO+AADp6gHZ3MuPN/zDoKDTBcnodXZjyRAXTC4Hg+KWmeMuDxNuuImy0y20EWIgM3wsZ2Qkq73YlluXoImwK5OMCQQDXq6XvOU+AZB4M64bnokPhgQAQ17DT7jpwRWLVO4GLgedpKfe5izOQsJeipa1ggdQQ1RRA31cC02+NRSGQY1KDAkEA4pXUIX9SWEHvmIyEuY16tGasWpG7wn66ElSXl3nzZCz6LXjt3vSBRx1JNEufQqACyOrcZgsD4GAxwjN7lYI9BwJATq/Sp9hqGDbu+9nG66Y5TAJL6tk3K+ukKKg4KgI+/o5TxvvH5UtTcfvsJyx5eFeF7uo/LHgP//jyn0FUwKBsTwJBAOYXezablWx5onfvGvmRP68qNDH9ilYFsM2wPzUMzgIOXiLyaAnw1cSmStkaxhs4w5XyBBG19KwrffUVut10G/I=";
     // 支付宝公钥
-    public final String RSA_PUBLIC = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDI6d306Q8fIfCOaTXyiUeJHkrIvYISRcc73s3vF1ZT7XN8RNPwJxo8pWaJMmvyTn9N4HQ632qJBVHf8sxHi/fEsraprwCtzvzQETrNRwVxLO5jVmRGi60j8Ue1efIlzPXV9je9mkjzOmdssymZkh2QhUrCmZYI/FCEa3/cNMW0QIDAQAB";
+    public static final String RSA_PUBLIC = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDI6d306Q8fIfCOaTXyiUeJHkrIvYISRcc73s3vF1ZT7XN8RNPwJxo8pWaJMmvyTn9N4HQ632qJBVHf8sxHi/fEsraprwCtzvzQETrNRwVxLO5jVmRGi60j8Ue1efIlzPXV9je9mkjzOmdssymZkh2QhUrCmZYI/FCEa3/cNMW0QIDAQAB";
     // 支付宝支付成功 回调地址
     public final String notify_url = "http://user.8hbao.com:8060/AliSecurity/notify_url.php";
 
-    private final int SDK_PAY_FLAG = 1;
+    private static final int SDK_PAY_FLAG = 1;
 
-    private final int SDK_CHECK_FLAG = 2;
-
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
+        @SuppressWarnings("unused")
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case SDK_PAY_FLAG: {
                     PayResult payResult = new PayResult((String) msg.obj);
-
-                    // 支付宝返回此次支付结果及加签，建议对支付宝签名信息拿签约时支付宝提供的公钥做验签
-                    String resultInfo = payResult.getResult();
+                    /**
+                     * 同步返回的结果必须放置到服务端进行验证（验证的规则请看https://doc.open.alipay.com/doc2/
+                     * detail.htm?spm=0.0.0.0.xdvAU6&treeId=59&articleId=103665&
+                     * docType=1) 建议商户依赖异步通知
+                     */
+                    String resultInfo = payResult.getResult();// 同步返回需要验证的信息
 
                     String resultStatus = payResult.getResultStatus();
-
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
-                        DialogUtil.showTipsDialog(context, "支付成功,请稍后查询余额！", null);
+                        DialogUtil.showTipsDialog(mActivity, "支付成功,请稍后查询余额！", null);
                     } else {
-                        // 判断resultStatus 为非“9000”则代表可能支付失败
-                        // “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
+                        // 判断resultStatus 为非"9000"则代表可能支付失败
+                        // "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
                         if (TextUtils.equals(resultStatus, "8000")) {
-                            DialogUtil.showTipsDialog(context, "支付结果确认中", null);
-                        } else if (TextUtils.equals(resultStatus, "4000")) {
-                            DialogUtil.showTipsDialog(context, "支付失败,请先安装支付宝客户端!", null);
+                            DialogUtil.showTipsDialog(mActivity, "支付结果确认中", null);
                         } else {
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
-                            DialogUtil.showTipsDialog(context, "支付失败", null);
+                            DialogUtil.showTipsDialog(mActivity, "支付失败", null);
                         }
                     }
-                    break;
-                }
-                case SDK_CHECK_FLAG: {
-                    DialogUtil.showTipsDialog(context, "检查结果为：" + msg.obj, null);
                     break;
                 }
                 default:
@@ -92,30 +88,34 @@ public class PayDemoActivity {
      * call alipay sdk pay. 调用SDK支付
      */
     public void pay() {
-        // 订单
-        String orderInfo = getOrderInfo();
+        String orderInfo = getOrderInfo(subject, body, price);
 
-        // 对订单做RSA 签名
+        /**
+         * 特别注意，这里的签名逻辑需要放在服务端，切勿将私钥泄露在代码中！
+         */
         String sign = sign(orderInfo);
         try {
-            // 仅需对sign 做URL编码
+            /**
+             * 仅需对sign 做URL编码
+             */
             sign = URLEncoder.encode(sign, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
-        // 完整的符合支付宝参数规范的订单信息
-        final String payInfo = orderInfo + "&sign=\"" + sign + "\"&"
-                + getSignType();
+        /**
+         * 完整的符合支付宝参数规范的订单信息
+         */
+        final String payInfo = orderInfo + "&sign=\"" + sign + "\"&" + getSignType();
 
         Runnable payRunnable = new Runnable() {
 
             @Override
             public void run() {
                 // 构造PayTask 对象
-                PayTask alipay = new PayTask((Activity) context);
+                PayTask alipay = new PayTask(mActivity);
                 // 调用支付接口，获取支付结果
-                String result = alipay.pay(payInfo);
+                String result = alipay.pay(payInfo, true);
 
                 Message msg = new Message();
                 msg.what = SDK_PAY_FLAG;
@@ -130,44 +130,20 @@ public class PayDemoActivity {
     }
 
     /**
-     * check whether the device has authentication alipay account.
-     * 查询终端设备是否存在支付宝认证账户
-     */
-    public void check(View v) {
-        Runnable checkRunnable = new Runnable() {
-
-            @Override
-            public void run() {
-                // 构造PayTask 对象
-                PayTask payTask = new PayTask((Activity) context);
-                // 调用查询接口，获取查询结果
-                boolean isExist = payTask.checkAccountIfExist();
-
-                Message msg = new Message();
-                msg.what = SDK_CHECK_FLAG;
-                msg.obj = isExist;
-                mHandler.sendMessage(msg);
-            }
-        };
-
-        Thread checkThread = new Thread(checkRunnable);
-        checkThread.start();
-
-    }
-
-    /**
      * get the sdk version. 获取SDK版本号
      */
     public void getSDKVersion() {
-        PayTask payTask = new PayTask((Activity) context);
+        PayTask payTask = new PayTask(mActivity);
         String version = payTask.getVersion();
-        Toast.makeText(context, version, Toast.LENGTH_SHORT).show();
+        Toast.makeText(mActivity, version, Toast.LENGTH_SHORT).show();
     }
+
 
     /**
      * create the order info. 创建订单信息
      */
-    public String getOrderInfo() {
+    private String getOrderInfo(String subject, String body, String price) {
+
         // 签约合作者身份ID
         String orderInfo = "partner=" + "\"" + PARTNER + "\"";
 
@@ -220,7 +196,7 @@ public class PayDemoActivity {
     /**
      * get the out_trade_no for an order. 生成商户订单号，该值在商户端应保持唯一（可自定义格式规范）
      */
-    public String getOutTradeNo() {
+    private String getOutTradeNo() {
         SimpleDateFormat format = new SimpleDateFormat("yyMMddHHmmss");
         Date date = new Date();
         String strKey = format.format(date);
@@ -236,14 +212,14 @@ public class PayDemoActivity {
      *
      * @param content 待签名订单信息
      */
-    public String sign(String content) {
+    private String sign(String content) {
         return SignUtils.sign(content, RSA_PRIVATE);
     }
 
     /**
      * get the sign type we use. 获取签名方式
      */
-    public String getSignType() {
+    private String getSignType() {
         return "sign_type=\"RSA\"";
     }
 
