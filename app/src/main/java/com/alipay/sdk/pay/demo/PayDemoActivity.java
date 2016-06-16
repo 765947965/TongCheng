@@ -4,8 +4,11 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.alipay.sdk.app.PayTask;
+import com.umeng.analytics.MobclickAgent;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -19,7 +22,7 @@ import app.net.tongcheng.util.DialogUtil;
 
 public class PayDemoActivity {
 
-    public PayDemoActivity (Activity mActivity, String subject,String body,String price){
+    public PayDemoActivity(Activity mActivity, String subject, String body, String price) {
         this.mActivity = mActivity;
         this.subject = subject;
         this.body = body;
@@ -64,6 +67,10 @@ public class PayDemoActivity {
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
                         DialogUtil.showTipsDialog(mActivity, "支付成功,请稍后查询余额！", null);
+                        Map<String, String> map_value = new HashMap<>();
+                        map_value.put("body", body);
+                        map_value.put("price", price);
+                        MobclickAgent.onEventValue(mActivity, "recharge", map_value, Double.valueOf(price).intValue());
                     } else {
                         // 判断resultStatus 为非"9000"则代表可能支付失败
                         // "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）

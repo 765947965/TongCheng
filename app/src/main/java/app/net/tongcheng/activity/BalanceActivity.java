@@ -11,10 +11,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.umeng.analytics.MobclickAgent;
+
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
@@ -48,6 +52,7 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
     private Button bt_withdraw_action;
     private RedBusiness mRedBusiness;
     private String checkcardId;
+    private CardListModel.DataBean mCardListModelDataBean;
     private MoneyInfoModel mMoneyInfoModel;
     private CardListModel mCardListModel;
     private List<CardListModel.DataBean> mlist = new ArrayList<>();
@@ -99,6 +104,7 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
                 break;
             case 10003://显示银行卡
                 checkcardId = null;
+                mCardListModelDataBean = null;
                 mCardListModel = NativieDataUtils.getCardListModel();
                 mlist.clear();
                 if (mCardListModel != null && mCardListModel.getData() != null && mCardListModel.getData().size() > 0) {
@@ -114,6 +120,7 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
                             holder.setImage(R.id.iv_check, item.getIs_default() == 1 ? R.drawable.check : R.drawable.uncheck);
                             if (item.getIs_default() == 1) {
                                 checkcardId = item.getId();
+                                mCardListModelDataBean = item;
                             }
                         }
 
@@ -175,6 +182,13 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
 
                         }
                     });
+                    Map<String, String> map_value = new HashMap<>();
+                    map_value.put("bank_name", mCardListModelDataBean.getBank_name());
+                    map_value.put("branch_name", mCardListModelDataBean.getBranch_name());
+                    map_value.put("card_holder", mCardListModelDataBean.getCard_holder());
+                    map_value.put("bank_card_no", mCardListModelDataBean.getBank_card_no());
+                    map_value.put("withdrawmoney", mMoneyInfoModel.getData().getCanfetch_amount() / 100d + "");
+                    MobclickAgent.onEventValue(this, "withdraw", map_value, Double.valueOf(mMoneyInfoModel.getData().getCanfetch_amount() / 100d).intValue());
                 } else {
                     bt_withdraw_action.setEnabled(true);
                 }

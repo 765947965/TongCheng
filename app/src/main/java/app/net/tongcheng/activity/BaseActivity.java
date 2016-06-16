@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
 import org.greenrobot.eventbus.EventBus;
 import org.xutils.common.Callback;
 
@@ -225,6 +227,18 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
         if (rootView != null) {
             rootView.setCanSlidingClose(CanSlidingClose);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);//友盟
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);//友盟
     }
 
     public abstract void mHandDoSomeThing(Message msg);

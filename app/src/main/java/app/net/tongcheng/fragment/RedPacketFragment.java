@@ -67,6 +67,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        className = this.getClass().getSimpleName();
         View view = LayoutInflater.from(TCApplication.mContext).inflate(R.layout.fragment_red_packet_layout, null);
         initView(view);
         isfirstloaddata = false;

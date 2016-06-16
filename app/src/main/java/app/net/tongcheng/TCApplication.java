@@ -9,11 +9,13 @@ import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.umeng.analytics.MobclickAgent;
 
 import org.w3c.dom.Text;
 import org.xutils.x;
 
 import app.net.tongcheng.model.UserInfo;
+import app.net.tongcheng.util.Misc;
 import app.net.tongcheng.util.OperationUtils;
 
 /**
@@ -33,6 +35,8 @@ public class TCApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = this.getApplicationContext();
+        MobclickAgent.setScenarioType(mContext, MobclickAgent.EScenarioType.E_UM_NORMAL);//友盟初始化
+        MobclickAgent.enableEncrypt(true);
         String userinfo = OperationUtils.getUserInfo();
         if (!TextUtils.isEmpty(userinfo)) {
             TCApplication.mUserInfo = JSON.parseObject(userinfo, UserInfo.class);
@@ -47,6 +51,10 @@ public class TCApplication extends Application {
     }
 
     public static void setmUserInfo(UserInfo mUserInfo) {
+        MobclickAgent.onProfileSignOff();//登出友盟账户
+        if (mUserInfo != null) {
+            MobclickAgent.onProfileSignIn(Misc.cryptDataByPwd(mUserInfo.getPhone() + mUserInfo.getPwd()));//登入友盟账户
+        }
         OperationUtils.getSharedPreference().edit().clear().commit();// 清楚用户数据
         OperationUtils.setUserInfo(mUserInfo == null ? "" : JSON.toJSONString(mUserInfo));
         TCApplication.mUserInfo = mUserInfo;

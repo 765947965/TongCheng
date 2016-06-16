@@ -41,6 +41,7 @@ import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.ContentsUtil;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.NativieDataUtils;
+import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.ViewHolder;
 import app.net.tongcheng.view.materialtabs.MaterialTab;
 import app.net.tongcheng.view.materialtabs.MaterialTabHost;
@@ -177,6 +178,10 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
                     MSGModel mMSGModel = (MSGModel) mConnectResult.getObject();
                     mMSGModel.setUpdate(NativieDataUtils.getTodyYMD());
                     NativieDataUtils.setMSGModel(mMSGModel);
+                    if (!mMSGModel.getAgent_id().equals(TCApplication.getmUserInfo().getAgent_id())) {
+                        TCApplication.getmUserInfo().setAgent_id(mMSGModel.getAgent_id());
+                        OperationUtils.setUserInfo(JSON.toJSONString(TCApplication.getmUserInfo()));
+                    }
                     if (!TextUtils.isEmpty(mMSGModel.getUpdate_addr()) && mMSGModel.getUpdate_addr().startsWith("http")) {
                         final String addr = mMSGModel.getUpdate_addr();
                         DialogUtil.showTipsDialog(this, "发现新版本", mMSGModel.getUpdate_tips() + "", "确定更新", "下次再说", new DialogUtil.OnConfirmListener() {

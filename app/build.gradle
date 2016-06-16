@@ -52,4 +52,5 @@ dependencies {
     compile 'com.kevin:wraprecyclerview:1.0.6'//可添加头部的recyclerview
     compile 'com.github.promeg:tinypinyin:1.0.0'//拼音处理
     compile 'com.yancy.imageselector:imageselector:1.3.3'//https://github.com/YancyYe/GalleryPick 图片选择裁剪
+    compile 'com.umeng.analytics:analytics:latest.integration'//友盟+
 }

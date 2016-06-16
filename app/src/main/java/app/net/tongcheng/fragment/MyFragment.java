@@ -49,6 +49,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        className = this.getClass().getSimpleName();
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_my_layout, null);
         initView(view);
         mMyBusiness = new MyBusiness(this, getActivity(), mHandler);

@@ -180,6 +180,13 @@
 
  #友盟
  -keep class com.umeng.**{*;}
+ -keepclassmembers class * {
+    public <init> (org.json.JSONObject);
+ }
+ -keep public class app.net.tongcheng.R$*{
+ public static final int *;
+ }
+  #友盟
 
  #支付宝
 -keep class com.alipay.android.app.IAlixPay{*;}

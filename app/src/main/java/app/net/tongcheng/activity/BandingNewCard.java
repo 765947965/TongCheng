@@ -9,7 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
@@ -114,6 +119,12 @@ public class BandingNewCard extends BaseActivity implements View.OnClickListener
                     ToastUtil.showToast("请填写开户行网点名称");
                 } else {
                     bt_banding.setEnabled(false);
+                    Map<String, String> map_value = new HashMap<>();
+                    map_value.put("bank_name", bank_name);
+                    map_value.put("branch_name", str_address+str_port_address);
+                    map_value.put("card_holder", card_holder);
+                    map_value.put("bank_card_no", bank_card_no);
+                    MobclickAgent.onEvent(this, "BandingNewCard", map_value);
                     mRedBusiness.bandingCard(APPCationStation.SUMBIT, "提交中...", bank_name, bank_card_no, card_holder, str_address + str_port_address);
                 }
                 break;

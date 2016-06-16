@@ -55,6 +55,7 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        className = this.getClass().getSimpleName();
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_life_layout, null);
         initView(view);
         isfirstloaddata = false;
