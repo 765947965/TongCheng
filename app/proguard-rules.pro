@@ -145,9 +145,6 @@
 #-libraryjars libs/alipayutdid.jar
 #-libraryjars libs/wup-1.0.0-SNAPSHOT.jar
 #-libraryjars libs/weibosdkcore.jar
--libraryjars libs/alipaySdk-20160516.jar
--libraryjars libs/fastjson-1.1.52.android.jar
--libraryjars libs/universal-image-loader-1.9.5.jar
 
 
 #三星应用市场需要添加:sdk-v1.0.0.jar,look-v1.0.1.jar
