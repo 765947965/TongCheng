@@ -1,3 +1,4 @@
+-dontshrink
 #指定代码的压缩级别
 -optimizationpasses 5
 
@@ -6,6 +7,8 @@
 
 #不去忽略非公共的库类
 -dontskipnonpubliclibraryclasses
+-dontskipnonpubliclibraryclassmembers
+-ignorewarnings
 
  #优化  不优化输入的类文件
 -dontoptimize
@@ -20,7 +23,7 @@
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
 
 #保护注解
--keepattributes *Annotation*
+-keepattributes *Annotation*,Exceptions,InnerClasses
 
 # 保持哪些类不被混淆
 -keep public class * extends android.app.Fragment
@@ -32,6 +35,8 @@
 -keep public class * extends android.app.backup.BackupAgentHelper
 -keep public class * extends android.preference.Preference
 -keep public class com.android.vending.licensing.ILicensingService
+-keep public class * extends java.lang.Throwable {*;}
+-keep public class * extends java.lang.Exception {*;}
 #如果有引用v4包可以添加下面这行
 -keep public class * extends android.support.v4.app.Fragment
 #如果引用了v4或者v7包
@@ -75,6 +80,7 @@
 
 #保持 Serializable 不被混淆并且enum 类也不被混淆
 -keepclassmembers class * implements java.io.Serializable {
+    public static final android.os.Parcelable$Creator *;
     static final long serialVersionUID;
     private static final java.io.ObjectStreamField[] serialPersistentFields;
     !static !transient <fields>;
@@ -86,6 +92,11 @@
     java.lang.Object readResolve();
 }
 
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
 -keepclassmembers class * {
     public void *ButtonClicked(android.view.View);
 }
@@ -94,9 +105,10 @@
 -keepclassmembers class **.R$* {
     public static <fields>;
 }
+-renamesourcefileattribute SourceFile
 
 # webview + js
--keepattributes *JavascriptInterface*
+-keepattributes *JavascriptInterface*,SourceFile,LineNumberTable
 # keep 使用 webview 的类
 -keepclassmembers class  com.veidy.activity.WebViewActivity {
    public *;
@@ -105,6 +117,9 @@
 -keepclassmembers  class  com.veidy.activity.WebViewActivity$*{
     *;
 }
+
+# 保护泛型
+-keepattributes Signature
 
 #忽略警告
 -ignorewarning
@@ -130,6 +145,9 @@
 #-libraryjars libs/alipayutdid.jar
 #-libraryjars libs/wup-1.0.0-SNAPSHOT.jar
 #-libraryjars libs/weibosdkcore.jar
+-libraryjars libs/alipaySdk-20160516.jar
+-libraryjars libs/fastjson-1.1.52.android.jar
+-libraryjars libs/universal-image-loader-1.9.5.jar
 
 
 #三星应用市场需要添加:sdk-v1.0.0.jar,look-v1.0.1.jar
@@ -167,12 +185,40 @@
  -keep class com.umeng.**{*;}
 
  #支付宝
- -keep class com.alipay.android.app.IAliPay{*;}
- -keep class com.alipay.android.app.IAlixPay{*;}
- -keep class com.alipay.android.app.IRemoteServiceCallback{*;}
- -keep class com.alipay.android.app.lib.ResourceMap{*;}
+-keep class com.alipay.android.app.IAlixPay{*;}
+-keep class com.alipay.android.app.IAlixPay$Stub{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
+-keep class com.alipay.sdk.app.PayTask{ public *;}
+-keep class com.alipay.sdk.app.AuthTask{ public *;}
 
  #fastjson
  -dontwarn com.alibaba.fastjson.**
  -keep class com.alibaba.fastjson.** { *;}
  #fastjson
+
+ ################### region for xUtils
+ -keepattributes Signature,*Annotation*
+ -keep public class org.xutils.** {
+     public protected *;
+ }
+ -keep public interface org.xutils.** {
+     public protected *;
+ }
+ -keepclassmembers class * extends org.xutils.** {
+     public protected *;
+ }
+ -keepclassmembers @org.xutils.db.annotation.* class * {*;}
+ -keepclassmembers @org.xutils.http.annotation.* class * {*;}
+ -keepclassmembers class * {
+     @org.xutils.view.annotation.Event <methods>;
+ }
+ #################### end region
+
+ #Glide
+ -keep public class * implements com.bumptech.glide.module.GlideModule
+ -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+   **[] $VALUES;
+   public *;
+ }
+ #Glide

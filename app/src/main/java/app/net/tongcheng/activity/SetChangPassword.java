@@ -72,6 +72,8 @@ public class SetChangPassword extends BaseActivity implements View.OnClickListen
                     if (TCApplication.getmUserInfo() != null && olpphone.equals(TCApplication.getmUserInfo().getPhone())) {
                         TCApplication.getmUserInfo().setPwd(Misc.cryptDataByPwd(password.trim()));
                         TCApplication.setmUserInfo(TCApplication.getmUserInfo());
+                        sendEventBusMessage("ALL.Refresh");
+                        sendEventBusMessage("ALL.UpData");
                     }
                     DialogUtil.showTipsDialog(this, "密码修改成功!", new DialogUtil.OnConfirmListener() {
                         @Override

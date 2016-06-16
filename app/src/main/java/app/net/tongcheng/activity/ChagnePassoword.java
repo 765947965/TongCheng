@@ -68,6 +68,8 @@ public class ChagnePassoword extends BaseActivity implements View.OnClickListene
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     TCApplication.getmUserInfo().setPwd(Misc.cryptDataByPwd(password.trim()));
                     TCApplication.setmUserInfo(TCApplication.getmUserInfo());
+                    sendEventBusMessage("ALL.Refresh");
+                    sendEventBusMessage("ALL.UpData");
                     DialogUtil.showTipsDialog(this, "密码修改成功!", new DialogUtil.OnConfirmListener() {
                         @Override
                         public void clickConfirm() {
