@@ -51,8 +51,8 @@
 
     <ImageView
         android:id="@+id/iv_tab_hint_spot"
-        android:layout_width="29dp"
-        android:layout_height="13dp"
+        android:layout_width="31dp"
+        android:layout_height="15dp"
         android:layout_gravity="top|center_horizontal"
         android:paddingLeft="@dimen/dp_24"
         android:paddingTop="@dimen/dp_8"
