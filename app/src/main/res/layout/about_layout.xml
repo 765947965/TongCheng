@@ -18,7 +18,8 @@
     <RelativeLayout
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/iv_qrcode"
