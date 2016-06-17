@@ -114,11 +114,11 @@ public class ShareActivity extends BaseActivity implements View.OnClickListener 
         String shareurl = null;
         switch (v.getId()) {
             case R.id.bt_WX:
-                shareurl = mMSGModel.getInvite_url().replace("phone=%s", "phone=" + TCApplication.getmUserInfo().getPhone()).replace("channel=%s", "channel=sns");
+                shareurl = mMSGModel.getInvite_url().replace("phone=%s", "phone=" + TCApplication.getmUserInfo().getPhone()).replace("channel=%s", "channel=weixinfriend");
                 ShareUtils.SendIMInfo(this, Wechat.NAME, mMSGModel.getInvite_title(), mMSGModel.getInvite_sns_message(), shareurl);
                 break;
             case R.id.bt_QQ:
-                shareurl = mMSGModel.getInvite_url().replace("phone=%s", "phone=" + TCApplication.getmUserInfo().getPhone()).replace("channel=%s", "channel=sns");
+                shareurl = mMSGModel.getInvite_url().replace("phone=%s", "phone=" + TCApplication.getmUserInfo().getPhone()).replace("channel=%s", "channel=qq");
                 ShareUtils.SendIMInfo(this, QQ.NAME, mMSGModel.getInvite_title(), mMSGModel.getInvite_sns_message(), shareurl);
                 break;
             case R.id.bt_DX:

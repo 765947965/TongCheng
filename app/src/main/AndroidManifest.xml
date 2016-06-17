@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.net.tongcheng">
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -230,6 +231,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ChangeBanckName"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AboutAPP"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
     </application>

@@ -42,6 +42,7 @@ import app.net.tongcheng.util.ContentsUtil;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.OperationUtils;
+import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
 import app.net.tongcheng.view.materialtabs.MaterialTab;
 import app.net.tongcheng.view.materialtabs.MaterialTabHost;
@@ -152,6 +153,10 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
         if (mMSGModel == null || !NativieDataUtils.getTodyYMD().equals(mMSGModel.getUpdate())) {
             mOtherBusiness.getMSGModel(APPCationStation.LOADINGAD, "");
         }
+        if (mMSGModel != null && !TextUtils.isEmpty(mMSGModel.getUpdate_addr()) && !Utils.getVersionName().equals(mMSGModel.getUpdate_ver())) {
+            TCApplication.isHasNEW = true;
+            setTabHintSpotVisibility(4, View.VISIBLE);
+        }
     }
 
     @Override
@@ -184,6 +189,9 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
                     }
                     if (!TextUtils.isEmpty(mMSGModel.getUpdate_addr()) && mMSGModel.getUpdate_addr().startsWith("http")) {
                         final String addr = mMSGModel.getUpdate_addr();
+                        TCApplication.isHasNEW = true;
+                        setTabHintSpotVisibility(4, View.VISIBLE);
+                        sendEventBusMessage("MyFragment.Refresh");
                         DialogUtil.showTipsDialog(this, "发现新版本", mMSGModel.getUpdate_tips() + "", "确定更新", "下次再说", new DialogUtil.OnConfirmListener() {
                             @Override
                             public void clickConfirm() {
@@ -320,6 +328,11 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
                     break;
                 case "MainActivity.Close":
                     finish();
+                    break;
+                case "HadUpVer":
+                    TCApplication.isHasNEW = true;
+                    setTabHintSpotVisibility(4, View.VISIBLE);
+                    sendEventBusMessage("MyFragment.Refresh");
                     break;
             }
         }

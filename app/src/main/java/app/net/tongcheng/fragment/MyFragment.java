@@ -20,6 +20,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import app.net.tongcheng.Business.MyBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.activity.AboutAPP;
 import app.net.tongcheng.activity.AccountSetActivity;
 import app.net.tongcheng.activity.FeedbackActivity;
 import app.net.tongcheng.activity.MyUserInfoActivity;
@@ -74,6 +75,11 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
             return;
         }
         isfirstloaddata = true;
+        if (TCApplication.isHasNEW) {
+            mViewHolder.setVisibility(R.id.iv_new, View.VISIBLE);
+        } else {
+            mViewHolder.setVisibility(R.id.iv_new, View.GONE);
+        }
         mHandler.sendEmptyMessageDelayed(10001, 100);
     }
 
@@ -119,7 +125,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(TCApplication.mContext, MyUserInfoActivity.class));
                 break;
             case R.id.llt_abouttc:
-                startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "关于同城商城").putExtra("url", "http://user.8hbao.com:8060/about.html"));
+                startActivity(new Intent(TCApplication.mContext, AboutAPP.class));
                 break;
             case R.id.llt_fk:
                 startActivity(new Intent(TCApplication.mContext, FeedbackActivity.class));
@@ -132,7 +138,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
     private void setData(UserMoreInfoModel mUserMoreInfoModel) {
         if (!TextUtils.isEmpty(mUserMoreInfoModel.getPicture()) && !TextUtils.isEmpty(mUserMoreInfoModel.getPicurl_prefix())) {
-            mViewHolder.setImage(R.id.iv_head_image, mUserMoreInfoModel.getPicurl_prefix() + mUserMoreInfoModel.getPicture(), 0,360);
+            mViewHolder.setImage(R.id.iv_head_image, mUserMoreInfoModel.getPicurl_prefix() + mUserMoreInfoModel.getPicture(), 0, 360);
         } else {
             mViewHolder.setImage(R.id.iv_head_image, R.drawable.content5);
         }
