@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.kevin.wraprecyclerview.WrapRecyclerView;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -27,6 +29,7 @@ import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.adapter.RedListAdapter;
 import app.net.tongcheng.model.BaseModel;
+import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.ExcreteRedModel;
 import app.net.tongcheng.model.GiftsBean;
@@ -67,6 +70,7 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
         setContentView(R.layout.red_list_data_layout);
         setData();
         initView();
+        setEventBus();
         mRedBusiness = new RedBusiness(this, this, mHandler);
     }
 
@@ -358,5 +362,17 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
         year = mItemdata;
         mHeadViewHolder.setText(R.id.redslat_yearchange, year);
         loadData();
+    }
+
+    @Subscribe
+    public void onEvent(CheckEvent event) {
+        if (event != null && event.getMsg().equals("sendRedOk")) {
+            if (NativieDataUtils.getTodyY().compareTo("2016") < 0) {
+                DialogUtil.showTipsDialog(this, "手机时间不正确，请调整手机时间后刷新！", null);
+                return;
+            }
+            mSwipeRefreshLayout.setRefreshing(true);
+            mRedBusiness.getRedList(APPCationStation.LOADING, "", year, direct);
+        }
     }
 }

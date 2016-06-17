@@ -110,7 +110,7 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
                         red_type_text.setText("红包: " + itemdata.getFromnickname().trim() + "的" + itemdata.getName());
                     } else {
                         if (!TextUtils.isEmpty(itemdata.getFrom())) {
-                            if ("aixin_money".equals(itemdata.getFrom().trim()) || "system".equals(itemdata.getFrom().trim())) {
+                            if (!itemdata.getFrom().matches("[0-9]+")) {
                                 red_type_text.setText("红包: " + itemdata.getName());
                             } else {
                                 red_type_text.setText("红包: " + itemdata.getFrom().trim() + "的" + itemdata.getName());
@@ -120,7 +120,7 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
 
                     // 设置图片
                     if (itemdata.getHas_open() == 1) {
-                        if ("aixin_money".equals(itemdata.getFrom().trim()) || "system".equals(itemdata.getFrom().trim())) {
+                        if (!itemdata.getFrom().matches("[0-9]+")) {
                             if ("invite_recharge_return".equals(itemdata.getSub_type())) {
                                 red_has_open_image
                                         .setImageResource(R.drawable.red_image_fenxiang);

@@ -41,6 +41,7 @@ import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.OraLodingUserTools;
 import app.net.tongcheng.util.ToastUtil;
+import app.net.tongcheng.util.UserDateUtils;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
 import app.net.tongcheng.view.LineEditText;
@@ -132,10 +133,11 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
                         @Override
                         public void clickConfirm() {
                             LodingActivity.this.sendEventBusMessage("loading_ok");
-                            StartPageModel mStartPageModel = NativieDataUtils.getStartPageModel(true);
-                            if (mStartPageModel != null) {
-                                // 开启启动页
-                                LodingActivity.this.startActivity(new Intent(TCApplication.mContext, StartPageActivity.class).putExtra("mStartPageModel", mStartPageModel));
+                            boolean isStartTX = UserDateUtils.getBoolean(Utils.getVersionName());
+                            if (!isStartTX) {
+                                // 开启新特性
+                                UserDateUtils.PutBoolean(Utils.getVersionName(), true);
+                                startActivity(new Intent(TCApplication.mContext, NewVerTXActivity.class).putExtra("isMain", true));
                             } else {
                                 // 开启主页
                                 LodingActivity.this.startActivity(new Intent(TCApplication.mContext, MainActivity.class));

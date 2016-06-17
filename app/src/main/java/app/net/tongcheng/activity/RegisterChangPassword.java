@@ -23,6 +23,8 @@ import app.net.tongcheng.util.Misc;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.ToastUtil;
+import app.net.tongcheng.util.UserDateUtils;
+import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -70,10 +72,11 @@ public class RegisterChangPassword extends BaseActivity implements View.OnClickL
                     DialogUtil.showTipsDialog(this, "密码修改成功!", new DialogUtil.OnConfirmListener() {
                         @Override
                         public void clickConfirm() {
-                            StartPageModel mStartPageModel = NativieDataUtils.getStartPageModel(true);
-                            if (mStartPageModel != null) {
-                                // 开启启动页
-                                RegisterChangPassword.this.startActivity(new Intent(TCApplication.mContext, StartPageActivity.class).putExtra("mStartPageModel", mStartPageModel));
+                            boolean isStartTX = UserDateUtils.getBoolean(Utils.getVersionName());
+                            if (!isStartTX) {
+                                // 开启新特性
+                                UserDateUtils.PutBoolean(Utils.getVersionName(), true);
+                                RegisterChangPassword.this.startActivity(new Intent(TCApplication.mContext, NewVerTXActivity.class).putExtra("isMain", true));
                             } else {
                                 // 开启主页
                                 RegisterChangPassword.this.startActivity(new Intent(TCApplication.mContext, MainActivity.class));

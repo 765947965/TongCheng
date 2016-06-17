@@ -33,6 +33,7 @@ import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.activity.AddFriendActivity;
 import app.net.tongcheng.activity.PersonalRedEnvelopeConfig;
 import app.net.tongcheng.adapter.FriendHAdater;
+import app.net.tongcheng.adapter.FriendMainVAdater;
 import app.net.tongcheng.adapter.FriendVAdater;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
@@ -68,7 +69,7 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
     private List<FriendsBean> mDataVList = new ArrayList<>();//竖直方向
     private List<FriendsBean> mDataHList = new ArrayList<>();//横方向
     private HashMap<String, Integer> searmap = new HashMap<>();//检索用
-    private FriendVAdater mFriendVAdater;
+    private FriendMainVAdater mFriendVAdater;
     private FriendHAdater mFriendHAdater;
     private String[] jss = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "~"};
     public static boolean isfirstloaddata;
@@ -143,7 +144,7 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
                 break;
             case 10003:
                 if (mFriendVAdater == null) {
-                    mFriendVAdater = new FriendVAdater(TCApplication.mContext, mDataVList, R.layout.personalredenvelopeadapter, mHandler, et_search, mSwipeRefreshLayout);
+                    mFriendVAdater = new FriendMainVAdater(getActivity(), mDataVList, R.layout.personalredenvelopeadapter_main, mHandler, et_search, mSwipeRefreshLayout);
                     mRecyclerView.setAdapter(mFriendVAdater);
                     mFriendHAdater = new FriendHAdater(TCApplication.mContext, mDataHList, R.layout.horizontallistviewadapter, mHandler, mSwipeRefreshLayout);
                     mRecyclerViewH.setAdapter(mFriendHAdater);

@@ -22,7 +22,7 @@ public class FriendsBean implements Serializable, Comparable<FriendsBean> {
     private String birthday;
     private String signature;
     private String city;
-    private String name;//签名
+    private String name;//昵称
     private String SearchString;
     private String FY;
     private boolean select;

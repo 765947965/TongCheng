@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,6 +30,7 @@ import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.adapter.FriendHAdater;
 import app.net.tongcheng.adapter.FriendVAdater;
 import app.net.tongcheng.model.BaseModel;
+import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.FriendModel;
 import app.net.tongcheng.model.FriendsBean;
@@ -66,6 +69,7 @@ public class SendMoreRedActivity extends BaseActivity implements View.OnClickLis
         setContentView(R.layout.send_more_red_layout);
         setTitle("发红包");
         initView();
+        setEventBus();
         mFriendBusiness = new FriendBusiness(this, this, mHandler);
     }
 
@@ -341,6 +345,13 @@ public class SendMoreRedActivity extends BaseActivity implements View.OnClickLis
             });
         } else {
             mFriendBusiness.getFriends(APPCationStation.LOADING, "", mFriendModel == null ? "1.0" : mFriendModel.getVer());
+        }
+    }
+
+    @Subscribe
+    public void onEvent(CheckEvent event) {
+        if (event != null && event.getMsg().equals("sendRedOk")) {
+            finish();
         }
     }
 }

@@ -3,6 +3,7 @@ package app.net.tongcheng.util;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -21,6 +22,8 @@ import java.util.List;
 
 import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
+import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.activity.TextTipsActivity;
 import app.net.tongcheng.adapter.MyBaseAdapter;
 import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.FriendModel;
@@ -216,7 +219,7 @@ public class DialogUtil {
     }
 
 
-    public static AlertDialog getExcreteRedDilaog(Activity mActivity, final GiftsBean mGiftsBean, final RedBusiness mRedBusiness) {
+    public static AlertDialog getExcreteRedDilaog(final Activity mActivity, final GiftsBean mGiftsBean, final RedBusiness mRedBusiness) {
         if (mActivity == null || mActivity.isFinishing()) {
             return null;
         }
@@ -265,6 +268,12 @@ public class DialogUtil {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+            }
+        });
+        red_anim_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivity.startActivity(new Intent(TCApplication.mContext, TextTipsActivity.class).putExtra("tips", mGiftsBean.getTips()));
             }
         });
         // 设置头像

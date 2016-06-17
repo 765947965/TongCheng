@@ -71,6 +71,7 @@ public class RedShareInfoActivity extends BaseActivity implements View.OnClickLi
         mViewHolder = new ViewHolder(findViewById(R.id.llt_main), this);
         mBannerView = mViewHolder.getView(R.id.image_banner);
         mViewHolder.setOnClickListener(R.id.reddllclosebt);
+        mViewHolder.setOnClickListener(R.id.reddetails_from_tips);
     }
 
     @Override
@@ -216,6 +217,9 @@ public class RedShareInfoActivity extends BaseActivity implements View.OnClickLi
                     return;
                 }
                 mRedBusiness.sendThank(APPCationStation.SUMBIT, "提交中...", thankyou, mGiftsBean.getGift_id());
+                break;
+            case R.id.reddetails_from_tips:
+                startActivity(new Intent(TCApplication.mContext, TextTipsActivity.class).putExtra("tips", mGiftsBean.getTips()));
                 break;
         }
     }

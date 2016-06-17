@@ -101,7 +101,7 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
         switch (mLoding_Type) {
             case APPCationStation.SUMBIT:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
-                    sendEventBusMessage("FriendFragment.Refresh");
+                    sendEventBusMessage("sendRedOk");
                     RedModel mRedModel = NativieDataUtils.getRedModel(NativieDataUtils.getTodyY(), "sended");
                     if (mRedModel != null && NativieDataUtils.getTodyYMD().equals(mRedModel.getUpdate())) {
                         mRedModel.setUpdate("00000000");

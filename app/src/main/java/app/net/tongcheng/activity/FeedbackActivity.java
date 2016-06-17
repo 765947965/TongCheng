@@ -71,9 +71,9 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
     public void loadData() {
         items = new ArrayList<>();
         items.add("一、App使用异常（如闪退、卡顿、死机等）");
-        items.add("二、生活界面问题（如无法显示，无法跳转，跳转异常等）");
-        items.add("三、充值问题（如无法充值，充值不到账，充值成功后无通知等）");
-        items.add("四、提现问题");
+        items.add("二、生活页面问题（如无法显示，无法跳转，跳转异常等）");
+        items.add("三、充值、提现问题 (如无法充值、充值不到账、提现不正常等)");
+        items.add("四、返利问题(充值返利未收到、邀请朋友充值后的返利未收到等)");
         items.add("五、其他问题");
         items.add("六、意见建议");
         titleinput.setText(items.get(0));

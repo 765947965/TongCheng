@@ -54,6 +54,7 @@ public class AboutAPP extends BaseActivity implements View.OnClickListener {
         mViewHolder.setOnClickListener(R.id.llt_about);
         mViewHolder.setOnClickListener(R.id.llt_kf);
         mViewHolder.setOnClickListener(R.id.llt_new_ver);
+        mViewHolder.setOnClickListener(R.id.llt_news_td);
     }
 
     @Override
@@ -149,6 +150,9 @@ public class AboutAPP extends BaseActivity implements View.OnClickListener {
                 } else {
                     checkVer();
                 }
+                break;
+            case R.id.llt_news_td:
+                startActivity(new Intent(TCApplication.mContext, NewVerTXActivity.class));
                 break;
         }
     }

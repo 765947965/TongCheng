@@ -25,6 +25,7 @@ import app.net.tongcheng.activity.AccountSetActivity;
 import app.net.tongcheng.activity.FeedbackActivity;
 import app.net.tongcheng.activity.MyUserInfoActivity;
 import app.net.tongcheng.activity.PublicWebview;
+import app.net.tongcheng.activity.ShowImageActivity;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.UserMoreInfoModel;
@@ -44,6 +45,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
     private ViewHolder mViewHolder;
     private MyBusiness mMyBusiness;
+    private UserMoreInfoModel mUserMoreInfoModel;
     public static boolean isfirstloaddata;
 
 
@@ -66,6 +68,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         mViewHolder.setOnClickListener(R.id.llt_abouttc);
         mViewHolder.setOnClickListener(R.id.llt_fk);
         mViewHolder.setOnClickListener(R.id.llt_zh);
+        mViewHolder.setOnClickListener(R.id.iv_head_image);
     }
 
     @Override
@@ -87,7 +90,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     public void mHandDoSomeThing(Message msg) {
         switch (msg.what) {
             case 10001:
-                UserMoreInfoModel mUserMoreInfoModel = NativieDataUtils.getUserMoreInfoModel();
+                mUserMoreInfoModel = NativieDataUtils.getUserMoreInfoModel();
                 if (mUserMoreInfoModel == null || !NativieDataUtils.getTodyYMD().equals(mUserMoreInfoModel.getUpdate())) {
                     mMyBusiness.getuserInfo(APPCationStation.LOADING, "");
                 }
@@ -132,6 +135,11 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.llt_zh:
                 startActivity(new Intent(TCApplication.mContext, AccountSetActivity.class));
+                break;
+            case R.id.iv_head_image:
+                if (mUserMoreInfoModel != null && !TextUtils.isEmpty(mUserMoreInfoModel.getPicture()) && !TextUtils.isEmpty(mUserMoreInfoModel.getPicurl_prefix())) {
+                    startActivity(new Intent(TCApplication.mContext, ShowImageActivity.class).putExtra("url", mUserMoreInfoModel.getPicurl_prefix() + mUserMoreInfoModel.getPicture()));
+                }
                 break;
         }
     }
