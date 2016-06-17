@@ -109,6 +109,7 @@ public class SwitchOnActivity extends BaseActivity implements View.OnClickListen
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     UserInfo mUserInfo = (UserInfo) mConnectResult.getObject();
                     TCApplication.setmUserInfo(mUserInfo);
+                    OraLodingUserTools.addolus(TCApplication.mContext, new OraLodingUser(mUserInfo.getPhone(), System.currentTimeMillis()));
                     sendEventBusMessage("ALL.Refresh");
                     sendEventBusMessage("ALL.UpData");
                     OraLodingUserTools.addolus(TCApplication.mContext, new OraLodingUser(mUserInfo.getPhone(), System.currentTimeMillis()));

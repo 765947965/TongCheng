@@ -124,7 +124,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="用户反馈"
+                    android:text="有奖反馈"
                     android:textColor="@color/text_content"
                     android:textSize="@dimen/sp14" />
 
@@ -164,8 +164,8 @@
 
                 <ImageView
                     android:id="@+id/iv_new"
-                    android:layout_width="48dp"
-                    android:layout_height="20dp"
+                    android:layout_width="36dp"
+                    android:layout_height="15dp"
                     android:layout_marginRight="5dp"
                     android:src="@drawable/newred"
                     android:visibility="gone" />

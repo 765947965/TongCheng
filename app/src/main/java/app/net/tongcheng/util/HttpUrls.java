@@ -41,4 +41,5 @@ public class HttpUrls {
     public static final String thank = "http://mobile.8hbao.com:8899/gift/add_gift_thankyou";//答谢
     public static final String ListGiftInfo = "http://mobile.8hbao.com:8899/gift/get_gift_receive_info_v2";//看其它人手气
     public static final String bank_list = "http://pay.8hbao.com:8060/recharge/service/bank_list.php";//银行卡列表
+    public static final String ChangPhone_V2 = "http://mobile.8hbao.com:8899/v2/change_phone_v2";//更改绑定手机号码
 }

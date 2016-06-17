@@ -7,6 +7,7 @@ import org.xutils.http.RequestParams;
 
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
+import app.net.tongcheng.model.ChangeAccoutModel;
 import app.net.tongcheng.model.GetPassordModel;
 import app.net.tongcheng.model.MSGModel;
 import app.net.tongcheng.model.RegisterCode;
@@ -167,7 +168,7 @@ public class OtherBusiness extends BaseBusiness {
     }
 
 
-    public void getChagnePasswordColde(int mLoding_Type, String message, String phone, String authcode){
+    public void getChagnePasswordColde(int mLoding_Type, String message, String phone, String authcode) {
         RequestParams params = new RequestParams(HttpUrls.CPGHD);
         String sn = VerificationCode.getCode2();
         params.addQueryStringParameter("sn", sn);
@@ -184,7 +185,7 @@ public class OtherBusiness extends BaseBusiness {
     }
 
 
-    public void getMSGModel(int mLoding_Type, String message){
+    public void getMSGModel(int mLoding_Type, String message) {
         RequestParams params = new RequestParams(HttpUrls.msglist);
         params.addQueryStringParameter("account", TCApplication.getmUserInfo().getPhone());
         params.addQueryStringParameter("pv", "android");
@@ -196,4 +197,30 @@ public class OtherBusiness extends BaseBusiness {
         goConnect(mLoding_Type, params, message, MSGModel.class.getName());
     }
 
+    public void getChangeAccoutCode(int mLoding_Type, String message, String code) {
+        RequestParams params = new RequestParams(HttpUrls.URL + "send_changephone_authcode");
+        params.addQueryStringParameter("phone", TCApplication.getmUserInfo().getPhone());
+        params.addQueryStringParameter("message", "您好，本次操作的验证码为：" + code);
+        params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getPhone() + Common.SIGN_KEY));
+        params.addQueryStringParameter("brandname", Common.BrandName);
+        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+    }
+
+    public void changeAccout(int mLoding_Type, String message, String old_phone, String new_phone, String pwd) {
+        RequestParams params = new RequestParams(HttpUrls.ChangPhone_V2);
+        String sn = VerificationCode.getCode2();
+        params.addQueryStringParameter("sn", sn);
+        params.addQueryStringParameter("agent_id", TCApplication.getmUserInfo().getAgent_id());
+        params.addQueryStringParameter("account", TCApplication.getmUserInfo().getUid());
+        params.addQueryStringParameter("pv", "android");
+        params.addQueryStringParameter("v", Utils.getVersionName());
+        params.addQueryStringParameter("sign", MD5.toMD5(sn + TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
+        params.addQueryStringParameter("brand", Utils.getBrand());
+        params.addQueryStringParameter("model", Utils.getModel());
+        params.addQueryStringParameter("product", Common.BrandName);
+        params.addQueryStringParameter("old_phone", old_phone);
+        params.addQueryStringParameter("new_phone", new_phone);
+        params.addQueryStringParameter("pwd", Misc.cryptDataByPwd(pwd));
+        goConnect(mLoding_Type, params, message, ChangeAccoutModel.class.getName());
+    }
 }

@@ -36,6 +36,7 @@ public class AccountSetActivity extends BaseActivity implements View.OnClickList
         mViewHolder.setOnClickListener(R.id.setts_retrieve_password_relayout);
         mViewHolder.setOnClickListener(R.id.setts_change_password_relayout);
         mViewHolder.setOnClickListener(R.id.setaccout_sign_out);
+        mViewHolder.setOnClickListener(R.id.setts_change_accout);
     }
 
     @Override
@@ -63,6 +64,9 @@ public class AccountSetActivity extends BaseActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.setts_switch_on_relayout:
                 startActivity(new Intent(TCApplication.mContext, SwitchOnActivity.class));
+                break;
+            case R.id.setts_change_accout:
+                startActivity(new Intent(TCApplication.mContext, ChangeAccoutActivity.class));
                 break;
             case R.id.setts_retrieve_password_relayout:
                 startActivity(new Intent(TCApplication.mContext, SetRetrievePassword.class));

@@ -84,6 +84,7 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
         mHeadViewHolder = new ViewHolder(headView, this);
         mHeadViewHolder.setOnClickListener(R.id.myred_changeredtype);
         mHeadViewHolder.setOnClickListener(R.id.redslat_yearchange_layout);
+        mHeadViewHolder.setOnClickListener(R.id.tv_sendRed);
         mHeadViewHolder.setText(R.id.redslat_yearchange, year);
         mHeadViewHolder.setText(R.id.myred_changeredtype, "收到的红包");
         mRecyclerView.addHeaderView(headView);
@@ -300,6 +301,8 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
                 mHeadViewHolder.setText(R.id.myred_changeredtype, "发出的红包");
                 mHeadViewHolder.setText(R.id.sendorrecevedtext, "已发出");
                 loadData();
+                break;
+            case R.id.tv_sendRed:
                 break;
         }
     }

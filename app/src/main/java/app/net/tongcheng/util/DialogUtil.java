@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -338,5 +339,33 @@ public class DialogUtil {
                 dialog.dismiss();
             }
         });
+    }
+
+    public static AlertDialog showInoutPasswordDialog(Activity mActivity, final InputPasswordListener mInputPasswordListener) {
+        if (mActivity == null || mActivity.isFinishing()) {
+            return null;
+        }
+        final AlertDialog dialog = new AlertDialog.Builder(mActivity, R.style.quick_red_option_dialog).create();
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+        View view = LayoutInflater.from(mActivity).inflate(R.layout.input_password_dialog_layout, null);
+        dialog.setContentView(view);
+        final EditText et_password = (EditText) view.findViewById(R.id.et_password);
+        view.findViewById(R.id.tv_sure).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String code = et_password.getText().toString();
+                if (!TextUtils.isEmpty(code)) {
+                    if (mInputPasswordListener != null) {
+                        mInputPasswordListener.onSureInout(code);
+                    }
+                }
+            }
+        });
+        return dialog;
+    }
+
+    public interface InputPasswordListener {
+        void onSureInout(String code);
     }
 }
