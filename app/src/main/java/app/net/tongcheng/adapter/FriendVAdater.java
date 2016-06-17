@@ -69,7 +69,7 @@ public class FriendVAdater extends MyBaseRecyclerViewAdapter<FriendsBean> {
             if (itemdata.getFY().equals(itemdataU.getFY())) {
                 holder.setVisibility(R.id.item_szm, View.GONE);
             } else {
-                holder.setText(R.id.item_szm, itemdata.getFY()).setVisibility(View.VISIBLE);
+                holder.setText(R.id.item_szm, itemdata.getFY().equals("~") ? "#" : itemdata.getFY()).setVisibility(View.VISIBLE);
             }
         }
     }

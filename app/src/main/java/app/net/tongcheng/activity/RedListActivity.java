@@ -303,6 +303,7 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
                 loadData();
                 break;
             case R.id.tv_sendRed:
+                startActivity(new Intent(TCApplication.mContext, SendMoreRedActivity.class));
                 break;
         }
     }
