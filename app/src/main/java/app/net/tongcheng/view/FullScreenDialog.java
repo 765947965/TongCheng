@@ -28,6 +28,7 @@ public abstract class FullScreenDialog extends Dialog implements View.OnClickLis
         super(activity, R.style.quick_option_dialog);
         this.activity = activity;
         mViewHolder = new ViewHolder(getLayoutInflater().inflate(ResLayoutId, null), this);
+        setContentView(mViewHolder.getmRootView());
     }
 
     @SuppressWarnings("deprecation")
@@ -46,10 +47,10 @@ public abstract class FullScreenDialog extends Dialog implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        FDonClick(v);
+        FDonClick(mViewHolder, v);
     }
 
-    public abstract void FDonClick(View v);
+    public abstract void FDonClick(ViewHolder mViewHolder, View v);
 
     public abstract void CreatView(ViewHolder mViewHolder);
 }

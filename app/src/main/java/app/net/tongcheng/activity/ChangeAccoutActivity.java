@@ -1,6 +1,7 @@
 package app.net.tongcheng.activity;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
@@ -19,6 +20,7 @@ import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.OraLodingUserTools;
 import app.net.tongcheng.util.ToastUtil;
+import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.VerificationCode;
 import app.net.tongcheng.util.ViewHolder;
 
@@ -31,7 +33,7 @@ public class ChangeAccoutActivity extends BaseActivity implements View.OnClickLi
     private EditText et_new_phone, et_new_phone_agen, et_password;
     private OtherBusiness mOtherBusiness;
     private String Code = VerificationCode.getCode();
-    private AlertDialog dialog;
+    private Dialog dialog;
     private String newPhone, newPhoneAgen, password;
 
     @Override
@@ -67,7 +69,9 @@ public class ChangeAccoutActivity extends BaseActivity implements View.OnClickLi
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     if (dialog != null && !isFinishing()) {
                         dialog.show();
-                        ((EditText) dialog.findViewById(R.id.et_password)).setText("");
+                        EditText editText = (EditText) dialog.findViewById(R.id.et_password);
+                        editText.setText("");
+                        Utils.setInputMethodVisiable(editText, 200);
                     } else {
                         dialog = DialogUtil.showInoutPasswordDialog(this, this);
                     }

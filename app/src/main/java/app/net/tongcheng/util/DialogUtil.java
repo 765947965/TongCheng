@@ -29,6 +29,7 @@ import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.FriendModel;
 import app.net.tongcheng.model.FriendsBean;
 import app.net.tongcheng.model.GiftsBean;
+import app.net.tongcheng.view.FullScreenDialog;
 
 /**
  * @author: xiewenliang
@@ -350,19 +351,14 @@ public class DialogUtil {
         });
     }
 
-    public static AlertDialog showInoutPasswordDialog(Activity mActivity, final InputPasswordListener mInputPasswordListener) {
+    public static Dialog showInoutPasswordDialog(Activity mActivity, final InputPasswordListener mInputPasswordListener) {
         if (mActivity == null || mActivity.isFinishing()) {
             return null;
         }
-        final AlertDialog dialog = new AlertDialog.Builder(mActivity, R.style.quick_red_option_dialog).create();
-        dialog.setCanceledOnTouchOutside(true);
-        dialog.show();
-        View view = LayoutInflater.from(mActivity).inflate(R.layout.input_password_dialog_layout, null);
-        dialog.setContentView(view);
-        final EditText et_password = (EditText) view.findViewById(R.id.et_password);
-        view.findViewById(R.id.tv_sure).setOnClickListener(new View.OnClickListener() {
+        FullScreenDialog mFullScreenDialog = new FullScreenDialog(mActivity, R.layout.input_password_dialog_layout) {
             @Override
-            public void onClick(View v) {
+            public void FDonClick(ViewHolder mViewHolder, View v) {
+                EditText et_password = mViewHolder.getView(R.id.et_password);
                 String code = et_password.getText().toString();
                 if (!TextUtils.isEmpty(code)) {
                     if (mInputPasswordListener != null) {
@@ -370,8 +366,16 @@ public class DialogUtil {
                     }
                 }
             }
-        });
-        return dialog;
+
+            @Override
+            public void CreatView(ViewHolder mViewHolder) {
+                mViewHolder.setOnClickListener(R.id.tv_sure);
+                EditText et_password = mViewHolder.getView(R.id.et_password);
+                Utils.setInputMethodVisiable(et_password, 200);
+            }
+        };
+        mFullScreenDialog.show();
+        return mFullScreenDialog;
     }
 
     public interface InputPasswordListener {

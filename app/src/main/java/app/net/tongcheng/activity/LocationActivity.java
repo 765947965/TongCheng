@@ -16,6 +16,8 @@ import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.StartPageModel;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.NativieDataUtils;
+import app.net.tongcheng.util.UserDateUtils;
+import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -60,13 +62,20 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
             if (TCApplication.getmUserInfo() == null) {
                 mViewHolder.setVisibility(R.id.llt_loding, View.VISIBLE);
             } else {
-                StartPageModel mStartPageModel = NativieDataUtils.getStartPageModel(true);
-                if (mStartPageModel != null) {
-                    // 开启启动页
-                    startActivity(new Intent(TCApplication.mContext, StartPageActivity.class).putExtra("mStartPageModel", mStartPageModel));
+                boolean isStartTX = UserDateUtils.getBoolean(Utils.getVersionName());
+                if (!isStartTX) {
+                    // 开启新特性
+                    UserDateUtils.PutBoolean(Utils.getVersionName(), true);
+                    startActivity(new Intent(TCApplication.mContext, NewVerTXActivity.class).putExtra("isMain", true));
                 } else {
-                    // 开启主页
-                    startActivity(new Intent(TCApplication.mContext, MainActivity.class));
+                    StartPageModel mStartPageModel = NativieDataUtils.getStartPageModel(true);
+                    if (mStartPageModel != null) {
+                        // 开启启动页
+                        startActivity(new Intent(TCApplication.mContext, StartPageActivity.class).putExtra("mStartPageModel", mStartPageModel));
+                    } else {
+                        // 开启主页
+                        startActivity(new Intent(TCApplication.mContext, MainActivity.class));
+                    }
                 }
                 finish();
             }

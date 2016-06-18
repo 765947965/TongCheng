@@ -39,6 +39,8 @@
 
     <style name="quick_option_dialog" parent="Theme.AppCompat.Dialog">
         <item name="android:windowAnimationStyle">@style/dialog_animation</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
     <style name="dialog_animation" parent="android:Animation">
