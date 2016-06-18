@@ -86,6 +86,20 @@ public class TiXianListActivity extends BaseActivity implements View.OnClickList
                             holder.setText(R.id.tv_name, "提现至" + itemdata.getBank_name() + "(" + itemdata.getBank_card_no().substring(itemdata.getBank_card_no().length() - 4) + ")");
                             holder.setText(R.id.tv_time, itemdata.getAddtime());
                             holder.setText(R.id.tv_money, itemdata.getMoney() / 100d + "");
+                            switch (itemdata.getStatus()) {
+                                case "finish":
+                                    holder.setText(R.id.tv_status, "提现成功");
+                                    break;
+                                case "fail":
+                                    holder.setText(R.id.tv_status, "提现失败");
+                                    break;
+                                case "pail":
+                                    holder.setText(R.id.tv_status, "银行处理中");
+                                    break;
+                                case "apply":
+                                    holder.setText(R.id.tv_status, "提交申请中");
+                                    break;
+                            }
                         }
                     });
                 }
