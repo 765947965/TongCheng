@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="充值记录"
+            android:text="账户流水"
             android:textColor="@color/white"
             android:textSize="@dimen/sp11" />
     </LinearLayout>
@@ -35,7 +35,8 @@
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingBottom="20dp"
-            android:paddingTop="8dp">
+            android:paddingTop="8dp"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -61,7 +62,8 @@
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingBottom="20dp"
-            android:paddingTop="8dp">
+            android:paddingTop="8dp"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="wrap_content"

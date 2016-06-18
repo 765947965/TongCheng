@@ -23,6 +23,7 @@ import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.MoneyInfoModel;
 import app.net.tongcheng.model.RedModel;
+import app.net.tongcheng.model.UserMoreInfoModel;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.EditTextUtil;
@@ -84,6 +85,10 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
         if (mMoneyInfoModel != null) {
             Almoney = mMoneyInfoModel.getData().getCanfetch_amount();
             money_input.setHint("可用:" + Almoney / 100d);
+        }
+        UserMoreInfoModel mUserMoreInfoModel = NativieDataUtils.getUserMoreInfoModel();
+        if (mUserMoreInfoModel != null && !TextUtils.isEmpty(mUserMoreInfoModel.getName())) {
+            mViewHolder.setText(R.id.whoimisedit, mUserMoreInfoModel.getName());
         }
         moneytyps = new ArrayList<>();
         moneytyps.add("拼手气红包");

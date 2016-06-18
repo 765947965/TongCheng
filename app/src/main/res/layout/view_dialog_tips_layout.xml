@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <FrameLayout
         android:layout_width="300dip"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_margin="15dip"
         android:background="@drawable/bg_rounded_box"
@@ -25,29 +23,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:gravity="center"
+                android:gravity="center_horizontal"
                 android:singleLine="true"
                 android:textColor="@color/text_content"
                 android:textSize="@dimen/sp18" />
 
-            <ScrollView
+
+            <TextView
+                android:id="@+id/txtMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dp_22"
                 android:layout_marginLeft="@dimen/left_right_space"
                 android:layout_marginRight="@dimen/left_right_space"
-                android:layout_marginTop="@dimen/dp_19">
-
-                <TextView
-                    android:id="@+id/txtMessage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:gravity="center_horizontal"
-                    android:lineSpacingExtra="5dip"
-                    android:textColor="@color/text_content"
-                    android:textSize="@dimen/sp16" />
-            </ScrollView>
+                android:layout_marginTop="@dimen/dp_19"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="5dip"
+                android:textColor="@color/text_content"
+                android:textSize="@dimen/sp16" />
         </LinearLayout>
 
 

@@ -161,7 +161,7 @@ public class AboutAPP extends BaseActivity implements View.OnClickListener {
         if (mMSGModel == null || TextUtils.isEmpty(mMSGModel.getService_phone())) {
             ToastUtil.showToast("网络不可用,请检查网络连接!");
         }
-        DialogUtil.showTipsDialog(this, "是否要打电话给客服？", "(服务时间 9:00-22:00；周末 9:00-18:00)", "确认", "取消", new DialogUtil.OnConfirmListener() {
+        DialogUtil.showTipsDialog(this, "是否要打电话给客服？", mMSGModel.getService_phone(), "确认", "取消", new DialogUtil.OnConfirmListener() {
 
             @Override
             public void clickConfirm() {

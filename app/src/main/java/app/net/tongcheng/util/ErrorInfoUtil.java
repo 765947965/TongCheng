@@ -27,7 +27,7 @@ public class ErrorInfoUtil {
                 message = "注册请求失败";
                 break;
             case 10:
-                message = "参数错误";
+                message = "您已绑定了该银行卡，不能重复绑定!";
                 break;
             case 12:
                 message = "密码错误";

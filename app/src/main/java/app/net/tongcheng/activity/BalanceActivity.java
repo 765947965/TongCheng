@@ -189,8 +189,6 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
                     map_value.put("bank_card_no", mCardListModelDataBean.getBank_card_no());
                     map_value.put("withdrawmoney", mMoneyInfoModel.getData().getCanfetch_amount() / 100d + "");
                     MobclickAgent.onEventValue(this, "withdraw", map_value, Double.valueOf(mMoneyInfoModel.getData().getCanfetch_amount() / 100d).intValue());
-                } else {
-                    bt_withdraw_action.setEnabled(true);
                 }
                 break;
             case APPCationStation.DCARD://删除银行卡
@@ -205,9 +203,6 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void BusinessOnFail(int mLoding_Type) {
         ToastUtil.showToast("网络不可用,请检查网络连接!");
-        if (mLoding_Type == APPCationStation.MONEYOUT) {
-            bt_withdraw_action.setEnabled(true);
-        }
     }
 
     @Override
@@ -239,8 +234,8 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
                     DialogUtil.showTipsDialog(this, "已无可提现金额", null);
                 } else {
                     // 提现
-                    bt_withdraw_action.setEnabled(false);
-                    mRedBusiness.moneyOut(APPCationStation.MONEYOUT, "提现中...", checkcardId, mMoneyInfoModel.getData().getCanfetch_amount());
+//                    mRedBusiness.moneyOut(APPCationStation.MONEYOUT, "提现中...", checkcardId, mMoneyInfoModel.getData().getCanfetch_amount());
+                    startActivity(new Intent(TCApplication.mContext, MoneyOutInputActivity.class).putExtra("CardListModel.DataBean", mCardListModelDataBean).putExtra("money", mMoneyInfoModel.getData().getCanfetch_amount()));
                 }
                 break;
             case R.id.tv_banding_new_card:
@@ -281,6 +276,8 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
     public void onEvent(CheckEvent event) {
         if (event != null && event.getMsg().equals("balance_rushe")) {
             mRedBusiness.getCarList(APPCationStation.LOADINGAD, "");
+        } else if (event != null && event.getMsg().equals("money_rushe")) {
+            mRedBusiness.getMoneyInfo(APPCationStation.LOADING, "");
         }
     }
 

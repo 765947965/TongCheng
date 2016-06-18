@@ -248,7 +248,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                 break;
             case R.id.llt_rechage_remark:
                 String url = "http://user.8hbao.com:8060/usercenter/mobile_chargelog.php?phone=" + TCApplication.getmUserInfo().getPhone() + "&uid=" + TCApplication.getmUserInfo().getUid();
-                startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "充值记录").putExtra("url", url));
+                startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "账户流水").putExtra("url", url));
                 break;
         }
     }
