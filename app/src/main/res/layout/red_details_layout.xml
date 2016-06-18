@@ -162,7 +162,7 @@
                 android:id="@+id/reddetails_from_tips"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:ellipsize="marquee"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
@@ -174,15 +174,15 @@
             <RelativeLayout
                 android:id="@+id/reddetails_from_moneyrel"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/reddetails_from_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_centerHorizontal="true"
                     android:gravity="center"
+                    android:includeFontPadding="false"
                     android:textColor="#000000"
                     android:textSize="45sp" />
 
@@ -194,14 +194,14 @@
                     android:layout_marginLeft="3dp"
                     android:layout_toRightOf="@id/reddetails_from_money"
                     android:gravity="center"
+                    android:paddingBottom="10dp"
                     android:textColor="#000000"
                     android:textSize="12sp" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/reddetails_from_money_time"
@@ -219,8 +219,8 @@
                     android:layout_marginLeft="20dp"
                     android:layout_toRightOf="@id/reddetails_from_money_time"
                     android:background="@drawable/bttwriteaction"
-                    android:textColor="#BD1816"
                     android:text="查看他们手气"
+                    android:textColor="#BD1816"
                     android:textSize="12sp"
                     android:visibility="invisible" />
             </RelativeLayout>
@@ -236,6 +236,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:gravity="bottom"
                     android:textColor="#EF0603"
                     android:textSize="12sp" />
