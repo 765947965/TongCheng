@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kevin.wraprecyclerview.WrapRecyclerView;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -53,7 +55,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
 
     private ViewHolder mViewHolder;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private RecyclerView mRecyclerView;
+    private WrapRecyclerView mRecyclerView;
     private RedListAdapter mRedListAdapter;
     private RedBusiness mRedBusiness;
     private List<GiftsBean> mDatas;
@@ -90,6 +92,8 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
         mViewHolder.setOnClickListener(R.id.llt_redlist);
         mViewHolder.setOnClickListener(R.id.llt_rechage);
         mViewHolder.setOnClickListener(R.id.llt_rechage_remark);
+        View headView = LayoutInflater.from(TCApplication.mContext).inflate(R.layout.red_list_head_tips_layout, null);
+        mRecyclerView.addHeaderView(headView);
     }
 
     @Override
