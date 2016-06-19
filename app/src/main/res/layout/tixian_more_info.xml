@@ -230,6 +230,7 @@
             android:padding="20dp">
 
             <TextView
+                android:id="@+id/tv_tixian_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="提现到"
@@ -240,8 +241,9 @@
                 android:id="@+id/tv_to_card_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/tv_tixian_title"
                 android:textColor="@color/remark_tips"
                 android:textSize="@dimen/sp14" />
         </RelativeLayout>
@@ -257,6 +259,7 @@
             android:padding="20dp">
 
             <TextView
+                android:id="@+id/tv_creat_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="创建时间"
@@ -267,8 +270,9 @@
                 android:id="@+id/tv_to_creat_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/tv_creat_time"
                 android:textColor="@color/remark_tips"
                 android:textSize="@dimen/sp14" />
         </RelativeLayout>

@@ -1,6 +1,7 @@
 package app.net.tongcheng.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
@@ -37,6 +38,7 @@ public class AboutAPP extends BaseActivity implements View.OnClickListener {
     private MSGModel mMSGModel;
     private OtherBusiness mOtherBusiness;
     private boolean isHadnew;
+    private Bitmap mBitmap;
 
 
     @Override
@@ -76,7 +78,7 @@ public class AboutAPP extends BaseActivity implements View.OnClickListener {
                 if (mMSGModel == null) {
                     return;
                 }
-                mViewHolder.setText(R.id.version_value, Utils.getVersionName());
+                mViewHolder.setText(R.id.version_value, "V " + Utils.getVersionName());
                 int dimension = (int) UiUtil.dp2px(getResources(), 130f);
                 Encoder encoder = new Encoder.Builder()
                         .setBackgroundColor(0xFFFFFF) // 指定背景颜色，默认为白色
@@ -85,7 +87,8 @@ public class AboutAPP extends BaseActivity implements View.OnClickListener {
                         .setOutputBitmapHeight(dimension) // 生成图片高度
                         .setOutputBitmapPadding(0) // 设置为没有白边
                         .build();
-                ((ImageView) mViewHolder.getView(R.id.iv_qrcode)).setImageBitmap(encoder.encode(mMSGModel.getInvite_url().replace("phone=%s", "phone=" + TCApplication.getmUserInfo().getPhone()).replace("channel=%s", "channel=" + Common.BrandName)));
+                mBitmap = encoder.encode(mMSGModel.getInvite_url().replace("phone=%s", "phone=" + TCApplication.getmUserInfo().getPhone()).replace("channel=%s", "channel=" + Common.BrandName));
+                ((ImageView) mViewHolder.getView(R.id.iv_qrcode)).setImageBitmap(mBitmap);
                 if (!TextUtils.isEmpty(mMSGModel.getUpdate_addr()) && !Utils.getVersionName().equals(mMSGModel.getUpdate_ver())) {
                     if (isHadnew) {
                         isHadnew = false;
@@ -204,4 +207,12 @@ public class AboutAPP extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mBitmap != null) {
+            mBitmap.recycle();
+            mBitmap = null;
+        }
+    }
 }

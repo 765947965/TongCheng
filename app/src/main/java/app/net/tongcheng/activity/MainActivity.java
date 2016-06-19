@@ -38,6 +38,7 @@ import app.net.tongcheng.model.MSGModel;
 import app.net.tongcheng.model.UpContentJSONModel;
 import app.net.tongcheng.model.UpContentModel;
 import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.CastToUtil;
 import app.net.tongcheng.util.ContentsUtil;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.NativieDataUtils;
@@ -77,6 +78,8 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
     private int iconActivateds[] = {R.drawable.home_tab_red, R.drawable.home_tab_life, R.drawable.home_tab_frend, R.drawable.home_tab_share, R.drawable.home_tab_my};
 
     private boolean flag = false;
+
+    private String to;
 
 
     @Override
@@ -128,6 +131,7 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
             mRedPacketFragment.loadData();
         }
         louData();
+        mHandler.sendEmptyMessageDelayed(10002, 500);
     }
 
     private void louData() {
@@ -159,11 +163,28 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
         }
     }
 
+    private void goTo() {
+        to = getIntent().getStringExtra("to");
+        if (!TextUtils.isEmpty(to)) {
+            if (to.startsWith("http")) {
+                startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "活动").putExtra("url", to));
+            } else {
+                Intent mIntent = CastToUtil.getIntent(to);
+                if (mIntent != null) {
+                    startActivity(mIntent);
+                }
+            }
+        }
+    }
+
     @Override
     public void mHandDoSomeThing(Message msg) {
         switch (msg.what) {
             case 10001:
                 mFriendBusiness.uploadContens(APPCationStation.SUMBIT, "", (String) msg.obj);
+                break;
+            case 10002:
+                goTo();
                 break;
         }
     }

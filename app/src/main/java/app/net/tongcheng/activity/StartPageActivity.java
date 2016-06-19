@@ -38,6 +38,7 @@ public class StartPageActivity extends BaseActivity implements View.OnClickListe
 
     private void initView() {
         mViewHolder = new ViewHolder(findViewById(R.id.llt_main), this);
+        mViewHolder.setOnClickListener(R.id.iv_start_image);
     }
 
     @Override
@@ -47,7 +48,7 @@ public class StartPageActivity extends BaseActivity implements View.OnClickListe
             NativieDataUtils.setStartPageModel(mStartPageModel);
             mViewHolder.setImage(R.id.iv_start_image, mStartPageModel.getPic_prefix() + mStartPageModel.getPic_xhdpi());
         }
-        mHandler.sendEmptyMessageDelayed(10001, 3000);
+        mHandler.sendEmptyMessageDelayed(10001, 2000);
     }
 
     @Override
@@ -72,6 +73,14 @@ public class StartPageActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.iv_start_image:
+                if (mStartPageModel != null && !TextUtils.isEmpty(mStartPageModel.getTo())) {
+                    mHandler.removeMessages(10001);
+                    startActivity(new Intent(TCApplication.mContext, MainActivity.class).putExtra("to", mStartPageModel.getTo()));
+                    finish();
+                }
+                break;
+        }
     }
 }

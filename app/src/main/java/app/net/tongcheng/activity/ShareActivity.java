@@ -57,7 +57,7 @@ public class ShareActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void loadData() {
         mHandler.sendEmptyMessage(10001);
-        mHandler.sendEmptyMessage(10002);
+        mHandler.sendEmptyMessageDelayed(10002, 500);
         mShareBusiness.getShareCode(APPCationStation.LOADING, "");
     }
 
