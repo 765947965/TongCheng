@@ -58,7 +58,7 @@
             android:id="@+id/tv_share_tips"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/red"
+            android:background="@color/refurush_color"
             android:padding="14.6dp"
             android:textColor="@color/white"
             android:textSize="@dimen/sp14" />
