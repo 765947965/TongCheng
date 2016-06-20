@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.util.DialogUtil;
+import app.net.tongcheng.util.NativeUtils;
 
 public class PayDemoActivity {
 
@@ -27,6 +28,11 @@ public class PayDemoActivity {
         this.subject = subject;
         this.body = body;
         this.price = price;
+        PARTNER = NativeUtils.getPARTNER();
+        SELLER = NativeUtils.getSELLER();
+        RSA_PRIVATE = NativeUtils.getRSAPRIVATE();
+        RSA_PUBLIC = NativeUtils.getRSAPUBLIC();
+        notify_url = NativeUtils.getnotifyurl();
     }
 
 
@@ -37,15 +43,15 @@ public class PayDemoActivity {
 
 
     // 商户PID
-    public static final String PARTNER = "2088121327291341";
+    private String PARTNER;
     // 商户收款账号
-    public static final String SELLER = "tongchengtx@sina.com";
+    private String SELLER;
     // 商户私钥，pkcs8格式
-    public static final String RSA_PRIVATE = "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAMnFFe6SNX+FKTKPvgOFpXWTUMMjVuqvZrzeEBLzG66HBFiK+2052GVN1qyc5Muqy0CzK2pYo+C/P/5XqcWigLdhtxjoVhR8K3HTvDuPmrcTsvq0OAKabULmcAk01nsFJbpMVkvkPmLJE4c1tpC9PowH4jhaXbgI9Fk2aXH6rNYpAgMBAAECgYBKwRtcFY1+nn5h/kGfGm/v/NGKStiUAMJmrTt1Wd7iraFdkLiQgkL7XXhw4XwfPTsq0HcAYrDsvs7d0+rRj2ByaDzMGXcTPfUvCgxh4SgHMJj1yZvFze5+hUTf2tBkKCaQr31DAzrSv8/YEsTI1v4Dt3+fSwAvbfHmevEb9TuMJQJBAO+AADp6gHZ3MuPN/zDoKDTBcnodXZjyRAXTC4Hg+KWmeMuDxNuuImy0y20EWIgM3wsZ2Qkq73YlluXoImwK5OMCQQDXq6XvOU+AZB4M64bnokPhgQAQ17DT7jpwRWLVO4GLgedpKfe5izOQsJeipa1ggdQQ1RRA31cC02+NRSGQY1KDAkEA4pXUIX9SWEHvmIyEuY16tGasWpG7wn66ElSXl3nzZCz6LXjt3vSBRx1JNEufQqACyOrcZgsD4GAxwjN7lYI9BwJATq/Sp9hqGDbu+9nG66Y5TAJL6tk3K+ukKKg4KgI+/o5TxvvH5UtTcfvsJyx5eFeF7uo/LHgP//jyn0FUwKBsTwJBAOYXezablWx5onfvGvmRP68qNDH9ilYFsM2wPzUMzgIOXiLyaAnw1cSmStkaxhs4w5XyBBG19KwrffUVut10G/I=";
+    private String RSA_PRIVATE;
     // 支付宝公钥
-    public static final String RSA_PUBLIC = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDI6d306Q8fIfCOaTXyiUeJHkrIvYISRcc73s3vF1ZT7XN8RNPwJxo8pWaJMmvyTn9N4HQ632qJBVHf8sxHi/fEsraprwCtzvzQETrNRwVxLO5jVmRGi60j8Ue1efIlzPXV9je9mkjzOmdssymZkh2QhUrCmZYI/FCEa3/cNMW0QIDAQAB";
+    private String RSA_PUBLIC;
     // 支付宝支付成功 回调地址
-    public final String notify_url = "http://user.8hbao.com:8060/AliSecurity/notify_url.php";
+    private String notify_url;
 
     private static final int SDK_PAY_FLAG = 1;
 

@@ -159,6 +159,10 @@
 #保留一个完整的包
 -keep class app.net.tongcheng.model.**{*;}
 
+#JNI
+-dontwarn app.net.tongcheng.util.NativeUtils
+-keep class app.net.tongcheng.util.NativeUtils { *;}
+
  #ShareSDK混淆
  -keep class cn.sharesdk.**{*;}
  -keep class com.sina.**{*;}

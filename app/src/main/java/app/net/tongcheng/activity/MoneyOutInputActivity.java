@@ -1,6 +1,5 @@
 package app.net.tongcheng.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
@@ -14,7 +13,6 @@ import java.util.Map;
 
 import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
-import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.CardListModel;
 import app.net.tongcheng.model.ConnectResult;
