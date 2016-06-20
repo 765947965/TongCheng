@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/rlt_title"
+        layout="@layout/red_head_view" />
+
     <LinearLayout
+        android:id="@+id/llt_share"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:orientation="vertical">
-
-        <include layout="@layout/red_head_view" />
-
-        <TextView
-            android:id="@+id/tv_share_tips"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/red"
-            android:padding="14.6dp"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp14" />
 
         <TextView
             android:layout_width="match_parent"
@@ -35,7 +30,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:padding="14.6dp"
             android:text="分享多多 红包多多!"
             android:textColor="@color/refurush_color"
             android:textSize="@dimen/sp14" />
@@ -45,7 +39,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="40dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/red_button_box_select"
             android:minHeight="35dp"
@@ -53,4 +47,20 @@
             android:textColor="@color/white"
             android:textSize="@dimen/sp14" />
     </LinearLayout>
-</ScrollView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/llt_share"
+        android:layout_below="@id/rlt_title">
+
+        <TextView
+            android:id="@+id/tv_share_tips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/red"
+            android:padding="14.6dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp14" />
+    </ScrollView>
+</RelativeLayout>

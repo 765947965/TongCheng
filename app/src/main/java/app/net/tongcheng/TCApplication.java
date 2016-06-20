@@ -5,13 +5,13 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
+import com.bugtags.library.Bugtags;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.umeng.analytics.MobclickAgent;
 
-import org.w3c.dom.Text;
 import org.xutils.x;
 
 import app.net.tongcheng.model.UserInfo;
@@ -36,6 +36,7 @@ public class TCApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = this.getApplicationContext();
+        Bugtags.start("6c3472ac85938539bb3ca04f2c7e2ec5", this, Bugtags.BTGInvocationEventBubble);
         MobclickAgent.setScenarioType(mContext, MobclickAgent.EScenarioType.E_UM_NORMAL);//友盟初始化
         MobclickAgent.enableEncrypt(true);
         String userinfo = OperationUtils.getUserInfo();

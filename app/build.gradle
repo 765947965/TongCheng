@@ -41,6 +41,14 @@ android {
     }
 }
 
+apply plugin: 'com.bugtags.library.plugin'
+
+bugtags {
+    appKey "6c3472ac85938539bb3ca04f2c7e2ec5"
+    appSecret "f1ae7514630f159c6e311626d445883f"
+    mappingUploadEnabled true
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.1'
@@ -50,18 +58,16 @@ dependencies {
     compile 'com.wang.avi:library:1.0.1'//进度条 https://github.com/81813780/AVLoadingIndicatorView
     compile 'com.nineoldandroids:library:2.4.0'//进度条
     compile 'com.github.markushi:android-ui:1.2'//UI
-    compile 'com.github.johnpersano:supertoasts:1.3.4@aar'
-//吐司 https://github.com/JohnPersano/SuperToasts
+    compile 'com.github.johnpersano:supertoasts:1.3.4@aar'//吐司 https://github.com/JohnPersano/SuperToasts
     compile 'com.github.bumptech.glide:glide:3.7.0'//Glide图片加载 //https://github.com/bumptech/glide
-    compile 'me.drakeet.materialdialog:library:1.3.1'
-//dialog https://github.com/drakeet/MaterialDialog
+    compile 'me.drakeet.materialdialog:library:1.3.1'//dialog https://github.com/drakeet/MaterialDialog
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.kevin:wraprecyclerview:1.0.6'//可添加头部的recyclerview
     compile 'com.github.promeg:tinypinyin:1.0.0'//拼音处理
-    compile 'com.yancy.imageselector:imageselector:1.3.3'
-//https://github.com/YancyYe/GalleryPick 图片选择裁剪
+    compile 'com.yancy.imageselector:imageselector:1.3.3'//https://github.com/YancyYe/GalleryPick 图片选择裁剪
     compile 'com.umeng.analytics:analytics:latest.integration'//友盟+
     compile 'com.google.zxing:core:3.2.1'
     compile 'com.google.zxing:android-core:3.2.1'
     compile 'com.github.yoojia:zxing:0.7@aar'//二维码https://github.com/yoojia/ZXingMini
+    compile 'com.bugtags.library:bugtags-lib:latest.integration'
 }
