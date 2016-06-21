@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bugtags.library.Bugtags;
 import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -197,6 +198,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+        Bugtags.onDispatchTouchEvent(this, ev);//Bugtags
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             if (isFastDoubleClick()) {// 防止快速点击
                 return true;
@@ -233,12 +235,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);//友盟
+        Bugtags.onResume(this);//Bugtags
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);//友盟
+        Bugtags.onPause(this);//Bugtags
     }
 
     public abstract void mHandDoSomeThing(Message msg);
