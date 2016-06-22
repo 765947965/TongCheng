@@ -123,7 +123,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
                     } else if (Double.valueOf(outMoney) > mMoneyInfoModel.getData().getCanfetch_amount() / 100d) {
                         ToastUtil.showToast("提现金额不能大于可提现金额!");
                     } else {
-                        DialogUtil.showTipsDialog(this, "提示", mMoneyInfoModel.getData().getDescription() + "预计到账" + ((Double.valueOf(outMoney) * 0.9d) * 100d) / 100d + "元", "确定", "取消", new DialogUtil.OnConfirmListener() {
+                        DialogUtil.showTipsDialog(this, "提示", mMoneyInfoModel.getData().getDescription() + "预计到账" + Double.valueOf(outMoney) * 0.9d + "元", "确定", "取消", new DialogUtil.OnConfirmListener() {
                             @Override
                             public void clickConfirm() {
                                 mRedBusiness.moneyOut(APPCationStation.MONEYOUT, "提现中...", mCardListModelDataBean.getId(), Double.valueOf(outMoney) * 100d);
