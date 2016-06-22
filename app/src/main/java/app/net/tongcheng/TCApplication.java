@@ -36,7 +36,7 @@ public class TCApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = this.getApplicationContext();
-        Bugtags.start("6c3472ac85938539bb3ca04f2c7e2ec5", this, Bugtags.BTGInvocationEventBubble);
+        Bugtags.start("6c3472ac85938539bb3ca04f2c7e2ec5", this, Bugtags.BTGInvocationEventNone);
         MobclickAgent.setScenarioType(mContext, MobclickAgent.EScenarioType.E_UM_NORMAL);//友盟初始化
         MobclickAgent.enableEncrypt(true);
         String userinfo = OperationUtils.getUserInfo();
