@@ -26,25 +26,55 @@
             android:layout_marginTop="14.6dp"
             android:text="总余额:"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp14" />
+            android:textSize="@dimen/sp16" />
 
-        <TextView
-            android:id="@+id/tv_withdraw_ing"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="14.6dp"
-            android:text="提现中:"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp14" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_can_withdraw"
+            <TextView
+                android:id="@+id/tv_withdraw_ing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="提现中:"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp14" />
+
+            <TextView
+                android:id="@+id/tv_can_withdraw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="可提现:"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp14" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14.6dp"
-            android:text="可提现:"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp14" />
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_can_recharge_ye"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="充值余额:"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp14" />
+
+            <TextView
+                android:id="@+id/tv_can_ke_jie_dong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="可解冻:"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp14" />
+        </LinearLayout>
     </LinearLayout>
 
     <TextView

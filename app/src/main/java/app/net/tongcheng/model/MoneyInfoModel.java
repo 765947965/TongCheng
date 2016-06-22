@@ -45,6 +45,9 @@ public class MoneyInfoModel extends BaseModel {
         private double canfetch_amount;
         private double fetching_amount;
         private double freze_account;
+        private double charge_amount;
+        private double fee_ratio;
+        private String description;
         private String status;
         private String addtime;
 
@@ -102,6 +105,30 @@ public class MoneyInfoModel extends BaseModel {
 
         public void setAddtime(String addtime) {
             this.addtime = addtime;
+        }
+
+        public double getCharge_amount() {
+            return charge_amount;
+        }
+
+        public void setCharge_amount(double charge_amount) {
+            this.charge_amount = charge_amount;
+        }
+
+        public double getFee_ratio() {
+            return fee_ratio;
+        }
+
+        public void setFee_ratio(double fee_ratio) {
+            this.fee_ratio = fee_ratio;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
         }
     }
 }

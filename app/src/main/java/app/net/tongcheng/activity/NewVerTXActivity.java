@@ -36,8 +36,7 @@ public class NewVerTXActivity extends BaseActivity {
     public void loadData() {
         isFromStart = getIntent().getBooleanExtra("isMain", false);
         ids = new ArrayList<>();
-        ids.add(R.drawable.bootpage4);
-        ids.add(R.drawable.bootpage5);
+        ids.add(R.drawable.tx_spage1);
         mBannerView.setAdapter(new LoopBaseAdapter<Integer>(TCApplication.mContext, ids, R.layout.new_tx_banner) {
             @Override
             public void createView(ViewHolder mViewHolder, final Integer item, List<Integer> mDatas, int position) {

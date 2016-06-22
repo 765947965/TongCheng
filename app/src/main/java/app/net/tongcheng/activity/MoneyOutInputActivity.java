@@ -2,6 +2,7 @@ package app.net.tongcheng.activity;
 
 import android.os.Bundle;
 import android.os.Message;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import app.net.tongcheng.R;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.CardListModel;
 import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.model.MoneyInfoModel;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.ToastUtil;
@@ -28,7 +30,7 @@ import app.net.tongcheng.util.ViewHolder;
 public class MoneyOutInputActivity extends BaseActivity implements View.OnClickListener {
     private ViewHolder mViewHolder;
     private CardListModel.DataBean mCardListModelDataBean;
-    private double money;
+    private MoneyInfoModel mMoneyInfoModel;
     private EditText money_input;
     private RedBusiness mRedBusiness;
 
@@ -47,16 +49,18 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
         mViewHolder.setOnClickListener(R.id.bt_withdraw_action);
         money_input = mViewHolder.getView(R.id.money_input);
         Utils.limitDecimalDigits(money_input, 2);
+        mViewHolder.setOnClickListener(R.id.tv_description);
     }
 
     @Override
     public void loadData() {
         mCardListModelDataBean = (CardListModel.DataBean) getIntent().getSerializableExtra("CardListModel.DataBean");
-        money = getIntent().getDoubleExtra("money", 0d);
-        if (mCardListModelDataBean != null && money > 0) {
-            mViewHolder.setText(R.id.tv_canout, "可提现: ￥" + money / 100d);
+        mMoneyInfoModel = (MoneyInfoModel) getIntent().getSerializableExtra("MoneyInfoModel.DataBean");
+        if (mCardListModelDataBean != null && mMoneyInfoModel != null) {
+            mViewHolder.setText(R.id.tv_canout, "可提现: ￥" + mMoneyInfoModel.getData().getCanfetch_amount() / 100d);
             mViewHolder.setText(R.id.tv_banck_name, mCardListModelDataBean.getBank_name());
             mViewHolder.setText(R.id.tv_banck_card, "储蓄卡 " + "(****" + mCardListModelDataBean.getBank_card_no().substring(mCardListModelDataBean.getBank_card_no().length() - 4) + ")");
+            mViewHolder.setText(R.id.tv_description, Html.fromHtml("<u>" + mMoneyInfoModel.getData().getDescription() + "<u>"));
         }
     }
 
@@ -101,8 +105,8 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if (mCardListModelDataBean == null) {
-            ToastUtil.showToast("获取银行卡信息失败!");
+        if (mCardListModelDataBean == null || mMoneyInfoModel == null) {
+            ToastUtil.showToast("获取提现信息失败!");
             return;
         }
         switch (v.getId()) {
@@ -113,7 +117,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
                         ToastUtil.showToast("请输入提现金额!");
                     } else if (Double.valueOf(outMoney) <= 0) {
                         ToastUtil.showToast("提现金额必须大于0!");
-                    } else if (Double.valueOf(outMoney) > money / 100d) {
+                    } else if (Double.valueOf(outMoney) > mMoneyInfoModel.getData().getCanfetch_amount() / 100d) {
                         ToastUtil.showToast("提现金额不能大于可提现金额!");
                     } else {
                         mRedBusiness.moneyOut(APPCationStation.MONEYOUT, "提现中...", mCardListModelDataBean.getId(), Double.valueOf(outMoney) * 100d);
@@ -121,6 +125,8 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
                 } catch (Exception e) {
                     ToastUtil.showToast("请输入正确的提现金额!");
                 }
+                break;
+            case R.id.tv_description:
                 break;
         }
     }

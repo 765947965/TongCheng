@@ -96,6 +96,8 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
                     mViewHolder.setText(R.id.tv_total, "总余额:￥" + mMoneyInfoModel.getData().getBalance() / 100d + "元");
                     mViewHolder.setText(R.id.tv_withdraw_ing, "提现中:￥" + mMoneyInfoModel.getData().getFetching_amount() / 100d + "元");
                     mViewHolder.setText(R.id.tv_can_withdraw, "可提现:￥" + mMoneyInfoModel.getData().getCanfetch_amount() / 100d + "元");
+                    mViewHolder.setText(R.id.tv_can_recharge_ye, "充值余额:￥" + mMoneyInfoModel.getData().getCharge_amount() / 100d + "元");
+                    mViewHolder.setText(R.id.tv_can_ke_jie_dong, "可解冻:￥" + mMoneyInfoModel.getData().getFreze_account() / 100d + "元");
                 }
                 break;
             case 10002:
@@ -235,7 +237,7 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
                 } else {
                     // 提现
 //                    mRedBusiness.moneyOut(APPCationStation.MONEYOUT, "提现中...", checkcardId, mMoneyInfoModel.getData().getCanfetch_amount());
-                    startActivity(new Intent(TCApplication.mContext, MoneyOutInputActivity.class).putExtra("CardListModel.DataBean", mCardListModelDataBean).putExtra("money", mMoneyInfoModel.getData().getCanfetch_amount()));
+                    startActivity(new Intent(TCApplication.mContext, MoneyOutInputActivity.class).putExtra("CardListModel.DataBean", mCardListModelDataBean).putExtra("MoneyInfoModel", mMoneyInfoModel));
                 }
                 break;
             case R.id.tv_banding_new_card:
