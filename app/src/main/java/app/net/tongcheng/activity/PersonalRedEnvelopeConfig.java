@@ -80,7 +80,7 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
         } else {
             mViewHolder.setText(R.id.towhere, Html.fromHtml("<font color=#ED2E14>准备给  </font><font color=#FF6506>" + nums + " </font><font color=#ED2E14>  人发</font>"));
         }
-        mViewHolder.setText(R.id.bttallmoney, Html.fromHtml("<font color=#AAA292>总金额  </font><font color=#FF6600>0.00</font><font color=#AAA292>元  </font>"));
+        mViewHolder.setText(R.id.bttallmoney, Html.fromHtml("<font color=#AAA292>总金额  </font><font color=#FF6600>0.00</font><font color=#AAA292>积分  </font>"));
         MoneyInfoModel mMoneyInfoModel = NativieDataUtils.getMoneyInfoModel();
         if (mMoneyInfoModel != null) {
             Almoney = mMoneyInfoModel.getData().getCanfetch_amount();
@@ -185,11 +185,11 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         try {
             String outMoney = Utils.numPoint2NoRounded(Double.parseDouble(s.toString().length() == 0 ? "0" : s.toString()));
-            mViewHolder.setText(R.id.bttallmoney, Html.fromHtml("<font color=#AAA292>总金额  </font><font color=#FF6600>" + outMoney + "</font><font color=#AAA292>元  </font>"));
+            mViewHolder.setText(R.id.bttallmoney, Html.fromHtml("<font color=#AAA292>总金额  </font><font color=#FF6600>" + outMoney + "</font><font color=#AAA292>积分  </font>"));
         } catch (Exception e) {
             ToastUtil.showToast("请输入正确的金额");
             money_input.setText("");
-            mViewHolder.setText(R.id.bttallmoney, Html.fromHtml("<font color=#AAA292>总金额  </font><font color=#FF6600>0.00</font><font color=#AAA292>元  </font>"));
+            mViewHolder.setText(R.id.bttallmoney, Html.fromHtml("<font color=#AAA292>总金额  </font><font color=#FF6600>0.00</font><font color=#AAA292>积分  </font>"));
         }
     }
 

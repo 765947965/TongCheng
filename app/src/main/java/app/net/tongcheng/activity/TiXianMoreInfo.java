@@ -61,7 +61,7 @@ public class TiXianMoreInfo extends BaseActivity implements View.OnClickListener
                         case "finish"://提现成功
                             if (mDataBean.getStatus().equals("finish")) {
                                 mViewHolder.setText(R.id.tv_result_tips, "提现成功");
-                                mViewHolder.setText(R.id.tv_money, "-" + mDataBean.getMoney() / 100d + "元");
+                                mViewHolder.setText(R.id.tv_money, "-" + mDataBean.getMoney() / 100d);
                                 mViewHolder.setImage(R.id.iv_banck_card, mDataBean.getLogo_url());
                                 mViewHolder.setText(R.id.tv_cardname, "提现至" + mDataBean.getBank_name() + "(" + mDataBean.getBank_card_no().substring(mDataBean.getBank_card_no().length() - 4) + ")");
                                 mViewHolder.setText(R.id.tv_to_card_info, "提现至" + mDataBean.getBank_name() + "(" + mDataBean.getBank_card_no().substring(mDataBean.getBank_card_no().length() - 4) + ")");
@@ -86,7 +86,7 @@ public class TiXianMoreInfo extends BaseActivity implements View.OnClickListener
                         case "fail"://提现失败
                             if (mDataBean.getStatus().equals("fail")) {
                                 mViewHolder.setText(R.id.tv_result_tips, "提现失败");
-                                mViewHolder.setText(R.id.tv_money, "-" + mDataBean.getMoney() / 100d + "元");
+                                mViewHolder.setText(R.id.tv_money, "-" + mDataBean.getMoney() / 100d + "积分");
                                 mViewHolder.setText(R.id.tv_error_info, mDataBean.getReason());
                                 mViewHolder.setImage(R.id.iv_banck_card, mDataBean.getLogo_url());
                                 mViewHolder.setText(R.id.tv_cardname, "提现至" + mDataBean.getBank_name() + "(" + mDataBean.getBank_card_no().substring(mDataBean.getBank_card_no().length() - 4) + ")");
@@ -112,7 +112,7 @@ public class TiXianMoreInfo extends BaseActivity implements View.OnClickListener
                         case "pail"://已提交至银行
                             if (mDataBean.getStatus().equals("pail")) {
                                 mViewHolder.setText(R.id.tv_result_tips, "银行处理中");
-                                mViewHolder.setText(R.id.tv_money, "-" + mDataBean.getMoney() / 100d + "元");
+                                mViewHolder.setText(R.id.tv_money, "-" + mDataBean.getMoney() / 100d + "积分");
                                 mViewHolder.setImage(R.id.iv_banck_card, mDataBean.getLogo_url());
                                 mViewHolder.setText(R.id.tv_cardname, "提现至" + mDataBean.getBank_name() + "(" + mDataBean.getBank_card_no().substring(mDataBean.getBank_card_no().length() - 4) + ")");
                                 mViewHolder.setText(R.id.tv_to_card_info, "提现至" + mDataBean.getBank_name() + "(" + mDataBean.getBank_card_no().substring(mDataBean.getBank_card_no().length() - 4) + ")");
@@ -142,7 +142,7 @@ public class TiXianMoreInfo extends BaseActivity implements View.OnClickListener
                         case "apply"://申请中
                             if (mDataBean.getStatus().equals("apply")) {
                                 mViewHolder.setText(R.id.tv_result_tips, "提交申请中");
-                                mViewHolder.setText(R.id.tv_money, "-" + mDataBean.getMoney() / 100d + "元");
+                                mViewHolder.setText(R.id.tv_money, "-" + mDataBean.getMoney() / 100d + "积分");
                                 mViewHolder.setImage(R.id.iv_banck_card, mDataBean.getLogo_url());
                                 mViewHolder.setText(R.id.tv_cardname, "提现至" + mDataBean.getBank_name() + "(" + mDataBean.getBank_card_no().substring(mDataBean.getBank_card_no().length() - 4) + ")");
                                 mViewHolder.setText(R.id.tv_to_card_info, "提现至" + mDataBean.getBank_name() + "(" + mDataBean.getBank_card_no().substring(mDataBean.getBank_card_no().length() - 4) + ")");

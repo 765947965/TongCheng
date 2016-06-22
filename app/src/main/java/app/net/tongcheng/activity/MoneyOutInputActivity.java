@@ -57,7 +57,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
         mCardListModelDataBean = (CardListModel.DataBean) getIntent().getSerializableExtra("CardListModel.DataBean");
         mMoneyInfoModel = (MoneyInfoModel) getIntent().getSerializableExtra("MoneyInfoModel.DataBean");
         if (mCardListModelDataBean != null && mMoneyInfoModel != null) {
-            mViewHolder.setText(R.id.tv_canout, "可提现: ￥" + mMoneyInfoModel.getData().getCanfetch_amount() / 100d);
+            mViewHolder.setText(R.id.tv_canout, "可提现: " + mMoneyInfoModel.getData().getCanfetch_amount() / 100d);
             mViewHolder.setText(R.id.tv_banck_name, mCardListModelDataBean.getBank_name());
             mViewHolder.setText(R.id.tv_banck_card, "储蓄卡 " + "(****" + mCardListModelDataBean.getBank_card_no().substring(mCardListModelDataBean.getBank_card_no().length() - 4) + ")");
             mViewHolder.setText(R.id.tv_description, Html.fromHtml("<u>" + mMoneyInfoModel.getData().getDescription() + "<u>"));

@@ -108,16 +108,16 @@ public class RedShareInfoActivity extends BaseActivity implements View.OnClickLi
         }
         double money_temp = mGiftsBean.getMoney() / (double) 100;
         mViewHolder.setText(R.id.reddetails_from_money, money_temp + "");
-        mViewHolder.setText(R.id.reddetails_from_money_dj, "元");
+        mViewHolder.setText(R.id.reddetails_from_money_dj, "积分");
         mViewHolder.setText(R.id.reddetails_from_tips, mGiftsBean.getTips());
 
         if (mGiftsBean.getDirect().equals("sended")) {
             try {
                 // 查看红包拆开情况
                 if (mGiftsBean.getReturned_money() == 0) {
-                    mViewHolder.setText(R.id.textinfosendred, Utils.sdformat_6.format(Utils.sdformat.parse(mGiftsBean.getCreate_time())) + " 包好 ,已领取" + mGiftsBean.getHas_open() + "/" + mGiftsBean.getSplitsnumber() + "个,共" + mGiftsBean.getReceived_money() / 100d + "元/" + money_temp + "元");
+                    mViewHolder.setText(R.id.textinfosendred, Utils.sdformat_6.format(Utils.sdformat.parse(mGiftsBean.getCreate_time())) + " 包好 ,已领取" + mGiftsBean.getHas_open() + "/" + mGiftsBean.getSplitsnumber() + "个,共" + mGiftsBean.getReceived_money() / 100d + "积分/" + money_temp + "积分");
                 } else {
-                    mViewHolder.setText(R.id.textinfosendred, Utils.sdformat_6.format(Utils.sdformat.parse(mGiftsBean.getCreate_time())) + " 包好 ,已领取" + mGiftsBean.getHas_open() + "/" + mGiftsBean.getSplitsnumber() + "个,共" + mGiftsBean.getReceived_money() / 100d + "元/" + mGiftsBean.getMoney() / 100d + "元,已退回" + mGiftsBean.getReturned_money() / 100d + "元");
+                    mViewHolder.setText(R.id.textinfosendred, Utils.sdformat_6.format(Utils.sdformat.parse(mGiftsBean.getCreate_time())) + " 包好 ,已领取" + mGiftsBean.getHas_open() + "/" + mGiftsBean.getSplitsnumber() + "个,共" + mGiftsBean.getReceived_money() / 100d + "积分/" + mGiftsBean.getMoney() / 100d + "积分,已退回" + mGiftsBean.getReturned_money() / 100d + "积分");
                 }
                 if ("has_sended".equals(mGiftsBean.getStatus())) {
                     mViewHolder.setText(R.id.tv_linqutips, "领取中...");

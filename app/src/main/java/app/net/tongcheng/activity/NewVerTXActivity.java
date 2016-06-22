@@ -43,7 +43,8 @@ public class NewVerTXActivity extends BaseActivity {
                 if (item != null) {
                     mViewHolder.setImage(R.id.banner_top_IV, item);
                     if (position == ids.size() - 1) {
-                        mViewHolder.getView(R.id.banner_top_IV).setOnClickListener(new View.OnClickListener() {
+                        mViewHolder.setVisibility(R.id.tv_now, View.VISIBLE);
+                        mViewHolder.getView(R.id.rlt_main).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 if (isFromStart) {
@@ -52,6 +53,9 @@ public class NewVerTXActivity extends BaseActivity {
                                 finish();
                             }
                         });
+                    } else {
+                        mViewHolder.setVisibility(R.id.tv_now, View.GONE);
+                        mViewHolder.getView(R.id.rlt_main).setOnClickListener(null);
                     }
                 }
             }
