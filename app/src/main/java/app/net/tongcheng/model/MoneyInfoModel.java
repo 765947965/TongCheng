@@ -1,9 +1,11 @@
 package app.net.tongcheng.model;
 
+import java.io.Serializable;
+
 /**
  * Created by 76594 on 2016/6/10.
  */
-public class MoneyInfoModel extends BaseModel {
+public class MoneyInfoModel extends BaseModel implements Serializable {
 
     /**
      * message : 请求成功
@@ -39,7 +41,7 @@ public class MoneyInfoModel extends BaseModel {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         private String field_account_id;
         private double balance;
         private double canfetch_amount;

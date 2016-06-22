@@ -58,9 +58,9 @@
             android:id="@+id/tv_share_tips"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="14.6dp"
-            android:layout_marginLeft="14.6dp"
-            android:layout_marginRight="14.6dp"
+            android:paddingBottom="14.6dp"
+            android:paddingLeft="14.6dp"
+            android:paddingRight="14.6dp"
             android:background="@color/refurush_color"
             android:textColor="@color/white"
             android:textSize="@dimen/sp14" />
