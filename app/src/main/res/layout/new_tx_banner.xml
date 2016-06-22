@@ -9,17 +9,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
-
-    <TextView
-        android:id="@+id/tv_now"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp"
-        android:background="@drawable/now_pay_drawable"
-        android:text="立即体验"
-        android:textColor="@color/refurush_color"
-        android:textSize="@dimen/sp14" />
-
 </RelativeLayout>

@@ -151,7 +151,7 @@ public class BaseBusiness implements ConnectListener {
         }
         if (mConnectResult.getObject() instanceof BaseModel) {
             BaseModel mBaseModel = (BaseModel) mConnectResult.getObject();
-            if (mBaseModel.getResult() != 0 && mBaseModel.getResult() != 60) {
+            if (mBaseModel.getResult() != 0 && mBaseModel.getResult() != 60 && mBaseModel.getResult() != 63) {
                 ToastUtil.showToast(ErrorInfoUtil.getErrorMessage(mBaseModel.getResult()));
             }
         }

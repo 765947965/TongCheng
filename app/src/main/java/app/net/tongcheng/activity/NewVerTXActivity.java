@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
+import android.widget.TextView;
 
 import com.looppager.BannerView;
 
@@ -43,7 +44,6 @@ public class NewVerTXActivity extends BaseActivity {
                 if (item != null) {
                     mViewHolder.setImage(R.id.banner_top_IV, item);
                     if (position == ids.size() - 1) {
-                        mViewHolder.setVisibility(R.id.tv_now, View.VISIBLE);
                         mViewHolder.getView(R.id.rlt_main).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -54,7 +54,6 @@ public class NewVerTXActivity extends BaseActivity {
                             }
                         });
                     } else {
-                        mViewHolder.setVisibility(R.id.tv_now, View.GONE);
                         mViewHolder.getView(R.id.rlt_main).setOnClickListener(null);
                     }
                 }
