@@ -48,6 +48,7 @@ public class MoneyInfoModel extends BaseModel {
         private double charge_amount;
         private double fee_ratio;
         private String description;
+        private String tips;
         private String status;
         private String addtime;
 
@@ -129,6 +130,14 @@ public class MoneyInfoModel extends BaseModel {
 
         public void setDescription(String description) {
             this.description = description;
+        }
+
+        public String getTips() {
+            return tips;
+        }
+
+        public void setTips(String tips) {
+            this.tips = tips;
         }
     }
 }

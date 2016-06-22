@@ -61,6 +61,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
             mViewHolder.setText(R.id.tv_banck_name, mCardListModelDataBean.getBank_name());
             mViewHolder.setText(R.id.tv_banck_card, "储蓄卡 " + "(****" + mCardListModelDataBean.getBank_card_no().substring(mCardListModelDataBean.getBank_card_no().length() - 4) + ")");
             mViewHolder.setText(R.id.tv_description, Html.fromHtml("<u>" + mMoneyInfoModel.getData().getDescription() + "<u>"));
+            mViewHolder.setText(R.id.tv_tips, TextUtils.isEmpty(mMoneyInfoModel.getData().getTips()) ? "" : mMoneyInfoModel.getData().getTips());
         }
     }
 
@@ -112,7 +113,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.bt_withdraw_action:
                 try {
-                    String outMoney = money_input.getText().toString();
+                    final String outMoney = money_input.getText().toString();
                     if (TextUtils.isEmpty(outMoney)) {
                         ToastUtil.showToast("请输入提现金额!");
                     } else if (Double.valueOf(outMoney) <= 0) {
@@ -120,7 +121,17 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
                     } else if (Double.valueOf(outMoney) > mMoneyInfoModel.getData().getCanfetch_amount() / 100d) {
                         ToastUtil.showToast("提现金额不能大于可提现金额!");
                     } else {
-                        mRedBusiness.moneyOut(APPCationStation.MONEYOUT, "提现中...", mCardListModelDataBean.getId(), Double.valueOf(outMoney) * 100d);
+                        DialogUtil.showTipsDialog(this, "提示", mMoneyInfoModel.getData().getDescription() + "预计到账" + ((Double.valueOf(outMoney) * 0.9d) * 100d) / 100d + "元", "确定", "取消", new DialogUtil.OnConfirmListener() {
+                            @Override
+                            public void clickConfirm() {
+                                mRedBusiness.moneyOut(APPCationStation.MONEYOUT, "提现中...", mCardListModelDataBean.getId(), Double.valueOf(outMoney) * 100d);
+                            }
+
+                            @Override
+                            public void clickCancel() {
+
+                            }
+                        });
                     }
                 } catch (Exception e) {
                     ToastUtil.showToast("请输入正确的提现金额!");
