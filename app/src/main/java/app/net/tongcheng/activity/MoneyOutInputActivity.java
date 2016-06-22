@@ -1,5 +1,6 @@
 package app.net.tongcheng.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.Html;
@@ -14,6 +15,7 @@ import java.util.Map;
 
 import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
+import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.CardListModel;
 import app.net.tongcheng.model.ConnectResult;
@@ -138,6 +140,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
                 }
                 break;
             case R.id.tv_description:
+                startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "手续费").putExtra("url", "http://user.8hbao.com:8060/service_fee.html"));
                 break;
         }
     }
