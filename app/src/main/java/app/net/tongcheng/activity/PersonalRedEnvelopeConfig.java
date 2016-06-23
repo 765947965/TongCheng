@@ -152,11 +152,11 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
                     ToastUtil.showToast("请输入金额");
                 } else if (Double.parseDouble(outmoney) <= 0) {
                     ToastUtil.showToast("金额必须大于零");
-                } else if (Almoney != -1d && Double.parseDouble(outmoney) > Almoney) {
+                } else if (Almoney != -1d && Double.parseDouble(outmoney) > Almoney / 100d) {
                     ToastUtil.showToast("金额不能大于可用金额");
                 } else {
                     sendpalpcredbt.setEnabled(false);
-                    mRedBusiness.sendRed(APPCationStation.SUMBIT, "发送中...", name, Utils.numPointNoRounded(Double.parseDouble(outmoney) * 100d), moneytype + "", tips, uids, nums + "");
+                    mRedBusiness.sendRed(APPCationStation.SUMBIT, "发送中...", name, Double.parseDouble(outmoney) * 100d + "", moneytype + "", tips, uids, nums + "");
                 }
                 break;
             case R.id.red_lx:
