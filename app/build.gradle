@@ -18,8 +18,8 @@ android {
         applicationId "app.net.tongcheng"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0.0"
+        versionCode 102
+        versionName "1.0.2"
         ndk {
             moduleName "jniTongCheng"
             ldLibs "log", "z", "m"
