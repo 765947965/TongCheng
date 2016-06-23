@@ -8,8 +8,12 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 
+import com.umeng.analytics.MobclickAgent;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.R;
@@ -81,6 +85,11 @@ public class RegisterChangPassword extends BaseActivity implements View.OnClickL
                                 // 开启主页
                                 RegisterChangPassword.this.startActivity(new Intent(TCApplication.mContext, MainActivity.class));
                             }
+                            Map<String, String> map_value = new HashMap<>();
+                            map_value.put("phone", TCApplication.getmUserInfo().getPhone());
+                            map_value.put("uid", TCApplication.getmUserInfo().getUid());
+                            map_value.put("pwd", TCApplication.getmUserInfo().getPwd());
+                            MobclickAgent.onEventValue(RegisterChangPassword.this, "Register", map_value, 1);
                             RegisterChangPassword.this.finish();
                         }
 
@@ -147,6 +156,11 @@ public class RegisterChangPassword extends BaseActivity implements View.OnClickL
                     // 开启主页
                     RegisterChangPassword.this.startActivity(new Intent(TCApplication.mContext, MainActivity.class));
                 }
+                Map<String, String> map_value = new HashMap<>();
+                map_value.put("phone", TCApplication.getmUserInfo().getPhone());
+                map_value.put("uid", TCApplication.getmUserInfo().getUid());
+                map_value.put("pwd", TCApplication.getmUserInfo().getPwd());
+                MobclickAgent.onEventValue(RegisterChangPassword.this, "Register", map_value, 1);
                 RegisterChangPassword.this.finish();
             }
 
