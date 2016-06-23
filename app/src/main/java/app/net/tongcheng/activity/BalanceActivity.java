@@ -93,11 +93,11 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
             case 10001:
                 mMoneyInfoModel = NativieDataUtils.getMoneyInfoModel();
                 if (mMoneyInfoModel != null) {
-                    mViewHolder.setText(R.id.tv_total, "总余额: " + mMoneyInfoModel.getData().getBalance() / 100d + "积分");
-                    mViewHolder.setText(R.id.tv_withdraw_ing, "提现中: " + mMoneyInfoModel.getData().getFetching_amount() / 100d + "积分");
-                    mViewHolder.setText(R.id.tv_can_withdraw, "可提现: " + mMoneyInfoModel.getData().getCanfetch_amount() / 100d + "积分");
-                    mViewHolder.setText(R.id.tv_can_recharge_ye, "充值余额: " + mMoneyInfoModel.getData().getCharge_amount() / 100d + "积分");
-                    mViewHolder.setText(R.id.tv_can_ke_jie_dong, "可解冻: " + mMoneyInfoModel.getData().getFreze_account() / 100d + "积分");
+                    mViewHolder.setText(R.id.tv_total, "总积分: " + mMoneyInfoModel.getData().getBalance() / 100d);
+                    mViewHolder.setText(R.id.tv_withdraw_ing, "提现中: " + mMoneyInfoModel.getData().getFetching_amount() / 100d);
+                    mViewHolder.setText(R.id.tv_can_withdraw, "可提现: " + mMoneyInfoModel.getData().getCanfetch_amount() / 100d);
+                    mViewHolder.setText(R.id.tv_can_recharge_ye, "充值金额: " + mMoneyInfoModel.getData().getCharge_amount() / 100d);
+                    mViewHolder.setText(R.id.tv_can_ke_jie_dong, "赠送: " + mMoneyInfoModel.getData().getFreze_account() / 100d);
                 }
                 break;
             case 10002:
