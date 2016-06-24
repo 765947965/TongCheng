@@ -25,6 +25,7 @@ import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
+import app.net.tongcheng.util.VerificationCode;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -114,7 +115,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 et_phone.setText("");
                 break;
             case R.id.tv_protocol://查看合同
-                startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "用户协议").putExtra("url", "http://user.8hbao.com:8060/agreement.html"));
+                startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "用户协议").putExtra("url", "http://user.8hbao.com:8060/agreement.html?sn=" + VerificationCode.getCode2()));
                 break;
             case R.id.bt_register://注册
                 if (TextUtils.isEmpty(et_phone.getText().toString())) {

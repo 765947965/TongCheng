@@ -24,6 +24,7 @@ import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.UiUtil;
 import app.net.tongcheng.util.Utils;
+import app.net.tongcheng.util.VerificationCode;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -141,7 +142,7 @@ public class AboutAPP extends BaseActivity implements View.OnClickListener {
                 startActivity(new Intent(TCApplication.mContext, ShareSMActivity.class));
                 break;
             case R.id.llt_about:
-                startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "关于同城商城").putExtra("url", "http://user.8hbao.com:8060/about.html"));
+                startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "关于同城商城").putExtra("url", "http://user.8hbao.com:8060/about.html?sn=" + VerificationCode.getCode2()));
                 break;
             case R.id.llt_kf:
                 callPhone();

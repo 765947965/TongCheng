@@ -233,7 +233,7 @@ public class DialogUtil {
         if (!TextUtils.isEmpty(mGiftsBean.getFromnickname())) {
             sendfromname_text.setText(mGiftsBean.getFromnickname());
         } else {
-            if ("aixin_money".equals(mGiftsBean.getType()) || "system".equals(mGiftsBean.getFrom().trim())) {
+            if (!mGiftsBean.getFrom().matches("[0-9]+")) {
                 sendfromname_text.setText("同城商城");
             } else {
                 sendfromname_text.setText(mGiftsBean.getFrom());

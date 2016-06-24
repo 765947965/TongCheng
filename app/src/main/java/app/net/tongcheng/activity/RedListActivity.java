@@ -177,13 +177,13 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
                             money_all += mGiftsBean.getMoney();
                         }
                     }
-                    mHeadViewHolder.setText(R.id.myred_allmoney, money_all / 100d + "积分");
+                    mHeadViewHolder.setText(R.id.myred_allmoney, money_all / 100d + "元");
                 } else {
                     double money_all = 0;
                     for (GiftsBean mGiftsBean : mDatas) {
                         money_all += mGiftsBean.getMoney();
                     }
-                    mHeadViewHolder.setText(R.id.myred_allmoney, money_all / 100d + "积分");
+                    mHeadViewHolder.setText(R.id.myred_allmoney, money_all / 100d + "元");
                 }
                 break;
         }

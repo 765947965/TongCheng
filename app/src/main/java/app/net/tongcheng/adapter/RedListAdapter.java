@@ -2,7 +2,6 @@ package app.net.tongcheng.adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -18,9 +16,7 @@ import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.activity.RedShareInfoActivity;
-import app.net.tongcheng.fragment.RedPacketFragment;
 import app.net.tongcheng.model.GiftsBean;
-import app.net.tongcheng.model.RedModel;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.MyRecyclerViewHolder;
 import app.net.tongcheng.util.ToastUtil;
@@ -78,7 +74,7 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
                 TextView red_has_open_text = holder.getView(R.id.red_has_open_text);
                 TextView red_moneys = holder.getView(R.id.red_moneys);
                 ImageView red_has_open_image = holder.getView(R.id.red_has_open_image);
-                red_moneys.setText(itemdata.getMoney() / (double) 100 + "积分");
+                red_moneys.setText(itemdata.getMoney() / (double) 100 + "元");
                 if (itemdata.getDirect().equals("sended")) {
                     red_type_text.setText("发出: " + Utils.sdformat_2.format(Utils.sdformat.parse(itemdata.getCreate_time().trim())));
                     String status = itemdata.getStatus();
@@ -99,9 +95,9 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
                     double money_temp = itemdata.getMoney() / (double) 100;
                     double returned_money_d = itemdata.getReturned_money() / (double) 100;
                     double received_money_d = itemdata.getReceived_money() / (double) 100;
-                    red_creatime_text.setText("已领取 " + itemdata.getHas_open() + "/" + itemdata.getSplitsnumber() + "个,共" + received_money_d + "积分/" + money_temp + "积分");
+                    red_creatime_text.setText("已领取 " + itemdata.getHas_open() + "/" + itemdata.getSplitsnumber() + "个,共" + received_money_d + "元/" + money_temp + "元");
                     if (returned_money_d != 0) {
-                        red_has_open_text.setText("已结束  已退回" + returned_money_d + "积分");
+                        red_has_open_text.setText("已结束  已退回" + returned_money_d + "元");
                     }
                 } else {
 

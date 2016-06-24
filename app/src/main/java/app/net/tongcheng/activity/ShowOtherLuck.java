@@ -65,8 +65,8 @@ public class ShowOtherLuck extends BaseActivity implements View.OnClickListener 
         double money_temp = mGiftsBean.getMoney() / 100d;
         double received_money_d = mGiftsBean.getReceived_money() / 100d;
         mViewHolder.setText(R.id.moneytext, money_temp + "");
-        mViewHolder.setText(R.id.moneytext_dj, "积分");
-        mViewHolder.setText(R.id.infored, "共领取" + received_money_d + "积分," + mGiftsBean.getHas_open() + "/" + mGiftsBean.getSplitsnumber() + "个");
+        mViewHolder.setText(R.id.moneytext_dj, "元");
+        mViewHolder.setText(R.id.infored, "共领取" + received_money_d + "元," + mGiftsBean.getHas_open() + "/" + mGiftsBean.getSplitsnumber() + "个");
 
         // 设置头像
         if (mGiftsBean.getFrom().matches("[0-9]+")) {
@@ -145,7 +145,7 @@ public class ShowOtherLuck extends BaseActivity implements View.OnClickListener 
                     holder.setVisibility(R.id.gxy, View.VISIBLE);
                 }
                 holder.setText(R.id.time, TextUtils.isEmpty(item.getOpen_time()) ? "" : item.getOpen_time());
-                holder.setText(R.id.money, item.getMoney() / 100d + "积分");
+                holder.setText(R.id.money, item.getMoney() / 100d + "元");
                 if (item.getUid().equals(fastuidlast)) {
                     holder.setVisibility(R.id.sq, View.VISIBLE);
                 } else {
