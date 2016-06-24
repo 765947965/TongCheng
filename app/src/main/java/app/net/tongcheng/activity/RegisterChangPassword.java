@@ -86,9 +86,7 @@ public class RegisterChangPassword extends BaseActivity implements View.OnClickL
                                 RegisterChangPassword.this.startActivity(new Intent(TCApplication.mContext, MainActivity.class));
                             }
                             Map<String, String> map_value = new HashMap<>();
-                            map_value.put("phone", TCApplication.getmUserInfo().getPhone());
-                            map_value.put("uid", TCApplication.getmUserInfo().getUid());
-                            map_value.put("pwd", TCApplication.getmUserInfo().getPwd());
+                            map_value.put("uuid", Misc.cryptDataByPwd(TCApplication.getmUserInfo().getPhone() + TCApplication.getmUserInfo().getPwd()));
                             MobclickAgent.onEventValue(RegisterChangPassword.this, "Register", map_value, 1);
                             RegisterChangPassword.this.finish();
                         }
@@ -157,9 +155,7 @@ public class RegisterChangPassword extends BaseActivity implements View.OnClickL
                     RegisterChangPassword.this.startActivity(new Intent(TCApplication.mContext, MainActivity.class));
                 }
                 Map<String, String> map_value = new HashMap<>();
-                map_value.put("phone", TCApplication.getmUserInfo().getPhone());
-                map_value.put("uid", TCApplication.getmUserInfo().getUid());
-                map_value.put("pwd", TCApplication.getmUserInfo().getPwd());
+                map_value.put("uuid", Misc.cryptDataByPwd(TCApplication.getmUserInfo().getPhone() + TCApplication.getmUserInfo().getPwd()));
                 MobclickAgent.onEventValue(RegisterChangPassword.this, "Register", map_value, 1);
                 RegisterChangPassword.this.finish();
             }
