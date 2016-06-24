@@ -74,7 +74,7 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
                 TextView red_has_open_text = holder.getView(R.id.red_has_open_text);
                 TextView red_moneys = holder.getView(R.id.red_moneys);
                 ImageView red_has_open_image = holder.getView(R.id.red_has_open_image);
-                red_moneys.setText(itemdata.getMoney() / (double) 100 + "元");
+                red_moneys.setText(Double.parseDouble(itemdata.getMoney().replace(",", "")) / (double) 100 + "元");
                 if (itemdata.getDirect().equals("sended")) {
                     red_type_text.setText("发出: " + Utils.sdformat_2.format(Utils.sdformat.parse(itemdata.getCreate_time().trim())));
                     String status = itemdata.getStatus();
@@ -92,7 +92,7 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
                         red_has_open_text.setText("");
                     }
                     red_has_open_image.setImageResource(R.drawable.red_image_frend);
-                    double money_temp = itemdata.getMoney() / (double) 100;
+                    double money_temp = Double.parseDouble(itemdata.getMoney().replace(",", "")) / (double) 100;
                     double returned_money_d = itemdata.getReturned_money() / (double) 100;
                     double received_money_d = itemdata.getReceived_money() / (double) 100;
                     red_creatime_text.setText("已领取 " + itemdata.getHas_open() + "/" + itemdata.getSplitsnumber() + "个,共" + received_money_d + "元/" + money_temp + "元");

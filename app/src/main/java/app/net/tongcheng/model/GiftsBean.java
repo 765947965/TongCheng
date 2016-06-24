@@ -31,7 +31,7 @@ public class GiftsBean implements Serializable, Comparable<GiftsBean> {
     private String from;
     private String uid;
     private String gift_id;
-    private double money;
+    private String money;
     private int has_open;
     private String direct;
     private String thankyou;
@@ -77,11 +77,11 @@ public class GiftsBean implements Serializable, Comparable<GiftsBean> {
         this.gift_id = gift_id;
     }
 
-    public double getMoney() {
+    public String getMoney() {
         return money;
     }
 
-    public void setMoney(double money) {
+    public void setMoney(String money) {
         this.money = money;
     }
 

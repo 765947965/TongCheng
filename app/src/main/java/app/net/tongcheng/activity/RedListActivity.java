@@ -174,14 +174,14 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
                     double money_all = 0;
                     for (GiftsBean mGiftsBean : mDatas) {
                         if (mGiftsBean.getHas_open() == 1) {
-                            money_all += mGiftsBean.getMoney();
+                            money_all += Double.parseDouble(mGiftsBean.getMoney().replace(",", ""));
                         }
                     }
                     mHeadViewHolder.setText(R.id.myred_allmoney, money_all / 100d + "元");
                 } else {
                     double money_all = 0;
                     for (GiftsBean mGiftsBean : mDatas) {
-                        money_all += mGiftsBean.getMoney();
+                        money_all += Double.parseDouble(mGiftsBean.getMoney().replace(",", ""));
                     }
                     mHeadViewHolder.setText(R.id.myred_allmoney, money_all / 100d + "元");
                 }
@@ -216,10 +216,10 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
                     if (mExcreteRedModel.getResult() == 0) {
                         GiftsBean itemdata = mDatas.get(selectRedModel);
                         itemdata.setHas_open(1);
-                        itemdata.setMoney(mExcreteRedModel.getAward_money());
+                        itemdata.setMoney(mExcreteRedModel.getAward_money() + "");
                         itemdata.setOpen_time(Utils.sdformat.format(new Date()));
-                        mRedListAdapter.notifyDataSetChanged();
                         NativieDataUtils.setRedModel(mRedModel, year, direct);
+                        mHandler.sendEmptyMessage(10003);
                         if (mAlertDialog != null && mAlertDialog.isShowing()) {
                             mAlertDialog.dismiss();
                         }

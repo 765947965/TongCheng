@@ -62,7 +62,7 @@ public class ShowOtherLuck extends BaseActivity implements View.OnClickListener 
         }
         mViewHolder.setText(R.id.tipstext, mGiftsBean.getTips());
 
-        double money_temp = mGiftsBean.getMoney() / 100d;
+        double money_temp = Double.parseDouble(mGiftsBean.getMoney().replace(",", "")) / 100d;
         double received_money_d = mGiftsBean.getReceived_money() / 100d;
         mViewHolder.setText(R.id.moneytext, money_temp + "");
         mViewHolder.setText(R.id.moneytext_dj, "元");

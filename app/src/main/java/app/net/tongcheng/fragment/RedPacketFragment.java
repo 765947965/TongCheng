@@ -194,7 +194,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                     if (mExcreteRedModel.getResult() == 0) {
                         GiftsBean itemdata = mDatas.get(selectRedModel);
                         itemdata.setHas_open(1);
-                        itemdata.setMoney(mExcreteRedModel.getAward_money());
+                        itemdata.setMoney(mExcreteRedModel.getAward_money() + "");
                         itemdata.setOpen_time(Utils.sdformat.format(new Date()));
                         mRedListAdapter.notifyDataSetChanged();
                         NativieDataUtils.setRedModel(mRedModel, NativieDataUtils.getTodyY(), "received");

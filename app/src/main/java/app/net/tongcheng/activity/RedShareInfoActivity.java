@@ -106,7 +106,7 @@ public class RedShareInfoActivity extends BaseActivity implements View.OnClickLi
                 mViewHolder.setText(R.id.reddetails_from_nametext, mGiftsBean.getFrom().trim() + "的" + mGiftsBean.getName());
             }
         }
-        double money_temp = mGiftsBean.getMoney() / (double) 100;
+        double money_temp = Double.parseDouble(mGiftsBean.getMoney().replace(",", "")) / (double) 100;
         mViewHolder.setText(R.id.reddetails_from_money, money_temp + "");
         mViewHolder.setText(R.id.reddetails_from_money_dj, "元");
         mViewHolder.setText(R.id.reddetails_from_tips, mGiftsBean.getTips());
@@ -117,7 +117,7 @@ public class RedShareInfoActivity extends BaseActivity implements View.OnClickLi
                 if (mGiftsBean.getReturned_money() == 0) {
                     mViewHolder.setText(R.id.textinfosendred, Utils.sdformat_6.format(Utils.sdformat.parse(mGiftsBean.getCreate_time())) + " 包好 ,已领取" + mGiftsBean.getHas_open() + "/" + mGiftsBean.getSplitsnumber() + "个,共" + mGiftsBean.getReceived_money() / 100d + "元/" + money_temp + "元");
                 } else {
-                    mViewHolder.setText(R.id.textinfosendred, Utils.sdformat_6.format(Utils.sdformat.parse(mGiftsBean.getCreate_time())) + " 包好 ,已领取" + mGiftsBean.getHas_open() + "/" + mGiftsBean.getSplitsnumber() + "个,共" + mGiftsBean.getReceived_money() / 100d + "元/" + mGiftsBean.getMoney() / 100d + "元,已退回" + mGiftsBean.getReturned_money() / 100d + "元");
+                    mViewHolder.setText(R.id.textinfosendred, Utils.sdformat_6.format(Utils.sdformat.parse(mGiftsBean.getCreate_time())) + " 包好 ,已领取" + mGiftsBean.getHas_open() + "/" + mGiftsBean.getSplitsnumber() + "个,共" + mGiftsBean.getReceived_money() / 100d + "元/" + Double.parseDouble(mGiftsBean.getMoney().replace(",", "")) / 100d + "元,已退回" + mGiftsBean.getReturned_money() / 100d + "元");
                 }
                 if ("has_sended".equals(mGiftsBean.getStatus())) {
                     mViewHolder.setText(R.id.tv_linqutips, "领取中...");
