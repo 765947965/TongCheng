@@ -378,6 +378,36 @@ public class DialogUtil {
         return mFullScreenDialog;
     }
 
+    public static Dialog showChangeNameDialog(Activity mActivity, final InputPasswordListener mInputPasswordListener, final String name) {
+        if (mActivity == null || mActivity.isFinishing()) {
+            return null;
+        }
+        FullScreenDialog mFullScreenDialog = new FullScreenDialog(mActivity, R.layout.input_password_dialog_layout) {
+            @Override
+            public void FDonClick(ViewHolder mViewHolder, View v) {
+                EditText et_password = mViewHolder.getView(R.id.et_password);
+                String code = et_password.getText().toString();
+                if (mInputPasswordListener != null) {
+                    mInputPasswordListener.onSureInout(code);
+                }
+            }
+
+            @Override
+            public void CreatView(ViewHolder mViewHolder) {
+                mViewHolder.setOnClickListener(R.id.tv_sure);
+                mViewHolder.setText(R.id.tv_title, "修改备注名");
+                EditText et_password = mViewHolder.getView(R.id.et_password);
+                et_password.setHint("请输入备注名");
+                if (!TextUtils.isEmpty(name) && !"用户".equals(name)) {
+                    et_password.setText(name);
+                }
+                Utils.setInputMethodVisiable(et_password, 200);
+            }
+        };
+        mFullScreenDialog.show();
+        return mFullScreenDialog;
+    }
+
     public interface InputPasswordListener {
         void onSureInout(String code);
     }

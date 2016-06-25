@@ -1,5 +1,6 @@
 package app.net.tongcheng.activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Message;
@@ -28,6 +29,7 @@ import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ToastUtil;
+import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -37,7 +39,7 @@ import app.net.tongcheng.util.ViewHolder;
  * @Copyright: Copyright (c) 2016 Tuandai Inc. All rights reserved.
  * @date: 2016/6/12 17:22
  */
-public class AddFriendActivity extends BaseActivity implements View.OnClickListener {
+public class AddFriendActivity extends BaseActivity implements View.OnClickListener, DialogUtil.InputPasswordListener {
 
     private ViewHolder mViewHolder;
     private FriendBusiness mFriendBusiness;
@@ -45,6 +47,7 @@ public class AddFriendActivity extends BaseActivity implements View.OnClickListe
     private FriendModel mFriendModel;
     private TextView addbt;
     private String name, phone;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +131,8 @@ public class AddFriendActivity extends BaseActivity implements View.OnClickListe
                         mFriendModel.setUpdate("00000000");
                         NativieDataUtils.setFriendModel(mFriendModel);
                     }
+                    addbt.setText("已添加");
+                    addbt.setEnabled(false);
                     sendEventBusMessage("FriendFragment.Refresh");
                     DialogUtil.showTipsDialog(this, "添加好友成功!", null);
                 } else {
@@ -154,15 +159,36 @@ public class AddFriendActivity extends BaseActivity implements View.OnClickListe
                 }
                 break;
             case R.id.addbt:
-                UpContentJSONModel mUpContentJSONModel = new UpContentJSONModel();
-                List<ContentModel> mData = new ArrayList<>();
-                List<String> phones = new ArrayList<>();
-                phones.add(phone);
-                mData.add(new ContentModel(System.currentTimeMillis(), name, phones));
-                mUpContentJSONModel.setContactlist(mData);
-                mUpContentJSONModel.setMac(((TelephonyManager) TCApplication.mContext.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId());
-                mFriendBusiness.uploadContens(APPCationStation.SUMBIT, "添加中...", JSON.toJSONString(mUpContentJSONModel));
+                if (dialog != null && !isFinishing()) {
+                    dialog.show();
+                    EditText editText = (EditText) dialog.findViewById(R.id.et_password);
+                    if (!TextUtils.isEmpty(name) && !"用户".equals(name)) {
+                        editText.setText(name);
+                    } else {
+                        editText.setText("");
+                    }
+                    Utils.setInputMethodVisiable(editText, 200);
+                } else {
+                    dialog = DialogUtil.showChangeNameDialog(this, this, name);
+                }
                 break;
         }
+    }
+
+    @Override
+    public void onSureInout(String name) {
+        if (TextUtils.isEmpty(name)) {
+            ToastUtil.showToast("备注名不能为空!");
+            return;
+        }
+        dialog.dismiss();
+        UpContentJSONModel mUpContentJSONModel = new UpContentJSONModel();
+        List<ContentModel> mData = new ArrayList<>();
+        List<String> phones = new ArrayList<>();
+        phones.add(phone);
+        mData.add(new ContentModel(System.currentTimeMillis(), name, phones));
+        mUpContentJSONModel.setContactlist(mData);
+        mUpContentJSONModel.setMac(((TelephonyManager) TCApplication.mContext.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId());
+        mFriendBusiness.uploadContens(APPCationStation.SUMBIT, "添加中...", JSON.toJSONString(mUpContentJSONModel));
     }
 }
