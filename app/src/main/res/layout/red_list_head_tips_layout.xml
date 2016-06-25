@@ -9,9 +9,10 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:padding="5dp"
-        android:text="下拉可以刷新"
-        android:textColor="@color/remark_tips"
-        android:textSize="@dimen/sp11" />
+        android:text="下 拉 看 看 有 没 新 红 包"
+        android:textColor="@color/red"
+        android:textSize="@dimen/sp16"
+        android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
