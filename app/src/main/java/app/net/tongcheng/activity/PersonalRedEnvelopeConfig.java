@@ -48,7 +48,7 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
     private double Almoney = -1d;
     private RedBusiness mRedBusiness;
     private List<String> moneytyps;
-    private int moneytype;
+    private int moneytype = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
