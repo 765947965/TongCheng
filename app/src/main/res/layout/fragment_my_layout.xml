@@ -8,11 +8,16 @@
 
     <include layout="@layout/red_head_view" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/dividing_line_light" />
+
     <RelativeLayout
         android:id="@+id/rlt_user_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
         android:background="@color/white"
         android:padding="14.6dp">
 

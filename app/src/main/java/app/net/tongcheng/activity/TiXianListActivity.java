@@ -93,7 +93,7 @@ public class TiXianListActivity extends BaseActivity implements View.OnClickList
                                 case "fail":
                                     holder.setText(R.id.tv_status, "提现失败");
                                     break;
-                                case "pail":
+                                case "paid":
                                     holder.setText(R.id.tv_status, "银行处理中");
                                     break;
                                 case "apply":

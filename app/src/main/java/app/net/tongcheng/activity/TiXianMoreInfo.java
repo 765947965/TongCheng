@@ -109,8 +109,8 @@ public class TiXianMoreInfo extends BaseActivity implements View.OnClickListener
                                 mViewHolder.setText(R.id.tv_time_house_result, finishtimes[1]);
                             }
                             break;
-                        case "pail"://已提交至银行
-                            if (mDataBean.getStatus().equals("pail")) {
+                        case "paid"://已提交至银行
+                            if (mDataBean.getStatus().equals("paid")) {
                                 mViewHolder.setText(R.id.tv_result_tips, "银行处理中");
                                 mViewHolder.setText(R.id.tv_money, "-" + mDataBean.getMoney() / 100d);
                                 mViewHolder.setImage(R.id.iv_banck_card, mDataBean.getLogo_url());
