@@ -26,6 +26,8 @@ public class ShareBusiness extends BaseBusiness {
 
     public void getShareTips(int mLoding_Type, String message) {
         RequestParams params = new RequestParams(HttpUrls.ShareTips);
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
         goConnect(mLoding_Type, params, message, ShareTipsModel.class.getName());
     }
 

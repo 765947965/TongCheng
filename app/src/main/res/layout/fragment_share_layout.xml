@@ -34,13 +34,23 @@
             android:textColor="@color/refurush_color"
             android:textSize="@dimen/sp14" />
 
+        <TextView
+            android:id="@+id/tv_share_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:padding="5dp"
+            android:textColor="#0C82F5"
+            android:textSize="@dimen/sp12" />
+
         <Button
             android:id="@+id/bt_share"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="40dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/red_button_box_select"
             android:minHeight="35dp"
             android:text="马上去分享"
@@ -58,10 +68,10 @@
             android:id="@+id/tv_share_tips"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/refurush_color"
             android:paddingBottom="14.6dp"
             android:paddingLeft="14.6dp"
             android:paddingRight="14.6dp"
-            android:background="@color/refurush_color"
             android:textColor="@color/white"
             android:textSize="@dimen/sp14" />
     </ScrollView>
