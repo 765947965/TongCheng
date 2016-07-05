@@ -19,6 +19,7 @@ public class ShareTipsModel extends BaseModel {
     private String content;
     private int invite_success_num;
     private String update;
+    private String invite_charge_success_num;
 
     public String getTitle() {
         return title;
@@ -50,5 +51,13 @@ public class ShareTipsModel extends BaseModel {
 
     public void setInvite_success_num(int invite_success_num) {
         this.invite_success_num = invite_success_num;
+    }
+
+    public String getInvite_charge_success_num() {
+        return invite_charge_success_num;
+    }
+
+    public void setInvite_charge_success_num(String invite_charge_success_num) {
+        this.invite_charge_success_num = invite_charge_success_num;
     }
 }
