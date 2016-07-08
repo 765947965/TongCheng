@@ -74,7 +74,9 @@ public class ShareFragment extends BaseFragment implements View.OnClickListener 
                 ShareTipsModel mShareTipsModel = NativieDataUtils.getShareTipsModel();
                 if (mShareTipsModel != null && !TextUtils.isEmpty(mShareTipsModel.getContent())) {
                     mViewHolder.setText(R.id.tv_share_tips, mShareTipsModel.getContent());
-                    mViewHolder.setText(R.id.tv_share_num, Html.fromHtml("<u>" + mShareTipsModel.getInvite_charge_success_num() + "</u>"));
+                    if (!TextUtils.isEmpty(mShareTipsModel.getInvite_charge_success_num())) {
+                        mViewHolder.setText(R.id.tv_share_num, Html.fromHtml("<u>" + mShareTipsModel.getInvite_charge_success_num() + "</u>"));
+                    }
                 }
                 break;
         }
