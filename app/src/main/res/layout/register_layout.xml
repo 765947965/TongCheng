@@ -37,12 +37,14 @@
             <EditText
                 android:id="@+id/et_phone"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:background="@null"
                 android:hint="请输入手机号码"
                 android:inputType="number"
+                android:paddingBottom="@dimen/dp_8"
                 android:paddingRight="35dp"
+                android:paddingTop="@dimen/dp_8"
                 android:textColor="@color/text_content"
                 android:textColorHint="@color/remark_tips"
                 android:textSize="@dimen/sp14" />
@@ -74,11 +76,13 @@
             <EditText
                 android:id="@+id/et_invite_code"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:background="@null"
-                android:hint="若没有可不填"
+                android:hint="请输入邀请码"
                 android:inputType="number"
+                android:paddingBottom="@dimen/dp_8"
+                android:paddingTop="@dimen/dp_8"
                 android:textColor="@color/text_content"
                 android:textColorHint="@color/remark_tips"
                 android:textSize="@dimen/sp14" />

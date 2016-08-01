@@ -54,7 +54,7 @@ public class ErrorInfoUtil {
                 message = "余额不足";
                 break;
             case 22:
-                message = "邀请码过期";
+                message = "邀请码不正确";
                 break;
             case 30:
                 message = "uid已经绑定了其他同类型帐号/手机号";
