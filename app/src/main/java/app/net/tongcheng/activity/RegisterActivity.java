@@ -130,13 +130,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     ToastUtil.showToast("请先阅读并同意用户协议!");
                     return;
                 }
-                phone = et_phone.getText().toString();
                 invite_code = et_invite_code.getText().toString();
-                if (!TextUtils.isEmpty(invite_code)) {
-                    mOtherBusiness.registerInviteflagBusiness(APPCationStation.CHECK, "查询邀请码...", et_invite_code.getText().toString());
-                } else {
-                    sendAouthCode();
+                if (TextUtils.isEmpty(invite_code)) {
+                    ToastUtil.showToast("请输入邀请码!");
+                    return;
                 }
+                phone = et_phone.getText().toString();
+                mOtherBusiness.registerInviteflagBusiness(APPCationStation.CHECK, "查询邀请码...", et_invite_code.getText().toString());
                 break;
         }
     }
