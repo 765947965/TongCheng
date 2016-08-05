@@ -238,3 +238,6 @@
  -dontwarn android.net.http.AndroidHttpClient
  -dontwarn com.bugtags.library.**
  # End Bugtags
+
+ # 小米推送
+ -keep class com.xiaomi.mipush.sdk.DemoMessageReceiver {*;}

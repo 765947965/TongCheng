@@ -1,7 +1,9 @@
 package app.net.tongcheng;
 
+import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.os.Process;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
@@ -11,8 +13,11 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.umeng.analytics.MobclickAgent;
+import com.xiaomi.mipush.sdk.MiPushClient;
 
 import org.xutils.x;
+
+import java.util.List;
 
 import app.net.tongcheng.model.UserInfo;
 import app.net.tongcheng.util.Misc;
@@ -35,17 +40,20 @@ public class TCApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mContext = this.getApplicationContext();
-        Bugtags.start("6c3472ac85938539bb3ca04f2c7e2ec5", this, Bugtags.BTGInvocationEventNone);
-        MobclickAgent.setScenarioType(mContext, MobclickAgent.EScenarioType.E_UM_NORMAL);//友盟初始化
-        MobclickAgent.enableEncrypt(true);
-        String userinfo = OperationUtils.getUserInfo();
-        if (!TextUtils.isEmpty(userinfo)) {
-            TCApplication.mUserInfo = JSON.parseObject(userinfo, UserInfo.class);
+        if (shouldInit()) {
+            mContext = this.getApplicationContext();
+            Bugtags.start("6c3472ac85938539bb3ca04f2c7e2ec5", this, Bugtags.BTGInvocationEventNone);
+            MobclickAgent.setScenarioType(mContext, MobclickAgent.EScenarioType.E_UM_NORMAL);//友盟初始化
+            MobclickAgent.enableEncrypt(true);
+            String userinfo = OperationUtils.getUserInfo();
+            if (!TextUtils.isEmpty(userinfo)) {
+                TCApplication.mUserInfo = JSON.parseObject(userinfo, UserInfo.class);
+                MiPushClient.registerPush(mContext, "2882303761517497899", "5111749716899");//小米推送初始化
+            }
+            x.Ext.init(this);
+            x.Ext.setDebug(false); // 是否输出debug日志
+            initImageLoader();
         }
-        x.Ext.init(this);
-        x.Ext.setDebug(true); // 是否输出debug日志
-        initImageLoader();
     }
 
     public static UserInfo getmUserInfo() {
@@ -56,6 +64,9 @@ public class TCApplication extends Application {
         MobclickAgent.onProfileSignOff();//登出友盟账户
         if (mUserInfo != null) {
             MobclickAgent.onProfileSignIn(Misc.cryptDataByPwd(mUserInfo.getPhone() + mUserInfo.getPwd()));//登入友盟账户
+            MiPushClient.registerPush(mContext, "2882303761517497899", "5111749716899");//小米推送初始化
+        }else{
+            MiPushClient.unregisterPush(mContext);//停止推送
         }
         OperationUtils.getSharedPreference().edit().clear().commit();// 清楚用户数据
         OperationUtils.setUserInfo(mUserInfo == null ? "" : JSON.toJSONString(mUserInfo));
@@ -95,5 +106,18 @@ public class TCApplication extends Application {
                 // .writeDebugLogs() // Remove for release app
                 .build();// 开始构建
         ImageLoader.getInstance().init(config);
+    }
+
+    private boolean shouldInit() {
+        ActivityManager am = ((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE));
+        List<ActivityManager.RunningAppProcessInfo> processInfos = am.getRunningAppProcesses();
+        String mainProcessName = getPackageName();
+        int myPid = Process.myPid();
+        for (ActivityManager.RunningAppProcessInfo info : processInfos) {
+            if (info.pid == myPid && mainProcessName.equals(info.processName)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
