@@ -106,7 +106,8 @@ public class ReChargeActivity extends BaseActivity implements View.OnClickListen
                     ToastUtil.showToast("网络不可用,请检查网络连接!");
                 } else {
                     // 充值
-                    new PayDemoActivity(this, "同城商城充值消费", "同城商城充值消费", selectbean.getPrice() / 100d + "").pay();
+                    String subject = selectbean.getGoodsID().startsWith("6") ? "同城商城充值消费" : "同城商城直充购物";
+                    new PayDemoActivity(this, subject, subject, selectbean.getPrice() / 100d + "").pay();
                 }
                 break;
         }
