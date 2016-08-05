@@ -21,6 +21,7 @@ import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.HttpUrls;
 import app.net.tongcheng.util.MD5;
 import app.net.tongcheng.util.NativieDataUtils;
+import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.VerificationCode;
 
 /**
@@ -142,6 +143,7 @@ public class RedBusiness extends BaseBusiness {
 
     public void rechargeInfo(int mLoding_Type, String message) {
         RequestParams params = new RequestParams(HttpUrls.rechage);
+        params.addQueryStringParameter("ver", Utils.getVersionName());
         goConnect(mLoding_Type, params, message, RechargeInfoModel.class.getName());
     }
 
