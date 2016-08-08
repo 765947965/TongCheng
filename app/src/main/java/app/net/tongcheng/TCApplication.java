@@ -45,10 +45,10 @@ public class TCApplication extends Application {
             Bugtags.start("6c3472ac85938539bb3ca04f2c7e2ec5", this, Bugtags.BTGInvocationEventNone);
             MobclickAgent.setScenarioType(mContext, MobclickAgent.EScenarioType.E_UM_NORMAL);//友盟初始化
             MobclickAgent.enableEncrypt(true);
+            MiPushClient.registerPush(mContext, "2882303761517497899", "5111749716899");//小米推送初始化
             String userinfo = OperationUtils.getUserInfo();
             if (!TextUtils.isEmpty(userinfo)) {
                 TCApplication.mUserInfo = JSON.parseObject(userinfo, UserInfo.class);
-                MiPushClient.registerPush(mContext, "2882303761517497899", "5111749716899");//小米推送初始化
             }
             x.Ext.init(this);
             x.Ext.setDebug(false); // 是否输出debug日志
@@ -64,9 +64,14 @@ public class TCApplication extends Application {
         MobclickAgent.onProfileSignOff();//登出友盟账户
         if (mUserInfo != null) {
             MobclickAgent.onProfileSignIn(Misc.cryptDataByPwd(mUserInfo.getPhone() + mUserInfo.getPwd()));//登入友盟账户
-            MiPushClient.registerPush(mContext, "2882303761517497899", "5111749716899");//小米推送初始化
-        }else{
-            MiPushClient.unregisterPush(mContext);//停止推送
+            if (TCApplication.mUserInfo == null) {
+                MiPushClient.setUserAccount(mContext, mUserInfo.getPhone(), null);
+            } else if (!TCApplication.mUserInfo.getPhone().equals(mUserInfo.getPhone())) {
+                MiPushClient.unsetUserAccount(mContext, TCApplication.mUserInfo.getPhone(), null);
+                MiPushClient.setUserAccount(mContext, mUserInfo.getPhone(), null);
+            }
+        } else {
+            MiPushClient.unsetUserAccount(mContext, TCApplication.mUserInfo.getPhone(), null);
         }
         OperationUtils.getSharedPreference().edit().clear().commit();// 清楚用户数据
         OperationUtils.setUserInfo(mUserInfo == null ? "" : JSON.toJSONString(mUserInfo));

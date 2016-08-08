@@ -111,7 +111,9 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
         if (MiPushClient.COMMAND_REGISTER.equals(command)) {
             if (message.getResultCode() == ErrorCode.SUCCESS) {
                 mRegId = cmdArg1;
-                MiPushClient.setUserAccount(TCApplication.mContext, TCApplication.getmUserInfo().getPhone(), null);
+                if (TCApplication.getmUserInfo() != null) {
+                    MiPushClient.setUserAccount(TCApplication.mContext, TCApplication.getmUserInfo().getPhone(), null);
+                }
             }
         }
     }
