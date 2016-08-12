@@ -43,7 +43,7 @@ public class OtherBusiness extends BaseBusiness {
     public void loadingBusiness(int mLoding_Type, String message, String phone, String pwd) {
         RequestParams params = getRequestParams(HttpUrls.Loding_V2, phone, pwd);
         params.addQueryStringParameter("account", phone);
-        params.addQueryStringParameter("uuid", TCApplication.mRegId + phone);
+        params.addQueryStringParameter("uuid", TCApplication.mRegId);
         params.removeParameter("phone");
         goConnect(mLoding_Type, params, message, UserInfo.class.getName());
     }
@@ -211,7 +211,7 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("agent_id", TCApplication.getmUserInfo().getAgent_id());
         params.addQueryStringParameter("product", Common.BrandName);
         params.addQueryStringParameter("brandname", Common.BrandName);
-        params.addQueryStringParameter("uuid", TCApplication.mRegId + TCApplication.getmUserInfo().getPhone());
+        params.addQueryStringParameter("uuid", TCApplication.mRegId);
         goConnect(mLoding_Type, params, message, MSGModel.class.getName());
     }
 

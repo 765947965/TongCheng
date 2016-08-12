@@ -65,14 +65,6 @@ public class TCApplication extends Application {
         MobclickAgent.onProfileSignOff();//登出友盟账户
         if (mUserInfo != null) {
             MobclickAgent.onProfileSignIn(Misc.cryptDataByPwd(mUserInfo.getPhone() + mUserInfo.getPwd()));//登入友盟账户
-            if (TCApplication.mUserInfo == null) {
-                MiPushClient.setAlias(mContext, mRegId + mUserInfo.getPhone(), null);
-            } else if (!TCApplication.mUserInfo.getPhone().equals(mUserInfo.getPhone())) {
-                MiPushClient.unsetAlias(mContext, mRegId + TCApplication.mUserInfo.getPhone(), null);
-                MiPushClient.setAlias(mContext, mRegId + mUserInfo.getPhone(), null);
-            }
-        } else {
-            MiPushClient.unsetAlias(mContext, mRegId + TCApplication.mUserInfo.getPhone(), null);
         }
         OperationUtils.getSharedPreference().edit().clear().commit();// 清楚用户数据
         OperationUtils.setUserInfo(mUserInfo == null ? "" : JSON.toJSONString(mUserInfo));

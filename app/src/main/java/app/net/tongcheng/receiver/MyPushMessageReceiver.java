@@ -54,7 +54,7 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
             if (message.getResultCode() == ErrorCode.SUCCESS) {
                 TCApplication.mRegId = cmdArg1;
                 if (TCApplication.getmUserInfo() != null) {
-                    MiPushClient.setAlias(TCApplication.mContext, TCApplication.mRegId + TCApplication.getmUserInfo().getPhone(), null);
+                    MiPushClient.setAlias(TCApplication.mContext, TCApplication.mRegId, null);
                 }
             }
         }
