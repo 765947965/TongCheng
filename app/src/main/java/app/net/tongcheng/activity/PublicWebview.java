@@ -36,6 +36,7 @@ public class PublicWebview extends BaseActivity {
             url = getIntent().getStringExtra("url");
         }
         initView();
+        setChechLoding(false);
         setTitle(title);
     }
 

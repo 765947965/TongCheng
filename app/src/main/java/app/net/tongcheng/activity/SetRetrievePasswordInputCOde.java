@@ -46,6 +46,7 @@ public class SetRetrievePasswordInputCOde extends BaseActivity implements View.O
         setTitle("填写验证码");
         phone = getIntent().getStringExtra("phone");
         initView();
+        setChechLoding(false);
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 

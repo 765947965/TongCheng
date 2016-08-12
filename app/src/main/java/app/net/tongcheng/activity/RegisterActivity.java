@@ -50,6 +50,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.register_layout);
         initView();
         setEventBus();
+        setChechLoding(false);
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 

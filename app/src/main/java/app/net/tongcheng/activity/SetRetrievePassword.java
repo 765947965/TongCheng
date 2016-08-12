@@ -41,6 +41,7 @@ public class SetRetrievePassword extends BaseActivity implements View.OnClickLis
         setContentView(R.layout.set_retriever_password_layout);
         setTitle("忘记密码");
         initView();
+        setChechLoding(false);
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 

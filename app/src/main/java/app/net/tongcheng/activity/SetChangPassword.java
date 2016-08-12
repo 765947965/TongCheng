@@ -39,6 +39,7 @@ public class SetChangPassword extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.register_change_password);
         setTitle("修改密码");
         initView();
+        setChechLoding(false);
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 

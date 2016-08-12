@@ -31,6 +31,7 @@ public class StartPageActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setChechLoding(false);
         setContentView(R.layout.start_page_layout);
         mStartPageModel = (StartPageModel) getIntent().getSerializableExtra("mStartPageModel");
         initView();

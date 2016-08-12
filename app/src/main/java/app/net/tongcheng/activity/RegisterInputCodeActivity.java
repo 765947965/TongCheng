@@ -58,6 +58,7 @@ public class RegisterInputCodeActivity extends BaseActivity implements View.OnCl
         }
         initView();
         setEventBus();
+        setChechLoding(false);
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 

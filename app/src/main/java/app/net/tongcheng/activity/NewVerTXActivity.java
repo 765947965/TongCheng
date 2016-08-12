@@ -29,6 +29,7 @@ public class NewVerTXActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setChechLoding(false);
         setContentView(R.layout.new_ver_tx_layout);
         mBannerView = (BannerView) findViewById(R.id.mBannerView);
     }

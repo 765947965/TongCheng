@@ -73,6 +73,7 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
         setTitle("登录");
         initView();
         setEventBus();
+        setChechLoding(false);
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 
