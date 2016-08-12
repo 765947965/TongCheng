@@ -115,10 +115,8 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
         switch (msg.what) {
             case 10001:
                 mRedModel = NativieDataUtils.getRedModel(NativieDataUtils.getTodyY(), "received");
-                if (mRedModel == null || !NativieDataUtils.getTodyYMD().equals(mRedModel.getUpdate())) {
-                    mSwipeRefreshLayout.setRefreshing(true);
-                    mRedBusiness.getRedList(APPCationStation.LOADING, "", NativieDataUtils.getTodyY(), "received");
-                }
+                mSwipeRefreshLayout.setRefreshing(true);
+                mRedBusiness.getRedList(APPCationStation.LOADING, "", NativieDataUtils.getTodyY(), "received");
                 mHandler.sendEmptyMessage(10003);
                 break;
             case 10002:

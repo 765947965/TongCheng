@@ -81,6 +81,8 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
 
     private String to;
 
+    private boolean showRefreshRedList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,21 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
         setEventBus();
         mFriendBusiness = new FriendBusiness(this, this, mHandler);
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (showRefreshRedList) {
+            // 从通知栏调过来刷新数据
+            showRefreshRedList = false;
+            RedPacketFragment.isfirstloaddata = false;
+            if (mPager != null && mRedPacketFragment != null) {
+                // 首页加载数据
+                mPager.setCurrentItem(0);
+                mRedPacketFragment.loadData();
+            }
+        }
     }
 
     private void initView() {
@@ -132,6 +149,12 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
         }
         louData();
         mHandler.sendEmptyMessageDelayed(10002, 500);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        showRefreshRedList = true;
     }
 
     private void louData() {
