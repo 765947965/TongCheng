@@ -15,6 +15,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.umeng.analytics.MobclickAgent;
 import com.xiaomi.mipush.sdk.MiPushClient;
 
+import org.xutils.common.util.MD5;
 import org.xutils.x;
 
 import java.util.List;
@@ -22,6 +23,7 @@ import java.util.List;
 import app.net.tongcheng.model.UserInfo;
 import app.net.tongcheng.util.Misc;
 import app.net.tongcheng.util.OperationUtils;
+import app.net.tongcheng.util.Utils;
 
 /**
  * @author: xiewenliang
@@ -35,7 +37,7 @@ public class TCApplication extends Application {
     public static Context mContext;
     private static UserInfo mUserInfo;
     public static boolean isHasNEW;
-    public static String mRegId;
+    public static final String mRegId = Utils.getMacAddr();
 
 
     @Override
@@ -66,13 +68,13 @@ public class TCApplication extends Application {
         if (mUserInfo != null) {
             MobclickAgent.onProfileSignIn(Misc.cryptDataByPwd(mUserInfo.getPhone() + mUserInfo.getPwd()));//登入友盟账户
             if (TCApplication.mUserInfo == null) {
-                MiPushClient.setAlias(mContext, mRegId + mUserInfo.getPhone(), null);
+                MiPushClient.setAlias(mContext, MD5.md5(mRegId + mUserInfo.getPhone()), null);
             } else if (!TCApplication.mUserInfo.getPhone().equals(mUserInfo.getPhone())) {
-                MiPushClient.unsetAlias(mContext, mRegId + TCApplication.mUserInfo.getPhone(), null);
-                MiPushClient.setAlias(mContext, mRegId + mUserInfo.getPhone(), null);
+                MiPushClient.unsetAlias(mContext, MD5.md5(mRegId + TCApplication.mUserInfo.getPhone()), null);
+                MiPushClient.setAlias(mContext, MD5.md5(mRegId + mUserInfo.getPhone()), null);
             }
         } else {
-            MiPushClient.unsetAlias(mContext, mRegId + TCApplication.mUserInfo.getPhone(), null);
+            MiPushClient.unsetAlias(mContext, MD5.md5(mRegId + TCApplication.mUserInfo.getPhone()), null);
         }
         OperationUtils.getSharedPreference().edit().clear().commit();// 清楚用户数据
         OperationUtils.setUserInfo(mUserInfo == null ? "" : JSON.toJSONString(mUserInfo));
