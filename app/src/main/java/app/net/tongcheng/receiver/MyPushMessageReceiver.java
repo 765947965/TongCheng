@@ -31,15 +31,13 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
     }
 
     @Override
-    public void onNotificationMessageClicked(Context context, MiPushMessage message) {
-        if (TCApplication.getmUserInfo() != null) {
-            new Handler().post(new Runnable() {
-                @Override
-                public void run() {
-                    TCApplication.mContext.startActivity(new Intent(TCApplication.mContext, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                }
-            });
-        }
+    public void onNotificationMessageClicked(final Context context, MiPushMessage message) {
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                context.startActivity(new Intent(context, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            }
+        });
     }
 
     @Override
