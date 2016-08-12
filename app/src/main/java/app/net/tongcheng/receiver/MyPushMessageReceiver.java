@@ -12,8 +12,6 @@ import com.xiaomi.mipush.sdk.MiPushCommandMessage;
 import com.xiaomi.mipush.sdk.MiPushMessage;
 import com.xiaomi.mipush.sdk.PushMessageReceiver;
 
-import org.xutils.common.util.MD5;
-
 import java.util.List;
 
 import app.net.tongcheng.TCApplication;
@@ -54,9 +52,9 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
         String cmdArg2 = ((arguments != null && arguments.size() > 1) ? arguments.get(1) : null);
         if (MiPushClient.COMMAND_REGISTER.equals(command)) {
             if (message.getResultCode() == ErrorCode.SUCCESS) {
-                String mRegId = cmdArg1;
+                TCApplication.mRegId = cmdArg1;
                 if (TCApplication.getmUserInfo() != null) {
-                    MiPushClient.setAlias(TCApplication.mContext, MD5.md5(TCApplication.mRegId + TCApplication.getmUserInfo().getPhone()), null);
+                    MiPushClient.setAlias(TCApplication.mContext, TCApplication.mRegId + TCApplication.getmUserInfo().getPhone(), null);
                 }
             }
         }

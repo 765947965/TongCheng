@@ -238,7 +238,7 @@ public class Utils {
     public static String getMacAddr() {
         WifiManager wifi = (WifiManager) TCApplication.mContext.getSystemService(Context.WIFI_SERVICE);
         WifiInfo info = wifi.getConnectionInfo();
-        return TextUtils.isEmpty(info.getMacAddress()) ? "TC_TX_2026" : info.getMacAddress().replaceAll(":", "-");
+        return TextUtils.isEmpty(info.getMacAddress()) ? "null" : info.getMacAddress().replaceAll(":", "-");
     }
 
 
