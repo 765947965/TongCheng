@@ -43,8 +43,25 @@ public class OtherBusiness extends BaseBusiness {
     public void loadingBusiness(int mLoding_Type, String message, String phone, String pwd) {
         RequestParams params = getRequestParams(HttpUrls.Loding_V2, phone, pwd);
         params.addQueryStringParameter("account", phone);
+        params.addQueryStringParameter("uuid", TCApplication.mRegId + phone);
         params.removeParameter("phone");
         goConnect(mLoding_Type, params, message, UserInfo.class.getName());
+    }
+
+    /**
+     * 登出
+     *
+     * @param mLoding_Type
+     * @param message
+     */
+    public void loadingOutBusiness(int mLoding_Type, String message) {
+        RequestParams params = new RequestParams(HttpUrls.LodingOut_V2);
+        String sn = VerificationCode.getCode2();
+        params.addQueryStringParameter("sn", sn);
+        params.addQueryStringParameter("account", TCApplication.getmUserInfo().getPhone());
+        params.addQueryStringParameter("pv", "android");
+        params.addQueryStringParameter("sign", MD5.toMD5(sn + TCApplication.getmUserInfo().getPhone() + Common.SIGN_KEY));
+        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
     }
 
     /**
@@ -194,6 +211,7 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("agent_id", TCApplication.getmUserInfo().getAgent_id());
         params.addQueryStringParameter("product", Common.BrandName);
         params.addQueryStringParameter("brandname", Common.BrandName);
+        params.addQueryStringParameter("uuid", TCApplication.mRegId + TCApplication.getmUserInfo().getPhone());
         goConnect(mLoding_Type, params, message, MSGModel.class.getName());
     }
 

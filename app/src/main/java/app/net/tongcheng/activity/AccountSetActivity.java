@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
 
+import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.ViewHolder;
 
@@ -20,6 +23,7 @@ import app.net.tongcheng.util.ViewHolder;
  */
 public class AccountSetActivity extends BaseActivity implements View.OnClickListener {
     private ViewHolder mViewHolder;
+    private OtherBusiness mOtherBusiness;
 
 
     @Override
@@ -28,6 +32,7 @@ public class AccountSetActivity extends BaseActivity implements View.OnClickList
         setContentView(R.layout.account_set_layout);
         setTitle("账号设置");
         initView();
+        mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 
     private void initView() {
@@ -51,7 +56,16 @@ public class AccountSetActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-
+        switch (mLoding_Type) {
+            case APPCationStation.SUMBIT:
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    sendEventBusMessage("MainActivity.Close");
+                    TCApplication.setmUserInfo(null);
+                    startActivity(new Intent(TCApplication.mContext, LocationActivity.class));
+                    finish();
+                }
+                break;
+        }
     }
 
     @Override
@@ -78,10 +92,7 @@ public class AccountSetActivity extends BaseActivity implements View.OnClickList
                 DialogUtil.showTipsDialog(this, "提示", "确定退出登录？", "确定", "取消", new DialogUtil.OnConfirmListener() {
                     @Override
                     public void clickConfirm() {
-                        sendEventBusMessage("MainActivity.Close");
-                        TCApplication.setmUserInfo(null);
-                        startActivity(new Intent(TCApplication.mContext, LocationActivity.class));
-                        finish();
+                        mOtherBusiness.loadingOutBusiness(APPCationStation.SUMBIT, "登出中...");
                     }
 
                     @Override

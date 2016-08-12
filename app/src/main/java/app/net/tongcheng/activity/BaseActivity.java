@@ -1,5 +1,6 @@
 package app.net.tongcheng.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.net.tongcheng.R;
+import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.util.APPCationStation;
@@ -52,6 +54,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
     private View status;
     private boolean isRegistEventBus;
     private long lastClickTime;
+    private boolean chechLoding = true;//是否检测登录状态
     private List<Callback.Cancelable> mCancelableList = new ArrayList<>();
     public Handler mHandler = new Handler() {
         @Override
@@ -174,7 +177,13 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
         super.onWindowFocusChanged(hasFocus);
         if (!isload) {
             isload = true;
-            loadData();
+            if (chechLoding) {
+                if (TCApplication.getmUserInfo() != null) {
+                    loadData();
+                }
+            } else {
+                loadData();
+            }
         }
     }
 
@@ -236,6 +245,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
         super.onResume();
         MobclickAgent.onResume(this);//友盟
         Bugtags.onResume(this);//Bugtags
+        if (chechLoding && TCApplication.getmUserInfo() == null) {
+            startActivity(new Intent(TCApplication.mContext, LocationActivity.class));
+            finish();
+        }
+    }
+
+    public void setChechLoding(boolean chechLoding) {
+        this.chechLoding = chechLoding;
     }
 
     @Override

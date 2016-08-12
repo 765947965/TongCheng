@@ -38,6 +38,7 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.location_layout);
         initView();
         setEventBus();
+        setChechLoding(false);
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 
