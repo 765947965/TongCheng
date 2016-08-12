@@ -52,7 +52,7 @@ public class TCApplication extends Application {
                 TCApplication.mUserInfo = JSON.parseObject(userinfo, UserInfo.class);
             }
             x.Ext.init(this);
-            x.Ext.setDebug(false); // 是否输出debug日志
+            x.Ext.setDebug(false);
             initImageLoader();
         }
     }
