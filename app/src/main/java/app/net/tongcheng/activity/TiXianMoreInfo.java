@@ -171,7 +171,7 @@ public class TiXianMoreInfo extends BaseActivity implements View.OnClickListener
                             }
                             break;
                     }
-
+                    mViewHolder.setText(R.id.tvTXTips, TextUtils.isEmpty(mDataBean.getTips()) ? "" : mDataBean.getTips());
                 }
                 break;
         }

@@ -177,9 +177,10 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
             }).start();
         }
         MSGModel mMSGModel = NativieDataUtils.getMSGModel();
-        if (mMSGModel == null || !NativieDataUtils.getTodyYMD().equals(mMSGModel.getUpdate())) {
-            mOtherBusiness.getMSGModel(APPCationStation.LOADINGAD, "");
-        }
+//        if (mMSGModel == null || !NativieDataUtils.getTodyYMD().equals(mMSGModel.getUpdate())) {
+//            mOtherBusiness.getMSGModel(APPCationStation.LOADINGAD, "");
+//        }
+        mOtherBusiness.getMSGModel(APPCationStation.LOADINGAD, "");
         if (mMSGModel != null && !TextUtils.isEmpty(mMSGModel.getUpdate_addr()) && !Utils.getVersionName().equals(mMSGModel.getUpdate_ver())) {
             TCApplication.isHasNEW = true;
             setTabHintSpotVisibility(4, View.VISIBLE);
