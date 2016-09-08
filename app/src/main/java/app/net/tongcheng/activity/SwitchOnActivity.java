@@ -105,6 +105,11 @@ public class SwitchOnActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
         switch (mLoding_Type) {
+            case APPCationStation.SUMBITOUT:
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    mOtherBusiness.loadingBusiness(APPCationStation.SUMBIT, "登录中", r_loding4v2_phnum.getText().toString(), r_loding4v2_pwd.getText().toString());
+                }
+                break;
             case APPCationStation.SUMBIT:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     UserInfo mUserInfo = (UserInfo) mConnectResult.getObject();
@@ -141,7 +146,7 @@ public class SwitchOnActivity extends BaseActivity implements View.OnClickListen
                 r_loding4v2_phnum.setText("");
                 break;
             case R.id.r_loding4v2_lodingbt://登录
-                mOtherBusiness.loadingBusiness(APPCationStation.SUMBIT, "登录中", r_loding4v2_phnum.getText().toString(), r_loding4v2_pwd.getText().toString());
+                mOtherBusiness.loadingOutBusiness(APPCationStation.SUMBITOUT, "登出中...");
                 break;
             case R.id.r_loding4v2_getpassword://忘记密码
                 break;

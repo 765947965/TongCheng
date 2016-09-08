@@ -293,11 +293,11 @@
                 android:textSize="@dimen/sp18" />
 
             <TextView
+                android:id="@+id/tvTXTips"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center_horizontal"
-                android:text="您的提现申请在3个工作日内审核完成"
                 android:textColor="@color/remark_tips"
                 android:textSize="@dimen/sp16" />
         </LinearLayout>

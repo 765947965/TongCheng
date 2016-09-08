@@ -69,6 +69,7 @@ public class TiXianMoreInfoModel extends BaseModel {
         private String bank_name;
         private String bank_card_no;
         private String logo_url;
+        private String tips;
 
         public String getId() {
             return id;
@@ -212,6 +213,14 @@ public class TiXianMoreInfoModel extends BaseModel {
 
         public void setLogo_url(String logo_url) {
             this.logo_url = logo_url;
+        }
+
+        public String getTips() {
+            return tips;
+        }
+
+        public void setTips(String tips) {
+            this.tips = tips;
         }
     }
 }

@@ -12,6 +12,7 @@ import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
+import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -70,7 +71,7 @@ public class AccountSetActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void BusinessOnFail(int mLoding_Type) {
-
+        ToastUtil.showToast("网络不可用,请检查网络连接!");
     }
 
     @Override
