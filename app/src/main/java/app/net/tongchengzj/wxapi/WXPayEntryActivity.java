@@ -1,5 +1,9 @@
-package app.net.tongcheng.wxapi;
+package app.net.tongchengzj.wxapi;
 
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
@@ -8,10 +12,6 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.weixin.paydemo.WXContacts;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
 
 import app.net.tongcheng.util.DialogUtil;
 

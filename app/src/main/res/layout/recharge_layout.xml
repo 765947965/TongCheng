@@ -37,7 +37,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:text="将免费获取手机支付插件，该插件是由支付宝公司提供，请放心使用！"
             android:textColor="@color/text_content"
             android:textSize="@dimen/sp14" />
 

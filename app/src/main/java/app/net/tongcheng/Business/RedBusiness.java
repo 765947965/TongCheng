@@ -185,4 +185,10 @@ public class RedBusiness extends BaseBusiness {
         RequestParams params = new RequestParams(HttpUrls.bank_list);
         goConnect(mLoding_Type, params, message, BanckListModel.class.getName());
     }
+
+    public void getWeiXinXiaDan(int mLoding_Type, String message, String enTry){
+        RequestParams params = new RequestParams(HttpUrls.WXXD);
+        params.setBodyContent(enTry);
+        goConnect(mLoding_Type, params, message, "");
+    }
 }

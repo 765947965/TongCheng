@@ -7,17 +7,10 @@ import java.util.*;
 import android.app.Activity;
 import android.util.Xml;
 
-import org.aisin.sipphone.aipay.Productinfos;
-import org.aisin.sipphone.myview.AisinBuildDialog;
-import org.aisin.sipphone.tools.UserInfo_db;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
-import android.content.Context;
-import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Message;
 
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
@@ -25,7 +18,6 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import org.xmlpull.v1.XmlPullParser;
 
-import app.net.tongcheng.util.DialogUtil;
 
 public class PayActivity {
     private Activity mActivity;
@@ -33,28 +25,11 @@ public class PayActivity {
     private IWXAPI msgApi;
     private Map<String, String> resultunifiedorder;
     private StringBuffer sb;
-    private final String TAG = "PayActivity";
-    private Productinfos ppcfnoew;
-    private Handler mHandler = new Handler() {
+    private String mJson;
 
-        @Override
-        public void handleMessage(Message msg) {
-            // TODO Auto-generated method stub
-            super.handleMessage(msg);
-            if (msg.what == 1) {
-                // 生成签名参数
-                genPayReq();
-                // 支付
-                sendPayReq();
-                String packageSign = MD5.getMessageDigest(
-                        sb.toString().getBytes()).toUpperCase();
-            }
-        }
-    };
-
-    public PayActivity(Activity mActivity, Productinfos ppcfnoew) {
+    public PayActivity(Activity mActivity, String mJson) {
         this.mActivity = mActivity;
-        this.ppcfnoew = ppcfnoew;
+        this.mJson = mJson;
         msgApi = WXAPIFactory.createWXAPI(mActivity, null);
         req = new PayReq();
         sb = new StringBuffer();
@@ -62,30 +37,19 @@ public class PayActivity {
     }
 
     public void Pay() {
-        // 生成prepay_id
-        GetPrepayIdTask getPrepayId = new GetPrepayIdTask();
-        getPrepayId.execute();
-    }
-
-    /**
-     * 生成签名
-     */
-
-    private String genPackageSign(List<NameValuePair> params) {
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < params.size(); i++) {
-            sb.append(params.get(i).getName());
-            sb.append('=');
-            sb.append(params.get(i).getValue());
-            sb.append('&');
+        try {
+            JSONObject json = new JSONObject(mJson);
+            Map<String, String> xml = decodeXml(genMyxml(json));
+            sb.append("prepay_id\n" + xml.get("prepay_id") + "\n\n");
+            resultunifiedorder = xml;
+            // 生成签名参数
+            genPayReq();
+            // 支付
+            sendPayReq();
+            String packageSign = MD5.getMessageDigest(sb.toString().getBytes()).toUpperCase();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        sb.append("key=");
-        sb.append(WXContacts.API_KEY);
-
-        String packageSign = MD5.getMessageDigest(sb.toString().getBytes())
-                .toUpperCase();
-        return packageSign;
     }
 
     private String genAppSign(List<NameValuePair> params) {
@@ -101,8 +65,7 @@ public class PayActivity {
         sb.append(WXContacts.API_KEY);
 
         this.sb.append("sign str\n" + sb.toString() + "\n\n");
-        String appSign = MD5.getMessageDigest(sb.toString().getBytes())
-                .toUpperCase();
+        String appSign = MD5.getMessageDigest(sb.toString().getBytes()).toUpperCase();
         return appSign;
     }
 
@@ -118,70 +81,6 @@ public class PayActivity {
         sb.append("</xml>");
 
         return sb.toString();
-    }
-
-    private class GetPrepayIdTask extends
-            AsyncTask<Void, Void, Map<String, String>> {
-
-        @Override
-        protected void onPreExecute() {
-        }
-
-        @Override
-        protected void onPostExecute(Map<String, String> result) {
-            if (result == null) {
-                return;
-            }
-            sb.append("prepay_id\n" + result.get("prepay_id") + "\n\n");
-            resultunifiedorder = result;
-            mHandler.sendEmptyMessage(1);
-        }
-
-        @Override
-        protected void onCancelled() {
-            super.onCancelled();
-        }
-
-        @Override
-        protected Map<String, String> doInBackground(Void... params) {
-
-            try {
-                String url = String
-                        .format("http://user.10086call.cn/wxpay/pay/appapi.php");
-                String entity = genProductArgs();
-
-
-                byte[] buf = Util.httpPost(url, entity);
-                if (buf == null) {
-                    return null;
-                }
-
-                String content = new String(buf);
-
-                JSONObject json = new JSONObject(content);
-                int result = json.optInt("result", -14);
-                if (result != 0) {
-                    if (result == -14) {
-                        DialogUtil.showTipsDialog(mActivity, "网络不可用,请检查网络连接!", null);
-                    } else if (result == -1) {
-                        DialogUtil.showTipsDialog(mActivity, "提交参数不正确!", null);
-                    } else if (result == -2) {
-                        DialogUtil.showTipsDialog(mActivity, "欲充值的用户不存在!", null);
-                    } else if (result == -3) {
-                        DialogUtil.showTipsDialog(mActivity, "欲购买的商品不存在!", null);
-                    } else if (result == -4 || result == -5) {
-                        DialogUtil.showTipsDialog(mActivity, "微信下单失败!", null);
-                    }
-                    return null;
-                }
-                content = genMyxml(json);
-                Map<String, String> xml = decodeXml(content);
-                return xml;
-            } catch (Exception e) {
-                new AisinBuildDialog(mActivity, "提示", "网络不可用,请检查网络连接!");
-                return null;
-            }
-        }
     }
 
     public Map<String, String> decodeXml(String content) {
@@ -265,47 +164,6 @@ public class PayActivity {
         } catch (Exception e) {
             return null;
         }
-    }
-
-    private String genProductArgs() {
-        StringBuffer xml = new StringBuffer();
-
-        try {
-            String nonceStr = genNonceStr();
-
-            xml.append("</xml>");
-            List<NameValuePair> packageParams = new LinkedList<NameValuePair>();
-            packageParams
-                    .add(new BasicNameValuePair("appid", WXContacts.APP_ID));
-            packageParams
-                    .add(new BasicNameValuePair("body", ppcfnoew.getBody()));// 商品简述
-            packageParams.add(new BasicNameValuePair("product_id", ppcfnoew
-                    .getGoodsId()));
-            // packageParams.add(new BasicNameValuePair("mch_id",
-            // WXContacts.MCH_ID));
-            packageParams.add(new BasicNameValuePair("nonce_str", nonceStr));
-            // packageParams.add(new BasicNameValuePair("notify_url",
-            // WXContacts.NOTIFY_URL));
-            // packageParams.add(new BasicNameValuePair("out_trade_no",
-            // genOutTradNo()));
-            packageParams.add(new BasicNameValuePair("spbill_create_ip",
-                    "8.8.8.8"));
-            packageParams.add(new BasicNameValuePair("total_fee", ppcfnoew
-                    .getPrice() * 100 + ""));
-            packageParams.add(new BasicNameValuePair("trade_type", "APP"));
-
-            // String sign = genPackageSign(packageParams);
-            // packageParams.add(new BasicNameValuePair("sign", sign));
-
-            String xmlstring = toXml(packageParams);
-
-            return "uid=" + UserInfo_db.getUserInfo(mActivity).getUid() + "&xml="
-                    + xmlstring;
-
-        } catch (Exception e) {
-            return null;
-        }
-
     }
 
     private void genPayReq() {

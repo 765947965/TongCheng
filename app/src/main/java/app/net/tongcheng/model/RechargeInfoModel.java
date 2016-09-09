@@ -1,5 +1,6 @@
 package app.net.tongcheng.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -48,7 +49,7 @@ public class RechargeInfoModel extends BaseModel {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         private String GoodsID;
         private String GoodsName;
         private double Price;

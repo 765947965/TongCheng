@@ -6,10 +6,9 @@
  * Copyright (c) 2013年 mob.com. All rights reserved.
  */
 
-package app.net.tongcheng.wxapi;
+package app.net.tongchengzj.wxapi;
 
 import android.content.Intent;
-import android.widget.Toast;
 
 import app.net.tongcheng.util.ToastUtil;
 import cn.sharesdk.wechat.utils.WXAppExtendObject;

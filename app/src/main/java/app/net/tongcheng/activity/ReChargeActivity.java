@@ -1,6 +1,7 @@
 package app.net.tongcheng.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
@@ -40,7 +41,7 @@ public class ReChargeActivity extends BaseActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recharge_layout);
-        setTitle("支付宝充值");
+        setTitle("充值套餐");
         initView();
         mRedBusiness = new RedBusiness(this, this, mHandler);
     }
@@ -105,9 +106,7 @@ public class ReChargeActivity extends BaseActivity implements View.OnClickListen
                 if (selectbean == null) {
                     ToastUtil.showToast("网络不可用,请检查网络连接!");
                 } else {
-                    // 充值
-                    String subject = selectbean.getGoodsID().startsWith("6") ? "同城商城充值消费" : "同城商城直充购物";
-                    new PayDemoActivity(this, subject, subject, selectbean.getPrice() / 100d + "").pay();
+                    startActivity(new Intent(this, NextRecharge.class).putExtra("RechargeInfoModel.DataBean", selectbean));
                 }
                 break;
         }

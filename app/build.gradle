@@ -15,7 +15,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "app.net.tongcheng"
+        applicationId "app.net.tongchengzj"
         minSdkVersion 14
         targetSdkVersion 22
         versionCode 200
