@@ -46,7 +46,7 @@ public class TCApplication extends Application {
             Bugtags.start("7de15dfb8a2c8fa75a6557fe189ecd8b", this, Bugtags.BTGInvocationEventNone);
             MobclickAgent.setScenarioType(mContext, MobclickAgent.EScenarioType.E_UM_NORMAL);//友盟初始化
             MobclickAgent.enableEncrypt(true);
-            MiPushClient.registerPush(mContext, "2882303761517497899", "5111749716899");//小米推送初始化
+            MiPushClient.registerPush(mContext, "2882303761517509254", "5491750938254");//小米推送初始化
             String userinfo = OperationUtils.getUserInfo();
             if (!TextUtils.isEmpty(userinfo)) {
                 TCApplication.mUserInfo = JSON.parseObject(userinfo, UserInfo.class);
