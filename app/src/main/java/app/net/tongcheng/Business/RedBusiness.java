@@ -189,6 +189,6 @@ public class RedBusiness extends BaseBusiness {
     public void getWeiXinXiaDan(int mLoding_Type, String message, String enTry){
         RequestParams params = new RequestParams(HttpUrls.WXXD);
         params.setBodyContent(enTry);
-        goConnect(mLoding_Type, params, message, "");
+        goPostConnect(mLoding_Type, params, message, "");
     }
 }
