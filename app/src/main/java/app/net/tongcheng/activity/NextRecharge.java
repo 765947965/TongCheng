@@ -14,6 +14,8 @@ import com.weixin.paydemo.WXContacts;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.greenrobot.eventbus.Subscribe;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -29,6 +31,7 @@ import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.RechargeInfoModel;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
+import app.net.tongcheng.util.ErrorInfoUtil;
 import app.net.tongcheng.util.Misc;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
@@ -89,7 +92,21 @@ public class NextRecharge extends BaseActivity implements View.OnClickListener {
         switch (mLoding_Type) {
             case APPCationStation.LOADING:
                 if (mConnectResult != null && mConnectResult.getObject() != null) {
-                    new PayActivity(this, (String) mConnectResult.getObject()).Pay();
+                    String json = (String) mConnectResult.getObject();
+                    try {
+                        JSONObject mJson = new JSONObject(json);
+                        if (mJson.has("result")) {
+                            if (mJson.getInt("result") == 0) {
+                                new PayActivity(this, json).Pay();
+                            } else {
+                                ToastUtil.showToast(ErrorInfoUtil.getErrorMessage(mJson.getInt("result")));
+                            }
+                        } else {
+                            ToastUtil.showToast("解析数据错误");
+                        }
+                    } catch (Exception e) {
+                        ToastUtil.showToast("解析数据错误");
+                    }
                 }
                 break;
         }

@@ -62,6 +62,11 @@
             android:src="@drawable/uncheck" />
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/dividing_line_light" />
+
     <LinearLayout
         android:id="@+id/llt_wx"
         android:layout_width="match_parent"
@@ -105,6 +110,10 @@
             android:src="@drawable/uncheck" />
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/dividing_line_light" />
 
     <Button
         android:id="@+id/bt_recharge"
