@@ -13,6 +13,9 @@ import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.weixin.paydemo.WXContacts;
 
+import org.greenrobot.eventbus.EventBus;
+
+import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.util.DialogUtil;
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
@@ -44,25 +47,18 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     public void onResp(BaseResp resp) {
 
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-            String message = "";
+            String message;
             if (resp.errCode == 0) {
-                message = "支付成功,请稍后查询余额！";
+                message = "WX=支付成功,请稍后查询余额！";
             } else if (resp.errCode == -1) {
-                message = "支付失败！";
+                message = "WX=支付失败！";
             } else if (resp.errCode == -2) {
-                message = "交易取消！";
+                message = "WX=交易取消！";
+            } else {
+                message = "WX=交易失败！";
             }
-            DialogUtil.showTipsDialog(this, message, new DialogUtil.OnConfirmListener() {
-                @Override
-                public void clickConfirm() {
-                    finish();
-                }
-
-                @Override
-                public void clickCancel() {
-
-                }
-            });
+            EventBus.getDefault().post(new CheckEvent(message));
+            finish();
         }
     }
 }

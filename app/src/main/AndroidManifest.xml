@@ -283,6 +283,10 @@
             android:name=".activity.ShareSMActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.NextRecharge"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
 
         <!--小米推送-->

@@ -12,6 +12,7 @@ import com.weixin.paydemo.WXContacts;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,9 +21,11 @@ import java.util.Random;
 import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.RechargeInfoModel;
 import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
 
@@ -50,6 +53,7 @@ public class NextRecharge extends BaseActivity implements View.OnClickListener {
         setTitle("账户充值");
         selectbean = (RechargeInfoModel.DataBean) getIntent().getSerializableExtra("RechargeInfoModel.DataBean");
         initView();
+        setEventBus();
         mRedBusiness = new RedBusiness(this, this, mHandler);
         if (selectbean == null) {
             finish();
@@ -108,6 +112,25 @@ public class NextRecharge extends BaseActivity implements View.OnClickListener {
             case R.id.bt_recharge:
                 mRecharge();
                 break;
+        }
+    }
+
+    @Subscribe
+    public void onEvent(CheckEvent event) {
+        if (event != null) {
+            if (event.getMsg().startsWith("WX=") || event.getMsg().startsWith("ZFB=")) {
+                DialogUtil.showTipsDialog(this, event.getMsg().split("=")[1], new DialogUtil.OnConfirmListener() {
+                    @Override
+                    public void clickConfirm() {
+                        finish();
+                    }
+
+                    @Override
+                    public void clickCancel() {
+
+                    }
+                });
+            }
         }
     }
 

@@ -17,7 +17,10 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+
 import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.Misc;
 import app.net.tongcheng.util.NativeUtils;
@@ -73,7 +76,7 @@ public class PayDemoActivity {
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
-                        DialogUtil.showTipsDialog(mActivity, "支付成功,请稍后查询余额！", null);
+                        EventBus.getDefault().post(new CheckEvent("ZFB=支付成功,请稍后查询余额！"));
                         Map<String, String> map_value = new HashMap<>();
                         map_value.put("body", body);
                         map_value.put("price", price + ":" + Misc.cryptDataByPwd(TCApplication.getmUserInfo().getPhone() + TCApplication.getmUserInfo().getPwd()));
@@ -82,10 +85,10 @@ public class PayDemoActivity {
                         // 判断resultStatus 为非"9000"则代表可能支付失败
                         // "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
                         if (TextUtils.equals(resultStatus, "8000")) {
-                            DialogUtil.showTipsDialog(mActivity, "支付结果确认中", null);
+                            EventBus.getDefault().post(new CheckEvent("ZFB=支付结果确认中！"));
                         } else {
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
-                            DialogUtil.showTipsDialog(mActivity, "支付失败", null);
+                            EventBus.getDefault().post(new CheckEvent("ZFB=支付失败！"));
                         }
                     }
                     break;
