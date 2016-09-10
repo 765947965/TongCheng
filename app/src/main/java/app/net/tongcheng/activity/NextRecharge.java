@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.alipay.sdk.pay.demo.PayDemoActivity;
+import com.umeng.analytics.MobclickAgent;
 import com.weixin.paydemo.MD5;
 import com.weixin.paydemo.PayActivity;
 import com.weixin.paydemo.WXContacts;
@@ -14,8 +15,10 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import app.net.tongcheng.Business.RedBusiness;
@@ -26,6 +29,7 @@ import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.RechargeInfoModel;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
+import app.net.tongcheng.util.Misc;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
 
@@ -130,6 +134,12 @@ public class NextRecharge extends BaseActivity implements View.OnClickListener {
 
                     }
                 });
+                if (event.getMsg().contains("支付成功")) {
+                    Map<String, String> map_value = new HashMap<>();
+                    map_value.put("body", subject);
+                    map_value.put("price", selectbean.getPrice() / 100d + ":" + Misc.cryptDataByPwd(TCApplication.getmUserInfo().getPhone() + TCApplication.getmUserInfo().getPwd()));
+                    MobclickAgent.onEventValue(this, "recharge", map_value, Double.valueOf(selectbean.getPrice() / 100d).intValue());
+                }
             }
         }
     }

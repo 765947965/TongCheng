@@ -4,11 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.alipay.sdk.app.PayTask;
-import com.umeng.analytics.MobclickAgent;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -21,8 +18,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.CheckEvent;
-import app.net.tongcheng.util.DialogUtil;
-import app.net.tongcheng.util.Misc;
 import app.net.tongcheng.util.NativeUtils;
 
 public class PayDemoActivity {
@@ -77,10 +72,6 @@ public class PayDemoActivity {
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
                         EventBus.getDefault().post(new CheckEvent("ZFB=支付成功,请稍后查询余额！"));
-                        Map<String, String> map_value = new HashMap<>();
-                        map_value.put("body", body);
-                        map_value.put("price", price + ":" + Misc.cryptDataByPwd(TCApplication.getmUserInfo().getPhone() + TCApplication.getmUserInfo().getPwd()));
-                        MobclickAgent.onEventValue(mActivity, "recharge", map_value, Double.valueOf(price).intValue());
                     } else {
                         // 判断resultStatus 为非"9000"则代表可能支付失败
                         // "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
