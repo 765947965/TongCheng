@@ -4,7 +4,7 @@ public class WXContacts {
 	// appid
 	// 请同时修改 androidmanifest.xml里面，.PayActivityd里的属性<data
 	// android:scheme="wxb4ba3c02aa476ea1"/>为新设置的appid
-	public static final String APP_ID = "wx8bd2ea2294e11990";
+	public static final String APP_ID = "wxe0a347a5f14d308c";
 	// 商户号
 	public static final String MCH_ID = "1252743001";
 	// API密钥，在商户平台设置
