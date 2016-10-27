@@ -268,6 +268,7 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
             mViewHolder.setText(R.id.tv_name, "用户");
         }
         mViewHolder.setText(R.id.tv_num, TCApplication.getmUserInfo().getPhone());
+        mViewHolder.setText(R.id.tv_tcnum, TCApplication.getmUserInfo().getUid());
         if (!TextUtils.isEmpty(mUserMoreInfoModel.getSex())) {
             mViewHolder.setText(R.id.tv_sex, mUserMoreInfoModel.getSex());
         } else {
