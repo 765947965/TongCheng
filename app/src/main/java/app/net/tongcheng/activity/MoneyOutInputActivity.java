@@ -24,6 +24,7 @@ import app.net.tongcheng.model.MoneyInfoModel;
 import app.net.tongcheng.model.MoneyOutInputBean;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
+import app.net.tongcheng.util.ErrorInfoUtil;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
@@ -99,6 +100,13 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
                     map_value.put("bank_card_no", mCardListModelDataBean.getBank_card_no());
                     map_value.put("withdrawmoney", money_input.getText().toString());
                     MobclickAgent.onEventValue(this, "withdraw", map_value, Double.valueOf(money_input.getText().toString()).intValue());
+                } else {
+                    String message = "提现失败!";
+                    if (mConnectResult != null && mConnectResult.getObject() != null) {
+                        String mErrorMessage = ErrorInfoUtil.getErrorMessage(((BaseModel) mConnectResult.getObject()).getResult());
+                        message = TextUtils.isEmpty(mErrorMessage) ? message : mErrorMessage;
+                    }
+                    DialogUtil.showTipsDialog(this, message, null);
                 }
                 break;
         }
@@ -107,7 +115,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
     @Override
     public void BusinessOnFail(int mLoding_Type) {
         bt_withdraw_action.setEnabled(true);
-        ToastUtil.showToast("网络不可用,请检查网络连接!");
+        DialogUtil.showTipsDialog(this, "网络不可用,请检查网络连接!", null);
     }
 
     @Override
