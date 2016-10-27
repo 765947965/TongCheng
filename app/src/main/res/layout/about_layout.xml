@@ -28,10 +28,12 @@
             android:padding="5dp" />
 
         <ImageView
+            android:id="@+id/iv_qrcode_center"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/ic_launcher"
+            android:visibility="invisible" />
     </RelativeLayout>
 
     <TextView

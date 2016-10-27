@@ -90,6 +90,7 @@ public class AboutAPP extends BaseActivity implements View.OnClickListener {
                         .build();
                 mBitmap = encoder.encode(mMSGModel.getInvite_url().replace("phone=%s", "phone=" + TCApplication.getmUserInfo().getPhone()).replace("channel=%s", "channel=" + Common.BrandName));
                 ((ImageView) mViewHolder.getView(R.id.iv_qrcode)).setImageBitmap(mBitmap);
+                mViewHolder.setVisibility(R.id.iv_qrcode_center, View.VISIBLE);
                 if (!TextUtils.isEmpty(mMSGModel.getUpdate_addr()) && !Utils.getVersionName().equals(mMSGModel.getUpdate_ver())) {
                     if (isHadnew) {
                         isHadnew = false;
