@@ -101,6 +101,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
                     map_value.put("withdrawmoney", money_input.getText().toString());
                     MobclickAgent.onEventValue(this, "withdraw", map_value, Double.valueOf(money_input.getText().toString()).intValue());
                 } else {
+                    bt_withdraw_action.setEnabled(true);
                     String message = "提现失败!";
                     if (mConnectResult != null && mConnectResult.getObject() != null) {
                         String mErrorMessage = ErrorInfoUtil.getErrorMessage(((BaseModel) mConnectResult.getObject()).getResult());

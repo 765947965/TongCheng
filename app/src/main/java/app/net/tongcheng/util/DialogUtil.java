@@ -51,7 +51,7 @@ public class DialogUtil {
                 return null;
             }
             final AlertDialog dialog = new AlertDialog.Builder(activity, R.style.dialog_style).create();
-            dialog.setCanceledOnTouchOutside(true);
+            dialog.setCanceledOnTouchOutside(false);
             dialog.show();
             View view = (View) LayoutInflater.from(activity).inflate(R.layout.view_dialog_tips_layout, null);
             dialog.setContentView(view);
@@ -103,7 +103,7 @@ public class DialogUtil {
                 return null;
             }
             AlertDialog dialog = new AlertDialog.Builder(mActivity, R.style.dialog_style).create();
-            dialog.setCanceledOnTouchOutside(true);
+            dialog.setCanceledOnTouchOutside(false);
             dialog.show();
             View view = LayoutInflater.from(mActivity).inflate(R.layout.loading_layout, null);
             ((TextView) view.findViewById(R.id.tv_message)).setText(mMessage);
@@ -151,7 +151,7 @@ public class DialogUtil {
                 return;
             }
             final AlertDialog dialog = new AlertDialog.Builder(activity, R.style.dialog_style).create();
-            dialog.setCanceledOnTouchOutside(true);
+            dialog.setCanceledOnTouchOutside(false);
             dialog.show();
             View view = (View) LayoutInflater.from(activity).inflate(R.layout.view_dialog_tips_layout, null);
             dialog.setContentView(view);
@@ -188,7 +188,7 @@ public class DialogUtil {
                 return;
             }
             final AlertDialog dialog = new AlertDialog.Builder(activity, R.style.dialog_style).create();
-            dialog.setCanceledOnTouchOutside(true);
+            dialog.setCanceledOnTouchOutside(false);
             dialog.show();
             View view = (View) LayoutInflater.from(activity).inflate(R.layout.view_dialog_tips_layout, null);
             dialog.setContentView(view);
@@ -225,7 +225,7 @@ public class DialogUtil {
             return null;
         }
         final AlertDialog dialog = new AlertDialog.Builder(mActivity, R.style.quick_red_option_dialog).create();
-        dialog.setCanceledOnTouchOutside(true);
+        dialog.setCanceledOnTouchOutside(false);
         dialog.show();
         View view = LayoutInflater.from(mActivity).inflate(R.layout.red_excrete_dialog_layout, null);
         dialog.setContentView(view);
@@ -300,7 +300,7 @@ public class DialogUtil {
             return;
         }
         final AlertDialog dialog = new AlertDialog.Builder(mActivity, R.style.quick_red_option_dialog).create();
-        dialog.setCanceledOnTouchOutside(true);
+        dialog.setCanceledOnTouchOutside(false);
         dialog.show();
         View view = LayoutInflater.from(mActivity).inflate(R.layout.red_excrete_dialog_nums, null);
         dialog.setContentView(view);
@@ -327,7 +327,7 @@ public class DialogUtil {
             return;
         }
         final AlertDialog dialog = new AlertDialog.Builder(mActivity, R.style.quick_red_option_dialog).create();
-        dialog.setCanceledOnTouchOutside(true);
+        dialog.setCanceledOnTouchOutside(false);
         dialog.show();
         View view = LayoutInflater.from(mActivity).inflate(R.layout.red_change_year_dialog_layout, null);
         dialog.setContentView(view);
@@ -374,6 +374,7 @@ public class DialogUtil {
                 Utils.setInputMethodVisiable(et_password, 200);
             }
         };
+        mFullScreenDialog.setCanceledOnTouchOutside(false);
         mFullScreenDialog.show();
         return mFullScreenDialog;
     }
@@ -404,6 +405,7 @@ public class DialogUtil {
                 Utils.setInputMethodVisiable(et_password, 200);
             }
         };
+        mFullScreenDialog.setCanceledOnTouchOutside(false);
         mFullScreenDialog.show();
         return mFullScreenDialog;
     }
