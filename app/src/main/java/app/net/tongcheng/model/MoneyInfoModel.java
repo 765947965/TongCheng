@@ -53,6 +53,11 @@ public class MoneyInfoModel extends BaseModel implements Serializable {
         private String tips;
         private String status;
         private String addtime;
+        private String balance_key;
+        private String canfetch_amount_key;
+        private String fetching_amount_key;
+        private String charge_amount_key;
+        private String freze_account_key;
 
         public String getField_account_id() {
             return field_account_id;
@@ -140,6 +145,46 @@ public class MoneyInfoModel extends BaseModel implements Serializable {
 
         public void setTips(String tips) {
             this.tips = tips;
+        }
+
+        public String getBalance_key() {
+            return balance_key;
+        }
+
+        public void setBalance_key(String balance_key) {
+            this.balance_key = balance_key;
+        }
+
+        public String getCanfetch_amount_key() {
+            return canfetch_amount_key;
+        }
+
+        public void setCanfetch_amount_key(String canfetch_amount_key) {
+            this.canfetch_amount_key = canfetch_amount_key;
+        }
+
+        public String getCharge_amount_key() {
+            return charge_amount_key;
+        }
+
+        public void setCharge_amount_key(String charge_amount_key) {
+            this.charge_amount_key = charge_amount_key;
+        }
+
+        public String getFetching_amount_key() {
+            return fetching_amount_key;
+        }
+
+        public void setFetching_amount_key(String fetching_amount_key) {
+            this.fetching_amount_key = fetching_amount_key;
+        }
+
+        public String getFreze_account_key() {
+            return freze_account_key;
+        }
+
+        public void setFreze_account_key(String freze_account_key) {
+            this.freze_account_key = freze_account_key;
         }
     }
 }
