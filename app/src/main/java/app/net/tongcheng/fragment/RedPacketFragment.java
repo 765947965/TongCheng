@@ -158,10 +158,10 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            // 排序(耗时)
-                            if (mRedModel.getGifts() != null && mRedModel.getGifts().size() > 0) {
-                                Collections.sort(mRedModel.getGifts());
-                            }
+                            // 排序(耗时)  2016.10.27 注释排序
+//                            if (mRedModel.getGifts() != null && mRedModel.getGifts().size() > 0) {
+//                                Collections.sort(mRedModel.getGifts());
+//                            }
                             NativieDataUtils.setRedModel(mRedModel, NativieDataUtils.getTodyY(), "received");
                             RedPacketFragment.this.mRedModel = mRedModel;
                             mHandler.sendEmptyMessage(10002);

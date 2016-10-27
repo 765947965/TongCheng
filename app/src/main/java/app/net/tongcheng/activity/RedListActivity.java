@@ -199,10 +199,10 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            // 排序(耗时)
-                            if (mRedModel.getGifts() != null && mRedModel.getGifts().size() > 0) {
-                                Collections.sort(mRedModel.getGifts());
-                            }
+                            // 排序(耗时) 2016.10.27 注释排序
+//                            if (mRedModel.getGifts() != null && mRedModel.getGifts().size() > 0) {
+//                                Collections.sort(mRedModel.getGifts());
+//                            }
                             NativieDataUtils.setRedModel(mRedModel, year, direct);
                             RedListActivity.this.mRedModel = mRedModel;
                             mHandler.sendEmptyMessage(10002);
