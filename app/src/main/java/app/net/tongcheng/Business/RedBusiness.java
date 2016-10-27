@@ -11,6 +11,7 @@ import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.CardListModel;
 import app.net.tongcheng.model.ExcreteRedModel;
 import app.net.tongcheng.model.MoneyInfoModel;
+import app.net.tongcheng.model.MoneyOutInputBean;
 import app.net.tongcheng.model.MoneyOutListModel;
 import app.net.tongcheng.model.RechargeInfoModel;
 import app.net.tongcheng.model.RedModel;
@@ -137,7 +138,7 @@ public class RedBusiness extends BaseBusiness {
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
         params.addQueryStringParameter("money", String.valueOf(money));
         params.addQueryStringParameter("cardid", cardid);
-        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+        goConnect(mLoding_Type, params, message, MoneyOutInputBean.class.getName());
     }
 
 

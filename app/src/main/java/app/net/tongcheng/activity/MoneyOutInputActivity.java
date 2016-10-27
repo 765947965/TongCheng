@@ -6,6 +6,7 @@ import android.os.Message;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.umeng.analytics.MobclickAgent;
@@ -20,6 +21,7 @@ import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.CardListModel;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.MoneyInfoModel;
+import app.net.tongcheng.model.MoneyOutInputBean;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.ToastUtil;
@@ -34,6 +36,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
     private CardListModel.DataBean mCardListModelDataBean;
     private MoneyInfoModel mMoneyInfoModel;
     private EditText money_input;
+    private Button bt_withdraw_action;
     private RedBusiness mRedBusiness;
 
     @Override
@@ -48,7 +51,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
 
     private void initView() {
         mViewHolder = new ViewHolder(findViewById(R.id.llt_main), this);
-        mViewHolder.setOnClickListener(R.id.bt_withdraw_action);
+        bt_withdraw_action = mViewHolder.setOnClickListener(R.id.bt_withdraw_action);
         money_input = mViewHolder.getView(R.id.money_input);
         Utils.limitDecimalDigits(money_input, 2);
         mViewHolder.setOnClickListener(R.id.tv_description);
@@ -78,7 +81,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
             case APPCationStation.MONEYOUT://提现
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     sendEventBusMessage("money_rushe");
-                    DialogUtil.showTipsDialog(this, "提现成功!", new DialogUtil.OnConfirmListener() {
+                    DialogUtil.showTipsDialog(this, ((MoneyOutInputBean) mConnectResult.getObject()).getMessage(), new DialogUtil.OnConfirmListener() {
                         @Override
                         public void clickConfirm() {
                             finish();
@@ -103,6 +106,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void BusinessOnFail(int mLoding_Type) {
+        bt_withdraw_action.setEnabled(true);
         ToastUtil.showToast("网络不可用,请检查网络连接!");
     }
 
@@ -126,6 +130,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
                         DialogUtil.showTipsDialog(this, "提示", mMoneyInfoModel.getData().getDescription() + "预计到账" + Double.valueOf(outMoney) * (1d - mMoneyInfoModel.getData().getFee_ratio()) + "元", "确定", "取消", new DialogUtil.OnConfirmListener() {
                             @Override
                             public void clickConfirm() {
+                                bt_withdraw_action.setEnabled(false);
                                 mRedBusiness.moneyOut(APPCationStation.MONEYOUT, "提现中...", mCardListModelDataBean.getId(), Double.valueOf(outMoney) * 100d);
                             }
 
