@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -92,12 +93,14 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
         switch (msg.what) {
             case 10001:
                 mMoneyInfoModel = NativieDataUtils.getMoneyInfoModel();
-                if (mMoneyInfoModel != null) {
+                if (mMoneyInfoModel != null && !TextUtils.isEmpty(mMoneyInfoModel.getData().getBalance_key())) {
                     mViewHolder.setText(R.id.tv_total, mMoneyInfoModel.getData().getBalance_key() + ": " + mMoneyInfoModel.getData().getBalance() / 100d);
                     mViewHolder.setText(R.id.tv_withdraw_ing, mMoneyInfoModel.getData().getFetching_amount_key() + ": " + mMoneyInfoModel.getData().getFetching_amount() / 100d);
                     mViewHolder.setText(R.id.tv_can_withdraw, mMoneyInfoModel.getData().getCanfetch_amount_key() + ": " + mMoneyInfoModel.getData().getCanfetch_amount() / 100d);
                     mViewHolder.setText(R.id.tv_can_recharge_ye, mMoneyInfoModel.getData().getCharge_amount_key() + ": " + mMoneyInfoModel.getData().getCharge_amount() / 100d);
                     mViewHolder.setText(R.id.tv_can_ke_jie_dong, mMoneyInfoModel.getData().getFreze_account_key() + ": " + mMoneyInfoModel.getData().getFreze_account() / 100d);
+                } else {
+                    mViewHolder.setText(R.id.tv_total, "查询中...");
                 }
                 break;
             case 10002:

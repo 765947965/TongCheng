@@ -24,7 +24,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="14.6dp"
-            android:text="总余额:"
             android:textColor="@color/white"
             android:textSize="@dimen/sp16" />
 
@@ -51,7 +50,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14.6dp"
-                        android:text="提现中:"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp14" />
 
@@ -60,7 +58,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:text="充值余额:"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp14" />
                 </LinearLayout>
@@ -82,7 +79,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14.6dp"
-                        android:text="可提现:"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp14" />
 
@@ -92,7 +88,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:text="可解冻:"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp14" />
                 </LinearLayout>
