@@ -14,13 +14,4 @@ public class MoneyOutInputBean extends BaseModel implements Serializable {
     /**
      * 提现返回消息
      */
-    private String message;
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

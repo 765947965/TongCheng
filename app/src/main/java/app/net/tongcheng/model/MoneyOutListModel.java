@@ -12,7 +12,6 @@ public class MoneyOutListModel extends BaseModel {
      * data : [{"id":"6","card_id":"1","money":"0","status":"apply","addtime":"2016-06-12 20:51:19","bank_name":"中国银行","bank_card_no":"6228480402564890018","logo_url":"http://pay.8hbao.com:8060/recharge/images/bank_logo/3.png"},{"id":"5","card_id":"1","money":"0","status":"apply","addtime":"2016-06-12 20:51:14","bank_name":"中国银行","bank_card_no":"6228480402564890018","logo_url":"http://pay.8hbao.com:8060/recharge/images/bank_logo/3.png"},{"id":"4","card_id":"2","money":"2698","status":"apply","addtime":"2016-06-12 20:46:52","bank_name":"中国银行","bank_card_no":"6217002710000684874","logo_url":"http://pay.8hbao.com:8060/recharge/images/bank_logo/3.png"},{"id":"1","card_id":"2","money":"37302","status":"apply","addtime":"2016-06-11 13:38:29","bank_name":"中国银行","bank_card_no":"6217002710000684874","logo_url":"http://pay.8hbao.com:8060/recharge/images/bank_logo/3.png"}]
      */
 
-    private String message;
     /**
      * id : 6
      * card_id : 1
@@ -27,14 +26,6 @@ public class MoneyOutListModel extends BaseModel {
     private String update;
 
     private List<DataBean> data;
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 
     public String getUpdate() {
         return update;

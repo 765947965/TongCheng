@@ -12,7 +12,6 @@ public class MoneyInfoModel extends BaseModel implements Serializable {
      * data : {"field_account_id":"1638","balance":400,"canfetch_amount":400,"fetching_amount":600,"freze_account":0,"status":"","addtime":""}
      */
 
-    private String message;
     /**
      * field_account_id : 1638
      * balance : 400
@@ -24,14 +23,6 @@ public class MoneyInfoModel extends BaseModel implements Serializable {
      */
 
     private DataBean data;
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 
     public DataBean getData() {
         return data;

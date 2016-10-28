@@ -104,7 +104,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
                     bt_withdraw_action.setEnabled(true);
                     String message = "提现失败!";
                     if (mConnectResult != null && mConnectResult.getObject() != null) {
-                        String mErrorMessage = ErrorInfoUtil.getErrorMessage(((BaseModel) mConnectResult.getObject()).getResult());
+                        String mErrorMessage = TextUtils.isEmpty(((BaseModel) mConnectResult.getObject()).getMessage()) ? ErrorInfoUtil.getErrorMessage(((BaseModel) mConnectResult.getObject()).getResult()) : ((BaseModel) mConnectResult.getObject()).getMessage();
                         message = TextUtils.isEmpty(mErrorMessage) ? message : mErrorMessage;
                     }
                     DialogUtil.showTipsDialog(this, message, null);

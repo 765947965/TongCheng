@@ -12,8 +12,6 @@ public class CardListModel extends BaseModel {
      * message : 请求成功
      * data : [{"id":"9","field_account_id":"1638","uid":"601636","bank_name":"中国招商银行","branch_name":"","bank_card_no":"6214837804753345","card_holder":"林沛煌","bank_type":"personal","status":"normal","is_default":"1","addtime":"2016-05-04 19:23:51"},{"id":"1","field_account_id":"1638","uid":"601636","bank_name":"中国建设银行","branch_name":"前进支行","bank_card_no":"6217007200032958673","card_holder":"林沛煌","bank_type":"personal","status":"normal","is_default":"0","addtime":"2016-05-03 10:04:47"}]
      */
-
-    private String message;
     /**
      * id : 9
      * field_account_id : 1638
@@ -29,14 +27,6 @@ public class CardListModel extends BaseModel {
      */
 
     private List<DataBean> data;
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 
     public List<DataBean> getData() {
         return data;
