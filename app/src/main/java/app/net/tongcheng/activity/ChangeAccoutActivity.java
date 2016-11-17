@@ -120,9 +120,9 @@ public class ChangeAccoutActivity extends BaseActivity implements View.OnClickLi
                 if (mDialog != null) {
                     mDialog.submitInputFailure();
                 }
-                ToastUtil.showToast("网络不可用,请检查网络连接");
                 break;
         }
+        ToastUtil.showToast("网络不可用,请检查网络连接");
     }
 
     @Override
