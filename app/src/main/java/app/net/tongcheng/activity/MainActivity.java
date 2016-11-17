@@ -185,6 +185,9 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
             TCApplication.isHasNEW = true;
             setTabHintSpotVisibility(4, View.VISIBLE);
         }
+        if (!OperationUtils.getBoolean(OperationUtils.walletPassword)) {//没有设置钱包密码 查询
+            mOtherBusiness.getWalletPasswordType(APPCationStation.WALLETPASSWORD, "");
+        }
     }
 
     private void goTo() {
@@ -250,6 +253,15 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
 
                             }
                         });
+                    }
+                }
+                break;
+            case APPCationStation.WALLETPASSWORD:
+                if (mConnectResult != null && mConnectResult.getObject() != null) {
+                    if (((BaseModel) mConnectResult.getObject()).getResult() == 81) {
+                        OperationUtils.PutBoolean(OperationUtils.walletPassword, false);
+                    } else if (((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                        OperationUtils.PutBoolean(OperationUtils.walletPassword, true);
                     }
                 }
                 break;

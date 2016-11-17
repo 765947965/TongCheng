@@ -19,4 +19,5 @@ public class APPCationStation {
     public static final int UPOTHERINFO = UPIMAGE + 1;
     public static final int DCARD = UPOTHERINFO + 1;
     public static final int SUMBITOUT = DCARD + 1;
+    public static final int WALLETPASSWORD = SUMBITOUT + 1;
 }
