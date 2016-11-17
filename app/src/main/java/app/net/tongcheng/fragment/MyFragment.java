@@ -26,6 +26,7 @@ import app.net.tongcheng.activity.FeedbackActivity;
 import app.net.tongcheng.activity.MyUserInfoActivity;
 import app.net.tongcheng.activity.PublicWebview;
 import app.net.tongcheng.activity.ShowImageActivity;
+import app.net.tongcheng.activity.WalletAccountSetActivity;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.UserMoreInfoModel;
@@ -69,6 +70,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         mViewHolder.setOnClickListener(R.id.llt_fk);
         mViewHolder.setOnClickListener(R.id.llt_zh);
         mViewHolder.setOnClickListener(R.id.iv_head_image);
+        mViewHolder.setOnClickListener(R.id.llt_wallet);
     }
 
     @Override
@@ -140,6 +142,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 if (mUserMoreInfoModel != null && !TextUtils.isEmpty(mUserMoreInfoModel.getPicture()) && !TextUtils.isEmpty(mUserMoreInfoModel.getPicurl_prefix())) {
                     startActivity(new Intent(TCApplication.mContext, ShowImageActivity.class).putExtra("url", mUserMoreInfoModel.getPicurl_prefix() + mUserMoreInfoModel.getPicture()));
                 }
+                break;
+            case R.id.llt_wallet://钱包密码设置
+                startActivity(new Intent(TCApplication.mContext, WalletAccountSetActivity.class));
                 break;
         }
     }

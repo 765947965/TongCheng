@@ -6,7 +6,7 @@ package app.net.tongcheng.util;
 public class ErrorInfoUtil {
 
     public static String getErrorMessage(int type) {
-        String message = "未知错误";
+        String message = "";
         switch (type) {
             case 1:
                 message = "未登录";

@@ -15,6 +15,7 @@ import app.net.tongcheng.TCApplication;
 public class OperationUtils {
     private static final String FILENAME = "OperationData";
     private static final String USERINFO = "nowuserinfo";
+    public static final String walletPassword = "walletPassword";
     private static OperationUtils instance;
     private SharedPreferences mSp;
 

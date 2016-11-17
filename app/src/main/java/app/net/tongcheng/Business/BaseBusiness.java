@@ -152,7 +152,10 @@ public class BaseBusiness implements ConnectListener {
         if (mConnectResult.getObject() instanceof BaseModel) {
             BaseModel mBaseModel = (BaseModel) mConnectResult.getObject();
             if (mBaseModel.getResult() != 0 && mBaseModel.getResult() != 60 && mBaseModel.getResult() != 63) {
-                ToastUtil.showToast(TextUtils.isEmpty(mBaseModel.getMessage()) ? ErrorInfoUtil.getErrorMessage(mBaseModel.getResult()) : mBaseModel.getMessage());
+                String strMessage = TextUtils.isEmpty(mBaseModel.getMessage()) ? ErrorInfoUtil.getErrorMessage(mBaseModel.getResult()) : mBaseModel.getMessage();
+                if (!TextUtils.isEmpty(strMessage)) {
+                    ToastUtil.showToast(strMessage);
+                }
             }
         }
         Bundle mBundle = new Bundle();

@@ -551,6 +551,7 @@ public class Utils {
 
     /**
      * Uri转换成绝对路径
+     *
      * @param context
      * @param uri
      * @return
@@ -576,6 +577,14 @@ public class Utils {
             }
         }
         return data;
+    }
+
+
+    public static boolean checkPassword(String str) {
+        if (TextUtils.isEmpty(str)) {
+            return false;
+        }
+        return str.matches("[0-9a-zA-Z]*");
     }
 
 }

@@ -293,6 +293,14 @@
             android:name=".activity.NextRecharge"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.WalletAccountSetActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SetWalletActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
 
         <!--小米推送-->

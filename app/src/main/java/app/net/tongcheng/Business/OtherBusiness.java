@@ -241,4 +241,23 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("pwd", Misc.cryptDataByPwd(pwd));
         goConnect(mLoding_Type, params, message, ChangeAccoutModel.class.getName());
     }
+
+    public void getWalletPasswordType(int mLoding_Type, String message) {
+        RequestParams params = new RequestParams(HttpUrls.URL + "ams/query_has_set_money_pwd_v2");
+        String sn = VerificationCode.getCode2();
+        params.addQueryStringParameter("sn", sn);
+        params.addQueryStringParameter("sign", MD5.toMD5(sn + TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+    }
+
+    public void setWalletPassword(int mLoding_Type, String message, String password) {
+        RequestParams params = new RequestParams(HttpUrls.URL + "ams/set_money_pwd_v2");
+        String sn = VerificationCode.getCode2();
+        params.addQueryStringParameter("sn", sn);
+        params.addQueryStringParameter("pwd", Misc.cryptDataByPwd(password.trim()));
+        params.addQueryStringParameter("sign", MD5.toMD5(sn + TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+    }
 }
