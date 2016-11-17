@@ -239,7 +239,7 @@ public class InputObjectDialog extends Dialog implements View.OnClickListener {
             return;
         }
         mViewHolder.setText(R.id.tv_desc, "验证码已发送至" + phoneNum.substring(0, 3) + "****" + phoneNum.substring(7));
-        mCd = new CountDowner(90000, 1000);
+        mCd = new CountDowner(60000, 1000);
         mCd.start();
     }
 
@@ -250,7 +250,7 @@ public class InputObjectDialog extends Dialog implements View.OnClickListener {
         if (activity == null || activity.isFinishing()) {
             return;
         }
-        mVCd = new VoiceCodeCountDowner(90000, 1000);
+        mVCd = new VoiceCodeCountDowner(60000, 1000);
         mVCd.start();
     }
 
