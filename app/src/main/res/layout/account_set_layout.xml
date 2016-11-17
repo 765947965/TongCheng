@@ -50,8 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
-            android:gravity="center_vertical"
-            android:visibility="gone">
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="match_parent"
@@ -77,8 +76,7 @@
             android:layout_width="fill_parent"
             android:layout_height="0.5dp"
             android:layout_marginLeft="10dp"
-            android:background="@color/dividing_line_light"
-            android:visibility="gone" />
+            android:background="@color/dividing_line_light" />
 
         <RelativeLayout
             android:id="@+id/setts_retrieve_password_relayout"

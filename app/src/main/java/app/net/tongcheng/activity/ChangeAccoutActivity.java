@@ -1,13 +1,10 @@
 package app.net.tongcheng.activity;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.R;
@@ -20,21 +17,21 @@ import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.OraLodingUserTools;
 import app.net.tongcheng.util.ToastUtil;
-import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.VerificationCode;
 import app.net.tongcheng.util.ViewHolder;
+import app.net.tongcheng.view.InputObjectDialog;
 
 /**
  * Created by 76594 on 2016/6/17.
  */
-public class ChangeAccoutActivity extends BaseActivity implements View.OnClickListener, DialogUtil.InputPasswordListener {
+public class ChangeAccoutActivity extends BaseActivity implements View.OnClickListener, InputObjectDialog.InvestPayObjectDialogListener {
 
     private ViewHolder mViewHolder;
     private EditText et_new_phone, et_new_phone_agen, et_password;
     private OtherBusiness mOtherBusiness;
     private String Code = VerificationCode.getCode();
-    private Dialog dialog;
     private String newPhone, newPhoneAgen, password;
+    private InputObjectDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,18 +64,21 @@ public class ChangeAccoutActivity extends BaseActivity implements View.OnClickLi
         switch (mLoding_Type) {
             case APPCationStation.LOADING:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
-                    if (dialog != null && !isFinishing()) {
-                        dialog.show();
-                        EditText editText = (EditText) dialog.findViewById(R.id.et_password);
-                        editText.setText("");
-                        Utils.setInputMethodVisiable(editText, 200);
-                    } else {
-                        dialog = DialogUtil.showInoutPasswordDialog(this, this);
+                    if (mDialog != null) {
+                        mDialog.getCodeSuccess();
+                        ToastUtil.showToast("验证码发送成功，请留意查收短信");
+                    }
+                } else {
+                    if (mDialog != null) {
+                        mDialog.getCodeFailure();
                     }
                 }
                 break;
             case APPCationStation.SUMBIT:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    if (mDialog != null) {
+                        mDialog.dismiss();
+                    }
                     ChangeAccoutModel mChangeAccoutModel = (ChangeAccoutModel) mConnectResult.getObject();
                     if (mChangeAccoutModel != null && !TextUtils.isEmpty(mChangeAccoutModel.getUid())) {
                         TCApplication.getmUserInfo().setPhone(newPhone);
@@ -99,6 +99,10 @@ public class ChangeAccoutActivity extends BaseActivity implements View.OnClickLi
                             }
                         });
                     }
+                } else {
+                    if (mDialog != null) {
+                        mDialog.submitInputFailure();
+                    }
                 }
                 break;
         }
@@ -106,7 +110,19 @@ public class ChangeAccoutActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void BusinessOnFail(int mLoding_Type) {
-        ToastUtil.showToast("网络不可用,请检查网络连接");
+        switch (mLoding_Type) {
+            case APPCationStation.LOADING:
+                if (mDialog != null) {
+                    mDialog.getCodeFailure();
+                }
+                break;
+            case APPCationStation.SUMBIT:
+                if (mDialog != null) {
+                    mDialog.submitInputFailure();
+                }
+                ToastUtil.showToast("网络不可用,请检查网络连接");
+                break;
+        }
     }
 
     @Override
@@ -127,20 +143,34 @@ public class ChangeAccoutActivity extends BaseActivity implements View.OnClickLi
                 } else if (TextUtils.isEmpty(password)) {
                     ToastUtil.showToast("请输入原设密码!");
                 } else {
-                    mOtherBusiness.getChangeAccoutCode(APPCationStation.LOADING, "获取验证码", Code);
+                    if (mDialog == null) {
+                        mDialog = new InputObjectDialog(this, true, this);
+                    }
+                    mDialog.showCodeDialog(false, TCApplication.getmUserInfo().getPhone());
                 }
                 break;
         }
     }
 
     @Override
-    public void onSureInout(String code) {
+    public void submitPassword(String password) {
+
+    }
+
+    @Override
+    public void submitCode(String code) {
         if (!Code.equals(code)) {
-            ((TextView) dialog.findViewById(R.id.tv_title)).setText("验证码错误，请重新输入!");
-            ((EditText) dialog.findViewById(R.id.et_password)).setText("");
+            ToastUtil.showToast("验证码错误，请重新输入!");
+            if (mDialog != null) {
+                mDialog.submitInputFailure();
+            }
         } else {
-            dialog.dismiss();
             mOtherBusiness.changeAccout(APPCationStation.SUMBIT, "提交中...", TCApplication.getmUserInfo().getPhone(), newPhone, password);
         }
+    }
+
+    @Override
+    public void getCode(InputObjectDialog.InvestSendCodeType mType) {
+        mOtherBusiness.getChangeAccoutCode(APPCationStation.LOADING, "获取验证码", Code);
     }
 }

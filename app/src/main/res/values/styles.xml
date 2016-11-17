@@ -37,10 +37,16 @@
         <!-- 退出ACTIVITY时 退出的动画 -->
     </style>
 
-    <style name="quick_option_dialog" parent="Theme.AppCompat.Dialog">
+    <style name="quick_option_dialog" parent="@style/Theme.AppCompat.Dialog">
+        <item name="colorControlNormal">@color/refurush_color</item>
+        <item name="colorControlActivated">@color/refurush_color</item>
+        <item name="colorAccent">@color/refurush_color</item>
+        <item name="colorPrimary">@color/refurush_color</item>
+        <item name="colorPrimaryDark">@color/refurush_color</item>
+        <item name="colorControlHighlight">@color/refurush_color</item>
+        <item name="colorButtonNormal">@color/refurush_color</item>
+        <item name="android:windowBackground">@color/translate</item>
         <item name="android:windowAnimationStyle">@style/dialog_animation</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
     <style name="dialog_animation" parent="android:Animation">
