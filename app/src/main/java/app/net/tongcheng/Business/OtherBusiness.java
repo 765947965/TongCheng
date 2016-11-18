@@ -278,7 +278,7 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("sn", sn);
         params.addQueryStringParameter("phone", phone);
         params.addQueryStringParameter("sign", MD5.toMD5(sn + phone + Common.SIGN_KEY));
-        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+        goConnect(mLoding_Type, params, message, RegisterCode.class.getName());
     }
 
     public void getRetrieveWalletPassword(int mLoding_Type, String message, String account, String authcode) {
@@ -288,6 +288,6 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("account", account);
         params.addQueryStringParameter("authcode", authcode);
         params.addQueryStringParameter("sign", MD5.toMD5(sn + account + Common.SIGN_KEY));
-        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+        goConnect(mLoding_Type, params, message, GetPassordModel.class.getName());
     }
 }

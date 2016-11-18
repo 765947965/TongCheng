@@ -52,6 +52,9 @@ public class SetRetrievePassword extends BaseActivity implements View.OnClickLis
         mViewHolder = new ViewHolder(findViewById(R.id.llt_main), this);
         setrpd4v2_phnum = mViewHolder.getView(R.id.setrpd4v2_phnum);
         mViewHolder.setOnClickListener(R.id.setrpd4v2bt);
+        if (arg1 == 1) {
+            setrpd4v2_phnum.setEnabled(false);
+        }
     }
 
     @Override
@@ -66,7 +69,9 @@ public class SetRetrievePassword extends BaseActivity implements View.OnClickLis
                 if (TCApplication.getmUserInfo() != null) {
                     setrpd4v2_phnum.setText(TCApplication.getmUserInfo().getPhone());
                 }
-                Utils.setInputMethodVisiable(setrpd4v2_phnum, 250);
+                if (arg1 != 1) {
+                    Utils.setInputMethodVisiable(setrpd4v2_phnum, 250);
+                }
                 break;
         }
     }
