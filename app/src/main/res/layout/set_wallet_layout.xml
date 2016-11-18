@@ -27,12 +27,12 @@
                 android:textColor="#000000"
                 android:textSize="15sp" />
 
-            <app.net.tongcheng.view.LineEditText
+            <EditText
                 android:id="@+id/changepassword_old"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@null"
+                android:background="@color/white"
                 android:hint="请输入钱包密码"
                 android:inputType="textPassword"
                 android:textSize="15sp" />
@@ -58,12 +58,12 @@
                 android:textColor="#000000"
                 android:textSize="15sp" />
 
-            <app.net.tongcheng.view.LineEditText
+            <EditText
                 android:id="@+id/changepassword_new"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@null"
+                android:background="@color/white"
                 android:hint="请确认钱包密码"
                 android:inputType="textPassword"
                 android:textSize="15sp" />

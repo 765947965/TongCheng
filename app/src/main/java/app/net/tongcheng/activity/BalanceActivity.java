@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
@@ -36,6 +37,7 @@ import app.net.tongcheng.util.BanckCardUtil;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.MyRecyclerViewHolder;
 import app.net.tongcheng.util.NativieDataUtils;
+import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
 
@@ -52,6 +54,7 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
     private ListView mListView;
     private Button bt_withdraw_action;
     private RedBusiness mRedBusiness;
+    private OtherBusiness mOtherBusiness;
     private String checkcardId;
     private CardListModel.DataBean mCardListModelDataBean;
     private MoneyInfoModel mMoneyInfoModel;
@@ -66,6 +69,7 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
         initView();
         setEventBus();
         mRedBusiness = new RedBusiness(this, this, mHandler);
+        mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 
     private void initView() {
@@ -86,6 +90,7 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
         mHandler.sendEmptyMessageDelayed(10001, 100);
         mHandler.sendEmptyMessageDelayed(10003, 100);
         mHandler.sendEmptyMessageDelayed(10002, 100);
+        mHandler.sendEmptyMessageDelayed(10004, 100);
     }
 
     @Override
@@ -146,6 +151,11 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
                 }
                 ((ArrayAdapter) mListView.getAdapter()).notifyDataSetChanged();
                 break;
+            case 10004:
+                if (!OperationUtils.getBoolean(OperationUtils.walletPassword)) {
+                    mOtherBusiness.getWalletPasswordType(APPCationStation.WALLETPASSWORD, "");
+                }
+                break;
         }
     }
 
@@ -202,6 +212,15 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
                     DialogUtil.showTipsDialog(this, "删除银行卡成功!", null);
                 }
                 break;
+            case APPCationStation.WALLETPASSWORD:
+                if (mConnectResult != null && mConnectResult.getObject() != null) {
+                    if (((BaseModel) mConnectResult.getObject()).getResult() == 81) {
+                        OperationUtils.PutBoolean(OperationUtils.walletPassword, false);
+                    } else if (((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                        OperationUtils.PutBoolean(OperationUtils.walletPassword, true);
+                    }
+                }
+                break;
         }
     }
 
@@ -221,7 +240,19 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
                     ToastUtil.showToast("网络不可用,请检查网络连接!");
                     return;
                 }
-                if (mlist.size() == 0) {
+                if (!OperationUtils.getBoolean(OperationUtils.walletPassword)) {
+                    DialogUtil.showTipsDialog(this, "提示", "请先设置钱包密码!", "确定", "取消", new DialogUtil.OnConfirmListener() {
+                        @Override
+                        public void clickConfirm() {
+                            startActivity(new Intent(TCApplication.mContext, SetWalletActivity.class));
+                        }
+
+                        @Override
+                        public void clickCancel() {
+
+                        }
+                    });
+                } else if (mlist.size() == 0) {
                     DialogUtil.showTipsDialog(this, "提示", "请先绑定银行卡!", "确定", "取消", new DialogUtil.OnConfirmListener() {
                         @Override
                         public void clickConfirm() {

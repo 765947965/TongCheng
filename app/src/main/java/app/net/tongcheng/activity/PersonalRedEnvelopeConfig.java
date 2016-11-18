@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
@@ -28,6 +29,7 @@ import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.EditTextUtil;
 import app.net.tongcheng.util.NativieDataUtils;
+import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
@@ -47,6 +49,7 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
     private int nums;
     private double Almoney = -1d;
     private RedBusiness mRedBusiness;
+    private OtherBusiness mOtherBusiness;
     private List<String> moneytyps;
     private int moneytype = 1;
 
@@ -60,6 +63,7 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
         nums = getIntent().getIntExtra("nums", 1);
         initView();
         mRedBusiness = new RedBusiness(this, this, mHandler);
+        mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 
     private void initView() {
@@ -94,6 +98,9 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
         moneytyps.add("拼手气红包");
         moneytyps.add("普通红包");
         mRedBusiness.getMoneyInfo(APPCationStation.LOADING, "");
+        if (!OperationUtils.getBoolean(OperationUtils.walletPassword)) {
+            mOtherBusiness.getWalletPasswordType(APPCationStation.WALLETPASSWORD, "");
+        }
     }
 
     @Override
@@ -125,6 +132,15 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
                     money_input.setHint("可用:" + Almoney / 100d);
                 }
                 break;
+            case APPCationStation.WALLETPASSWORD:
+                if (mConnectResult != null && mConnectResult.getObject() != null) {
+                    if (((BaseModel) mConnectResult.getObject()).getResult() == 81) {
+                        OperationUtils.PutBoolean(OperationUtils.walletPassword, false);
+                    } else if (((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                        OperationUtils.PutBoolean(OperationUtils.walletPassword, true);
+                    }
+                }
+                break;
         }
     }
 
@@ -146,7 +162,19 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
                 if (TextUtils.isEmpty(tips)) {
                     tips = palpc_inputzfy.getHint().toString();
                 }
-                if (TextUtils.isEmpty(name)) {
+                if (!OperationUtils.getBoolean(OperationUtils.walletPassword)) {
+                    DialogUtil.showTipsDialog(this, "提示", "请先设置钱包密码!", "确定", "取消", new DialogUtil.OnConfirmListener() {
+                        @Override
+                        public void clickConfirm() {
+                            startActivity(new Intent(TCApplication.mContext, SetWalletActivity.class));
+                        }
+
+                        @Override
+                        public void clickCancel() {
+
+                        }
+                    });
+                } else if (TextUtils.isEmpty(name)) {
                     ToastUtil.showToast("请输入姓名");
                 } else if (TextUtils.isEmpty(outmoney)) {
                     ToastUtil.showToast("请输入金额");

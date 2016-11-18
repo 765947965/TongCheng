@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 
 import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.R;
@@ -15,7 +16,6 @@ import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
-import app.net.tongcheng.view.LineEditText;
 
 /**
  * @author: xiewenliang
@@ -29,7 +29,7 @@ public class SetWalletActivity extends BaseActivity implements View.OnClickListe
 
     private ViewHolder mViewHolder;
     private OtherBusiness mOtherBusiness;
-    private LineEditText changepassword_old, changepassword_new;
+    private EditText changepassword_old, changepassword_new;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

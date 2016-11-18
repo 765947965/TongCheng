@@ -40,8 +40,8 @@ public class WalletAccountSetActivity extends BaseActivity implements View.OnCli
         super.onResume();
         if (OperationUtils.getBoolean(OperationUtils.walletPassword)) {
             mViewHolder.setVisibility(R.id.setts_set_wallet_password, View.GONE);
-        } else {
-            mViewHolder.setVisibility(R.id.setts_set_wallet_password, View.VISIBLE);
+            mViewHolder.setVisibility(R.id.setts_retrieve_password_relayout, View.VISIBLE);
+            mViewHolder.setVisibility(R.id.setts_change_password_relayout, View.VISIBLE);
         }
     }
 
@@ -72,9 +72,13 @@ public class WalletAccountSetActivity extends BaseActivity implements View.OnCli
                     if (((BaseModel) mConnectResult.getObject()).getResult() == 81) {
                         OperationUtils.PutBoolean(OperationUtils.walletPassword, false);
                         mViewHolder.setVisibility(R.id.setts_set_wallet_password, View.VISIBLE);
+                        mViewHolder.setVisibility(R.id.setts_retrieve_password_relayout, View.GONE);
+                        mViewHolder.setVisibility(R.id.setts_change_password_relayout, View.GONE);
                     } else if (((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                         OperationUtils.PutBoolean(OperationUtils.walletPassword, true);
                         mViewHolder.setVisibility(R.id.setts_set_wallet_password, View.GONE);
+                        mViewHolder.setVisibility(R.id.setts_retrieve_password_relayout, View.VISIBLE);
+                        mViewHolder.setVisibility(R.id.setts_change_password_relayout, View.VISIBLE);
                     }
                 }
                 break;
