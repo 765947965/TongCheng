@@ -37,6 +37,7 @@ public class SetRetrievePasswordInputCOde extends BaseActivity implements View.O
     private TextView cannotsevedcode;
     private int jishunum = Common.LasMine;
     private OtherBusiness mOtherBusiness;
+    private int arg1;
 
 
     @Override
@@ -45,6 +46,7 @@ public class SetRetrievePasswordInputCOde extends BaseActivity implements View.O
         setContentView(R.layout.register_input_aouthcode_layout);
         setTitle("填写验证码");
         phone = getIntent().getStringExtra("phone");
+        arg1 = getIntent().getIntExtra(Common.AGR1, 0);
         initView();
         setChechLoding(false);
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
@@ -98,7 +100,7 @@ public class SetRetrievePasswordInputCOde extends BaseActivity implements View.O
             case APPCationStation.SUMBIT:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     GetPassordModel mGetPassordModel = (GetPassordModel) mConnectResult.getObject();
-                    startActivity(new Intent(TCApplication.mContext, SetChangPassword.class).putExtra("olpphone", phone).putExtra("oldpassword", mGetPassordModel.getPwd()));
+                    startActivity(new Intent(TCApplication.mContext, SetChangPassword.class).putExtra(Common.AGR1, arg1).putExtra("olpphone", phone).putExtra("oldpassword", mGetPassordModel.getPwd()));
                     finish();
                 }
                 break;
@@ -125,7 +127,11 @@ public class SetRetrievePasswordInputCOde extends BaseActivity implements View.O
                     public void clickConfirm() {
                         cannotsevedcode.setTextColor(Color.parseColor("#ababab"));
                         cannotsevedcode.setEnabled(false);
-                        mOtherBusiness.getPassword(APPCationStation.GETAOUTHCODE, "请求中...", phone);
+                        if (arg1 == 0) {
+                            mOtherBusiness.getPassword(APPCationStation.GETAOUTHCODE, "请求中...", phone);
+                        } else {
+                            mOtherBusiness.getCodeRetrieveWalletPassword(APPCationStation.GETAOUTHCODE, "请求中...", phone);
+                        }
                     }
 
                     @Override
@@ -140,7 +146,11 @@ public class SetRetrievePasswordInputCOde extends BaseActivity implements View.O
                     return;
                 }
                 // 请求密码
-                mOtherBusiness.getChagnePasswordColde(APPCationStation.SUMBIT, "获取密码...", phone, rgv2_phnum.getText().toString());
+                if (arg1 == 0) {
+                    mOtherBusiness.getChagnePasswordColde(APPCationStation.SUMBIT, "获取密码...", phone, rgv2_phnum.getText().toString());
+                } else {
+                    mOtherBusiness.getRetrieveWalletPassword(APPCationStation.SUMBIT, "获取密码...", phone, rgv2_phnum.getText().toString());
+                }
                 break;
             case R.id.bt_close:
                 goWillBack();

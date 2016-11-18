@@ -13,6 +13,7 @@ import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.DialogUtil.OnConfirmListener;
 import app.net.tongcheng.util.ToastUtil;
@@ -33,6 +34,7 @@ public class SetRetrievePassword extends BaseActivity implements View.OnClickLis
     private EditText setrpd4v2_phnum;
     private OtherBusiness mOtherBusiness;
     private String phone;
+    private int arg1;
 
 
     @Override
@@ -40,6 +42,7 @@ public class SetRetrievePassword extends BaseActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.set_retriever_password_layout);
         setTitle("忘记密码");
+        arg1 = getIntent().getIntExtra(Common.AGR1, 0);
         initView();
         setChechLoding(false);
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
@@ -76,7 +79,7 @@ public class SetRetrievePassword extends BaseActivity implements View.OnClickLis
                     DialogUtil.showTipsDialog(this, "验证码已发送至您手机上,请注意查收!", new OnConfirmListener() {
                         @Override
                         public void clickConfirm() {
-                            startActivity(new Intent(TCApplication.mContext, SetRetrievePasswordInputCOde.class).putExtra("phone", phone));
+                            startActivity(new Intent(TCApplication.mContext, SetRetrievePasswordInputCOde.class).putExtra("phone", phone).putExtra(Common.AGR1, arg1));
                             finish();
                         }
 
@@ -107,7 +110,11 @@ public class SetRetrievePassword extends BaseActivity implements View.OnClickLis
                 DialogUtil.showTipsDialog(this, "提示", "同城商城将验证码发送到+86" + phone, "确定", "取消", new OnConfirmListener() {
                     @Override
                     public void clickConfirm() {
-                        mOtherBusiness.getPassword(APPCationStation.SUMBIT, "请求中...", phone);
+                        if (arg1 == 0) {
+                            mOtherBusiness.getPassword(APPCationStation.SUMBIT, "请求中...", phone);
+                        } else {
+                            mOtherBusiness.getCodeRetrieveWalletPassword(APPCationStation.SUMBIT, "请求中...", phone);
+                        }
                     }
 
                     @Override

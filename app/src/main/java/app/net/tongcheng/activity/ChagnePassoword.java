@@ -69,7 +69,7 @@ public class ChagnePassoword extends BaseActivity implements View.OnClickListene
         switch (mLoding_Type) {
             case APPCationStation.SUMBIT:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
-                    if (arg1 == 0) {
+                    if (arg1 == 0) {//修改登录密码
                         TCApplication.getmUserInfo().setPwd(Misc.cryptDataByPwd(password.trim()));
                         TCApplication.setmUserInfo(TCApplication.getmUserInfo());
                     }

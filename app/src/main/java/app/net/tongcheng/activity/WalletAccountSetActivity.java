@@ -98,7 +98,7 @@ public class WalletAccountSetActivity extends BaseActivity implements View.OnCli
                 startActivity(new Intent(TCApplication.mContext, SetWalletActivity.class));
                 break;
             case R.id.setts_retrieve_password_relayout://找回钱包密码
-
+                startActivity(new Intent(TCApplication.mContext, SetRetrievePassword.class).putExtra(Common.AGR1, 1));
                 break;
             case R.id.setts_change_password_relayout://修改钱包密码
                 startActivity(new Intent(TCApplication.mContext, ChagnePassoword.class).putExtra(Common.AGR1, 1));

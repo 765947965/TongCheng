@@ -13,6 +13,7 @@ import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.Misc;
 import app.net.tongcheng.util.ToastUtil;
@@ -32,12 +33,14 @@ public class SetChangPassword extends BaseActivity implements View.OnClickListen
     private EditText rg4v2_npwdcodeinput;
     private String olpphone, oldpassword, password;
     private OtherBusiness mOtherBusiness;
+    private int arg1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_change_password);
         setTitle("修改密码");
+        arg1 = getIntent().getIntExtra(Common.AGR1, 0);
         initView();
         setChechLoding(false);
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
@@ -71,12 +74,14 @@ public class SetChangPassword extends BaseActivity implements View.OnClickListen
             case APPCationStation.SUMBIT:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     if (TCApplication.getmUserInfo() != null && olpphone.equals(TCApplication.getmUserInfo().getPhone())) {
-                        TCApplication.getmUserInfo().setPwd(Misc.cryptDataByPwd(password.trim()));
-                        TCApplication.setmUserInfo(TCApplication.getmUserInfo());
+                        if (arg1 == 0) {//修改登录密码
+                            TCApplication.getmUserInfo().setPwd(Misc.cryptDataByPwd(password.trim()));
+                            TCApplication.setmUserInfo(TCApplication.getmUserInfo());
+                        }
                         sendEventBusMessage("ALL.Refresh");
                         sendEventBusMessage("ALL.UpData");
                     }
-                    DialogUtil.showTipsDialog(this, "密码修改成功!", new DialogUtil.OnConfirmListener() {
+                    DialogUtil.showTipsDialog(this, arg1 == 0 ? "密码修改成功" : "钱包密码修改成功", new DialogUtil.OnConfirmListener() {
                         @Override
                         public void clickConfirm() {
                             finish();
@@ -110,15 +115,19 @@ public class SetChangPassword extends BaseActivity implements View.OnClickListen
                     ToastUtil.showToast("密码只能由数字或字母组成!");
                     return;
                 }
-                if (password.length() < 4) {
-                    ToastUtil.showToast("新密码太短!");
+                if (password.length() < 6) {
+                    ToastUtil.showToast("新密码至少为6位!");
                     return;
                 }
                 if (password.equals(oldpassword)) {
                     ToastUtil.showToast("新密码不能与旧密码相同!");
                     return;
                 }
-                mOtherBusiness.registerChangePassword(APPCationStation.SUMBIT, "提交中...", olpphone, oldpassword, password);
+                if (arg1 == 1) {
+                    mOtherBusiness.changeWalletPassword(APPCationStation.SUMBIT, "提交中...", Misc.cryptDataByPwd(oldpassword), password);
+                } else {
+                    mOtherBusiness.registerChangePassword(APPCationStation.SUMBIT, "提交中...", olpphone, oldpassword, password);
+                }
                 break;
             case R.id.bt_close:
                 goWillBack();
