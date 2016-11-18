@@ -28,17 +28,19 @@ import app.net.tongcheng.util.ErrorInfoUtil;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
+import app.net.tongcheng.view.InputObjectDialog;
 
 /**
  * Created by 76594 on 2016/6/18.
  */
-public class MoneyOutInputActivity extends BaseActivity implements View.OnClickListener {
+public class MoneyOutInputActivity extends BaseActivity implements View.OnClickListener, InputObjectDialog.InvestPayObjectDialogListener {
     private ViewHolder mViewHolder;
     private CardListModel.DataBean mCardListModelDataBean;
     private MoneyInfoModel mMoneyInfoModel;
     private EditText money_input;
     private Button bt_withdraw_action;
     private RedBusiness mRedBusiness;
+    private InputObjectDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +103,6 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
                     map_value.put("withdrawmoney", money_input.getText().toString());
                     MobclickAgent.onEventValue(this, "withdraw", map_value, Double.valueOf(money_input.getText().toString()).intValue());
                 } else {
-                    bt_withdraw_action.setEnabled(true);
                     String message = "提现失败!";
                     if (mConnectResult != null && mConnectResult.getObject() != null) {
                         String mErrorMessage = TextUtils.isEmpty(((BaseModel) mConnectResult.getObject()).getMessage()) ? ErrorInfoUtil.getErrorMessage(((BaseModel) mConnectResult.getObject()).getResult()) : ((BaseModel) mConnectResult.getObject()).getMessage();
@@ -115,7 +116,6 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void BusinessOnFail(int mLoding_Type) {
-        bt_withdraw_action.setEnabled(true);
         DialogUtil.showTipsDialog(this, "网络不可用,请检查网络连接!", null);
     }
 
@@ -136,10 +136,14 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
                     } else if (Double.valueOf(outMoney) > mMoneyInfoModel.getData().getCanfetch_amount() / 100d) {
                         ToastUtil.showToast("提现金额不能大于可提现金额!");
                     } else {
+                        if (mDialog == null) {
+                            mDialog = new InputObjectDialog(this, true, this);
+                        }
+
+
                         DialogUtil.showTipsDialog(this, "提示", mMoneyInfoModel.getData().getDescription() + "预计到账" + Double.valueOf(outMoney) * (1d - mMoneyInfoModel.getData().getFee_ratio()) + "元", "确定", "取消", new DialogUtil.OnConfirmListener() {
                             @Override
                             public void clickConfirm() {
-                                bt_withdraw_action.setEnabled(false);
                                 mRedBusiness.moneyOut(APPCationStation.MONEYOUT, "提现中...", mCardListModelDataBean.getId(), Double.valueOf(outMoney) * 100d);
                             }
 
@@ -157,5 +161,20 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
                 startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "手续费").putExtra("url", "http://user.8hbao.com:8060/service_fee.html"));
                 break;
         }
+    }
+
+    @Override
+    public void submitPassword(String password) {
+
+    }
+
+    @Override
+    public void submitCode(String code) {
+
+    }
+
+    @Override
+    public void getCode(InputObjectDialog.InvestSendCodeType mType) {
+
     }
 }

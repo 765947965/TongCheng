@@ -11,6 +11,7 @@ import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.ViewHolder;
 
@@ -100,7 +101,7 @@ public class WalletAccountSetActivity extends BaseActivity implements View.OnCli
 
                 break;
             case R.id.setts_change_password_relayout://修改钱包密码
-
+                startActivity(new Intent(TCApplication.mContext, ChagnePassoword.class).putExtra(Common.AGR1, 1));
                 break;
         }
     }

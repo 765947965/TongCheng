@@ -8,6 +8,9 @@ public class Common {
 	public static final String SIGN_KEY = "&%&aicall$#$";
 	public static final String BrandName = "aixin";
 	public static final int LasMine = 60;
+	public static final String AGR1 = "arg1";
+	public static final String AGR2 = "arg2";
+	public static final String AGR3 = "arg3";
 
 	public static synchronized String getValueForPro(InputStream in, String key) {
 		Properties pro = new Properties();

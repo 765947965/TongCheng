@@ -11,6 +11,7 @@ import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.Misc;
 import app.net.tongcheng.util.ToastUtil;
@@ -32,13 +33,15 @@ public class ChagnePassoword extends BaseActivity implements View.OnClickListene
     private LineEditText changepassword_old;
     private LineEditText changepassword_new;
     private String password;
+    private int arg1;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.change_password_layout);
-        setTitle("修改密码");
+        arg1 = getIntent().getIntExtra(Common.AGR1, 0);
+        setTitle(arg1 == 0 ? "修改密码" : "修改钱包密码");
         initView();
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
@@ -66,11 +69,11 @@ public class ChagnePassoword extends BaseActivity implements View.OnClickListene
         switch (mLoding_Type) {
             case APPCationStation.SUMBIT:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
-                    TCApplication.getmUserInfo().setPwd(Misc.cryptDataByPwd(password.trim()));
-                    TCApplication.setmUserInfo(TCApplication.getmUserInfo());
-                    sendEventBusMessage("ALL.Refresh");
-                    sendEventBusMessage("ALL.UpData");
-                    DialogUtil.showTipsDialog(this, "密码修改成功!", new DialogUtil.OnConfirmListener() {
+                    if (arg1 == 0) {
+                        TCApplication.getmUserInfo().setPwd(Misc.cryptDataByPwd(password.trim()));
+                        TCApplication.setmUserInfo(TCApplication.getmUserInfo());
+                    }
+                    DialogUtil.showTipsDialog(this, arg1 == 0 ? "密码修改成功" : "钱包密码修改成功", new DialogUtil.OnConfirmListener() {
                         @Override
                         public void clickConfirm() {
                             finish();
@@ -81,6 +84,8 @@ public class ChagnePassoword extends BaseActivity implements View.OnClickListene
 
                         }
                     });
+                    sendEventBusMessage("ALL.Refresh");
+                    sendEventBusMessage("ALL.UpData");
                 }
                 break;
         }
@@ -109,15 +114,19 @@ public class ChagnePassoword extends BaseActivity implements View.OnClickListene
                     ToastUtil.showToast("密码只能由数字或字母组成!");
                     return;
                 }
-                if (password.length() < 4) {
-                    ToastUtil.showToast("新密码太短!");
+                if (password.length() < 6) {
+                    ToastUtil.showToast("新密码至少为6位!");
                     return;
                 }
                 if (password.equals(oldpassword)) {
                     ToastUtil.showToast("新密码不能与旧密码相同!");
                     return;
                 }
-                mOtherBusiness.registerChangePassword(APPCationStation.SUMBIT, "提交中...", TCApplication.getmUserInfo().getPhone(), Misc.cryptDataByPwd(oldpassword), password);
+                if (arg1 == 1) {
+                    mOtherBusiness.changeWalletPassword(APPCationStation.SUMBIT, "提交中...", oldpassword, password);
+                } else {
+                    mOtherBusiness.registerChangePassword(APPCationStation.SUMBIT, "提交中...", TCApplication.getmUserInfo().getPhone(), Misc.cryptDataByPwd(oldpassword), password);
+                }
                 break;
         }
 
