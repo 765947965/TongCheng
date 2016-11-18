@@ -290,4 +290,14 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("sign", MD5.toMD5(sn + account + Common.SIGN_KEY));
         goConnect(mLoding_Type, params, message, GetPassordModel.class.getName());
     }
+
+    public void checkWalletPassword(int mLoding_Type, String message, String pwd) {
+        RequestParams params = new RequestParams(HttpUrls.URL + "ams/check_money_pwd_v2");
+        String sn = VerificationCode.getCode2();
+        params.addQueryStringParameter("sn", sn);
+        params.addQueryStringParameter("pwd", Misc.cryptDataByPwd(pwd.trim()));
+        params.addQueryStringParameter("sign", MD5.toMD5(sn + TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+    }
 }

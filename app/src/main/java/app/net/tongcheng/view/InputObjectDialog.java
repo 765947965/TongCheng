@@ -28,6 +28,7 @@ import java.util.TimerTask;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.activity.SetRetrievePassword;
+import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
 
@@ -331,7 +332,7 @@ public class InputObjectDialog extends Dialog implements View.OnClickListener {
                         mListener.getCode(InvestSendCodeType.CODE);
                     }
                 } else {
-                    activity.startActivity(new Intent(TCApplication.mContext, SetRetrievePassword.class));
+                    activity.startActivity(new Intent(TCApplication.mContext, SetRetrievePassword.class).putExtra(Common.AGR1, 1));
                 }
                 break;
             case R.id.lly_pac_LeftTips:

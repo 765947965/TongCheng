@@ -14,6 +14,7 @@ import com.umeng.analytics.MobclickAgent;
 import java.util.HashMap;
 import java.util.Map;
 
+import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
@@ -40,7 +41,9 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
     private EditText money_input;
     private Button bt_withdraw_action;
     private RedBusiness mRedBusiness;
+    private OtherBusiness mOtherBusiness;
     private InputObjectDialog mDialog;
+    private String outMoney;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
         findViewById(R.id.viewBaseLine).setVisibility(View.GONE);
         initView();
         mRedBusiness = new RedBusiness(this, this, mHandler);
+        mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 
     private void initView() {
@@ -111,11 +115,30 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
                     DialogUtil.showTipsDialog(this, message, null);
                 }
                 break;
+            case APPCationStation.CHECKWALLETPASSWORD:
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    if (mDialog != null) {
+                        mDialog.dismiss();
+                    }
+                    mRedBusiness.moneyOut(APPCationStation.MONEYOUT, "提现中...", mCardListModelDataBean.getId(), Double.valueOf(outMoney) * 100d);
+                } else {
+                    if (mDialog != null) {
+                        mDialog.submitInputFailure();
+                    }
+                }
+                break;
         }
     }
 
     @Override
     public void BusinessOnFail(int mLoding_Type) {
+        switch (mLoding_Type) {
+            case APPCationStation.CHECKWALLETPASSWORD:
+                if (mDialog != null) {
+                    mDialog.submitInputFailure();
+                }
+                break;
+        }
         DialogUtil.showTipsDialog(this, "网络不可用,请检查网络连接!", null);
     }
 
@@ -128,7 +151,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.bt_withdraw_action:
                 try {
-                    final String outMoney = money_input.getText().toString();
+                    outMoney = money_input.getText().toString();
                     if (TextUtils.isEmpty(outMoney)) {
                         ToastUtil.showToast("请输入提现金额!");
                     } else if (Double.valueOf(outMoney) <= 0) {
@@ -136,22 +159,21 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
                     } else if (Double.valueOf(outMoney) > mMoneyInfoModel.getData().getCanfetch_amount() / 100d) {
                         ToastUtil.showToast("提现金额不能大于可提现金额!");
                     } else {
+//                        DialogUtil.showTipsDialog(this, "提示", mMoneyInfoModel.getData().getDescription() + "预计到账" + Double.valueOf(outMoney) * (1d - mMoneyInfoModel.getData().getFee_ratio()) + "元", "确定", "取消", new DialogUtil.OnConfirmListener() {
+//                            @Override
+//                            public void clickConfirm() {
+//                                mRedBusiness.moneyOut(APPCationStation.MONEYOUT, "提现中...", mCardListModelDataBean.getId(), Double.valueOf(outMoney) * 100d);
+//                            }
+//
+//                            @Override
+//                            public void clickCancel() {
+//
+//                            }
+//                        });
                         if (mDialog == null) {
-                            mDialog = new InputObjectDialog(this, true, this);
+                            mDialog = new InputObjectDialog(MoneyOutInputActivity.this, true, MoneyOutInputActivity.this);
                         }
-
-
-                        DialogUtil.showTipsDialog(this, "提示", mMoneyInfoModel.getData().getDescription() + "预计到账" + Double.valueOf(outMoney) * (1d - mMoneyInfoModel.getData().getFee_ratio()) + "元", "确定", "取消", new DialogUtil.OnConfirmListener() {
-                            @Override
-                            public void clickConfirm() {
-                                mRedBusiness.moneyOut(APPCationStation.MONEYOUT, "提现中...", mCardListModelDataBean.getId(), Double.valueOf(outMoney) * 100d);
-                            }
-
-                            @Override
-                            public void clickCancel() {
-
-                            }
-                        });
+                        mDialog.showPasswordDialog(Double.valueOf(outMoney) * (1d - mMoneyInfoModel.getData().getFee_ratio()), mMoneyInfoModel.getData().getDescription() + "预计到账");
                     }
                 } catch (Exception e) {
                     ToastUtil.showToast("请输入正确的提现金额!");
@@ -165,7 +187,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void submitPassword(String password) {
-
+        mOtherBusiness.checkWalletPassword(APPCationStation.CHECKWALLETPASSWORD, "校验中...", password);
     }
 
     @Override

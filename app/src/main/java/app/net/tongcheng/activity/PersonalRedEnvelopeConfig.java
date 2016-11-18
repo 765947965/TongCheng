@@ -33,6 +33,7 @@ import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
+import app.net.tongcheng.view.InputObjectDialog;
 
 /**
  * @author: xiewenliang
@@ -41,7 +42,7 @@ import app.net.tongcheng.util.ViewHolder;
  * @Copyright: Copyright (c) 2016 Tuandai Inc. All rights reserved.
  * @date: 2016/6/8 16:12
  */
-public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnClickListener, TextWatcher {
+public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnClickListener, TextWatcher, InputObjectDialog.InvestPayObjectDialogListener {
     private ViewHolder mViewHolder;
     private EditText whoimisedit, money_input, palpc_inputzfy;
     private String uids, name;
@@ -52,6 +53,8 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
     private OtherBusiness mOtherBusiness;
     private List<String> moneytyps;
     private int moneytype = 1;
+    private InputObjectDialog mDialog;
+    private String outmoney, tips, fromname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,24 +144,40 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
                     }
                 }
                 break;
+            case APPCationStation.CHECKWALLETPASSWORD:
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    if (mDialog != null) {
+                        mDialog.dismiss();
+                    }
+                    mRedBusiness.sendRed(APPCationStation.SUMBIT, "发送中...", fromname, Double.parseDouble(outmoney) * 100d + "", moneytype + "", tips, uids, nums + "");
+                } else {
+                    if (mDialog != null) {
+                        mDialog.submitInputFailure();
+                    }
+                }
+                break;
         }
     }
 
     @Override
     public void BusinessOnFail(int mLoding_Type) {
-        ToastUtil.showToast("网络不可用，请检查网络连接！");
-        if (mLoding_Type == APPCationStation.SUMBIT) {
-            sendpalpcredbt.setEnabled(true);
+        switch (mLoding_Type) {
+            case APPCationStation.CHECKWALLETPASSWORD:
+                if (mDialog != null) {
+                    mDialog.submitInputFailure();
+                }
+                break;
         }
+        ToastUtil.showToast("网络不可用，请检查网络连接！");
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sendpalpcredbt:
-                String name = whoimisedit.getText().toString();
-                String outmoney = money_input.getText().toString();
-                String tips = palpc_inputzfy.getText().toString();
+                fromname = whoimisedit.getText().toString();
+                outmoney = money_input.getText().toString();
+                tips = palpc_inputzfy.getText().toString();
                 if (TextUtils.isEmpty(tips)) {
                     tips = palpc_inputzfy.getHint().toString();
                 }
@@ -174,7 +193,7 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
 
                         }
                     });
-                } else if (TextUtils.isEmpty(name)) {
+                } else if (TextUtils.isEmpty(fromname)) {
                     ToastUtil.showToast("请输入姓名");
                 } else if (TextUtils.isEmpty(outmoney)) {
                     ToastUtil.showToast("请输入金额");
@@ -183,8 +202,10 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
                 } else if (Almoney != -1d && Double.parseDouble(outmoney) > Almoney / 100d) {
                     ToastUtil.showToast("金额不能大于可用金额");
                 } else {
-                    sendpalpcredbt.setEnabled(false);
-                    mRedBusiness.sendRed(APPCationStation.SUMBIT, "发送中...", name, Double.parseDouble(outmoney) * 100d + "", moneytype + "", tips, uids, nums + "");
+                    if (mDialog == null) {
+                        mDialog = new InputObjectDialog(this, true, this);
+                    }
+                    mDialog.showPasswordDialog(Double.parseDouble(outmoney), "红包金额");
                 }
                 break;
             case R.id.red_lx:
@@ -223,6 +244,21 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
 
     @Override
     public void afterTextChanged(Editable s) {
+
+    }
+
+    @Override
+    public void submitPassword(String password) {
+        mOtherBusiness.checkWalletPassword(APPCationStation.CHECKWALLETPASSWORD, "校验中...", password);
+    }
+
+    @Override
+    public void submitCode(String code) {
+
+    }
+
+    @Override
+    public void getCode(InputObjectDialog.InvestSendCodeType mType) {
 
     }
 }
