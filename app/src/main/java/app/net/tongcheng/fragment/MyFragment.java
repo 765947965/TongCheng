@@ -24,6 +24,7 @@ import app.net.tongcheng.activity.AboutAPP;
 import app.net.tongcheng.activity.AccountSetActivity;
 import app.net.tongcheng.activity.FeedbackActivity;
 import app.net.tongcheng.activity.MyUserInfoActivity;
+import app.net.tongcheng.activity.PersonalitySetActivity;
 import app.net.tongcheng.activity.PublicWebview;
 import app.net.tongcheng.activity.ShowImageActivity;
 import app.net.tongcheng.activity.WalletAccountSetActivity;
@@ -71,6 +72,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         mViewHolder.setOnClickListener(R.id.llt_zh);
         mViewHolder.setOnClickListener(R.id.iv_head_image);
         mViewHolder.setOnClickListener(R.id.llt_wallet);
+        mViewHolder.setOnClickListener(R.id.llt_gx);
+        mViewHolder.setOnClickListener(R.id.llt_tjr);
     }
 
     @Override
@@ -145,6 +148,11 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.llt_wallet://钱包密码设置
                 startActivity(new Intent(TCApplication.mContext, WalletAccountSetActivity.class));
+                break;
+            case R.id.llt_gx://设置开启通讯录读取开关
+                startActivity(new Intent(TCApplication.mContext, PersonalitySetActivity.class));
+                break;
+            case R.id.llt_tjr://查看谁邀请我信息
                 break;
         }
     }

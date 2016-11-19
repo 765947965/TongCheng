@@ -12,17 +12,18 @@ import app.net.tongcheng.TCApplication;
  * @Copyright: Copyright (c) 2016 Tuandai Inc. All rights reserved.
  * @date: 2016/2/25 14:01
  */
-public class UserDateUtils {
+public class GeneralDateUtils {
     private static final String FILENAME = "UserDate";
     public static final String LODINGUSERJSON = "lodinguserjson";
-    private static UserDateUtils instance;
+    public static final String CONTACTS_SWITCH = "ContactsSwitch";// 0 没有设置 1 关闭 2 开启
+    private static GeneralDateUtils instance;
     private SharedPreferences mSp;
 
     private static SharedPreferences getSharedPreference() {
         if (instance == null || instance.mSp == null) {
-            synchronized (UserDateUtils.class) {
+            synchronized (GeneralDateUtils.class) {
                 if (instance == null || instance.mSp == null) {
-                    instance = new UserDateUtils();
+                    instance = new GeneralDateUtils();
                     instance.mSp = TCApplication.mContext.getSharedPreferences(FILENAME, Context.MODE_PRIVATE);
                 }
             }

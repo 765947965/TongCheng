@@ -15,7 +15,7 @@ import app.net.tongcheng.model.OraLodingUser;
 public class OraLodingUserTools {
 
     public static List<OraLodingUser> getolus(Context context) {
-        String json_str = UserDateUtils.getString(UserDateUtils.LODINGUSERJSON);
+        String json_str = GeneralDateUtils.getString(GeneralDateUtils.LODINGUSERJSON);
         if (json_str == null || "".equals(json_str)) {
             return null;
         }
@@ -46,7 +46,7 @@ public class OraLodingUserTools {
             Collections.sort(tmaplist);
             LodingUserModel mLodingUserModel = new LodingUserModel();
             mLodingUserModel.setDatas(tmaplist);
-            UserDateUtils.PutString(UserDateUtils.LODINGUSERJSON, JSON.toJSONString(mLodingUserModel));
+            GeneralDateUtils.PutString(GeneralDateUtils.LODINGUSERJSON, JSON.toJSONString(mLodingUserModel));
         } catch (Exception e) {
         }
     }

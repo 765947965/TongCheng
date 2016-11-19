@@ -1,29 +1,20 @@
 package app.net.tongcheng.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
-
 import org.greenrobot.eventbus.Subscribe;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.R;
@@ -33,15 +24,12 @@ import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.OraLodingUser;
-import app.net.tongcheng.model.StartPageModel;
 import app.net.tongcheng.model.UserInfo;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
-import app.net.tongcheng.util.NativieDataUtils;
-import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.OraLodingUserTools;
 import app.net.tongcheng.util.ToastUtil;
-import app.net.tongcheng.util.UserDateUtils;
+import app.net.tongcheng.util.GeneralDateUtils;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
 import app.net.tongcheng.view.LineEditText;
@@ -134,10 +122,10 @@ public class LodingActivity extends BaseActivity implements View.OnClickListener
                         @Override
                         public void clickConfirm() {
                             LodingActivity.this.sendEventBusMessage("loading_ok");
-                            boolean isStartTX = UserDateUtils.getBoolean(Utils.getVersionName());
+                            boolean isStartTX = GeneralDateUtils.getBoolean(Utils.getVersionName());
                             if (!isStartTX) {
                                 // 开启新特性
-                                UserDateUtils.PutBoolean(Utils.getVersionName(), true);
+                                GeneralDateUtils.PutBoolean(Utils.getVersionName(), true);
                                 startActivity(new Intent(TCApplication.mContext, NewVerTXActivity.class).putExtra("isMain", true));
                             } else {
                                 // 开启主页

@@ -16,7 +16,7 @@ import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.StartPageModel;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.NativieDataUtils;
-import app.net.tongcheng.util.UserDateUtils;
+import app.net.tongcheng.util.GeneralDateUtils;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
 
@@ -63,10 +63,10 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
             if (TCApplication.getmUserInfo() == null) {
                 mViewHolder.setVisibility(R.id.llt_loding, View.VISIBLE);
             } else {
-                boolean isStartTX = UserDateUtils.getBoolean(Utils.getVersionName());
+                boolean isStartTX = GeneralDateUtils.getBoolean(Utils.getVersionName());
                 if (!isStartTX) {
                     // 开启新特性
-                    UserDateUtils.PutBoolean(Utils.getVersionName(), true);
+                    GeneralDateUtils.PutBoolean(Utils.getVersionName(), true);
                     startActivity(new Intent(TCApplication.mContext, NewVerTXActivity.class).putExtra("isMain", true));
                 } else {
                     StartPageModel mStartPageModel = NativieDataUtils.getStartPageModel(true);

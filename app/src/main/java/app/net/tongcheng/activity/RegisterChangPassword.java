@@ -10,8 +10,6 @@ import android.widget.EditText;
 
 import com.umeng.analytics.MobclickAgent;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,9 +23,8 @@ import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.Misc;
 import app.net.tongcheng.util.NativieDataUtils;
-import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.ToastUtil;
-import app.net.tongcheng.util.UserDateUtils;
+import app.net.tongcheng.util.GeneralDateUtils;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
 
@@ -78,10 +75,10 @@ public class RegisterChangPassword extends BaseActivity implements View.OnClickL
                     DialogUtil.showTipsDialog(this, "密码修改成功!", new DialogUtil.OnConfirmListener() {
                         @Override
                         public void clickConfirm() {
-                            boolean isStartTX = UserDateUtils.getBoolean(Utils.getVersionName());
+                            boolean isStartTX = GeneralDateUtils.getBoolean(Utils.getVersionName());
                             if (!isStartTX) {
                                 // 开启新特性
-                                UserDateUtils.PutBoolean(Utils.getVersionName(), true);
+                                GeneralDateUtils.PutBoolean(Utils.getVersionName(), true);
                                 RegisterChangPassword.this.startActivity(new Intent(TCApplication.mContext, NewVerTXActivity.class).putExtra("isMain", true));
                             } else {
                                 // 开启主页

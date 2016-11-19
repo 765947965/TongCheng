@@ -41,6 +41,7 @@ import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.CastToUtil;
 import app.net.tongcheng.util.ContentsUtil;
 import app.net.tongcheng.util.DialogUtil;
+import app.net.tongcheng.util.GeneralDateUtils;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.Utils;
@@ -159,37 +160,23 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
 
     private void louData() {
         // 上传本地通讯录
-        UpContentModel mUpContentModel = NativieDataUtils.getUpContentModel();
-        if (mUpContentModel == null || !NativieDataUtils.getTodyYMD().equals(mUpContentModel.getUpdate())) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    UpContentJSONModel mUpContentJSONModel = new UpContentJSONModel();
-                    List<ContentModel> mData = ContentsUtil.getContacts(TCApplication.mContext);
-                    if (mData == null || mData.size() == 0) return;
-                    mUpContentJSONModel.setContactlist(mData);
-                    mUpContentJSONModel.setMac(((TelephonyManager) TCApplication.mContext.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId());
-                    Message mMessage = new Message();
-                    mMessage.what = 10001;
-                    mMessage.obj = JSON.toJSONString(mUpContentJSONModel);
-                    mHandler.sendMessage(mMessage);
-                }
-            }).start();
-        }
+        canUpLoadContents();
+        // 更新msg
         MSGModel mMSGModel = NativieDataUtils.getMSGModel();
-//        if (mMSGModel == null || !NativieDataUtils.getTodyYMD().equals(mMSGModel.getUpdate())) {
-//            mOtherBusiness.getMSGModel(APPCationStation.LOADINGAD, "");
-//        }
         mOtherBusiness.getMSGModel(APPCationStation.LOADINGAD, "");
         if (mMSGModel != null && !TextUtils.isEmpty(mMSGModel.getUpdate_addr()) && !Utils.getVersionName().equals(mMSGModel.getUpdate_ver())) {
             TCApplication.isHasNEW = true;
             setTabHintSpotVisibility(4, View.VISIBLE);
         }
-        if (!OperationUtils.getBoolean(OperationUtils.walletPassword)) {//没有设置钱包密码 查询
+        //没有设置钱包密码 查询
+        if (!OperationUtils.getBoolean(OperationUtils.walletPassword)) {
             mOtherBusiness.getWalletPasswordType(APPCationStation.WALLETPASSWORD, "");
         }
     }
 
+    /**
+     * 检测是否有跳转
+     */
     private void goTo() {
         to = getIntent().getStringExtra("to");
         if (!TextUtils.isEmpty(to)) {
@@ -204,13 +191,62 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
         }
     }
 
+    /**
+     * 检测是否可以上传通讯录
+     */
+    private void canUpLoadContents() {
+        UpContentModel mUpContentModel = NativieDataUtils.getUpContentModel();
+        if (mUpContentModel == null || !NativieDataUtils.getTodyYMD().equals(mUpContentModel.getUpdate())) {
+            int mContentType = GeneralDateUtils.getInt(GeneralDateUtils.CONTACTS_SWITCH, false);
+            if (mContentType == 2) {
+                // 直接上传通讯录
+                upLoadContents();
+            } else if (mContentType == 0) {
+                // 用户还没有设置过是否上传通讯录 提示用户是否上传通讯录
+                DialogUtil.showTipsDialog(this, "提示", "读取通讯录匹配同城好友", "接受", "拒绝", new DialogUtil.OnConfirmListener() {
+                    @Override
+                    public void clickConfirm() {
+                        GeneralDateUtils.PutInt(GeneralDateUtils.CONTACTS_SWITCH, 2, false);
+                        upLoadContents();
+                    }
+
+                    @Override
+                    public void clickCancel() {
+                        GeneralDateUtils.PutInt(GeneralDateUtils.CONTACTS_SWITCH, 1, false);
+                    }
+                });
+            }
+        }
+    }
+
+    /**
+     * 执行读取通讯录
+     */
+    private void upLoadContents() {
+        // 读取通讯录并上传
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                UpContentJSONModel mUpContentJSONModel = new UpContentJSONModel();
+                List<ContentModel> mData = ContentsUtil.getContacts(TCApplication.mContext);
+                if (mData == null || mData.size() == 0) return;
+                mUpContentJSONModel.setContactlist(mData);
+                mUpContentJSONModel.setMac(((TelephonyManager) TCApplication.mContext.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId());
+                Message mMessage = new Message();
+                mMessage.what = 10001;
+                mMessage.obj = JSON.toJSONString(mUpContentJSONModel);
+                mHandler.sendMessage(mMessage);
+            }
+        }).start();
+    }
+
     @Override
     public void mHandDoSomeThing(Message msg) {
         switch (msg.what) {
-            case 10001:
+            case 10001://上传通讯录
                 mFriendBusiness.uploadContens(APPCationStation.SUMBIT, "", (String) msg.obj);
                 break;
-            case 10002:
+            case 10002://跳转
                 goTo();
                 break;
         }
@@ -219,14 +255,14 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
     @Override
     public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
         switch (mLoding_Type) {
-            case APPCationStation.SUMBIT:
+            case APPCationStation.SUMBIT://通讯录上传成功
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     UpContentModel mUpContentModel = (UpContentModel) mConnectResult.getObject();
                     mUpContentModel.setUpdate(NativieDataUtils.getTodyYMD());
                     NativieDataUtils.setUpContentModel(mUpContentModel);
                 }
                 break;
-            case APPCationStation.LOADINGAD:
+            case APPCationStation.LOADINGAD://MSG更新成功
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     MSGModel mMSGModel = (MSGModel) mConnectResult.getObject();
                     mMSGModel.setUpdate(NativieDataUtils.getTodyYMD());
@@ -256,7 +292,7 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
                     }
                 }
                 break;
-            case APPCationStation.WALLETPASSWORD:
+            case APPCationStation.WALLETPASSWORD://更新是否设置了钱包密码
                 if (mConnectResult != null && mConnectResult.getObject() != null) {
                     if (((BaseModel) mConnectResult.getObject()).getResult() == 81) {
                         OperationUtils.PutBoolean(OperationUtils.walletPassword, false);
@@ -390,6 +426,9 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
                     TCApplication.isHasNEW = true;
                     setTabHintSpotVisibility(4, View.VISIBLE);
                     sendEventBusMessage("MyFragment.Refresh");
+                    break;
+                case "canUpLoadContents":
+                    canUpLoadContents();
                     break;
             }
         }
