@@ -203,7 +203,7 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
                 upLoadContents();
             } else if (mContentType == 0) {
                 // 用户还没有设置过是否上传通讯录 提示用户是否上传通讯录
-                DialogUtil.showTipsDialog(this, "提示", "读取通讯录匹配同城好友", "接受", "拒绝", new DialogUtil.OnConfirmListener() {
+                DialogUtil.showTipsDialog(this, "提示", "同城商城请求读取系统通讯录,\r\n以匹配同城好友", "接受", "拒绝", new DialogUtil.OnConfirmListener() {
                     @Override
                     public void clickConfirm() {
                         GeneralDateUtils.PutInt(GeneralDateUtils.CONTACTS_SWITCH, 2, false);
