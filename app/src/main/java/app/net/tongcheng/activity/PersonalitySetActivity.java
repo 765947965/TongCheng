@@ -27,7 +27,7 @@ public class PersonalitySetActivity extends BaseActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.personality_set_layout);
-        setTitle("个性设置");
+        setTitle("通讯录开关");
         initView();
     }
 
