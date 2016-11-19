@@ -305,6 +305,10 @@
             android:name=".activity.PersonalitySetActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.InviterActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
 
         <!--小米推送-->

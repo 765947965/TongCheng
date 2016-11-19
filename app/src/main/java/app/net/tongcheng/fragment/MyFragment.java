@@ -23,6 +23,7 @@ import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.activity.AboutAPP;
 import app.net.tongcheng.activity.AccountSetActivity;
 import app.net.tongcheng.activity.FeedbackActivity;
+import app.net.tongcheng.activity.InviterActivity;
 import app.net.tongcheng.activity.MyUserInfoActivity;
 import app.net.tongcheng.activity.PersonalitySetActivity;
 import app.net.tongcheng.activity.PublicWebview;
@@ -152,7 +153,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
             case R.id.llt_gx://设置开启通讯录读取开关
                 startActivity(new Intent(TCApplication.mContext, PersonalitySetActivity.class));
                 break;
-            case R.id.llt_tjr://查看谁邀请我信息
+            case R.id.llt_tjr://查看我的邀请人信息
+                startActivity(new Intent(TCApplication.mContext, InviterActivity.class));
                 break;
         }
     }
