@@ -9,6 +9,7 @@ import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ChangeAccoutModel;
 import app.net.tongcheng.model.GetPassordModel;
+import app.net.tongcheng.model.InviteInfo;
 import app.net.tongcheng.model.MSGModel;
 import app.net.tongcheng.model.RegisterCode;
 import app.net.tongcheng.model.RegisterInviteflagModel;
@@ -296,6 +297,25 @@ public class OtherBusiness extends BaseBusiness {
         String sn = VerificationCode.getCode2();
         params.addQueryStringParameter("sn", sn);
         params.addQueryStringParameter("pwd", Misc.cryptDataByPwd(pwd.trim()));
+        params.addQueryStringParameter("sign", MD5.toMD5(sn + TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+    }
+
+    public void getInvitationCode(int mLoding_Type, String message) {
+        RequestParams params = new RequestParams(HttpUrls.URL + "ams/query_whoinviteme_v2");
+        String sn = VerificationCode.getCode2();
+        params.addQueryStringParameter("sn", sn);
+        params.addQueryStringParameter("sign", MD5.toMD5(sn + TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        goConnect(mLoding_Type, params, message, InviteInfo.class.getName());
+    }
+
+    public void setInvitationCode(int mLoding_Type, String message, String inviteflag) {
+        RequestParams params = new RequestParams(HttpUrls.URL + "ams/add_inviteflag_v2");
+        String sn = VerificationCode.getCode2();
+        params.addQueryStringParameter("sn", sn);
+        params.addQueryStringParameter("inviteflag", inviteflag);
         params.addQueryStringParameter("sign", MD5.toMD5(sn + TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         goConnect(mLoding_Type, params, message, BaseModel.class.getName());
