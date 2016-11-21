@@ -161,7 +161,7 @@ public class InputObjectDialog extends Dialog implements View.OnClickListener {
             disCut();
         }
         mType = InvestPayDialogType.PASSWORD;
-        mViewHolder.setText(R.id.tvTitle, "请输入交易密码");
+        mViewHolder.setText(R.id.tvTitle, "请输入钱包密码");
         mViewHolder.setText(R.id.tv_desc, mTitle);
         mViewHolder.setVisibility(R.id.tv_payment_amount, View.VISIBLE);
         mViewHolder.setText(R.id.tv_payment_amount, String.valueOf(payment_amount));
@@ -169,7 +169,7 @@ public class InputObjectDialog extends Dialog implements View.OnClickListener {
         mViewHolder.setVisibility(R.id.lly_pac_LeftTips, View.GONE);
         setInputType(false);
         edt_pd_input.setText("");
-        edt_pd_input.setHint("请输入交易密码");
+        edt_pd_input.setHint("请输入钱包密码");
         tv_password_forget.setTextColor(Color.parseColor("#fd7575"));
         mViewHolder.setText(R.id.tv_password_forget, "忘记密码");
         tv_password_forget.setEnabled(true);
@@ -266,7 +266,7 @@ public class InputObjectDialog extends Dialog implements View.OnClickListener {
     }
 
     /**
-     * 交易密码或者验证码提交失败
+     * 钱包密码或者验证码提交失败
      */
     public void submitInputFailure() {
         if (activity == null || activity.isFinishing()) {
@@ -312,7 +312,7 @@ public class InputObjectDialog extends Dialog implements View.OnClickListener {
                     }
                 } else {
                     if (TextUtils.isEmpty(input)) {
-                        ToastUtil.showToast("请输入交易密码");
+                        ToastUtil.showToast("请输入钱包密码");
                     } else {
                         if (mListener != null) {
                             mViewHolder.getView(R.id.btnSubmit).setEnabled(false);
