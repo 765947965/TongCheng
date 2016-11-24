@@ -53,6 +53,9 @@ public class ErrorInfoUtil {
             case 19:
                 message = "余额不足";
                 break;
+            case 21:
+                message = "不能填写本账号的邀请码";
+                break;
             case 22:
                 message = "邀请码不正确";
                 break;
