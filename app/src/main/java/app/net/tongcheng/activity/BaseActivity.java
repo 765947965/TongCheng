@@ -3,6 +3,7 @@ package app.net.tongcheng.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -56,7 +57,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
     private long lastClickTime;
     private boolean chechLoding = true;//是否检测登录状态
     private List<Callback.Cancelable> mCancelableList = new ArrayList<>();
-    public Handler mHandler = new Handler() {
+    public Handler mHandler = new Handler(Looper.myLooper()) {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);

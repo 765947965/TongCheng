@@ -80,7 +80,7 @@ public class ChangeNameActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         String temp = s.toString();
-        tjsum.setText(10 - temp.length() + "");
+        tjsum.setText(String.valueOf(10 - temp.length()));
     }
 
     @Override

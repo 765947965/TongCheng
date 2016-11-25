@@ -74,7 +74,7 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
                 TextView red_has_open_text = holder.getView(R.id.red_has_open_text);
                 TextView red_moneys = holder.getView(R.id.red_moneys);
                 ImageView red_has_open_image = holder.getView(R.id.red_has_open_image);
-                red_moneys.setText(Double.parseDouble(itemdata.getMoney().replace(",", "")) / (double) 100 + "元");
+                red_moneys.setText(String.valueOf(Double.parseDouble(itemdata.getMoney().replace(",", "")) / (double) 100) + "元");
                 if (itemdata.getDirect().equals("sended")) {
                     red_type_text.setText("发出: " + Utils.sdformat_2.format(Utils.sdformat.parse(itemdata.getCreate_time().trim())));
                     String status = itemdata.getStatus();

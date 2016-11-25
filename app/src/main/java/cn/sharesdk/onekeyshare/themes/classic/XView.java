@@ -13,34 +13,37 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.View;
 
-/** 编辑页面中删除图片“X”按钮 */
+/**
+ * 编辑页面中删除图片“X”按钮
+ */
 public class XView extends View {
-	private float ratio;
+    private float ratio;
+    private Paint paint1, paint2;
 
-	public XView(Context context) {
-		super(context);
-	}
+    public XView(Context context) {
+        super(context);
+        paint1 = new Paint();
+        paint1.setAntiAlias(true);
+        paint1.setColor(0xffa0a0a0);
+        paint2 = new Paint();
+        paint2.setAntiAlias(true);
+        paint2.setStrokeWidth(3f * ratio);
+        paint2.setColor(0xffffffff);
+    }
 
-	public void setRatio(float ratio) {
-		this.ratio = ratio;
-	}
+    public void setRatio(float ratio) {
+        this.ratio = ratio;
+    }
 
-	protected void onDraw(Canvas canvas) {
-		int width = getWidth() / 2;
-		int height = getHeight() / 2;
+    protected void onDraw(Canvas canvas) {
+        int width = getWidth() / 2;
+        int height = getHeight() / 2;
 
-		Paint paint = new Paint();
-		paint.setAntiAlias(true);
-		paint.setColor(0xffa0a0a0);
-		canvas.drawRect(width, 0, getWidth(), height, paint);
+        canvas.drawRect(width, 0, getWidth(), height, paint1);
 
-		paint = new Paint();
-		paint.setAntiAlias(true);
-		paint.setStrokeWidth(3f * ratio);
-		paint.setColor(0xffffffff);
-		float left = 8f * ratio;
-		canvas.drawLine(width + left, left, getWidth() - left, width - left, paint);
-		canvas.drawLine(width + left, width - left, getWidth() - left, left, paint);
-	}
+        float left = 8f * ratio;
+        canvas.drawLine(width + left, left, getWidth() - left, width - left, paint2);
+        canvas.drawLine(width + left, width - left, getWidth() - left, left, paint2);
+    }
 
 }

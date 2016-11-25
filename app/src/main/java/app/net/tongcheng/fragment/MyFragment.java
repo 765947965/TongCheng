@@ -2,20 +2,12 @@ package app.net.tongcheng.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
-
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 
 import app.net.tongcheng.Business.MyBusiness;
 import app.net.tongcheng.R;
@@ -26,14 +18,12 @@ import app.net.tongcheng.activity.FeedbackActivity;
 import app.net.tongcheng.activity.InviterActivity;
 import app.net.tongcheng.activity.MyUserInfoActivity;
 import app.net.tongcheng.activity.PersonalitySetActivity;
-import app.net.tongcheng.activity.PublicWebview;
 import app.net.tongcheng.activity.ShowImageActivity;
 import app.net.tongcheng.activity.WalletAccountSetActivity;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.UserMoreInfoModel;
 import app.net.tongcheng.util.APPCationStation;
-import app.net.tongcheng.util.FriendBeanUtils;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ViewHolder;
 

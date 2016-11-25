@@ -172,7 +172,6 @@
                 android:textSize="15sp" />
 
             <RelativeLayout
-                android:id="@+id/reddetails_from_moneyrel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

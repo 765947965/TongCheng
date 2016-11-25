@@ -18,8 +18,9 @@ android {
         applicationId "app.net.tongchengzj"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 312
-        versionName "3.1.2"
+        versionCode 313
+        versionName "3.1.3"
+        resConfigs "zh" //只保留中文支持,去掉其它国际化配置
         ndk {
             moduleName "jniTongCheng"
             ldLibs "log", "z", "m"
@@ -30,6 +31,7 @@ android {
         release {
             signingConfig signingConfigs.defaultSign
             minifyEnabled true
+            shrinkResources true //去掉无用资源
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 

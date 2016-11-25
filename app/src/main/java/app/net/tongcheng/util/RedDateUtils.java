@@ -41,7 +41,7 @@ public class RedDateUtils {
         } else {
             editor.putString(key, value);
         }
-        editor.commit();
+        editor.apply();
     }
 
     public static String getString(String key) {
@@ -67,7 +67,7 @@ public class RedDateUtils {
         } else {
             editor.putInt(key, value);
         }
-        editor.commit();
+        editor.apply();
     }
 
     public static int getInt(String key) {
@@ -93,7 +93,7 @@ public class RedDateUtils {
         } else {
             editor.putBoolean(key, value);
         }
-        editor.commit();
+        editor.apply();
     }
 
     public static boolean getBoolean(String key) {

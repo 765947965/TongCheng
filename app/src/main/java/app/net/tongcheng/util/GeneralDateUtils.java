@@ -43,7 +43,7 @@ public class GeneralDateUtils {
         } else {
             editor.putString(key, value);
         }
-        editor.commit();
+        editor.apply();
     }
 
     public static String getString(String key) {
@@ -69,7 +69,7 @@ public class GeneralDateUtils {
         } else {
             editor.putInt(key, value);
         }
-        editor.commit();
+        editor.apply();
     }
 
     public static int getInt(String key) {
@@ -95,7 +95,7 @@ public class GeneralDateUtils {
         } else {
             editor.putBoolean(key, value);
         }
-        editor.commit();
+        editor.apply();
     }
 
     public static boolean getBoolean(String key) {

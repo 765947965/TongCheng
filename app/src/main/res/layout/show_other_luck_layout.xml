@@ -64,7 +64,6 @@
                 android:visibility="invisible" />
 
             <ImageView
-                android:id="@+id/pingpu"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_centerVertical="true"
@@ -161,7 +160,6 @@
             android:textSize="12sp" />
 
         <RelativeLayout
-            android:id="@+id/zjerelayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone">

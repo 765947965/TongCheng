@@ -7,8 +7,8 @@ import app.net.tongcheng.TCApplication;
 
 /**
  * @author: xiewenliang
- * @Filename:
- * @Description:
+ * @Filename: DataUtil
+ * @Description: 数据存储
  * @Copyright: Copyright (c) 2016 Tuandai Inc. All rights reserved.
  * @date: 2016/4/6 11:42
  */
@@ -33,7 +33,7 @@ public class DataUtil {
     public static void putString(String key, String value) {
         SharedPreferences.Editor editor = getSharedPreference().edit();
         editor.putString(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     public static String getString(String key) {
@@ -43,7 +43,7 @@ public class DataUtil {
     public static void putInt(String key, int value) {
         SharedPreferences.Editor editor = getSharedPreference().edit();
         editor.putInt(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     public static int getInt(String key) {
@@ -53,7 +53,7 @@ public class DataUtil {
     public static void putBoolean(String key, boolean value) {
         SharedPreferences.Editor editor = getSharedPreference().edit();
         editor.putBoolean(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     public static boolean getBoolean(String key) {

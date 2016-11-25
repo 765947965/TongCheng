@@ -2,6 +2,7 @@ package app.net.tongcheng.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -35,7 +36,7 @@ public abstract class BaseFragment extends Fragment implements CancelableClear {
 
     private List<Callback.Cancelable> mCancelableList = new ArrayList<>();
 
-    public Handler mHandler = new Handler() {
+    public Handler mHandler = new Handler(Looper.myLooper()) {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);

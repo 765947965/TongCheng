@@ -66,7 +66,7 @@ public class TCApplication extends Application {
         if (mUserInfo != null) {
             MobclickAgent.onProfileSignIn(Misc.cryptDataByPwd(mUserInfo.getPhone() + mUserInfo.getPwd()));//登入友盟账户
         }
-        OperationUtils.getSharedPreference().edit().clear().commit();// 清楚用户数据
+        OperationUtils.getSharedPreference().edit().clear().apply();// 清楚用户数据
         OperationUtils.setUserInfo(mUserInfo == null ? "" : JSON.toJSONString(mUserInfo));
         TCApplication.mUserInfo = mUserInfo;
     }

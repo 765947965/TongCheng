@@ -32,7 +32,7 @@ public class OperationUtils {
     }
 
     public static void setUserInfo(String userinfo) {
-        getSharedPreference().edit().putString(USERINFO, userinfo).commit();
+        getSharedPreference().edit().putString(USERINFO, userinfo).apply();
     }
 
     public static String getUserInfo() {
@@ -50,7 +50,7 @@ public class OperationUtils {
         } else {
             editor.putString(key, value);
         }
-        editor.commit();
+        editor.apply();
     }
 
     public static String getString(String key) {
@@ -76,7 +76,7 @@ public class OperationUtils {
         } else {
             editor.putInt(key, value);
         }
-        editor.commit();
+        editor.apply();
     }
 
     public static int getInt(String key) {
@@ -102,7 +102,7 @@ public class OperationUtils {
         } else {
             editor.putBoolean(key, value);
         }
-        editor.commit();
+        editor.apply();
     }
 
     public static boolean getBoolean(String key) {

@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.util.AttributeSet;
@@ -38,7 +39,7 @@ public class BannerView extends FrameLayout {
     private int items;
     private ScheduledExecutorService mSEService;
 
-    private Handler bannerHandler = new Handler() {
+    private Handler bannerHandler = new Handler(Looper.myLooper()) {
 
         @Override
         public void handleMessage(Message msg) {

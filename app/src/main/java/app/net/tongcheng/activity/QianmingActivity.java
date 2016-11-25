@@ -80,7 +80,7 @@ public class QianmingActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         String temp = s.toString();
-        tjsum.setText(30 - temp.length() + "");
+        tjsum.setText(String.valueOf(30 - temp.length()));
     }
 
     @Override

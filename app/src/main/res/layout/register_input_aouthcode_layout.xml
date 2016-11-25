@@ -26,7 +26,6 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/registyzm"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:orientation="horizontal">
@@ -82,7 +81,6 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/r42_ccode_ts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"

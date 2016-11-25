@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:drawable="@drawable/register_button_box_pressed" android:state_pressed="true"></item>
-    <item android:drawable="@drawable/register_button_box" android:state_enabled="true"></item>
-    <item android:drawable="@drawable/register_button_box_enabled" android:state_enabled="false"></item>
-    <item android:drawable="@drawable/register_button_box" />
-</selector>

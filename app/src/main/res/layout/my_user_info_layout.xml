@@ -91,7 +91,6 @@
                 android:background="@color/dividing_line_light" />
 
             <RelativeLayout
-                android:id="@+id/rlt_num"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="14.6dp">
@@ -192,7 +191,6 @@
                     android:src="@drawable/ic_enter" />
 
                 <TextView
-                    android:id="@+id/tv_password"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -347,7 +345,6 @@
                     android:src="@drawable/ic_enter" />
 
                 <TextView
-                    android:id="@+id/tv_signature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"

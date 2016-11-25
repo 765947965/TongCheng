@@ -39,7 +39,6 @@
             android:src="@drawable/common_icon_searchbox_magnifier_2" />
 
         <ImageView
-            android:id="@+id/cleartext"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
