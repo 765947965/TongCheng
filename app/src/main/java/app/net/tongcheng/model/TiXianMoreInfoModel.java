@@ -7,7 +7,7 @@ public class TiXianMoreInfoModel extends BaseModel {
 
     /**
      * message : 请求成功
-     * data : {"id":"5","field_account_id":"3","user_name":"600002","card_id":"1","money":"0","balance_before":"50000","balance_after":"50000","orderno":"P201606122051141890600002","status":"finish","reason":"","is_delete":"0","phone_num":"15625589537","addtime":"2016-06-12 20:51:14","pay_time":"2016-06-13 21:45:02","finish_time":"2016-06-13 21:45:06","bank_name":"中国银行","bank_card_no":"6228480402564890018","logo_url":"http://pay.8hbao.com:8060/recharge/images/bank_logo/3.png"}
+     * data : {"id":"5","field_account_id":"3","user_name":"600002","card_id":"1","money":"0","balance_before":"50000","balance_after":"50000","orderno":"P201606122051141890600002","status":"finish","reason":"","is_delete":"0","phone_num":"15625589537","addtime":"2016-06-12 20:51:14","pay_time":"2016-06-13 21:45:02","finish_time":"2016-06-13 21:45:06","bank_name":"中国银行","bank_card_no":"6228480402564890018","logo_url":"http://pay.8hbao.com/recharge/images/bank_logo/3.png"}
      */
     /**
      * id : 5
@@ -27,7 +27,7 @@ public class TiXianMoreInfoModel extends BaseModel {
      * finish_time : 2016-06-13 21:45:06
      * bank_name : 中国银行
      * bank_card_no : 6228480402564890018
-     * logo_url : http://pay.8hbao.com:8060/recharge/images/bank_logo/3.png
+     * logo_url : http://pay.8hbao.com/recharge/images/bank_logo/3.png
      */
 
     private DataBean data;

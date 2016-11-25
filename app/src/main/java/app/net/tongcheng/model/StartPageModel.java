@@ -21,7 +21,7 @@ public class StartPageModel extends BaseModel {
      * end_time : 202006302359
      * pic_ldpi : image/1/startpage.jpg
      * show_duration : 2
-     * pic_prefix : http://m.zjtytx.com:8060/
+     * pic_prefix : http://m.zjtytx.com/
      * pic_hdpi : image/1/startpage.jpg
      * pic_xhdpi_md5 : 1211f85608ca97c04e7fb56471a08ddd
      * pic_mdpi : image/1/startpage.jpg
