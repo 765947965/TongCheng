@@ -159,6 +159,7 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        if (mUserMoreInfoModel == null) return;
         switch (v.getId()) {
             case R.id.rlt_head_image:
                 ImageSelector.open(this, getImageConfig());

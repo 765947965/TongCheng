@@ -227,6 +227,7 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        if (mLifeDataModel == null) return;
         LifeDataModel.ItemsBean item = null;
         switch (v.getId()) {
             case R.id.flt_life_head_1:
