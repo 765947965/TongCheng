@@ -8,8 +8,6 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.SparseArray;
 
-import org.xutils.common.Callback;
-
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
@@ -80,11 +78,11 @@ public class BaseBusiness implements ConnectListener {
         return params;
     }
 
-    public void goConnect(int mLoding_Type, RequestParams params, String message, String className) {
-        goConnect(mLoding_Type, params, message, className, 0);
+    public void goConnect(Activity mActivity, int mLoding_Type, RequestParams params, String message, String className) {
+        goConnect(mActivity, mLoding_Type, params, message, className, 0);
     }
 
-    public void goConnect(final int mLoding_Type, final RequestParams params, final String message, final String className, long delaytime) {
+    public void goConnect(final Activity mActivity, final int mLoding_Type, final RequestParams params, final String message, final String className, long delaytime) {
         if (!TextUtils.isEmpty(message)) {
             Dialog mMessage = DialogUtil.loadingDialog(mActivity, message);
             if (mMessage != null) {
@@ -99,19 +97,19 @@ public class BaseBusiness implements ConnectListener {
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mCancelableClear.addCancelable(ConnectUtil.Connect(mLoding_Type, params, message, BaseBusiness.this, className));
+                    mCancelableClear.addCancelable(ConnectUtil.Connect(mActivity, mLoding_Type, params, message, BaseBusiness.this, className));
                 }
             }, delaytime);
         } else {
-            mCancelableClear.addCancelable(ConnectUtil.Connect(mLoding_Type, params, message, this, className));
+            mCancelableClear.addCancelable(ConnectUtil.Connect(mActivity, mLoding_Type, params, message, this, className));
         }
     }
 
-    public void goPostConnect(int mLoding_Type, RequestParams params, String message, String className) {
-        goPostConnect(mLoding_Type, params, message, className, 0);
+    public void goPostConnect(Activity mActivity, int mLoding_Type, RequestParams params, String message, String className) {
+        goPostConnect(mActivity, mLoding_Type, params, message, className, 0);
     }
 
-    public void goPostConnect(final int mLoding_Type, final RequestParams params, final String message, final String className, long delaytime) {
+    public void goPostConnect(final Activity mActivity, final int mLoding_Type, final RequestParams params, final String message, final String className, long delaytime) {
         if (!TextUtils.isEmpty(message)) {
             Dialog mMessage = DialogUtil.loadingDialog(mActivity, message);
             if (mMessage != null) {
@@ -126,11 +124,11 @@ public class BaseBusiness implements ConnectListener {
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mCancelableClear.addCancelable(ConnectUtil.PostConnect(mLoding_Type, params, message, BaseBusiness.this, className));
+                    mCancelableClear.addCancelable(ConnectUtil.PostConnect(mActivity, mLoding_Type, params, message, BaseBusiness.this, className));
                 }
             }, delaytime);
         } else {
-            mCancelableClear.addCancelable(ConnectUtil.PostConnect(mLoding_Type, params, message, this, className));
+            mCancelableClear.addCancelable(ConnectUtil.PostConnect(mActivity, mLoding_Type, params, message, this, className));
         }
     }
 
@@ -162,7 +160,7 @@ public class BaseBusiness implements ConnectListener {
     }
 
     @Override
-    public void ConnectOnError(int mLoding_Type, Throwable ex, boolean isOnCallback) {
+    public void ConnectOnError(int mLoding_Type) {
         Dialog mMessageold = mMessagesDialog.get(mLoding_Type);
         if (mMessageold != null && mMessageold.isShowing()) {
             mMessageold.dismiss();
@@ -173,24 +171,5 @@ public class BaseBusiness implements ConnectListener {
         mMessage.what = APPCationStation.FAIL;
         mMessage.setData(mBundle);
         mHandler.sendMessage(mMessage);
-    }
-
-    @Override
-    public void ConnectOnCancelled(int mLoding_Type, Callback.CancelledException cex) {
-        Dialog mMessageold = mMessagesDialog.get(mLoding_Type);
-        if (mMessageold != null && mMessageold.isShowing()) {
-            mMessageold.dismiss();
-        }
-        Bundle mBundle = new Bundle();
-        mBundle.putInt("mLoding_Type", mLoding_Type);
-        Message mMessage = new Message();
-        mMessage.what = APPCationStation.FAIL;
-        mMessage.setData(mBundle);
-        mHandler.sendMessage(mMessage);
-    }
-
-    @Override
-    public void ConnectOnFinished(int mLoding_Type) {
-
     }
 }

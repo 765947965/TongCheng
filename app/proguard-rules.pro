@@ -241,3 +241,10 @@
 
  # 小米推送
  -keep class com.xiaomi.mipush.sdk.DemoMessageReceiver {*;}
+
+#okhttp
+-dontwarn okhttp3.**
+-keep class okhttp3.**{*;}
+-dontwarn okio.**
+-keep class okio.**{*;}
+#okio

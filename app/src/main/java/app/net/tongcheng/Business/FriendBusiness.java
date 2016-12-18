@@ -26,27 +26,27 @@ public class FriendBusiness extends BaseBusiness {
         RequestParams params = new RequestParams(HttpUrls.COMMITFRIEND);
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addBodyParameter("aixinContact", data);
-        goPostConnect(mLoding_Type, params, message, UpContentModel.class.getName());
+        goPostConnect(mActivity, mLoding_Type, params, message, UpContentModel.class.getName());
     }
 
     public void getFriends(int mLoding_Type, String message, String ver) {
         RequestParams params = new RequestParams(HttpUrls.GETAixinFriends);
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("ver", "1.0");
-        goConnect(mLoding_Type, params, message, FriendModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, FriendModel.class.getName());
     }
 
     public void getFriendsInfo(int mLoding_Type, String message, String data) {
         RequestParams params = new RequestParams(HttpUrls.GETAixinFriendInfo);
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addBodyParameter("friends", data);
-        goPostConnect(mLoding_Type, params, message, UpFriendInfoModel.class.getName());
+        goPostConnect(mActivity, mLoding_Type, params, message, UpFriendInfoModel.class.getName());
     }
 
     public void checkFriend(int mLoding_Type, String message, String sdata){
         RequestParams params = new RequestParams(HttpUrls.CHECKF);
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("account", sdata);
-        goConnect(mLoding_Type, params, message, UpFriendInfoModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, UpFriendInfoModel.class.getName());
     }
 }

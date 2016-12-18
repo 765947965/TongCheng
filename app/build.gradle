@@ -56,7 +56,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.android.support:design:22.2.1'
     compile 'com.android.support:recyclerview-v7:22.2.1'
-    compile 'org.xutils:xutils:3.3.22'//https://github.com/wyouflf/xUtils3
+    compile 'com.lzy.net:okgo:2.1.4'//https://github.com/jeasonlzy/okhttp-OkGo
     compile 'com.wang.avi:library:1.0.1'//进度条 https://github.com/81813780/AVLoadingIndicatorView
     compile 'com.nineoldandroids:library:2.4.0'//进度条
     compile 'com.github.markushi:android-ui:1.2'//UI

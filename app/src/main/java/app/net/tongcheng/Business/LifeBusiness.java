@@ -33,7 +33,7 @@ public class LifeBusiness extends BaseBusiness {
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("ver", "1.0");
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
-        goConnect(mLoding_Type, params, message, LifeDataModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, LifeDataModel.class.getName());
     }
 
     public void getADData(int mLoding_Type, String message) {
@@ -44,6 +44,6 @@ public class LifeBusiness extends BaseBusiness {
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("pictype", "4");
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
-        goConnect(mLoding_Type, params, message, ADListModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, ADListModel.class.getName());
     }
 }

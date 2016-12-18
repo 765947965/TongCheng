@@ -28,7 +28,7 @@ public class ShareBusiness extends BaseBusiness {
         RequestParams params = new RequestParams(HttpUrls.ShareTips);
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
-        goConnect(mLoding_Type, params, message, ShareTipsModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, ShareTipsModel.class.getName());
     }
 
     public void getShareCode(int mLoding_Type, String message) {
@@ -42,7 +42,7 @@ public class ShareBusiness extends BaseBusiness {
         params.addQueryStringParameter("model", Utils.getModel());
         params.addQueryStringParameter("product", Common.BrandName);
         params.addQueryStringParameter("brandname", Common.BrandName);
-        goConnect(mLoding_Type, params, message, ShareCodeModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, ShareCodeModel.class.getName());
     }
 
 }

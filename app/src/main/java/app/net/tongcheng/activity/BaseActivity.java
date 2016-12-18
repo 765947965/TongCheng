@@ -7,6 +7,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bugtags.library.Bugtags;
+import com.lzy.okgo.OkGo;
 import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -191,11 +193,12 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        for (ConnectCallInterface mCancelable : mCancelableList) {
-            if (mCancelable != null) {
-                mCancelable.cancel();
-            }
-        }
+//        for (ConnectCallInterface mCancelable : mCancelableList) {
+//            if (mCancelable != null) {
+//                mCancelable.cancel();
+//            }
+//        }
+        OkGo.getInstance().cancelTag(this);//取消请求
         if (isRegistEventBus) {
             EventBus.getDefault().unregister(this);
         }
@@ -203,7 +206,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
 
     @Override
     public void addCancelable(ConnectCallInterface mCancelable) {
-        mCancelableList.add(mCancelable);
+//        mCancelableList.add(mCancelable);//废弃
     }
 
     @Override

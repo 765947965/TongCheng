@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class Common {
+	public static boolean isDebugModel = true;
+	public static String tag = "TCdebug";
 	public static final String SIGN_KEY = "&%&aicall$#$";
 	public static final String BrandName = "aixin";
 	public static final int LasMine = 60;

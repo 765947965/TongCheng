@@ -56,17 +56,17 @@ public abstract class BaseFragment extends Fragment implements CancelableClear {
 
     @Override
     public void addCancelable(ConnectCallInterface mCancelable) {
-        mCancelableList.add(mCancelable);
+//        mCancelableList.add(mCancelable);//废弃
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        for (ConnectCallInterface mCancelable : mCancelableList) {
-            if (mCancelable != null) {
-                mCancelable.cancel();
-            }
-        }
+//        for (ConnectCallInterface mCancelable : mCancelableList) {
+//            if (mCancelable != null) {
+//                mCancelable.cancel();
+//            }
+//        }
     }
 
     @Override

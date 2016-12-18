@@ -8,6 +8,8 @@ import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.bugtags.library.Bugtags;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.cache.CacheMode;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -15,11 +17,11 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.umeng.analytics.MobclickAgent;
 import com.xiaomi.mipush.sdk.MiPushClient;
 
-import org.xutils.x;
-
 import java.util.List;
+import java.util.logging.Level;
 
 import app.net.tongcheng.model.UserInfo;
+import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.Misc;
 import app.net.tongcheng.util.OperationUtils;
 
@@ -51,8 +53,7 @@ public class TCApplication extends Application {
             if (!TextUtils.isEmpty(userinfo)) {
                 TCApplication.mUserInfo = JSON.parseObject(userinfo, UserInfo.class);
             }
-            x.Ext.init(this);
-            x.Ext.setDebug(false); // 是否输出debug日志
+            initOkGo();
             initImageLoader();
         }
     }
@@ -69,6 +70,17 @@ public class TCApplication extends Application {
         OperationUtils.getSharedPreference().edit().clear().apply();// 清楚用户数据
         OperationUtils.setUserInfo(mUserInfo == null ? "" : JSON.toJSONString(mUserInfo));
         TCApplication.mUserInfo = mUserInfo;
+    }
+
+    private void initOkGo() {
+        OkGo.init(this);
+        OkGo mOkGo = OkGo.getInstance();
+        mOkGo.setCertificates();
+        if (Common.isDebugModel) mOkGo.debug(Common.tag, Level.INFO, true);
+        mOkGo.setConnectTimeout(20000);  //全局的连接超时时间
+        mOkGo.setReadTimeOut(20000);    //全局的读取超时时间
+        mOkGo.setWriteTimeOut(20000);    //全局的写入超时时间
+        mOkGo.setCacheMode(CacheMode.NO_CACHE);
     }
 
     /**

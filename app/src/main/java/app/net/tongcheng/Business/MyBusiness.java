@@ -31,7 +31,7 @@ public class MyBusiness extends BaseBusiness {
         RequestParams params = new RequestParams(HttpUrls.getUserInfo);
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("ver", "1.0");
-        goConnect(mLoding_Type, params, message, UserMoreInfoModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, UserMoreInfoModel.class.getName());
     }
 
     public void upImage(int mLoding_Type, String message, File file) {
@@ -39,7 +39,7 @@ public class MyBusiness extends BaseBusiness {
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.setMultipart(true);
         params.addFileParameter("msg", file);
-        goPostConnect(mLoding_Type, params, message, UserMoreInfoModel.class.getName());
+        goPostConnect(mActivity, mLoding_Type, params, message, UserMoreInfoModel.class.getName());
     }
 
     public void upOtherUserInfo(int mLoding_Type, String message, String ver, String data) {
@@ -47,7 +47,7 @@ public class MyBusiness extends BaseBusiness {
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("ver", TextUtils.isEmpty(ver) ? "1.0" : ver);
         params.addBodyParameter("userprofile", data);
-        goPostConnect(mLoding_Type, params, message, UserMoreInfoModel.class.getName());
+        goPostConnect(mActivity, mLoding_Type, params, message, UserMoreInfoModel.class.getName());
     }
 
     public void sendProB(int mLoding_Type, String message, String title, String advice) {
@@ -61,6 +61,6 @@ public class MyBusiness extends BaseBusiness {
         params.addBodyParameter("v", Utils.getVersionName());
         params.addBodyParameter("title", title);
         params.addBodyParameter("advice", advice);
-        goPostConnect(mLoding_Type, params, message, BaseModel.class.getName());
+        goPostConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
     }
 }

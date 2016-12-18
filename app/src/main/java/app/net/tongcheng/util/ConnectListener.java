@@ -1,6 +1,5 @@
 package app.net.tongcheng.util;
 
-import org.xutils.common.Callback;
 
 import app.net.tongcheng.model.ConnectResult;
 
@@ -14,7 +13,5 @@ import app.net.tongcheng.model.ConnectResult;
  */
 public interface ConnectListener {
     void ConnectOnSuccess(int mLoding_Type, ConnectResult mConnectResult);
-    void ConnectOnError(int mLoding_Type, Throwable ex, boolean isOnCallback);
-    void ConnectOnCancelled(int mLoding_Type, Callback.CancelledException cex);
-    void ConnectOnFinished(int mLoding_Type);
+    void ConnectOnError(int mLoding_Type);
 }

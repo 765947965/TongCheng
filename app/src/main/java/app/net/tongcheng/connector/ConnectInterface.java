@@ -1,5 +1,7 @@
 package app.net.tongcheng.connector;
 
+import android.app.Activity;
+
 import app.net.tongcheng.util.ConnectListener;
 import app.net.tongcheng.util.RequestParams;
 
@@ -12,6 +14,6 @@ import app.net.tongcheng.util.RequestParams;
  */
 
 public interface ConnectInterface {
-    ConnectCallInterface postNet(int mLoding_Type, RequestParams params, String message, ConnectListener mConnectListener, String className);
-    ConnectCallInterface getNet(int mLoding_Type, RequestParams params, String message, ConnectListener mConnectListener, String className);
+    ConnectCallInterface postNet(Activity mActivity, int mLoding_Type, RequestParams params, String message, ConnectListener mConnectListener, String className);
+    ConnectCallInterface getNet(Activity mActivity, int mLoding_Type, RequestParams params, String message, ConnectListener mConnectListener, String className);
 }

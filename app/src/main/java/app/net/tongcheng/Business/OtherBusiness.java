@@ -45,7 +45,7 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("account", phone);
         params.addQueryStringParameter("uuid", TCApplication.mRegId);
         params.removeParameter("phone");
-        goConnect(mLoding_Type, params, message, UserInfo.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, UserInfo.class.getName());
     }
 
     /**
@@ -61,7 +61,7 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("account", TCApplication.getmUserInfo().getPhone());
         params.addQueryStringParameter("pv", "android");
         params.addQueryStringParameter("sign", MD5.toMD5(sn + TCApplication.getmUserInfo().getPhone() + Common.SIGN_KEY));
-        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
     }
 
     /**
@@ -78,7 +78,7 @@ public class OtherBusiness extends BaseBusiness {
         params.removeParameter("pv");
         params.removeParameter("v");
         params.removeParameter("netmode");
-        goConnect(mLoding_Type, params, message, RegisterInviteflagModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, RegisterInviteflagModel.class.getName());
     }
 
     /**
@@ -91,7 +91,7 @@ public class OtherBusiness extends BaseBusiness {
     public void getRegisterAouthCode(int mLoding_Type, String message, String phone) {
         RequestParams params = getRequestParams(HttpUrls.REG_GETCODE, phone, null);
         params.removeParameter("netmode");
-        goConnect(mLoding_Type, params, message, RegisterCode.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, RegisterCode.class.getName());
     }
 
     /**
@@ -110,7 +110,7 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("inviteflag", inviteflag);
         params.addQueryStringParameter("authcode", authcode);
         params.removeParameter("netmode");
-        goConnect(mLoding_Type, params, message, UserInfo.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, UserInfo.class.getName());
     }
 
     /**
@@ -128,7 +128,7 @@ public class OtherBusiness extends BaseBusiness {
         params.removeParameter("brandname");
         params.addQueryStringParameter("old_pwd", TCApplication.getmUserInfo().getPwd());
         params.addQueryStringParameter("new_pwd", Misc.cryptDataByPwd(newPassword.trim()));
-        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
     }
 
     /**
@@ -146,7 +146,7 @@ public class OtherBusiness extends BaseBusiness {
         params.removeParameter("brandname");
         params.addQueryStringParameter("old_pwd", oldPassword);
         params.addQueryStringParameter("new_pwd", Misc.cryptDataByPwd(newPassword.trim()));
-        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
     }
 
     /**
@@ -164,7 +164,7 @@ public class OtherBusiness extends BaseBusiness {
         params.removeParameter("netmode");
         params.addQueryStringParameter("pix_level", "mdpi");
         params.addQueryStringParameter("ver", "1.0");
-        goConnect(mLoding_Type, params, message, StartPageModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, StartPageModel.class.getName());
     }
 
 
@@ -181,7 +181,7 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("model", Utils.getModel());
         params.addQueryStringParameter("product", Common.BrandName);
         params.addQueryStringParameter("brandname", Common.BrandName);
-        goConnect(mLoding_Type, params, message, RegisterCode.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, RegisterCode.class.getName());
     }
 
 
@@ -198,7 +198,7 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("model", Utils.getModel());
         params.addQueryStringParameter("product", Common.BrandName);
         params.addQueryStringParameter("authcode", authcode);
-        goConnect(mLoding_Type, params, message, GetPassordModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, GetPassordModel.class.getName());
     }
 
 
@@ -212,7 +212,7 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("product", Common.BrandName);
         params.addQueryStringParameter("brandname", Common.BrandName);
         params.addQueryStringParameter("uuid", TCApplication.mRegId);
-        goConnect(mLoding_Type, params, message, MSGModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, MSGModel.class.getName());
     }
 
     public void getChangeAccoutCode(int mLoding_Type, String message, String code) {
@@ -221,7 +221,7 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("message", "您好，本次操作的验证码为：" + code);
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getPhone() + Common.SIGN_KEY));
         params.addQueryStringParameter("brandname", Common.BrandName);
-        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
     }
 
     public void changeAccout(int mLoding_Type, String message, String old_phone, String new_phone, String pwd) {
@@ -239,7 +239,7 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("old_phone", old_phone);
         params.addQueryStringParameter("new_phone", new_phone);
         params.addQueryStringParameter("pwd", Misc.cryptDataByPwd(pwd));
-        goConnect(mLoding_Type, params, message, ChangeAccoutModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, ChangeAccoutModel.class.getName());
     }
 
     public void getWalletPasswordType(int mLoding_Type, String message) {
@@ -248,7 +248,7 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("sn", sn);
         params.addQueryStringParameter("sign", MD5.toMD5(sn + TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
-        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
     }
 
     public void setWalletPassword(int mLoding_Type, String message, String password) {
@@ -258,7 +258,7 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("pwd", Misc.cryptDataByPwd(password.trim()));
         params.addQueryStringParameter("sign", MD5.toMD5(sn + TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
-        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
     }
 
     public void changeWalletPassword(int mLoding_Type, String message, String old_Pwd, String new_pwd) {
@@ -269,7 +269,7 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("new_pwd", Misc.cryptDataByPwd(new_pwd.trim()));
         params.addQueryStringParameter("sign", MD5.toMD5(sn + TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
-        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
     }
 
     public void getCodeRetrieveWalletPassword(int mLoding_Type, String message, String phone) {
@@ -278,7 +278,7 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("sn", sn);
         params.addQueryStringParameter("phone", phone);
         params.addQueryStringParameter("sign", MD5.toMD5(sn + phone + Common.SIGN_KEY));
-        goConnect(mLoding_Type, params, message, RegisterCode.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, RegisterCode.class.getName());
     }
 
     public void getRetrieveWalletPassword(int mLoding_Type, String message, String account, String authcode) {
@@ -288,7 +288,7 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("account", account);
         params.addQueryStringParameter("authcode", authcode);
         params.addQueryStringParameter("sign", MD5.toMD5(sn + account + Common.SIGN_KEY));
-        goConnect(mLoding_Type, params, message, GetPassordModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, GetPassordModel.class.getName());
     }
 
     public void checkWalletPassword(int mLoding_Type, String message, String pwd) {
@@ -298,7 +298,7 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("pwd", Misc.cryptDataByPwd(pwd.trim()));
         params.addQueryStringParameter("sign", MD5.toMD5(sn + TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
-        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
     }
 
     public void getInvitationCode(int mLoding_Type, String message) {
@@ -307,7 +307,7 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("sn", sn);
         params.addQueryStringParameter("sign", MD5.toMD5(sn + TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
-        goConnect(mLoding_Type, params, message, InviteInfo.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, InviteInfo.class.getName());
     }
 
     public void setInvitationCode(int mLoding_Type, String message, String inviteflag) {
@@ -317,6 +317,6 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("inviteflag", inviteflag);
         params.addQueryStringParameter("sign", MD5.toMD5(sn + TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
-        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
     }
 }

@@ -56,7 +56,7 @@ public class RedBusiness extends BaseBusiness {
         params.addQueryStringParameter("year", year);
         params.addQueryStringParameter("direct", direct);
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
-        goConnect(mLoding_Type, params, message, RedModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, RedModel.class.getName());
     }
 
     public void excreteRed(int mLoding_Type, String message, String gift_id, String action) {
@@ -69,7 +69,7 @@ public class RedBusiness extends BaseBusiness {
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
         params.addQueryStringParameter("gift_id", gift_id);
         params.addQueryStringParameter("action", action);
-        goConnect(mLoding_Type, params, message, ExcreteRedModel.class.getName(), 1500);
+        goConnect(mActivity, mLoding_Type, params, message, ExcreteRedModel.class.getName(), 1500);
     }
 
 
@@ -87,21 +87,21 @@ public class RedBusiness extends BaseBusiness {
         params.addQueryStringParameter("gift_name", moneytype.equals("0") ? "拼手气红包" : "普通红包");
         params.addQueryStringParameter("gift_tips", gift_tips);
         params.addQueryStringParameter("fromnickname", name);
-        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
     }
 
     public void getMoneyInfo(int mLoding_Type, String message) {
         RequestParams params = new RequestParams(HttpUrls.getMoneyInfo);
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
-        goConnect(mLoding_Type, params, message, MoneyInfoModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, MoneyInfoModel.class.getName());
     }
 
     public void getCarList(int mLoding_Type, String message) {
         RequestParams params = new RequestParams(HttpUrls.carlist);
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
-        goConnect(mLoding_Type, params, message, CardListModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, CardListModel.class.getName());
     }
 
     public void changeCard(int mLoding_Type, String message, String cardNo) {
@@ -109,7 +109,7 @@ public class RedBusiness extends BaseBusiness {
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
         params.addQueryStringParameter("cardid", cardNo);
-        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
     }
 
     public void deleteCard(int mLoding_Type, String message, String cardNo) {
@@ -117,7 +117,7 @@ public class RedBusiness extends BaseBusiness {
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
         params.addQueryStringParameter("cardid", cardNo);
-        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
     }
 
 
@@ -129,7 +129,7 @@ public class RedBusiness extends BaseBusiness {
         params.addQueryStringParameter("branch_name", branch_name);
         params.addQueryStringParameter("bank_card_no", bank_card_no);
         params.addQueryStringParameter("card_holder", card_holder);
-        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
     }
 
     public void moneyOut(int mLoding_Type, String message, String cardid, double money) {
@@ -138,14 +138,14 @@ public class RedBusiness extends BaseBusiness {
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
         params.addQueryStringParameter("money", String.valueOf(money));
         params.addQueryStringParameter("cardid", cardid);
-        goConnect(mLoding_Type, params, message, MoneyOutInputBean.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, MoneyOutInputBean.class.getName());
     }
 
 
     public void rechargeInfo(int mLoding_Type, String message) {
         RequestParams params = new RequestParams(HttpUrls.rechage);
         params.addQueryStringParameter("ver", Utils.getVersionName());
-        goConnect(mLoding_Type, params, message, RechargeInfoModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, RechargeInfoModel.class.getName());
     }
 
 
@@ -153,7 +153,7 @@ public class RedBusiness extends BaseBusiness {
         RequestParams params = new RequestParams(HttpUrls.moneyoutList);
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
-        goConnect(mLoding_Type, params, message, MoneyOutListModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, MoneyOutListModel.class.getName());
     }
 
 
@@ -162,7 +162,7 @@ public class RedBusiness extends BaseBusiness {
         params.addQueryStringParameter("id", id);
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
-        goConnect(mLoding_Type, params, message, TiXianMoreInfoModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, TiXianMoreInfoModel.class.getName());
     }
 
     public void sendThank(int mLoding_Type, String message, String thanks, String gift_id) {
@@ -171,7 +171,7 @@ public class RedBusiness extends BaseBusiness {
         params.addQueryStringParameter("thankyou", thanks);
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
-        goConnect(mLoding_Type, params, message, BaseModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
     }
 
     public void getListGiftInfo(int mLoding_Type, String message, String sender_gift_id){
@@ -179,17 +179,17 @@ public class RedBusiness extends BaseBusiness {
         params.addQueryStringParameter("sender_gift_id", sender_gift_id);
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
-        goConnect(mLoding_Type, params, message, SplideGiftModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, SplideGiftModel.class.getName());
     }
 
     public void getBanckCardList(int mLoding_Type, String message){
         RequestParams params = new RequestParams(HttpUrls.bank_list);
-        goConnect(mLoding_Type, params, message, BanckListModel.class.getName());
+        goConnect(mActivity, mLoding_Type, params, message, BanckListModel.class.getName());
     }
 
     public void getWeiXinXiaDan(int mLoding_Type, String message, String enTry){
         RequestParams params = new RequestParams(HttpUrls.WXXD);
         params.setBodyContent(enTry);
-        goPostConnect(mLoding_Type, params, message, "");
+        goPostConnect(mActivity, mLoding_Type, params, message, "");
     }
 }
