@@ -20,13 +20,13 @@ import com.bugtags.library.Bugtags;
 import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
-import org.xutils.common.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.connector.ConnectCallInterface;
 import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.util.APPCationStation;
@@ -56,7 +56,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
     private boolean isRegistEventBus;
     private long lastClickTime;
     private boolean chechLoding = true;//是否检测登录状态
-    private List<Callback.Cancelable> mCancelableList = new ArrayList<>();
+    private List<ConnectCallInterface> mCancelableList = new ArrayList<>();
     public Handler mHandler = new Handler(Looper.myLooper()) {
         @Override
         public void handleMessage(Message msg) {
@@ -191,8 +191,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        for (Callback.Cancelable mCancelable : mCancelableList) {
-            if (mCancelable != null && !mCancelable.isCancelled()) {
+        for (ConnectCallInterface mCancelable : mCancelableList) {
+            if (mCancelable != null) {
                 mCancelable.cancel();
             }
         }
@@ -202,7 +202,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
     }
 
     @Override
-    public void addCancelable(Callback.Cancelable mCancelable) {
+    public void addCancelable(ConnectCallInterface mCancelable) {
         mCancelableList.add(mCancelable);
     }
 

@@ -3,7 +3,6 @@ package app.net.tongcheng.Business;
 import android.app.Activity;
 import android.os.Handler;
 
-import org.xutils.http.RequestParams;
 
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
@@ -14,13 +13,13 @@ import app.net.tongcheng.model.MSGModel;
 import app.net.tongcheng.model.RegisterCode;
 import app.net.tongcheng.model.RegisterInviteflagModel;
 import app.net.tongcheng.model.StartPageModel;
-import app.net.tongcheng.model.UpContentModel;
 import app.net.tongcheng.model.UserInfo;
 import app.net.tongcheng.util.CancelableClear;
 import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.HttpUrls;
 import app.net.tongcheng.util.MD5;
 import app.net.tongcheng.util.Misc;
+import app.net.tongcheng.util.RequestParams;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.VerificationCode;
 

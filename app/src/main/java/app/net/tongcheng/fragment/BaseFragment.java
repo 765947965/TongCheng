@@ -4,20 +4,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.umeng.analytics.MobclickAgent;
 
-import org.xutils.common.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import app.net.tongcheng.connector.ConnectCallInterface;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.CancelableClear;
@@ -34,7 +30,7 @@ public abstract class BaseFragment extends Fragment implements CancelableClear {
     protected String className;
 
 
-    private List<Callback.Cancelable> mCancelableList = new ArrayList<>();
+    private List<ConnectCallInterface> mCancelableList = new ArrayList<>();
 
     public Handler mHandler = new Handler(Looper.myLooper()) {
         @Override
@@ -59,15 +55,15 @@ public abstract class BaseFragment extends Fragment implements CancelableClear {
     };
 
     @Override
-    public void addCancelable(Callback.Cancelable mCancelable) {
+    public void addCancelable(ConnectCallInterface mCancelable) {
         mCancelableList.add(mCancelable);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        for (Callback.Cancelable mCancelable : mCancelableList) {
-            if (mCancelable != null && !mCancelable.isCancelled()) {
+        for (ConnectCallInterface mCancelable : mCancelableList) {
+            if (mCancelable != null) {
                 mCancelable.cancel();
             }
         }

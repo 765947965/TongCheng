@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Handler;
 import android.text.TextUtils;
 
-import org.xutils.http.RequestParams;
 
 import java.io.File;
 
@@ -15,6 +14,7 @@ import app.net.tongcheng.util.CancelableClear;
 import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.HttpUrls;
 import app.net.tongcheng.util.MD5;
+import app.net.tongcheng.util.RequestParams;
 import app.net.tongcheng.util.Utils;
 
 /**
@@ -38,7 +38,7 @@ public class MyBusiness extends BaseBusiness {
         RequestParams params = new RequestParams(HttpUrls.UPUserHeadURL);
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.setMultipart(true);
-        params.addBodyParameter("msg", file, null);
+        params.addFileParameter("msg", file);
         goPostConnect(mLoding_Type, params, message, UserMoreInfoModel.class.getName());
     }
 

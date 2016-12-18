@@ -1,6 +1,7 @@
 package app.net.tongcheng.util;
 
-import org.xutils.common.Callback;
+
+import app.net.tongcheng.connector.ConnectCallInterface;
 
 /**
  * @author: xiewenliang
@@ -10,5 +11,5 @@ import org.xutils.common.Callback;
  * @date: 2016/4/16 11:33
  */
 public interface CancelableClear {
-    void addCancelable(Callback.Cancelable mCancelable);
+    void addCancelable(ConnectCallInterface mCancelable);
 }

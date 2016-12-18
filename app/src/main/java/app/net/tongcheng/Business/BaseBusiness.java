@@ -2,20 +2,13 @@ package app.net.tongcheng.Business;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.SparseArray;
-import android.view.View;
 
 import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
@@ -30,6 +23,7 @@ import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.ErrorInfoUtil;
 import app.net.tongcheng.util.MD5;
 import app.net.tongcheng.util.Misc;
+import app.net.tongcheng.util.RequestParams;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.VerificationCode;

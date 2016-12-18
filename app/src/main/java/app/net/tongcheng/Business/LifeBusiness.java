@@ -3,7 +3,6 @@ package app.net.tongcheng.Business;
 import android.app.Activity;
 import android.os.Handler;
 
-import org.xutils.http.RequestParams;
 
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.ADListModel;
@@ -12,6 +11,7 @@ import app.net.tongcheng.util.CancelableClear;
 import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.HttpUrls;
 import app.net.tongcheng.util.MD5;
+import app.net.tongcheng.util.RequestParams;
 
 /**
  * Created by 76594 on 2016/6/2.

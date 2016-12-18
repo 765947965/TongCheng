@@ -40,6 +40,8 @@ public class MoneyInfoModel extends BaseModel implements Serializable {
         private double freze_account;
         private double charge_amount;
         private double fee_ratio;
+        private double extra_fee;
+        private double min_cash_amount;
         private String description;
         private String tips;
         private String status;
@@ -176,6 +178,22 @@ public class MoneyInfoModel extends BaseModel implements Serializable {
 
         public void setFreze_account_key(String freze_account_key) {
             this.freze_account_key = freze_account_key;
+        }
+
+        public double getMin_cash_amount() {
+            return min_cash_amount;
+        }
+
+        public void setMin_cash_amount(double min_cash_amount) {
+            this.min_cash_amount = min_cash_amount;
+        }
+
+        public double getExtra_fee() {
+            return extra_fee;
+        }
+
+        public void setExtra_fee(double extra_fee) {
+            this.extra_fee = extra_fee;
         }
     }
 }

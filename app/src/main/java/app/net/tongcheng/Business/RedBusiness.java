@@ -3,7 +3,6 @@ package app.net.tongcheng.Business;
 import android.app.Activity;
 import android.os.Handler;
 
-import org.xutils.http.RequestParams;
 
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BanckListModel;
@@ -22,6 +21,7 @@ import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.HttpUrls;
 import app.net.tongcheng.util.MD5;
 import app.net.tongcheng.util.NativieDataUtils;
+import app.net.tongcheng.util.RequestParams;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.VerificationCode;
 

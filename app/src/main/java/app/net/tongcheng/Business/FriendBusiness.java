@@ -3,15 +3,14 @@ package app.net.tongcheng.Business;
 import android.app.Activity;
 import android.os.Handler;
 
-import org.xutils.http.RequestParams;
 
 import app.net.tongcheng.TCApplication;
-import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.FriendModel;
 import app.net.tongcheng.model.UpContentModel;
 import app.net.tongcheng.model.UpFriendInfoModel;
 import app.net.tongcheng.util.CancelableClear;
 import app.net.tongcheng.util.HttpUrls;
+import app.net.tongcheng.util.RequestParams;
 
 /**
  * Created by 76594 on 2016/6/5.
