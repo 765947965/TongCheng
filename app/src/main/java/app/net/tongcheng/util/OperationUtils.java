@@ -33,11 +33,11 @@ public class OperationUtils {
     }
 
     public static void setUserInfo(String userinfo) {
-        getSharedPreference().edit().putString(USERINFO, userinfo).apply();
+        getSharedPreference().edit().putString(USERINFO, EncryptionData.encrypt(USERINFO, userinfo)).apply();
     }
 
     public static String getUserInfo() {
-        return getSharedPreference().getString(USERINFO, "");
+        return EncryptionData.decrypt(USERINFO, getSharedPreference().getString(USERINFO, ""));
     }
 
     public static void PutString(String key, String value) {
