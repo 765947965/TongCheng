@@ -24,6 +24,7 @@ import app.net.tongcheng.model.UserInfo;
 import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.Misc;
 import app.net.tongcheng.util.OperationUtils;
+import app.net.tongcheng.util.RedDateUtils;
 
 /**
  * @author: xiewenliang
@@ -67,7 +68,8 @@ public class TCApplication extends Application {
         if (mUserInfo != null) {
             MobclickAgent.onProfileSignIn(Misc.cryptDataByPwd(mUserInfo.getPhone() + mUserInfo.getPwd()));//登入友盟账户
         }
-        OperationUtils.getSharedPreference().edit().clear().apply();// 清楚用户数据
+        OperationUtils.getSharedPreference().edit().clear().apply();// 清除用户数据
+        RedDateUtils.getSharedPreference().edit().clear().apply();// 清除用户红包数据
         OperationUtils.setUserInfo(mUserInfo == null ? "" : JSON.toJSONString(mUserInfo));
         TCApplication.mUserInfo = mUserInfo;
     }

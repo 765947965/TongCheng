@@ -319,4 +319,14 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         goConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
     }
+
+    public void checkIsInviteCode(int mLoding_Type, String message, String inviteflag) {
+        RequestParams params = new RequestParams(HttpUrls.URL + "ams/add_inviteflag_v2");
+        String sn = VerificationCode.getCode2();
+        params.addQueryStringParameter("sn", sn);
+        params.addQueryStringParameter("inviteflag", inviteflag);
+        params.addQueryStringParameter("sign", MD5.toMD5(sn + TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        goConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
+    }
 }

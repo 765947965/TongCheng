@@ -4,11 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.db.EncryptionData;
 
 /**
  * @author: xiewenliang
  * @Filename: OperationUtils
- * @Description: 运营配置数据存储
+ * @Description: 登录用户账号数据 是否开启通讯录记录
  * @Copyright: Copyright (c) 2016 Tuandai Inc. All rights reserved.
  * @date: 2016/2/25 14:01
  */
@@ -39,9 +40,9 @@ public class GeneralDateUtils {
     public static void PutString(String key, String value, boolean addUserID) {
         SharedPreferences.Editor editor = getSharedPreference().edit();
         if (addUserID) {
-            editor.putString(key, value);
+            editor.putString(key, EncryptionData.encrypt(key, value));
         } else {
-            editor.putString(key, value);
+            editor.putString(key, EncryptionData.encrypt(key, value));
         }
         editor.apply();
     }
@@ -52,9 +53,9 @@ public class GeneralDateUtils {
 
     public static String getString(String key, boolean addUserID) {
         if (addUserID) {
-            return getSharedPreference().getString(key, null);
+            return EncryptionData.decrypt(key, getSharedPreference().getString(key, null));
         } else {
-            return getSharedPreference().getString(key, null);
+            return EncryptionData.decrypt(key, getSharedPreference().getString(key, null));
         }
     }
 

@@ -32,12 +32,12 @@ public class DataUtil {
 
     public static void putString(String key, String value) {
         SharedPreferences.Editor editor = getSharedPreference().edit();
-        editor.putString(key, value);
+        editor.putString(key, EncryptionData.encrypt(key, value));
         editor.apply();
     }
 
     public static String getString(String key) {
-        return getSharedPreference().getString(key, null);
+        return EncryptionData.decrypt(key, getSharedPreference().getString(key, null));
     }
 
     public static void putInt(String key, int value) {

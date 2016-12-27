@@ -4,11 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.db.EncryptionData;
 
 /**
  * @author: xiewenliang
  * @Filename: OperationUtils
- * @Description: 运营配置数据存储
+ * @Description: 账号红包相关数据
  * @Copyright: Copyright (c) 2016 Tuandai Inc. All rights reserved.
  * @date: 2016/2/25 14:01
  */
@@ -17,7 +18,7 @@ public class RedDateUtils {
     private static RedDateUtils instance;
     private SharedPreferences mSp;
 
-    private static SharedPreferences getSharedPreference() {
+    public static SharedPreferences getSharedPreference() {
         if (instance == null || instance.mSp == null) {
             synchronized (RedDateUtils.class) {
                 if (instance == null || instance.mSp == null) {
@@ -37,9 +38,10 @@ public class RedDateUtils {
     public static void PutString(String key, String value, boolean addUserID) {
         SharedPreferences.Editor editor = getSharedPreference().edit();
         if (addUserID) {
-            editor.putString(TCApplication.getmUserInfo() == null ? "" : TCApplication.getmUserInfo().getUid() + key, value);
+            key = TCApplication.getmUserInfo() == null ? "" : TCApplication.getmUserInfo().getUid() + key;
+            editor.putString(key, EncryptionData.encrypt(key, value));
         } else {
-            editor.putString(key, value);
+            editor.putString(key, EncryptionData.encrypt(key, value));
         }
         editor.apply();
     }
@@ -50,9 +52,10 @@ public class RedDateUtils {
 
     public static String getString(String key, boolean addUserID) {
         if (addUserID) {
-            return getSharedPreference().getString(TCApplication.getmUserInfo() == null ? "" : TCApplication.getmUserInfo().getUid() + key, null);
+            key = TCApplication.getmUserInfo() == null ? "" : TCApplication.getmUserInfo().getUid() + key;
+            return EncryptionData.decrypt(key, getSharedPreference().getString(key, null));
         } else {
-            return getSharedPreference().getString(key, null);
+            return EncryptionData.decrypt(key, getSharedPreference().getString(key, null));
         }
     }
 
