@@ -31,7 +31,7 @@ public class EncryptionData {
         }
     }
 
-    public static String getMd5(String str) {
+    private static String getMd5(String str) {
         byte[] bs = md5.digest(str.getBytes());
         StringBuilder sb = new StringBuilder(40);
         for (byte x : bs) {
