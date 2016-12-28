@@ -7,7 +7,6 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 import com.kevin.wraprecyclerview.WrapRecyclerView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +23,6 @@ import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.activity.BalanceActivity;
-import app.net.tongcheng.activity.PayMoneyActivity;
 import app.net.tongcheng.activity.PublicWebview;
 import app.net.tongcheng.activity.ReChargeActivity;
 import app.net.tongcheng.activity.RedListActivity;
@@ -149,8 +146,8 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-        switch (mLoding_Type) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
+        switch (mLoadType) {
             case APPCationStation.LOADING:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     final RedModel mRedModel = (RedModel) mConnectResult.getObject();
@@ -214,8 +211,8 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
-        switch (mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
+        switch (mLoadType) {
             case APPCationStation.LOADING:
                 mSwipeRefreshLayout.setRefreshing(false);
                 break;

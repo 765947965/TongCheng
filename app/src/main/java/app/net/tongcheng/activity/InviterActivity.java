@@ -58,8 +58,8 @@ public class InviterActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-        switch (mLoding_Type) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
+        switch (mLoadType) {
             case APPCationStation.LOADING:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     InviteInfo mInviteInfo = (InviteInfo) mConnectResult.getObject();
@@ -91,8 +91,8 @@ public class InviterActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
-        switch (mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
+        switch (mLoadType) {
             case APPCationStation.SUMBIT:
                 bt_submit.setEnabled(true);
                 break;

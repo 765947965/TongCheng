@@ -7,7 +7,7 @@ import android.os.Handler;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.ShareCodeModel;
 import app.net.tongcheng.model.ShareTipsModel;
-import app.net.tongcheng.util.CancelableClear;
+import app.net.tongcheng.util.HttpBusinessListener;
 import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.HttpUrls;
 import app.net.tongcheng.util.MD5;
@@ -20,7 +20,7 @@ import app.net.tongcheng.util.VerificationCode;
  */
 public class ShareBusiness extends BaseBusiness {
 
-    public ShareBusiness(CancelableClear mCancelableClear, Activity mActivity, Handler mHandler) {
+    public ShareBusiness(HttpBusinessListener mCancelableClear, Activity mActivity, Handler mHandler) {
         super(mCancelableClear, mActivity, mHandler);
     }
 

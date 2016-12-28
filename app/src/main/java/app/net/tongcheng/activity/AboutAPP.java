@@ -20,6 +20,7 @@ import app.net.tongcheng.model.MSGModel;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.DialogUtil;
+import app.net.tongcheng.util.GeneralDateUtils;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.UiUtil;
@@ -40,6 +41,7 @@ public class AboutAPP extends BaseActivity implements View.OnClickListener {
     private OtherBusiness mOtherBusiness;
     private boolean isHadnew;
     private Bitmap mBitmap;
+    private int iconClickNum;
 
 
     @Override
@@ -58,6 +60,7 @@ public class AboutAPP extends BaseActivity implements View.OnClickListener {
         mViewHolder.setOnClickListener(R.id.llt_kf);
         mViewHolder.setOnClickListener(R.id.llt_new_ver);
         mViewHolder.setOnClickListener(R.id.llt_news_td);
+        mViewHolder.setOnClickListener(R.id.iv_qrcode);
     }
 
     @Override
@@ -105,8 +108,8 @@ public class AboutAPP extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-        switch (mLoding_Type) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
+        switch (mLoadType) {
             case APPCationStation.LOADINGAD:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     MSGModel mMSGModel = (MSGModel) mConnectResult.getObject();
@@ -132,7 +135,7 @@ public class AboutAPP extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
         ToastUtil.showToast("网络不可用,请检查网络连接!");
     }
 
@@ -158,6 +161,14 @@ public class AboutAPP extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.llt_news_td:
                 startActivity(new Intent(TCApplication.mContext, NewVerTXActivity.class));
+                break;
+            case R.id.iv_qrcode:
+                iconClickNum++;
+                if (iconClickNum == 10) {
+                    Common.isDebugModel = !Common.isDebugModel;
+                    GeneralDateUtils.PutBoolean("isDebugModel", Common.isDebugModel);
+                    ToastUtil.showToast("DebugIs:" + String.valueOf(Common.isDebugModel));
+                }
                 break;
         }
     }

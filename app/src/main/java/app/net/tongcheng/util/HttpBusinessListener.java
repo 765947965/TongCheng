@@ -3,15 +3,14 @@ package app.net.tongcheng.util;
 
 import app.net.tongcheng.model.ConnectResult;
 
-
 /**
  * @author: xiewenliang
  * @Filename:
  * @Description:
  * @Copyright: Copyright (c) 2016 Tuandai Inc. All rights reserved.
- * @date: 2016/3/22 10:14
+ * @date: 2016/4/16 11:33
  */
-public interface ConnectListener {
-    void ConnectOnSuccess(int mLoadType, ConnectResult mConnectResult);
-    void ConnectOnError(int mLoadType);
+public interface HttpBusinessListener {
+    void BusinessOnSuccess(int mHttpLoadType, ConnectResult mConnectResult);
+    void BusinessOnFail(int mHttpLoadType);
 }

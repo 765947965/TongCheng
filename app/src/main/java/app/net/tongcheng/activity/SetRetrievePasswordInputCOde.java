@@ -48,7 +48,7 @@ public class SetRetrievePasswordInputCOde extends BaseActivity implements View.O
         phone = getIntent().getStringExtra("phone");
         arg1 = getIntent().getIntExtra(Common.AGR1, 0);
         initView();
-        setChechLoding(false);
+        setCheckLoad(false);
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 
@@ -88,8 +88,8 @@ public class SetRetrievePasswordInputCOde extends BaseActivity implements View.O
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-        switch (mLoding_Type) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
+        switch (mLoadType) {
             case APPCationStation.GETAOUTHCODE:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0 && !TextUtils.isEmpty(((RegisterCode) mConnectResult.getObject()).getAuthcode())) {
                     mViewHolder.setText(R.id.timejs, "请输入该验证码:" + ((RegisterCode) mConnectResult.getObject()).getAuthcode());
@@ -108,8 +108,8 @@ public class SetRetrievePasswordInputCOde extends BaseActivity implements View.O
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
-        switch (mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
+        switch (mLoadType) {
             case APPCationStation.GETAOUTHCODE:
                 cannotsevedcode.setTextColor(Color.parseColor("#1160FD"));
                 cannotsevedcode.setEnabled(true);

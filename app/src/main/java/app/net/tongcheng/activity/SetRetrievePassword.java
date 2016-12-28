@@ -19,7 +19,6 @@ import app.net.tongcheng.util.DialogUtil.OnConfirmListener;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
-import app.net.tongcheng.view.LineEditText;
 
 /**
  * @author: xiewenliang
@@ -44,7 +43,7 @@ public class SetRetrievePassword extends BaseActivity implements View.OnClickLis
         setTitle("忘记密码");
         arg1 = getIntent().getIntExtra(Common.AGR1, 0);
         initView();
-        setChechLoding(false);
+        setCheckLoad(false);
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 
@@ -77,8 +76,8 @@ public class SetRetrievePassword extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-        switch (mLoding_Type) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
+        switch (mLoadType) {
             case APPCationStation.SUMBIT:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     DialogUtil.showTipsDialog(this, "验证码已发送至您手机上,请注意查收!", new OnConfirmListener() {
@@ -99,7 +98,7 @@ public class SetRetrievePassword extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
         ToastUtil.showToast("网络不可用,请检查网络连接");
     }
 

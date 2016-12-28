@@ -58,12 +58,12 @@ public class QianmingActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
 
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
 
     }
 

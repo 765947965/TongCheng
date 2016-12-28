@@ -60,12 +60,12 @@ public class UserInfoAddressActivity extends BaseActivity implements View.OnClic
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
 
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
 
     }
 

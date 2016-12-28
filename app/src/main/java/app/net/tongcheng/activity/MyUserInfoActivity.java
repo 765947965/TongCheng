@@ -15,7 +15,6 @@ import com.yancy.imageselector.ImageSelector;
 import com.yancy.imageselector.ImageSelectorActivity;
 
 import org.greenrobot.eventbus.Subscribe;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -31,7 +30,6 @@ import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.UserMoreInfoModel;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
-import app.net.tongcheng.util.FriendBeanUtils;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
@@ -105,8 +103,8 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-        switch (mLoding_Type) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
+        switch (mLoadType) {
             case APPCationStation.LOADING:
                 mSwipeRefreshLayout.setRefreshing(false);
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
@@ -143,8 +141,8 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
-        switch (mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
+        switch (mLoadType) {
             case APPCationStation.LOADING:
                 mSwipeRefreshLayout.setRefreshing(false);
                 break;

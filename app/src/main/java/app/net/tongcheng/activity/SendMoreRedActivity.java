@@ -12,7 +12,6 @@ import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -187,8 +186,8 @@ public class SendMoreRedActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-        switch (mLoding_Type) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
+        switch (mLoadType) {
             case APPCationStation.LOADING:
                 if (mConnectResult != null && mConnectResult.getObject() != null) {
                     final FriendModel mFriendModel = (FriendModel) mConnectResult.getObject();
@@ -251,7 +250,7 @@ public class SendMoreRedActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
         mSwipeRefreshLayout.setRefreshing(false);
     }
 

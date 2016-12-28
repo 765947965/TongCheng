@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Message;
 import android.text.Editable;
 import android.text.Html;
-import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
@@ -19,7 +18,6 @@ import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
-import app.net.tongcheng.fragment.FriendFragment;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.MoneyInfoModel;
@@ -27,7 +25,6 @@ import app.net.tongcheng.model.RedModel;
 import app.net.tongcheng.model.UserMoreInfoModel;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
-import app.net.tongcheng.util.EditTextUtil;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.ToastUtil;
@@ -112,8 +109,8 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-        switch (mLoding_Type) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
+        switch (mLoadType) {
             case APPCationStation.SUMBIT:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     sendEventBusMessage("sendRedOk");
@@ -160,8 +157,8 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
-        switch (mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
+        switch (mLoadType) {
             case APPCationStation.CHECKWALLETPASSWORD:
                 if (mDialog != null) {
                     mDialog.submitInputFailure();

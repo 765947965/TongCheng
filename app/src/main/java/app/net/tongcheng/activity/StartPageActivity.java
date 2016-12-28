@@ -6,18 +6,11 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
-import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.StartPageModel;
-import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.NativieDataUtils;
-import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -31,7 +24,7 @@ public class StartPageActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setChechLoding(false);
+        setCheckLoad(false);
         setContentView(R.layout.start_page_layout);
         mStartPageModel = (StartPageModel) getIntent().getSerializableExtra("mStartPageModel");
         initView();
@@ -63,12 +56,12 @@ public class StartPageActivity extends BaseActivity implements View.OnClickListe
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
 
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
 
     }
 

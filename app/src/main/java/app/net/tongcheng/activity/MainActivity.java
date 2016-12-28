@@ -253,8 +253,8 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-        switch (mLoding_Type) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
+        switch (mLoadType) {
             case APPCationStation.SUMBIT://通讯录上传成功
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     UpContentModel mUpContentModel = (UpContentModel) mConnectResult.getObject();
@@ -305,7 +305,7 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
 
     }
 

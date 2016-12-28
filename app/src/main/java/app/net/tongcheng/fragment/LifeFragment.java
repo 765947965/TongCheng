@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.widget.ScrollView;
 
 import com.looppager.BannerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import app.net.tongcheng.Business.LifeBusiness;
@@ -133,8 +131,8 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-        switch (mLoding_Type) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
+        switch (mLoadType) {
             case APPCationStation.LOADING:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     LifeDataModel mLifeDataModel = (LifeDataModel) mConnectResult.getObject();
@@ -155,7 +153,7 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
 
     }
 

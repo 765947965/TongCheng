@@ -73,8 +73,8 @@ public class BandingNewCard extends BaseActivity implements View.OnClickListener
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-        switch (mLoding_Type) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
+        switch (mLoadType) {
             case APPCationStation.SUMBIT:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     ToastUtil.showToast("绑定成功");
@@ -86,9 +86,9 @@ public class BandingNewCard extends BaseActivity implements View.OnClickListener
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
         ToastUtil.showToast("网络不可用,请检查网络连接!");
-        switch (mLoding_Type) {
+        switch (mLoadType) {
             case APPCationStation.SUMBIT:
                 bt_banding.setEnabled(true);
                 break;

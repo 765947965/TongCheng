@@ -83,8 +83,8 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-        switch (mLoding_Type) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
+        switch (mLoadType) {
             case APPCationStation.MONEYOUT://提现
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     sendEventBusMessage("money_rushe");
@@ -131,8 +131,8 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
-        switch (mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
+        switch (mLoadType) {
             case APPCationStation.CHECKWALLETPASSWORD:
                 if (mDialog != null) {
                     mDialog.submitInputFailure();

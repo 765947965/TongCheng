@@ -99,8 +99,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-        switch (mLoding_Type) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
+        switch (mLoadType) {
             case APPCationStation.LOADING:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     UserMoreInfoModel mUserMoreInfoModel = (UserMoreInfoModel) mConnectResult.getObject();
@@ -113,7 +113,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
 
     }
 

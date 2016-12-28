@@ -14,7 +14,6 @@ import com.weixin.paydemo.WXContacts;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.greenrobot.eventbus.Subscribe;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -88,8 +87,8 @@ public class NextRecharge extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-        switch (mLoding_Type) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
+        switch (mLoadType) {
             case APPCationStation.LOADING:
                 if (mConnectResult != null && mConnectResult.getObject() != null) {
                     String json = (String) mConnectResult.getObject();
@@ -113,7 +112,7 @@ public class NextRecharge extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
         ToastUtil.showToast("网络不可用");
     }
 

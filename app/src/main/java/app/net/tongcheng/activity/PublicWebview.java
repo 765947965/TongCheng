@@ -36,7 +36,7 @@ public class PublicWebview extends BaseActivity {
             url = getIntent().getStringExtra("url");
         }
         initView();
-        setChechLoding(false);
+        setCheckLoad(false);
         setTitle(title);
     }
 
@@ -84,12 +84,12 @@ public class PublicWebview extends BaseActivity {
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
 
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
 
     }
 

@@ -34,7 +34,7 @@ import static app.net.tongcheng.util.Common.tag;
 public class ConnectImper implements ConnectInterface {
 
     @Override
-    public ConnectCallInterface getNet(Activity mActivity, final int mLoding_Type, final RequestParams params, String message, final ConnectListener mConnectListener, final String className) {
+    public ConnectCallInterface getNet(final Activity mActivity, final int mLoding_Type, final RequestParams params, String message, final ConnectListener mConnectListener, final String className) {
         BaseRequest mBaseRequest = OkGo.get(params.getUrl());
         setRequestParams(params, mBaseRequest);
         mBaseRequest.tag(mActivity);
@@ -55,14 +55,22 @@ public class ConnectImper implements ConnectInterface {
                     } else {
                         cr.setObject(s);
                     }
-                    mConnectListener.ConnectOnSuccess(mLoding_Type, cr);
+                    try {
+                        mConnectListener.ConnectOnSuccess(mLoding_Type, cr);
+                        if (isDebugModel) ToastUtil.showToast(s);
+                    } catch (Exception e) {
+                    }
                 }
             }
 
             @Override
             public void onError(Call call, Response response, Exception e) {
                 if (mConnectListener != null) {
-                    mConnectListener.ConnectOnError(mLoding_Type);
+                    try {
+                        mConnectListener.ConnectOnError(mLoding_Type);
+                        if (isDebugModel) ToastUtil.showToast(e.toString());
+                    } catch (Exception e2) {
+                    }
                 }
             }
         });
@@ -70,7 +78,7 @@ public class ConnectImper implements ConnectInterface {
     }
 
     @Override
-    public ConnectCallInterface postNet(Activity mActivity, final int mLoding_Type, final RequestParams params, String message, final ConnectListener mConnectListener, final String className) {
+    public ConnectCallInterface postNet(final Activity mActivity, final int mLoding_Type, final RequestParams params, String message, final ConnectListener mConnectListener, final String className) {
         BaseRequest mBaseRequest = OkGo.post(params.getUrl());
         setRequestParams(params, mBaseRequest);
         mBaseRequest.tag(mActivity);
@@ -91,14 +99,22 @@ public class ConnectImper implements ConnectInterface {
                     } else {
                         cr.setObject(s);
                     }
-                    mConnectListener.ConnectOnSuccess(mLoding_Type, cr);
+                    try {
+                        mConnectListener.ConnectOnSuccess(mLoding_Type, cr);
+                        if (isDebugModel) ToastUtil.showToast(s);
+                    } catch (Exception e) {
+                    }
                 }
             }
 
             @Override
             public void onError(Call call, Response response, Exception e) {
                 if (mConnectListener != null) {
-                    mConnectListener.ConnectOnError(mLoding_Type);
+                    try {
+                        mConnectListener.ConnectOnError(mLoding_Type);
+                        if (isDebugModel) ToastUtil.showToast(e.toString());
+                    } catch (Exception e2) {
+                    }
                 }
             }
         });

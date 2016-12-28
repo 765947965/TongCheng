@@ -97,8 +97,8 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-        switch (mLoding_Type) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
+        switch (mLoadType) {
             case APPCationStation.SUMBIT:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     DialogUtil.showTipsDialog(this, "提交成功!", null);
@@ -108,7 +108,7 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
         ToastUtil.showToast("网络不可用,请检查网络连接!");
     }
 

@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.github.promeg.pinyinhelper.Pinyin;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,7 +32,6 @@ import app.net.tongcheng.activity.AddFriendActivity;
 import app.net.tongcheng.activity.PersonalRedEnvelopeConfig;
 import app.net.tongcheng.adapter.FriendHAdater;
 import app.net.tongcheng.adapter.FriendMainVAdater;
-import app.net.tongcheng.adapter.FriendVAdater;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.FriendModel;
@@ -209,8 +206,8 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-        switch (mLoding_Type) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
+        switch (mLoadType) {
             case APPCationStation.LOADING:
                 if (mConnectResult != null && mConnectResult.getObject() != null) {
                     final FriendModel mFriendModel = (FriendModel) mConnectResult.getObject();
@@ -273,7 +270,7 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
         mSwipeRefreshLayout.setRefreshing(false);
     }
 

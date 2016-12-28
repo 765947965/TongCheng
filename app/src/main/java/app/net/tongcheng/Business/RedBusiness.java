@@ -16,7 +16,7 @@ import app.net.tongcheng.model.RechargeInfoModel;
 import app.net.tongcheng.model.RedModel;
 import app.net.tongcheng.model.SplideGiftModel;
 import app.net.tongcheng.model.TiXianMoreInfoModel;
-import app.net.tongcheng.util.CancelableClear;
+import app.net.tongcheng.util.HttpBusinessListener;
 import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.HttpUrls;
 import app.net.tongcheng.util.MD5;
@@ -34,7 +34,7 @@ import app.net.tongcheng.util.VerificationCode;
  */
 public class RedBusiness extends BaseBusiness {
 
-    public RedBusiness(CancelableClear mCancelableClear, Activity mActivity, Handler mHandler) {
+    public RedBusiness(HttpBusinessListener mCancelableClear, Activity mActivity, Handler mHandler) {
         super(mCancelableClear, mActivity, mHandler);
     }
 

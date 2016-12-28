@@ -38,7 +38,7 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.location_layout);
         initView();
         setEventBus();
-        setChechLoding(false);
+        setCheckLoad(false);
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }
 
@@ -84,8 +84,8 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-        switch (mLoding_Type) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
+        switch (mLoadType) {
             case APPCationStation.GETSTARTPAGE:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     StartPageModel mStartPageModel = (StartPageModel) mConnectResult.getObject();
@@ -99,7 +99,7 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
 
     }
 

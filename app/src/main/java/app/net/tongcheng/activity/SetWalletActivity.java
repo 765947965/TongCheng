@@ -58,8 +58,8 @@ public class SetWalletActivity extends BaseActivity implements View.OnClickListe
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-        switch (mLoding_Type) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
+        switch (mLoadType) {
             case APPCationStation.LOADING:
                 if (mConnectResult != null && mConnectResult.getObject() != null) {
                     BaseModel mBaseModel = (BaseModel) mConnectResult.getObject();
@@ -101,7 +101,7 @@ public class SetWalletActivity extends BaseActivity implements View.OnClickListe
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
         ToastUtil.showToast("网络不可用，请检查网络链接!");
     }
 

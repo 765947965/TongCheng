@@ -55,8 +55,8 @@ public class ShareSMActivity extends BaseActivity {
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-        switch (mLoding_Type) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
+        switch (mLoadType) {
             case APPCationStation.LOADING:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     ShareTipsModel mShareTipsModel = (ShareTipsModel) mConnectResult.getObject();
@@ -71,7 +71,7 @@ public class ShareSMActivity extends BaseActivity {
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
 
     }
 }

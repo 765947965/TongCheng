@@ -7,7 +7,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -23,16 +22,10 @@ import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
-import app.net.tongcheng.connector.ConnectCallInterface;
 import app.net.tongcheng.model.CheckEvent;
-import app.net.tongcheng.model.ConnectResult;
-import app.net.tongcheng.util.APPCationStation;
-import app.net.tongcheng.util.CancelableClear;
+import app.net.tongcheng.util.HttpBusinessListener;
 import app.net.tongcheng.view.SlidingLayout;
 
 
@@ -43,38 +36,27 @@ import app.net.tongcheng.view.SlidingLayout;
  * @Copyright: Copyright (c) 2016 Tuandai Inc. All rights reserved.
  * @date: 2016/3/21 17:24
  */
-public abstract class BaseActivity extends AppCompatActivity implements CancelableClear {
+public abstract class BaseActivity extends AppCompatActivity implements HttpBusinessListener {
 
-    private LinearLayout llt_main;
+    private LinearLayout lltMain;
     private RelativeLayout rlt_title;
     private FrameLayout flt_root;
-    public boolean isload;
+    public boolean isLoadData;
     private TextView tv_title;
     private ImageView bt_close;
     private Button btnRight;
     private ImageView ivRight;
     private SlidingLayout rootView;
     private View status;
-    private boolean isRegistEventBus;
+    private boolean isRegisterEventBus;
     private long lastClickTime;
-    private boolean chechLoding = true;//是否检测登录状态
-    private List<ConnectCallInterface> mCancelableList = new ArrayList<>();
+    private boolean checkLoad = true;//是否检测登录状态
     public Handler mHandler = new Handler(Looper.myLooper()) {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            mHandDoSomeThing(msg);
             try {
-                switch (msg.what) {
-                    case APPCationStation.SUCCESS:
-                        Bundle mBundleSuccess = msg.getData();
-                        BusinessOnSuccess(mBundleSuccess.getInt("mLoding_Type"), (ConnectResult) mBundleSuccess.getSerializable("ConnectResult"));
-                        break;
-                    case APPCationStation.FAIL:
-                        Bundle mBundleFail = msg.getData();
-                        BusinessOnFail(mBundleFail.getInt("mLoding_Type"));
-                        break;
-                }
+                mHandDoSomeThing(msg);
             } catch (Exception e) {
                 e.toString();
             }
@@ -98,8 +80,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
     }
 
     public void setEventBus() {
-        if (!isRegistEventBus) {
-            isRegistEventBus = true;
+        if (!isRegisterEventBus) {
+            isRegisterEventBus = true;
             EventBus.getDefault().register(this);
         }
     }
@@ -115,7 +97,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
     }
 
     private void initView() {
-        llt_main = (LinearLayout) findViewById(R.id.llt_main);
+        lltMain = (LinearLayout) findViewById(R.id.llt_main);
         rlt_title = (RelativeLayout) findViewById(R.id.rlt_title);
         flt_root = (FrameLayout) findViewById(R.id.flt_root);
         tv_title = (TextView) findViewById(R.id.tv_title);
@@ -178,9 +160,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if (!isload) {
-            isload = true;
-            if (chechLoding) {
+        if (!isLoadData) {
+            isLoadData = true;
+            if (checkLoad) {
                 if (TCApplication.getmUserInfo() != null) {
                     loadData();
                 }
@@ -193,21 +175,12 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        for (ConnectCallInterface mCancelable : mCancelableList) {
-//            if (mCancelable != null) {
-//                mCancelable.cancel();
-//            }
-//        }
         OkGo.getInstance().cancelTag(this);//取消请求
-        if (isRegistEventBus) {
+        if (isRegisterEventBus) {
             EventBus.getDefault().unregister(this);
         }
     }
 
-    @Override
-    public void addCancelable(ConnectCallInterface mCancelable) {
-//        mCancelableList.add(mCancelable);//废弃
-    }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -249,14 +222,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
         super.onResume();
         MobclickAgent.onResume(this);//友盟
         Bugtags.onResume(this);//Bugtags
-        if (chechLoding && TCApplication.getmUserInfo() == null) {
+        if (checkLoad && TCApplication.getmUserInfo() == null) {
             startActivity(new Intent(TCApplication.mContext, LocationActivity.class));
             finish();
         }
     }
 
-    public void setChechLoding(boolean chechLoding) {
-        this.chechLoding = chechLoding;
+    public void setCheckLoad(boolean checkLoad) {
+        this.checkLoad = checkLoad;
     }
 
     @Override
@@ -267,8 +240,4 @@ public abstract class BaseActivity extends AppCompatActivity implements Cancelab
     }
 
     public abstract void mHandDoSomeThing(Message msg);
-
-    public abstract void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult);
-
-    public abstract void BusinessOnFail(int mLoding_Type);
 }

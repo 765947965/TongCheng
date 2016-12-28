@@ -8,7 +8,7 @@ import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.FriendModel;
 import app.net.tongcheng.model.UpContentModel;
 import app.net.tongcheng.model.UpFriendInfoModel;
-import app.net.tongcheng.util.CancelableClear;
+import app.net.tongcheng.util.HttpBusinessListener;
 import app.net.tongcheng.util.HttpUrls;
 import app.net.tongcheng.util.RequestParams;
 
@@ -18,7 +18,7 @@ import app.net.tongcheng.util.RequestParams;
 public class FriendBusiness extends BaseBusiness {
 
 
-    public FriendBusiness(CancelableClear mCancelableClear, Activity mActivity, Handler mHandler) {
+    public FriendBusiness(HttpBusinessListener mCancelableClear, Activity mActivity, Handler mHandler) {
         super(mCancelableClear, mActivity, mHandler);
     }
 

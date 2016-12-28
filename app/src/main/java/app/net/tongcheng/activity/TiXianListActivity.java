@@ -109,8 +109,8 @@ public class TiXianListActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-        switch (mLoding_Type) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
+        switch (mLoadType) {
             case APPCationStation.LOADING:
                 mSwipeRefreshLayout.setRefreshing(false);
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
@@ -124,7 +124,7 @@ public class TiXianListActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
         ToastUtil.showToast("网络不可用,请检查网络连接!");
         mSwipeRefreshLayout.setRefreshing(false);
     }

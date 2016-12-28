@@ -7,7 +7,7 @@ import android.os.Handler;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.ADListModel;
 import app.net.tongcheng.model.LifeDataModel;
-import app.net.tongcheng.util.CancelableClear;
+import app.net.tongcheng.util.HttpBusinessListener;
 import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.HttpUrls;
 import app.net.tongcheng.util.MD5;
@@ -18,7 +18,7 @@ import app.net.tongcheng.util.RequestParams;
  */
 public class LifeBusiness extends BaseBusiness {
 
-    public LifeBusiness(CancelableClear mCancelableClear, Activity mActivity, Handler mHandler) {
+    public LifeBusiness(HttpBusinessListener mCancelableClear, Activity mActivity, Handler mHandler) {
         super(mCancelableClear, mActivity, mHandler);
     }
 

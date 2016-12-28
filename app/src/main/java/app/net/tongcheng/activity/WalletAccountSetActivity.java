@@ -66,8 +66,8 @@ public class WalletAccountSetActivity extends BaseActivity implements View.OnCli
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-        switch (mLoding_Type) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
+        switch (mLoadType) {
             case APPCationStation.LOADING:
                 if (mConnectResult != null && mConnectResult.getObject() != null) {
                     if (((BaseModel) mConnectResult.getObject()).getResult() == 81) {
@@ -87,7 +87,7 @@ public class WalletAccountSetActivity extends BaseActivity implements View.OnCli
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
 
     }
 

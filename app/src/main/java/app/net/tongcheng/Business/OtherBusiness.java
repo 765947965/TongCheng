@@ -14,7 +14,7 @@ import app.net.tongcheng.model.RegisterCode;
 import app.net.tongcheng.model.RegisterInviteflagModel;
 import app.net.tongcheng.model.StartPageModel;
 import app.net.tongcheng.model.UserInfo;
-import app.net.tongcheng.util.CancelableClear;
+import app.net.tongcheng.util.HttpBusinessListener;
 import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.HttpUrls;
 import app.net.tongcheng.util.MD5;
@@ -28,7 +28,7 @@ import app.net.tongcheng.util.VerificationCode;
  */
 public class OtherBusiness extends BaseBusiness {
 
-    public OtherBusiness(CancelableClear mCancelableClear, Activity mActivity, Handler mHandler) {
+    public OtherBusiness(HttpBusinessListener mCancelableClear, Activity mActivity, Handler mHandler) {
         super(mCancelableClear, mActivity, mHandler);
     }
 

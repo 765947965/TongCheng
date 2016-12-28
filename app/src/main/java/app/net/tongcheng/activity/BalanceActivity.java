@@ -3,8 +3,6 @@ package app.net.tongcheng.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,16 +24,13 @@ import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.adapter.MyBaseAdapter;
-import app.net.tongcheng.adapter.MyBaseRecyclerViewAdapter;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.CardListModel;
 import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.MoneyInfoModel;
 import app.net.tongcheng.util.APPCationStation;
-import app.net.tongcheng.util.BanckCardUtil;
 import app.net.tongcheng.util.DialogUtil;
-import app.net.tongcheng.util.MyRecyclerViewHolder;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.ToastUtil;
@@ -160,8 +155,8 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    public void BusinessOnSuccess(int mLoding_Type, ConnectResult mConnectResult) {
-        switch (mLoding_Type) {
+    public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
+        switch (mLoadType) {
             case APPCationStation.LOADING:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     MoneyInfoModel mMoneyInfoModel = (MoneyInfoModel) mConnectResult.getObject();
@@ -225,7 +220,7 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    public void BusinessOnFail(int mLoding_Type) {
+    public void BusinessOnFail(int mLoadType) {
         ToastUtil.showToast("网络不可用,请检查网络连接!");
     }
 
@@ -321,7 +316,7 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
     protected void onPause() {
         super.onPause();
         if (mMoneyInfoModel == null || mCardListModel == null) {
-            isload = false;
+            isLoadData = false;
         }
     }
 }

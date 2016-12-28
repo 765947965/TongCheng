@@ -10,7 +10,7 @@ import java.io.File;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.UserMoreInfoModel;
-import app.net.tongcheng.util.CancelableClear;
+import app.net.tongcheng.util.HttpBusinessListener;
 import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.HttpUrls;
 import app.net.tongcheng.util.MD5;
@@ -23,7 +23,7 @@ import app.net.tongcheng.util.Utils;
 public class MyBusiness extends BaseBusiness {
 
 
-    public MyBusiness(CancelableClear mCancelableClear, Activity mActivity, Handler mHandler) {
+    public MyBusiness(HttpBusinessListener mCancelableClear, Activity mActivity, Handler mHandler) {
         super(mCancelableClear, mActivity, mHandler);
     }
 
