@@ -69,11 +69,11 @@ public class MoneyInfoModel extends BaseModel implements Serializable {
         /**
          * 手续费说明提示
          */
-        private String description;
+        private String description_plus;
         /**
          * 提现按钮下面说明
          */
-        private String tips;
+        private String tips_plus;
         private String status;
         private String addtime;
         private String balance_key;
@@ -154,20 +154,20 @@ public class MoneyInfoModel extends BaseModel implements Serializable {
             this.fee_ratio = fee_ratio;
         }
 
-        public String getDescription() {
-            return description;
+        public String getDescription_plus() {
+            return description_plus;
         }
 
-        public void setDescription(String description) {
-            this.description = description;
+        public void setDescription_plus(String description_plus) {
+            this.description_plus = description_plus;
         }
 
-        public String getTips() {
-            return tips;
+        public String getTips_plus() {
+            return tips_plus;
         }
 
-        public void setTips(String tips) {
-            this.tips = tips;
+        public void setTips_plus(String tips_plus) {
+            this.tips_plus = tips_plus;
         }
 
         public String getBalance_key() {

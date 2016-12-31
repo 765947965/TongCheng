@@ -74,8 +74,8 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
             mViewHolder.setText(R.id.tv_canout, "可提现: " + (realAmount / 100d > 0 ? realAmount / 100d : 0));
             mViewHolder.setText(R.id.tv_banck_name, mCardListModelDataBean.getBank_name());
             mViewHolder.setText(R.id.tv_banck_card, "储蓄卡 " + "(****" + mCardListModelDataBean.getBank_card_no().substring(mCardListModelDataBean.getBank_card_no().length() - 4) + ")");
-            mViewHolder.setText(R.id.tv_description, Html.fromHtml("<u>" + mMoneyInfoModel.getData().getDescription() + "</u>"));
-            mViewHolder.setText(R.id.tv_tips, TextUtils.isEmpty(mMoneyInfoModel.getData().getTips()) ? "" : mMoneyInfoModel.getData().getTips());
+            mViewHolder.setText(R.id.tv_description, Html.fromHtml("<u>" + mMoneyInfoModel.getData().getDescription_plus() + "</u>"));
+            mViewHolder.setText(R.id.tv_tips, TextUtils.isEmpty(mMoneyInfoModel.getData().getTips_plus()) ? "" : mMoneyInfoModel.getData().getTips_plus());
         }
     }
 
@@ -155,15 +155,15 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
                 try {
                     outMoney = money_input.getText().toString();
                     if (realAmount * (1d - mMoneyInfoModel.getData().getFee_ratio()) - mMoneyInfoModel.getData().getExtra_fee() <= 0) {
-                        ToastUtil.showToast(mMoneyInfoModel.getData().getDescription() + "当前可提现余额不足，无法提现!");
+                        DialogUtil.showTipsDialog(this, "提示", mMoneyInfoModel.getData().getDescription_plus() + " 当前可提现余额不足，无法提现!", "确定", "取消", null);
                     } else if (TextUtils.isEmpty(outMoney)) {
-                        ToastUtil.showToast("请输入提现金额!");
+                        DialogUtil.showTipsDialog(this, "提示", "请输入提现金额!", "确定", "", null);
                     } else if (Double.valueOf(outMoney) * (1d - mMoneyInfoModel.getData().getFee_ratio()) - mMoneyInfoModel.getData().getExtra_fee() / 100 <= 0) {
-                        ToastUtil.showToast("提现金额扣除手续费以及银行手续费后必须大于0!");
+                        DialogUtil.showTipsDialog(this, "提示", mMoneyInfoModel.getData().getDescription_plus() + " 当前提现金额不足以扣除手续费，无法提现!", "确定", "取消", null);
                     } else if (Double.valueOf(outMoney) > realAmount / 100d) {
-                        ToastUtil.showToast("提现金额不能大于可提现金额减去手续费");
+                        DialogUtil.showTipsDialog(this, "提示", "提现金额不能大于可提现金", "确定", "", null);
                     } else {
-//                        DialogUtil.showTipsDialog(this, "提示", mMoneyInfoModel.getData().getDescription() + "预计到账" + Double.valueOf(outMoney) * (1d - mMoneyInfoModel.getData().getFee_ratio()) + "元", "确定", "取消", new DialogUtil.OnConfirmListener() {
+//                        DialogUtil.showTipsDialog(this, "提示", mMoneyInfoModel.getData().getDescription_plus() + "预计到账" + Double.valueOf(outMoney) * (1d - mMoneyInfoModel.getData().getFee_ratio()) + "元", "确定", "取消", new DialogUtil.OnConfirmListener() {
 //                            @Override
 //                            public void clickConfirm() {
 //                                mRedBusiness.moneyOut(APPCationStation.MONEYOUT, "提现中...", mCardListModelDataBean.getId(), Double.valueOf(outMoney) * 100d);
@@ -177,7 +177,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
                         if (mDialog == null) {
                             mDialog = new InputObjectDialog(MoneyOutInputActivity.this, true, MoneyOutInputActivity.this);
                         }
-                        mDialog.showPasswordDialog((Double.valueOf(outMoney) * (1d - mMoneyInfoModel.getData().getFee_ratio()) - mMoneyInfoModel.getData().getExtra_fee() / 100d), mMoneyInfoModel.getData().getDescription() + "预计到账");
+                        mDialog.showPasswordDialog((Double.valueOf(outMoney) * (1d - mMoneyInfoModel.getData().getFee_ratio()) - mMoneyInfoModel.getData().getExtra_fee() / 100d), mMoneyInfoModel.getData().getDescription_plus() + " 预计到账");
                     }
                 } catch (Exception e) {
                     ToastUtil.showToast("请输入正确的提现金额!");
