@@ -18,8 +18,8 @@ android {
         applicationId "app.net.tongchengzj"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 323
-        versionName "3.2.3"
+        versionCode 330
+        versionName "3.3.0"
         resConfigs "zh" //只保留中文支持,去掉其它国际化配置
         ndk {
             moduleName "jniTongCheng"
