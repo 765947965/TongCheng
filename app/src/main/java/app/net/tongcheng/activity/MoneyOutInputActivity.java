@@ -155,13 +155,13 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
                 try {
                     outMoney = money_input.getText().toString();
                     if (realAmount * (1d - mMoneyInfoModel.getData().getFee_ratio()) - mMoneyInfoModel.getData().getExtra_fee() <= 0) {
-                        DialogUtil.showTipsDialog(this, "提示", mMoneyInfoModel.getData().getDescription_plus() + " 当前可提现余额不足，无法提现!", "确定", "取消", null);
+                        DialogUtil.showTipsDialog(this, mMoneyInfoModel.getData().getDescription_plus() + " 当前可提现余额不足，无法提现!", "确定", null);
                     } else if (TextUtils.isEmpty(outMoney)) {
-                        DialogUtil.showTipsDialog(this, "提示", "请输入提现金额!", "确定", "", null);
+                        DialogUtil.showTipsDialog(this, "请输入提现金额!", "确定", null);
                     } else if (Double.valueOf(outMoney) * (1d - mMoneyInfoModel.getData().getFee_ratio()) - mMoneyInfoModel.getData().getExtra_fee() / 100 <= 0) {
-                        DialogUtil.showTipsDialog(this, "提示", mMoneyInfoModel.getData().getDescription_plus() + " 当前提现金额不足以扣除手续费，无法提现!", "确定", "取消", null);
+                        DialogUtil.showTipsDialog(this, mMoneyInfoModel.getData().getDescription_plus() + " 当前提现金额不足以扣除手续费，无法提现!", "确定", null);
                     } else if (Double.valueOf(outMoney) > realAmount / 100d) {
-                        DialogUtil.showTipsDialog(this, "提示", "提现金额不能大于可提现金", "确定", "", null);
+                        DialogUtil.showTipsDialog(this, "提现金额不能大于可提现金", "确定", null);
                     } else {
 //                        DialogUtil.showTipsDialog(this, "提示", mMoneyInfoModel.getData().getDescription_plus() + "预计到账" + Double.valueOf(outMoney) * (1d - mMoneyInfoModel.getData().getFee_ratio()) + "元", "确定", "取消", new DialogUtil.OnConfirmListener() {
 //                            @Override
