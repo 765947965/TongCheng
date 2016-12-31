@@ -29,6 +29,7 @@ import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.activity.SetRetrievePassword;
 import app.net.tongcheng.util.Common;
+import app.net.tongcheng.util.NumberFormatUtil;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
 
@@ -164,7 +165,7 @@ public class InputObjectDialog extends Dialog implements View.OnClickListener {
         mViewHolder.setText(R.id.tvTitle, "请输入钱包密码");
         mViewHolder.setText(R.id.tv_desc, mTitle);
         mViewHolder.setVisibility(R.id.tv_payment_amount, View.VISIBLE);
-        mViewHolder.setText(R.id.tv_payment_amount, String.valueOf(payment_amount));
+        mViewHolder.setText(R.id.tv_payment_amount, NumberFormatUtil.formatNumberByTwo(payment_amount));
         mViewHolder.setVisibility(R.id.iv_set_style, View.VISIBLE);
         mViewHolder.setVisibility(R.id.lly_pac_LeftTips, View.GONE);
         setInputType(false);

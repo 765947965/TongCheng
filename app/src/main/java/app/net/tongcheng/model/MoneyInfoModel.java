@@ -34,15 +34,45 @@ public class MoneyInfoModel extends BaseModel implements Serializable {
 
     public static class DataBean implements Serializable{
         private String field_account_id;
+        /**
+         * 总积分
+         */
         private double balance;
+        /**
+         * 可提现
+         */
         private double canfetch_amount;
+        /**
+         * 提现中...
+         */
         private double fetching_amount;
+        /**
+         * 赠送期权
+         */
         private double freze_account;
+        /**
+         * 总之金额
+         */
         private double charge_amount;
+        /**
+         * 手续费比例
+         */
         private double fee_ratio;
+        /**
+         * 银行提现手续费
+         */
         private double extra_fee;
+        /**
+         * 最低保留不可提现金额
+         */
         private double min_cash_amount;
+        /**
+         * 手续费说明提示
+         */
         private String description;
+        /**
+         * 提现按钮下面说明
+         */
         private String tips;
         private String status;
         private String addtime;

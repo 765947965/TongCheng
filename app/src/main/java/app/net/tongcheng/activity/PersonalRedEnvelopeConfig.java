@@ -87,7 +87,8 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
         mViewHolder.setText(R.id.bttallmoney, Html.fromHtml("<font color=#AAA292>总金额  </font><font color=#FF6600>0.00</font><font color=#AAA292>元  </font>"));
         MoneyInfoModel mMoneyInfoModel = NativieDataUtils.getMoneyInfoModel();
         if (mMoneyInfoModel != null) {
-            Almoney = mMoneyInfoModel.getData().getCanfetch_amount();
+            Almoney = mMoneyInfoModel.getData().getCanfetch_amount() - mMoneyInfoModel.getData().getMin_cash_amount();
+            Almoney = Almoney < 0 ? 0 : Almoney;
             money_input.setHint("可用:" + Almoney / 100d);
         }
         UserMoreInfoModel mUserMoreInfoModel = NativieDataUtils.getUserMoreInfoModel();
@@ -128,7 +129,8 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     MoneyInfoModel mMoneyInfoModel = (MoneyInfoModel) mConnectResult.getObject();
                     NativieDataUtils.setMoneyInfoModel(mMoneyInfoModel);
-                    Almoney = mMoneyInfoModel.getData().getCanfetch_amount();
+                    Almoney = mMoneyInfoModel.getData().getCanfetch_amount() - mMoneyInfoModel.getData().getMin_cash_amount();
+                    Almoney = Almoney < 0 ? 0 : Almoney;
                     money_input.setHint("可用:" + Almoney / 100d);
                 }
                 break;
