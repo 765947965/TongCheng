@@ -75,5 +75,4 @@ dependencies {
     compile 'com.google.zxing:android-core:3.2.1'
     compile 'com.github.yoojia:zxing:0.7@aar'//二维码https://github.com/yoojia/ZXingMini
     compile 'com.bugtags.library:bugtags-lib:latest.integration'
-    compile 'com.yakivmospan:scytale:1.0.0'//https://github.com/765947965/scytale加密
 }
