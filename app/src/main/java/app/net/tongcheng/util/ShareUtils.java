@@ -6,6 +6,7 @@ import android.net.Uri;
 
 import java.io.File;
 
+import app.net.tongcheng.TCApplication;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.system.text.ShortMessage;
@@ -36,7 +37,7 @@ public class ShareUtils {
                 // 直接调用系统发短信如果发生异常，使用shareSDK相应发短信功能
             }
         }
-        ShareSDK.initSDK(mActivity);
+        ShareSDK.initSDK(TCApplication.mContext);
         OnekeyShare oks = new OnekeyShare();
 
         oks.setSite("同城商城");
