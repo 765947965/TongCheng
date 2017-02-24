@@ -62,7 +62,7 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
     private ViewHolder mViewHolder;
     private ViewPager mPager;
     private ViewPagerAdapter pagerAdapter;
-    private static MaterialTabHost mTabHost;
+    private MaterialTabHost mTabHost;
     private RedPacketFragment mRedPacketFragment;
     private LifeFragment mLifeFragment;
     private FriendFragment mFriendFragment;
@@ -372,7 +372,7 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
 
     }
 
-    public static void setTabHintSpotVisibility(int item, int visibility) {
+    public void setTabHintSpotVisibility(int item, int visibility) {
         if (mTabHost != null) {
             mTabHost.setTabHintSpotVisibility(item, visibility);
         }
