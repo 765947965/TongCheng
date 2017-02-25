@@ -1,4 +1,5 @@
 package app.net.tongcheng.view;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,6 +9,7 @@ import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -70,7 +72,7 @@ public class InputDialog {
      * through Activity/Screen.
      *
      * @return Window The current window, or null if the activity is not
-     *         visual.
+     * visual.
      */
     public Window getWindow() {
         return dialog.getWindow();
@@ -87,6 +89,7 @@ public class InputDialog {
 
     /**
      * Sets a listener to be invoked when the dialog is shown.
+     *
      * @param listener The {@link DialogInterface.OnShowListener} to use.
      */
     public void setOnShowListener(DialogInterface.OnShowListener listener) {
@@ -177,6 +180,7 @@ public class InputDialog {
 
     /**
      * Retrieve the current text content in the input box of dialog.
+     *
      * @return The text content.
      */
     public CharSequence getInputText() {
@@ -204,6 +208,7 @@ public class InputDialog {
 
         private CharSequence inputHint;
         private int inputMaxWords = -1;
+        private int inputType = InputType.TYPE_CLASS_TEXT;
         private boolean interceptAutoPopupInputMethod;
 
         private ButtonHandler mHandler;
@@ -236,6 +241,11 @@ public class InputDialog {
          */
         public Builder setInputMaxWords(int maxWords) {
             this.inputMaxWords = maxWords;
+            return this;
+        }
+
+        public Builder setInputType(int inputType) {
+            this.inputType = inputType;
             return this;
         }
 
@@ -389,7 +399,7 @@ public class InputDialog {
 
         /**
          * Sets the callback that will be called if the dialog is canceled.
-         *
+         * <p/>
          * <p>Even in a cancelable dialog, the dialog may be dismissed for reasons other than
          * being canceled or one of the supplied choices being selected.
          * If you are interested in listening for all cases where the dialog is dismissed
@@ -450,6 +460,7 @@ public class InputDialog {
         /**
          * Used to disable the automatically-popup-soft-input-keyboard behavior
          * when the dialog shows.
+         *
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public Builder disableAutoPopupSoftInput() {
@@ -521,7 +532,7 @@ public class InputDialog {
         private void initEditText(AlertDialog dialog) {
             EditText input = obtainEditText(dialog);
             if (inputMaxWords >= 0) {
-                input.setFilters(new InputFilter[] {new InputFilter.LengthFilter(inputMaxWords)});
+                input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(inputMaxWords)});
             }
             if (!TextUtils.isEmpty(inputDefaultText)) {
                 input.setText(inputDefaultText);
@@ -532,6 +543,7 @@ public class InputDialog {
             if (!TextUtils.isEmpty(inputHint)) {
                 input.setHint(inputHint);
             }
+            input.setInputType(inputType);
         }
 
         private void popupSoftInput(final AlertDialog dialog) {
@@ -647,7 +659,7 @@ public class InputDialog {
     public interface ButtonActionIntercepter {
         /**
          * @param whichButton The type of button, including DialogInterface.BUTTON_POSITIVE,
-         *                   DialogInterface.BUTTON_NEGATIVE, DialogInterface.BUTTON_NEUTRAL
+         *                    DialogInterface.BUTTON_NEGATIVE, DialogInterface.BUTTON_NEUTRAL
          * @return true if you need to intercept the inherent behavior, vise versa.
          */
         boolean onInterceptButtonAction(int whichButton, CharSequence inputText);

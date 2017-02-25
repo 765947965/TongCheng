@@ -40,11 +40,32 @@ public class RechargeInfoModel extends BaseModel {
         this.data = data;
     }
 
-    public static class DataBean implements Serializable{
+    private GuQaunObject diy_hehuoren_goods_info;
+
+    public GuQaunObject getDiy_hehuoren_goods_info() {
+        return diy_hehuoren_goods_info;
+    }
+
+    public void setDiy_hehuoren_goods_info(GuQaunObject diy_hehuoren_goods_info) {
+        this.diy_hehuoren_goods_info = diy_hehuoren_goods_info;
+    }
+
+    public static class DataBean implements Serializable {
         private String GoodsID;
         private String GoodsName;
         private double Price;
         private String GoodsInfo;
+
+        public DataBean() {
+
+        }
+
+        public DataBean(String GoodsID, String GoodsName, double Price, String GoodsInfo) {
+            this.GoodsID = GoodsID;
+            this.GoodsName = GoodsName;
+            this.Price = Price;
+            this.GoodsInfo = GoodsInfo;
+        }
 
         public String getGoodsID() {
             return GoodsID;
@@ -76,6 +97,43 @@ public class RechargeInfoModel extends BaseModel {
 
         public void setGoodsInfo(String GoodsInfo) {
             this.GoodsInfo = GoodsInfo;
+        }
+    }
+
+    public static class GuQaunObject implements Serializable {
+        /**
+         * "合伙人自选(自定义充值金额)",
+         */
+        private String diy_hehuoren_goods_name;
+        /**
+         * 请输入300元整数倍充值金额
+         */
+        private String diy_hehuoren_goods_money_input_tips;
+
+        private List<DataBean> data;
+
+        public List<DataBean> getData() {
+            return data;
+        }
+
+        public void setData(List<DataBean> data) {
+            this.data = data;
+        }
+
+        public String getDiy_hehuoren_goods_money_input_tips() {
+            return diy_hehuoren_goods_money_input_tips;
+        }
+
+        public void setDiy_hehuoren_goods_money_input_tips(String diy_hehuoren_goods_money_input_tips) {
+            this.diy_hehuoren_goods_money_input_tips = diy_hehuoren_goods_money_input_tips;
+        }
+
+        public String getDiy_hehuoren_goods_name() {
+            return diy_hehuoren_goods_name;
+        }
+
+        public void setDiy_hehuoren_goods_name(String diy_hehuoren_goods_name) {
+            this.diy_hehuoren_goods_name = diy_hehuoren_goods_name;
         }
     }
 }

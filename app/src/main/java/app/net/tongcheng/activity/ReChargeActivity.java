@@ -1,9 +1,11 @@
 package app.net.tongcheng.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
+import android.text.InputType;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -23,6 +25,7 @@ import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
+import app.net.tongcheng.view.InputDialog;
 
 /**
  * Created by 76594 on 2016/6/11.
@@ -34,6 +37,7 @@ public class ReChargeActivity extends BaseActivity implements View.OnClickListen
     private ReChargeListAdapter mReChargeListAdapter;
     private ListView mListView;
     private RechargeInfoModel.DataBean selectbean;
+    private RechargeInfoModel.DataBean zxSelectbean;//自己填写充值金额的对象
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +69,10 @@ public class ReChargeActivity extends BaseActivity implements View.OnClickListen
                 if (mRechargeInfoModel != null && mRechargeInfoModel.getData() != null && mRechargeInfoModel.getData().size() > 0) {
                     datas.clear();
                     datas.addAll(mRechargeInfoModel.getData());
+                    if (mRechargeInfoModel.getDiy_hehuoren_goods_info() != null && mRechargeInfoModel.getDiy_hehuoren_goods_info().getData() != null && mRechargeInfoModel.getDiy_hehuoren_goods_info().getData().size() > 0) {
+                        datas.add(new RechargeInfoModel.DataBean("", mRechargeInfoModel.getDiy_hehuoren_goods_info().getDiy_hehuoren_goods_name(), 0f, mRechargeInfoModel.getDiy_hehuoren_goods_info().getDiy_hehuoren_goods_money_input_tips()));
+                        mViewHolder.getView(R.id.bt_recharge).setTag(mRechargeInfoModel.getDiy_hehuoren_goods_info());
+                    }
                     selectbean = datas.get(0);
                     mViewHolder.setText(R.id.tv_info, selectbean.getGoodsInfo());
                 }
@@ -103,11 +111,46 @@ public class ReChargeActivity extends BaseActivity implements View.OnClickListen
             case R.id.bt_recharge:
                 if (selectbean == null) {
                     ToastUtil.showToast("网络不可用,请检查网络连接!");
+                } else if (selectbean.getPrice() == 0f && v.getTag() != null && v.getTag() instanceof RechargeInfoModel.GuQaunObject) {
+                    showInputDialog(((RechargeInfoModel.GuQaunObject) v.getTag()).getData());
                 } else {
                     startActivity(new Intent(this, NextRecharge.class).putExtra("RechargeInfoModel.DataBean", selectbean));
                 }
                 break;
         }
+    }
+
+    private void showInputDialog(final List<RechargeInfoModel.DataBean> DataBeans) {
+        zxSelectbean = null;
+        new InputDialog.Builder(this)
+                .setTitle(selectbean.getGoodsName())
+                .setInputMaxWords(10)
+                .setInputType(InputType.TYPE_CLASS_NUMBER)
+                .setInputHint(selectbean.getGoodsInfo())
+                .setPositiveButton("确定", new InputDialog.ButtonActionListener() {
+                    @Override
+                    public void onClick(CharSequence inputText) {
+                        startActivity(new Intent(ReChargeActivity.this, NextRecharge.class).putExtra("RechargeInfoModel.DataBean", zxSelectbean));
+                    }
+                })
+                .interceptButtonAction(new InputDialog.ButtonActionIntercepter() { // 拦截按钮行为
+                    @Override
+                    public boolean onInterceptButtonAction(int whichButton, CharSequence inputText) {
+                        int inputPrice = Integer.valueOf(inputText.toString()) * 100;
+                        for (RechargeInfoModel.DataBean dataBean : DataBeans) {
+                            if (dataBean.getPrice() == inputPrice) {
+                                zxSelectbean = dataBean;
+                                break;
+                            }
+                        }
+                        if (zxSelectbean == null && whichButton == DialogInterface.BUTTON_POSITIVE) {
+                            ToastUtil.showToast(selectbean.getGoodsInfo());
+                            return true;
+                        }
+                        return false;
+                    }
+                })
+                .show();
     }
 
 
@@ -130,6 +173,11 @@ public class ReChargeActivity extends BaseActivity implements View.OnClickListen
         protected void MyonItemClick(AdapterView<?> parent, View view, RechargeInfoModel.DataBean item, List<RechargeInfoModel.DataBean> list, int position, long id) {
             selectbean = item;
             mViewHolder.setText(R.id.tv_info, selectbean.getGoodsInfo());
+            if (item.getPrice() == 0f) {
+                mViewHolder.setText(R.id.tvInputTips, selectbean.getGoodsInfo());
+            } else {
+                mViewHolder.setText(R.id.tvInputTips, "");
+            }
             mReChargeListAdapter.notifyDataSetChanged();
         }
     }
