@@ -145,6 +145,7 @@ public class RedBusiness extends BaseBusiness {
     public void rechargeInfo(int mLoding_Type, String message) {
         RequestParams params = new RequestParams(HttpUrls.rechage);
         params.addQueryStringParameter("ver", Utils.getVersionName());
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         goConnect(mActivity, mLoding_Type, params, message, RechargeInfoModel.class.getName());
     }
 
