@@ -107,10 +107,25 @@
         android:textSize="@dimen/sp12" />
 
     <Button
-        android:id="@+id/bt_withdraw_action"
+        android:id="@+id/btGuQaun"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_above="@id/tv_banding_new_card"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14.6dp"
+        android:background="@drawable/red_button_box_select"
+        android:minHeight="35dp"
+        android:text="给我的直推用户充值转账"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp14" />
+
+
+    <Button
+        android:id="@+id/bt_withdraw_action"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btGuQaun"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14.6dp"
         android:background="@drawable/red_button_box_select"

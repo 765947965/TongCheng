@@ -44,4 +44,5 @@ public class HttpUrls {
     public static final String bank_list = "http://pay.8hbao.com/recharge/service/bank_list.php";//银行卡列表
     public static final String ChangPhone_V2 = "http://mobile.8hbao.com:8899/v2/change_phone_v2";//更改绑定手机号码
     public static final String WXXD = "http://user.8hbao.com/wxpay/pay/appapi.php";//更改绑定手机号码
+    public static final String ZSQQ = "http://mobile.8hbao.com:8899/v2/agent_add_money_to_zhitui_user";//赠送期权
 }

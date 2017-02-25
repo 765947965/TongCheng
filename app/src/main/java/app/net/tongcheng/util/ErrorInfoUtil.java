@@ -8,6 +8,18 @@ public class ErrorInfoUtil {
     public static String getErrorMessage(int type) {
         String message = "";
         switch (type) {
+            case -10:
+                message = "系统异常，请稍晚再操作";
+                break;
+            case -8:
+                message = "输入金额数字不正确";
+                break;
+            case -7:
+                message = "对方未注册，或不是您的直推用户，不能操作";
+                break;
+            case -4:
+                message = "您的余额不足，无法操作";
+                break;
             case 1:
                 message = "未登录";
                 break;

@@ -175,7 +175,7 @@ public class RedBusiness extends BaseBusiness {
         goConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
     }
 
-    public void getListGiftInfo(int mLoding_Type, String message, String sender_gift_id){
+    public void getListGiftInfo(int mLoding_Type, String message, String sender_gift_id) {
         RequestParams params = new RequestParams(HttpUrls.ListGiftInfo);
         params.addQueryStringParameter("sender_gift_id", sender_gift_id);
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
@@ -183,14 +183,23 @@ public class RedBusiness extends BaseBusiness {
         goConnect(mActivity, mLoding_Type, params, message, SplideGiftModel.class.getName());
     }
 
-    public void getBanckCardList(int mLoding_Type, String message){
+    public void getBanckCardList(int mLoding_Type, String message) {
         RequestParams params = new RequestParams(HttpUrls.bank_list);
         goConnect(mActivity, mLoding_Type, params, message, BanckListModel.class.getName());
     }
 
-    public void getWeiXinXiaDan(int mLoding_Type, String message, String enTry){
+    public void getWeiXinXiaDan(int mLoding_Type, String message, String enTry) {
         RequestParams params = new RequestParams(HttpUrls.WXXD);
         params.setBodyContent(enTry);
         goPostConnect(mActivity, mLoding_Type, params, message, "");
+    }
+
+    public void zsQiQuan(int mLoding_Type, String message, String phone, int money) {
+        RequestParams params = new RequestParams(HttpUrls.ZSQQ);
+        params.addQueryStringParameter("agent_uid", TCApplication.getmUserInfo().getUid());
+        params.addQueryStringParameter("chargee_phone", phone);
+        params.addQueryStringParameter("actual", String.valueOf(money));
+        params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + phone + money + Common.SIGN_KEY));
+        goConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
     }
 }

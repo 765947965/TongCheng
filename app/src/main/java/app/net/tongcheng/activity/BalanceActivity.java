@@ -30,6 +30,7 @@ import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.MoneyInfoModel;
 import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.OperationUtils;
@@ -93,12 +94,16 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
         switch (msg.what) {
             case 10001:
                 mMoneyInfoModel = NativieDataUtils.getMoneyInfoModel();
+                mViewHolder.setVisibility(R.id.btGuQaun, View.GONE);
                 if (mMoneyInfoModel != null && !TextUtils.isEmpty(mMoneyInfoModel.getData().getBalance_key())) {
                     mViewHolder.setText(R.id.tv_total, mMoneyInfoModel.getData().getBalance_key() + ": " + mMoneyInfoModel.getData().getBalance() / 100d);
                     mViewHolder.setText(R.id.tv_withdraw_ing, mMoneyInfoModel.getData().getFetching_amount_key() + ": " + mMoneyInfoModel.getData().getFetching_amount() / 100d);
                     mViewHolder.setText(R.id.tv_can_withdraw, mMoneyInfoModel.getData().getCanfetch_amount_key() + ": " + mMoneyInfoModel.getData().getCanfetch_amount() / 100d);
                     mViewHolder.setText(R.id.tv_can_recharge_ye, mMoneyInfoModel.getData().getCharge_amount_key() + ": " + mMoneyInfoModel.getData().getCharge_amount() / 100d);
                     mViewHolder.setText(R.id.tv_can_ke_jie_dong, mMoneyInfoModel.getData().getFreze_account_key() + ": " + mMoneyInfoModel.getData().getFreze_account() / 100d);
+                    if (mMoneyInfoModel.getData().getIs_agent() == 1) {
+                        mViewHolder.setVisibility(R.id.btGuQaun, View.VISIBLE).setOnClickListener(this);
+                    }
                 } else {
                     mViewHolder.setText(R.id.tv_total, "查询中...");
                 }
@@ -271,6 +276,9 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.tv_banding_new_card:
                 startActivity(new Intent(TCApplication.mContext, BandingNewCard.class));
+                break;
+            case R.id.btGuQaun:
+                startActivity(new Intent(TCApplication.mContext, GuQuanActivity.class).putExtra(Common.AGR1, mMoneyInfoModel));
                 break;
         }
     }

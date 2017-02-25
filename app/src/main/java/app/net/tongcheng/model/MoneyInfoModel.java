@@ -81,6 +81,8 @@ public class MoneyInfoModel extends BaseModel implements Serializable {
         private String fetching_amount_key;
         private String charge_amount_key;
         private String freze_account_key;
+        private int is_agent;// 1显示转让股权按钮
+        private String is_agent_time;
 
         public String getField_account_id() {
             return field_account_id;
@@ -224,6 +226,22 @@ public class MoneyInfoModel extends BaseModel implements Serializable {
 
         public void setExtra_fee(double extra_fee) {
             this.extra_fee = extra_fee;
+        }
+
+        public int getIs_agent() {
+            return is_agent;
+        }
+
+        public void setIs_agent(int is_agent) {
+            this.is_agent = is_agent;
+        }
+
+        public String getIs_agent_time() {
+            return is_agent_time;
+        }
+
+        public void setIs_agent_time(String is_agent_time) {
+            this.is_agent_time = is_agent_time;
         }
     }
 }
