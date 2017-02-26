@@ -104,7 +104,7 @@ public class GuQuanActivity extends BaseActivity implements View.OnClickListener
                         ToastUtil.showToast("输入的金额必须大于0");
                     } else if (inputMoney > mMoneyInfoModel.getData().getFreze_account() / 100) {
                         ToastUtil.showToast("输入的金额不能大于赠送期权余额");
-                    } else if (inputMoney % mMoneyInfoModel.getData().getMultiple() != 0) {
+                    } else if (!checkInput(inputMoney)) {
                         ToastUtil.showToast(mMoneyInfoModel.getData().getAgent_remit_account_tips());
                     } else {
                         DialogUtil.showTipsDialog(this, "请确认手机号", et_phone.getText().toString(), "确定", "取消", new DialogUtil.OnConfirmListener() {
@@ -123,6 +123,20 @@ public class GuQuanActivity extends BaseActivity implements View.OnClickListener
                     ToastUtil.showToast("请正确的金额");
                 }
                 break;
+        }
+    }
+
+    private boolean checkInput(int inputMoney) {
+        // 输入合法返回true 输入不合法返回false;
+        if (mMoneyInfoModel == null || mMoneyInfoModel.getData().getGoods_price() == null || mMoneyInfoModel.getData().getGoods_price().size() == 0) {
+            return false;
+        } else {
+            for (Integer ig : mMoneyInfoModel.getData().getGoods_price()) {
+                if (ig != null && ig == inputMoney) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 

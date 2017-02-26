@@ -179,7 +179,7 @@ public class ReChargeActivity extends BaseActivity implements View.OnClickListen
             selectbean = item;
             mViewHolder.setText(R.id.tv_info, selectbean.getGoodsInfo());
             if (item.getPrice() == 0f) {
-                mViewHolder.setText(R.id.tvInputTips, selectbean.getGoodsInfo());
+                mViewHolder.setText(R.id.tvInputTips, "充值金额: " + selectbean.getGoodsInfo());
             } else {
                 mViewHolder.setText(R.id.tvInputTips, "");
             }

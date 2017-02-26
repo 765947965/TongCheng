@@ -1,6 +1,7 @@
 package app.net.tongcheng.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by 76594 on 2016/6/10.
@@ -85,6 +86,7 @@ public class MoneyInfoModel extends BaseModel implements Serializable {
         private String is_agent_time;
         private int multiple;//给直推用户充值的倍数基数
         private String agent_remit_account_tips;//"请输入300元整数倍金额" 给直推用户充值提示
+        private List<Integer> goods_price;//给直推用户充值的套餐
 
         public String getField_account_id() {
             return field_account_id;
@@ -260,6 +262,14 @@ public class MoneyInfoModel extends BaseModel implements Serializable {
 
         public void setMultiple(int multiple) {
             this.multiple = multiple;
+        }
+
+        public List<Integer> getGoods_price() {
+            return goods_price;
+        }
+
+        public void setGoods_price(List<Integer> goods_price) {
+            this.goods_price = goods_price;
         }
     }
 }
