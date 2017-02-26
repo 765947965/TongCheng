@@ -104,6 +104,7 @@ public class SwitchOnActivity extends BaseActivity implements View.OnClickListen
         switch (mLoadType) {
             case APPCationStation.SUMBITOUT:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    TCApplication.setmUserInfo(null);
                     mOtherBusiness.loadingBusiness(APPCationStation.SUMBIT, "登录中", r_loding4v2_phnum.getText().toString(), r_loding4v2_pwd.getText().toString());
                 }
                 break;

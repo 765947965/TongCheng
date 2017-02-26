@@ -136,18 +136,23 @@ public class ReChargeActivity extends BaseActivity implements View.OnClickListen
                 .interceptButtonAction(new InputDialog.ButtonActionIntercepter() { // 拦截按钮行为
                     @Override
                     public boolean onInterceptButtonAction(int whichButton, CharSequence inputText) {
-                        int inputPrice = Integer.valueOf(inputText.toString()) * 100;
-                        for (RechargeInfoModel.DataBean dataBean : DataBeans) {
-                            if (dataBean.getPrice() == inputPrice) {
-                                zxSelectbean = dataBean;
-                                break;
+                        try {
+                            int inputPrice = Integer.valueOf(inputText.toString()) * 100;
+                            for (RechargeInfoModel.DataBean dataBean : DataBeans) {
+                                if (dataBean.getPrice() == inputPrice) {
+                                    zxSelectbean = dataBean;
+                                    break;
+                                }
                             }
-                        }
-                        if (zxSelectbean == null && whichButton == DialogInterface.BUTTON_POSITIVE) {
-                            ToastUtil.showToast(selectbean.getGoodsInfo());
+                            if (zxSelectbean == null && whichButton == DialogInterface.BUTTON_POSITIVE) {
+                                ToastUtil.showToast(selectbean.getGoodsInfo());
+                                return true;
+                            }
+                            return false;
+                        } catch (Exception e) {
+                            ToastUtil.showToast("请输入正确的金额");
                             return true;
                         }
-                        return false;
                     }
                 })
                 .show();

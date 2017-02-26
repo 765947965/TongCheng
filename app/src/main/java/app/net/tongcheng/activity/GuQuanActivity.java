@@ -45,7 +45,7 @@ public class GuQuanActivity extends BaseActivity implements View.OnClickListener
         mViewHolder.setOnClickListener(R.id.etPut);
         et_phone.setShearchListner(this);
         et_money.setShearchListner(this);
-        mViewHolder.setText(R.id.tvTips, "赠送期权余额:" + String.valueOf(mMoneyInfoModel.getData().getFreze_account() / 100d));
+        mViewHolder.setText(R.id.tvTips, mMoneyInfoModel.getData().getFreze_account_key() + "余额:" + String.valueOf(mMoneyInfoModel.getData().getFreze_account() / 100d) + "\r\n我成为代理时间:" + mMoneyInfoModel.getData().getIs_agent_time());
         mViewHolder.setText(R.id.tvInputTips, mMoneyInfoModel.getData().getAgent_remit_account_tips());
     }
 
@@ -98,25 +98,29 @@ public class GuQuanActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.etPut:
-                final int inputMoney = Integer.valueOf(et_money.getText().toString());
-                if (inputMoney <= 0) {
-                    ToastUtil.showToast("输入的金额必须大于0");
-                } else if (inputMoney > mMoneyInfoModel.getData().getFreze_account() / 100) {
-                    ToastUtil.showToast("输入的金额不能大于赠送期权余额");
-                } else if (inputMoney % mMoneyInfoModel.getData().getMultiple() != 0) {
-                    ToastUtil.showToast(mMoneyInfoModel.getData().getAgent_remit_account_tips());
-                } else {
-                    DialogUtil.showTipsDialog(this, "请确认手机号", et_phone.getText().toString(), "确定", "取消", new DialogUtil.OnConfirmListener() {
-                        @Override
-                        public void clickConfirm() {
-                            mRedBusiness.zsQiQuan(APPCationStation.SUMBIT, "提交中...", et_phone.getText().toString(), inputMoney);
-                        }
+                try {
+                    final int inputMoney = Integer.valueOf(et_money.getText().toString());
+                    if (inputMoney <= 0) {
+                        ToastUtil.showToast("输入的金额必须大于0");
+                    } else if (inputMoney > mMoneyInfoModel.getData().getFreze_account() / 100) {
+                        ToastUtil.showToast("输入的金额不能大于赠送期权余额");
+                    } else if (inputMoney % mMoneyInfoModel.getData().getMultiple() != 0) {
+                        ToastUtil.showToast(mMoneyInfoModel.getData().getAgent_remit_account_tips());
+                    } else {
+                        DialogUtil.showTipsDialog(this, "请确认手机号", et_phone.getText().toString(), "确定", "取消", new DialogUtil.OnConfirmListener() {
+                            @Override
+                            public void clickConfirm() {
+                                mRedBusiness.zsQiQuan(APPCationStation.SUMBIT, "提交中...", et_phone.getText().toString(), inputMoney);
+                            }
 
-                        @Override
-                        public void clickCancel() {
+                            @Override
+                            public void clickCancel() {
 
-                        }
-                    });
+                            }
+                        });
+                    }
+                } catch (Exception e) {
+                    ToastUtil.showToast("请正确的金额");
                 }
                 break;
         }
