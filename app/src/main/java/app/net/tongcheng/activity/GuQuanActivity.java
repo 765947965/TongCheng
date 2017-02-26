@@ -46,6 +46,7 @@ public class GuQuanActivity extends BaseActivity implements View.OnClickListener
         et_phone.setShearchListner(this);
         et_money.setShearchListner(this);
         mViewHolder.setText(R.id.tvTips, "赠送期权余额:" + String.valueOf(mMoneyInfoModel.getData().getFreze_account() / 100d));
+        mViewHolder.setText(R.id.tvInputTips, mMoneyInfoModel.getData().getAgent_remit_account_tips());
     }
 
 
@@ -102,6 +103,8 @@ public class GuQuanActivity extends BaseActivity implements View.OnClickListener
                     ToastUtil.showToast("输入的金额必须大于0");
                 } else if (inputMoney > mMoneyInfoModel.getData().getFreze_account() / 100) {
                     ToastUtil.showToast("输入的金额不能大于赠送期权余额");
+                } else if (inputMoney % mMoneyInfoModel.getData().getMultiple() != 0) {
+                    ToastUtil.showToast(mMoneyInfoModel.getData().getAgent_remit_account_tips());
                 } else {
                     DialogUtil.showTipsDialog(this, "请确认手机号", et_phone.getText().toString(), "确定", "取消", new DialogUtil.OnConfirmListener() {
                         @Override

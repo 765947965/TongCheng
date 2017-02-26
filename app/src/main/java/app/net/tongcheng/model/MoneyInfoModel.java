@@ -83,6 +83,8 @@ public class MoneyInfoModel extends BaseModel implements Serializable {
         private String freze_account_key;
         private int is_agent;// 1显示转让股权按钮
         private String is_agent_time;
+        private int multiple;//给直推用户充值的倍数基数
+        private String agent_remit_account_tips;//"请输入300元整数倍金额" 给直推用户充值提示
 
         public String getField_account_id() {
             return field_account_id;
@@ -242,6 +244,22 @@ public class MoneyInfoModel extends BaseModel implements Serializable {
 
         public void setIs_agent_time(String is_agent_time) {
             this.is_agent_time = is_agent_time;
+        }
+
+        public String getAgent_remit_account_tips() {
+            return agent_remit_account_tips;
+        }
+
+        public void setAgent_remit_account_tips(String agent_remit_account_tips) {
+            this.agent_remit_account_tips = agent_remit_account_tips;
+        }
+
+        public int getMultiple() {
+            return multiple;
+        }
+
+        public void setMultiple(int multiple) {
+            this.multiple = multiple;
         }
     }
 }
