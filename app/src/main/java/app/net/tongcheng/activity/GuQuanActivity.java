@@ -32,7 +32,7 @@ public class GuQuanActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guquan);
-        setTitle("直推用户线下转增期权");
+        setTitle("直推用户线下转赠期权");
         mMoneyInfoModel = (MoneyInfoModel) getIntent().getSerializableExtra(Common.AGR1);
         initView();
         mRedBusiness = new RedBusiness(this, this, mHandler);

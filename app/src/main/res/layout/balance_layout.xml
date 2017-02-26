@@ -115,7 +115,7 @@
         android:layout_marginTop="14.6dp"
         android:background="@drawable/red_button_box_select"
         android:minHeight="35dp"
-        android:text="直推用户线下转增期权"
+        android:text="直推用户线下转赠期权"
         android:visibility="gone"
         android:textColor="@color/white"
         android:textSize="@dimen/sp14" />
