@@ -105,7 +105,7 @@ public class GuQuanActivity extends BaseActivity implements View.OnClickListener
                     } else if (inputMoney > mMoneyInfoModel.getData().getFreze_account() / 100) {
                         ToastUtil.showToast("输入的金额不能大于赠送期权余额");
                     } else if (!checkInput(inputMoney)) {
-                        ToastUtil.showToast(mMoneyInfoModel.getData().getAgent_remit_account_tips());
+                        ToastUtil.showToast("请输入正确的合伙人套餐金额");
                     } else {
                         DialogUtil.showTipsDialog(this, "请确认手机号", et_phone.getText().toString(), "确定", "取消", new DialogUtil.OnConfirmListener() {
                             @Override
