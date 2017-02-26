@@ -104,6 +104,7 @@ public class SwitchOnActivity extends BaseActivity implements View.OnClickListen
         switch (mLoadType) {
             case APPCationStation.SUMBITOUT:
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    setCheckLoad(false);
                     TCApplication.setmUserInfo(null);
                     mOtherBusiness.loadingBusiness(APPCationStation.SUMBIT, "登录中", r_loding4v2_phnum.getText().toString(), r_loding4v2_pwd.getText().toString());
                 }
@@ -112,6 +113,7 @@ public class SwitchOnActivity extends BaseActivity implements View.OnClickListen
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                     UserInfo mUserInfo = (UserInfo) mConnectResult.getObject();
                     TCApplication.setmUserInfo(mUserInfo);
+                    setCheckLoad(true);
                     OraLodingUserTools.addolus(TCApplication.mContext, new OraLodingUser(mUserInfo.getPhone(), System.currentTimeMillis()));
                     sendEventBusMessage("ALL.Refresh");
                     sendEventBusMessage("ALL.UpData");
@@ -144,7 +146,11 @@ public class SwitchOnActivity extends BaseActivity implements View.OnClickListen
                 r_loding4v2_phnum.setText("");
                 break;
             case R.id.r_loding4v2_lodingbt://登录
-                mOtherBusiness.loadingOutBusiness(APPCationStation.SUMBITOUT, "登出中...");
+                if (TCApplication.getmUserInfo() != null) {
+                    mOtherBusiness.loadingOutBusiness(APPCationStation.SUMBITOUT, "登出中...");
+                } else {
+                    mOtherBusiness.loadingBusiness(APPCationStation.SUMBIT, "登录中", r_loding4v2_phnum.getText().toString(), r_loding4v2_pwd.getText().toString());
+                }
                 break;
             case R.id.r_loding4v2_getpassword://忘记密码
                 break;

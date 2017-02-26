@@ -32,7 +32,7 @@ public class GuQuanActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guquan);
-        setTitle("给我的直推用户充值转账");
+        setTitle("直推用户线下转增期权");
         mMoneyInfoModel = (MoneyInfoModel) getIntent().getSerializableExtra(Common.AGR1);
         initView();
         mRedBusiness = new RedBusiness(this, this, mHandler);
@@ -45,7 +45,7 @@ public class GuQuanActivity extends BaseActivity implements View.OnClickListener
         mViewHolder.setOnClickListener(R.id.etPut);
         et_phone.setShearchListner(this);
         et_money.setShearchListner(this);
-        mViewHolder.setText(R.id.tvTips, mMoneyInfoModel.getData().getFreze_account_key() + "余额:" + String.valueOf(mMoneyInfoModel.getData().getFreze_account() / 100d) + "\r\n我成为代理时间:" + mMoneyInfoModel.getData().getIs_agent_time());
+        mViewHolder.setText(R.id.tvTips, "期权数额:" + String.valueOf(mMoneyInfoModel.getData().getFreze_account() / 100d) + "\r\n代理时间:" + mMoneyInfoModel.getData().getIs_agent_time());
         mViewHolder.setText(R.id.tvInputTips, mMoneyInfoModel.getData().getAgent_remit_account_tips());
     }
 
