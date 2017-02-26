@@ -410,7 +410,46 @@ public class DialogUtil {
         return mFullScreenDialog;
     }
 
+    public static Dialog showInputDialog(Activity mActivity, final String title, final String context, final String hint, final int inputType, final InputListener mInputListener) {
+        if (mActivity == null || mActivity.isFinishing() || mInputListener == null) {
+            return null;
+        }
+        FullScreenDialog mFullScreenDialog = new FullScreenDialog(mActivity, R.layout.input_password_dialog_layout) {
+            @Override
+            public void FDonClick(ViewHolder mViewHolder, View v) {
+                EditText et_password = mViewHolder.getView(R.id.et_password);
+                String code = et_password.getText().toString();
+                if (!mInputListener.onIntercept(code)) {
+                    mInputListener.onSureInout(code);
+                    dismiss();
+                }
+            }
+
+            @Override
+            public void CreatView(ViewHolder mViewHolder) {
+                mViewHolder.setOnClickListener(R.id.tv_sure);
+                mViewHolder.setText(R.id.tv_title, title);
+                EditText et_password = mViewHolder.getView(R.id.et_password);
+                et_password.setInputType(inputType);
+                et_password.setHint(hint);
+                if (!TextUtils.isEmpty(context)) {
+                    et_password.setText(context);
+                }
+                Utils.setInputMethodVisiable(et_password, 200);
+            }
+        };
+        mFullScreenDialog.setCanceledOnTouchOutside(true);
+        mFullScreenDialog.show();
+        return mFullScreenDialog;
+    }
+
     public interface InputPasswordListener {
         void onSureInout(String code);
+    }
+
+    public interface InputListener {
+        void onSureInout(String input);
+
+        boolean onIntercept(String input);
     }
 }

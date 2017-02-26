@@ -22,6 +22,7 @@ import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.RechargeInfoModel;
 import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
@@ -122,40 +123,33 @@ public class ReChargeActivity extends BaseActivity implements View.OnClickListen
 
     private void showInputDialog(final List<RechargeInfoModel.DataBean> DataBeans) {
         zxSelectbean = null;
-        new InputDialog.Builder(this)
-                .setTitle(selectbean.getGoodsName())
-                .setInputMaxWords(10)
-                .setInputType(InputType.TYPE_CLASS_NUMBER)
-                .setInputHint(selectbean.getGoodsInfo())
-                .setPositiveButton("确定", new InputDialog.ButtonActionListener() {
-                    @Override
-                    public void onClick(CharSequence inputText) {
-                        startActivity(new Intent(ReChargeActivity.this, NextRecharge.class).putExtra("RechargeInfoModel.DataBean", zxSelectbean));
-                    }
-                })
-                .interceptButtonAction(new InputDialog.ButtonActionIntercepter() { // 拦截按钮行为
-                    @Override
-                    public boolean onInterceptButtonAction(int whichButton, CharSequence inputText) {
-                        try {
-                            int inputPrice = Integer.valueOf(inputText.toString()) * 100;
-                            for (RechargeInfoModel.DataBean dataBean : DataBeans) {
-                                if (dataBean.getPrice() == inputPrice) {
-                                    zxSelectbean = dataBean;
-                                    break;
-                                }
-                            }
-                            if (zxSelectbean == null && whichButton == DialogInterface.BUTTON_POSITIVE) {
-                                ToastUtil.showToast(selectbean.getGoodsInfo());
-                                return true;
-                            }
-                            return false;
-                        } catch (Exception e) {
-                            ToastUtil.showToast("请输入正确的金额");
-                            return true;
+        DialogUtil.showInputDialog(this, selectbean.getGoodsName(), "", selectbean.getGoodsInfo(), InputType.TYPE_CLASS_NUMBER, new DialogUtil.InputListener() {
+            @Override
+            public void onSureInout(String input) {
+                startActivity(new Intent(ReChargeActivity.this, NextRecharge.class).putExtra("RechargeInfoModel.DataBean", zxSelectbean));
+            }
+
+            @Override
+            public boolean onIntercept(String input) {
+                try {
+                    int inputPrice = Integer.valueOf(input) * 100;
+                    for (RechargeInfoModel.DataBean dataBean : DataBeans) {
+                        if (dataBean.getPrice() == inputPrice) {
+                            zxSelectbean = dataBean;
+                            break;
                         }
                     }
-                })
-                .show();
+                    if (zxSelectbean == null) {
+                        ToastUtil.showToast(selectbean.getGoodsInfo());
+                        return true;
+                    }
+                    return false;
+                } catch (Exception e) {
+                    ToastUtil.showToast("请输入正确的金额");
+                    return true;
+                }
+            }
+        });
     }
 
 
