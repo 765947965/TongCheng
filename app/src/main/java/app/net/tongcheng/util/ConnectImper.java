@@ -14,6 +14,7 @@ import com.lzy.okgo.request.PostRequest;
 import java.io.File;
 import java.util.Map;
 
+import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.connector.ConnectCallInterface;
 import app.net.tongcheng.connector.ConnectInterface;
 import app.net.tongcheng.model.ConnectResult;
@@ -22,6 +23,7 @@ import okhttp3.Response;
 
 import static app.net.tongcheng.util.Common.isDebugModel;
 import static app.net.tongcheng.util.Common.tag;
+
 
 /**
  * @author: xiewenliang
@@ -41,7 +43,7 @@ public class ConnectImper implements ConnectInterface {
         mBaseRequest.execute(new StringCallback() {
             @Override
             public void onSuccess(String s, Call call, Response response) {
-                if (isDebugModel) {
+                if (TCApplication.getmUserInfo() != null && "15625589537".equals(TCApplication.getmUserInfo().getPhone()) && isDebugModel) {
                     Log.i(tag, params.getUrl() + "\r\n" + s);
                 }
                 ConnectResult cr = new ConnectResult();
@@ -57,7 +59,8 @@ public class ConnectImper implements ConnectInterface {
                     }
                     try {
                         mConnectListener.ConnectOnSuccess(mLoding_Type, cr);
-                        if (isDebugModel) ToastUtil.showToast(s);
+                        if (TCApplication.getmUserInfo() != null && "15625589537".equals(TCApplication.getmUserInfo().getPhone()) && isDebugModel)
+                            ToastUtil.showToast(s);
                     } catch (Exception e) {
                     }
                 }
@@ -68,7 +71,8 @@ public class ConnectImper implements ConnectInterface {
                 if (mConnectListener != null) {
                     try {
                         mConnectListener.ConnectOnError(mLoding_Type);
-                        if (isDebugModel) ToastUtil.showToast(e.toString());
+                        if (TCApplication.getmUserInfo() != null && "15625589537".equals(TCApplication.getmUserInfo().getPhone()) && isDebugModel)
+                            ToastUtil.showToast(e.toString());
                     } catch (Exception e2) {
                     }
                 }
@@ -85,7 +89,7 @@ public class ConnectImper implements ConnectInterface {
         mBaseRequest.execute(new StringCallback() {
             @Override
             public void onSuccess(String s, Call call, Response response) {
-                if (isDebugModel) {
+                if (TCApplication.getmUserInfo() != null && "15625589537".equals(TCApplication.getmUserInfo().getPhone()) && isDebugModel) {
                     Log.i(tag, params.getUrl() + "\r\n" + s);
                 }
                 ConnectResult cr = new ConnectResult();
@@ -101,7 +105,8 @@ public class ConnectImper implements ConnectInterface {
                     }
                     try {
                         mConnectListener.ConnectOnSuccess(mLoding_Type, cr);
-                        if (isDebugModel) ToastUtil.showToast(s);
+                        if (TCApplication.getmUserInfo() != null && "15625589537".equals(TCApplication.getmUserInfo().getPhone()) && isDebugModel)
+                            ToastUtil.showToast(s);
                     } catch (Exception e) {
                     }
                 }
@@ -112,7 +117,8 @@ public class ConnectImper implements ConnectInterface {
                 if (mConnectListener != null) {
                     try {
                         mConnectListener.ConnectOnError(mLoding_Type);
-                        if (isDebugModel) ToastUtil.showToast(e.toString());
+                        if (TCApplication.getmUserInfo() != null && "15625589537".equals(TCApplication.getmUserInfo().getPhone()) && isDebugModel)
+                            ToastUtil.showToast(e.toString());
                     } catch (Exception e2) {
                     }
                 }
