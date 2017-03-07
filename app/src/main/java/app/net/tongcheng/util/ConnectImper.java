@@ -57,7 +57,6 @@ public class ConnectImper implements ConnectInterface {
                     }
                     try {
                         mConnectListener.ConnectOnSuccess(mLoding_Type, cr);
-                        if (isDebugModel) ToastUtil.showToast(s);
                     } catch (Exception e) {
                     }
                 }
@@ -68,7 +67,6 @@ public class ConnectImper implements ConnectInterface {
                 if (mConnectListener != null) {
                     try {
                         mConnectListener.ConnectOnError(mLoding_Type);
-                        if (isDebugModel) ToastUtil.showToast(e.toString());
                     } catch (Exception e2) {
                     }
                 }
@@ -101,7 +99,6 @@ public class ConnectImper implements ConnectInterface {
                     }
                     try {
                         mConnectListener.ConnectOnSuccess(mLoding_Type, cr);
-                        if (isDebugModel) ToastUtil.showToast(s);
                     } catch (Exception e) {
                     }
                 }
@@ -112,7 +109,6 @@ public class ConnectImper implements ConnectInterface {
                 if (mConnectListener != null) {
                     try {
                         mConnectListener.ConnectOnError(mLoding_Type);
-                        if (isDebugModel) ToastUtil.showToast(e.toString());
                     } catch (Exception e2) {
                     }
                 }
