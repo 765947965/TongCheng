@@ -43,12 +43,11 @@ android {
     }
 }
 
-apply plugin: 'com.bugtags.library.plugin'
+apply plugin: 'bugly'
 
-bugtags {
-    appKey "7de15dfb8a2c8fa75a6557fe189ecd8b"
-    appSecret "7c961864764e51abc52982af91c42fb1"
-    mappingUploadEnabled true
+bugly {
+    appId = "5b07911703"
+    appKey = "d358d202-894f-4e9c-a2f3-f6a5c7bb8220"
 }
 
 dependencies {
@@ -70,5 +69,5 @@ dependencies {
     compile 'com.google.zxing:core:3.2.1'
     compile 'com.google.zxing:android-core:3.2.1'
     compile 'com.github.yoojia:zxing:0.7@aar'//二维码https://github.com/yoojia/ZXingMini
-    compile 'com.bugtags.library:bugtags-lib:latest.integration'
+    compile 'com.tencent.bugly:crashreport:latest.release'//bugly
 }

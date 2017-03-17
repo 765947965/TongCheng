@@ -7,13 +7,13 @@ import android.os.Process;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
-import com.bugtags.library.Bugtags;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheMode;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 import com.xiaomi.mipush.sdk.MiPushClient;
 
@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.logging.Level;
 
 import app.net.tongcheng.model.UserInfo;
+import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.Misc;
 import app.net.tongcheng.util.OperationUtils;
@@ -46,7 +47,7 @@ public class TCApplication extends Application {
         super.onCreate();
         mContext = this.getApplicationContext();
         if (shouldInit()) {
-            Bugtags.start("7de15dfb8a2c8fa75a6557fe189ecd8b", this, Bugtags.BTGInvocationEventNone);
+            CrashReport.initCrashReport(getApplicationContext(), "5b07911703", Common.isDebugModel);
             MobclickAgent.setScenarioType(mContext, MobclickAgent.EScenarioType.E_UM_NORMAL);//友盟初始化
             MobclickAgent.enableEncrypt(true);
             MiPushClient.registerPush(mContext, "2882303761517509254", "5491750938254");//小米推送初始化

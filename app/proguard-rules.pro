@@ -205,24 +205,6 @@
  -keep class com.alibaba.fastjson.** { *;}
  #fastjson
 
- ################### region for xUtils
- -keepattributes Signature,*Annotation*
- -keep public class org.xutils.** {
-     public protected *;
- }
- -keep public interface org.xutils.** {
-     public protected *;
- }
- -keepclassmembers class * extends org.xutils.** {
-     public protected *;
- }
- -keepclassmembers @org.xutils.db.annotation.* class * {*;}
- -keepclassmembers @org.xutils.http.annotation.* class * {*;}
- -keepclassmembers class * {
-     @org.xutils.view.annotation.Event <methods>;
- }
- #################### end region
-
  #Glide
  -keep public class * implements com.bumptech.glide.module.GlideModule
  -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
@@ -230,14 +212,6 @@
    public *;
  }
  #Glide
-
- # ProGuard configurations for Bugtags
- -keepattributes LineNumberTable,SourceFile
- -keep class com.bugtags.library.** {*;}
- -dontwarn org.apache.http.**
- -dontwarn android.net.http.AndroidHttpClient
- -dontwarn com.bugtags.library.**
- # End Bugtags
 
  # 小米推送
  -keep class com.xiaomi.mipush.sdk.DemoMessageReceiver {*;}
@@ -248,3 +222,8 @@
 -dontwarn okio.**
 -keep class okio.**{*;}
 #okio
+
+#Bugly-Start
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
+#End-Bugly
