@@ -15,8 +15,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.wang.avi.AVLoadingIndicatorView;
+
 import org.greenrobot.eventbus.EventBus;
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -106,6 +107,8 @@ public class DialogUtil {
             dialog.setCanceledOnTouchOutside(false);
             dialog.show();
             View view = LayoutInflater.from(mActivity).inflate(R.layout.loading_layout, null);
+            AVLoadingIndicatorView mViewLoading = (AVLoadingIndicatorView) view.findViewById(R.id.view_loading);
+            mViewLoading.show();
             ((TextView) view.findViewById(R.id.tv_message)).setText(mMessage);
             dialog.setContentView(view);
             return dialog;

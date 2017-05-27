@@ -13,11 +13,12 @@
         android:orientation="vertical">
 
         <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/view_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="visible"
-            app:indicator="LineSpinFadeLoader"
-            app:indicator_color="#FF6666" />
+            app:indicatorName="BallPulseIndicator"
+            app:indicatorColor="#FF6666" />
 
         <TextView
             android:id="@+id/tv_message"
