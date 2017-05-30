@@ -184,7 +184,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
                 }
                 break;
             case R.id.tv_description:
-                startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "手续费").putExtra("url", "http://user.8hbao.com/service_fee.html"));
+                startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "手续费").putExtra("url", "http://user.zjtongchengshop.com/service_fee.html"));
                 break;
         }
     }

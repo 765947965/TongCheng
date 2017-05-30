@@ -115,7 +115,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 et_phone.setText("");
                 break;
             case R.id.tv_protocol://查看合同
-                startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "用户协议").putExtra("url", "http://user.8hbao.com/agreement.html?sn=" + VerificationCode.getCode2()));
+                startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "用户协议").putExtra("url", "http://user.zjtongchengshop.com/agreement.html?sn=" + VerificationCode.getCode2()));
                 break;
             case R.id.bt_register://注册
                 if (TextUtils.isEmpty(et_phone.getText().toString())) {

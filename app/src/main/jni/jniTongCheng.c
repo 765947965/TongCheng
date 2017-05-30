@@ -38,5 +38,5 @@ JNIEXPORT jstring JNICALL
 
     // TODO
 
-    return (*env)->NewStringUTF(env, "http://user.8hbao.com:8060/AliSecurity/notify_url.php");
+    return (*env)->NewStringUTF(env, "http://user.zjtongchengshop.com:8060/AliSecurity/notify_url.php");
 }

@@ -110,7 +110,7 @@ public class ShareFragment extends BaseFragment implements View.OnClickListener 
                 startActivity(new Intent(TCApplication.mContext, ShareActivity.class));
                 break;
             case R.id.tv_share_num://分享人数
-                String url = "http://user.8hbao.com/my_invite_list.php?uid=" + TCApplication.getmUserInfo().getUid() + "&sign=" + MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY);
+                String url = "http://user.zjtongchengshop.com/my_invite_list.php?uid=" + TCApplication.getmUserInfo().getUid() + "&sign=" + MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY);
                 startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "我的邀请人列表").putExtra("url", url));
                 break;
         }

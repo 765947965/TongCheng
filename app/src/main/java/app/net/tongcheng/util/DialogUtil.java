@@ -3,6 +3,7 @@ package app.net.tongcheng.util;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.text.TextUtils;
@@ -107,10 +108,18 @@ public class DialogUtil {
             dialog.setCanceledOnTouchOutside(false);
             dialog.show();
             View view = LayoutInflater.from(mActivity).inflate(R.layout.loading_layout, null);
-            AVLoadingIndicatorView mViewLoading = (AVLoadingIndicatorView) view.findViewById(R.id.view_loading);
+            final AVLoadingIndicatorView mViewLoading = (AVLoadingIndicatorView) view.findViewById(R.id.view_loading);
             mViewLoading.show();
             ((TextView) view.findViewById(R.id.tv_message)).setText(mMessage);
             dialog.setContentView(view);
+            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                   if (mViewLoading != null) {
+                       mViewLoading.hide();
+                   }
+                }
+            });
             return dialog;
         } catch (Exception e) {
             return null;

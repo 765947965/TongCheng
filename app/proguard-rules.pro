@@ -227,3 +227,8 @@
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
 #End-Bugly
+
+#AVLoadingIndicatorView-Start
+-keep class com.wang.avi.** { *; }
+-keep class com.wang.avi.indicators.** { *; }
+#End-AVLoadingIndicatorView

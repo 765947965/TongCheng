@@ -146,7 +146,7 @@ public class AboutAPP extends BaseActivity implements View.OnClickListener {
                 startActivity(new Intent(TCApplication.mContext, ShareSMActivity.class));
                 break;
             case R.id.llt_about:
-                startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "关于同城商城").putExtra("url", "http://user.8hbao.com/about.html?sn=" + VerificationCode.getCode2()));
+                startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "关于同城商城").putExtra("url", "http://user.zjtongchengshop.com/about.html?sn=" + VerificationCode.getCode2()));
                 break;
             case R.id.llt_kf:
                 callPhone();

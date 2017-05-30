@@ -34,7 +34,7 @@ public class CastToUtil {
                 mIntent = new Intent(TCApplication.mContext, ShareActivity.class);
                 break;
             case "57":
-                mIntent = new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "关于同城商城").putExtra("url", "http://user.8hbao.com/about.html");
+                mIntent = new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "关于同城商城").putExtra("url", "http://user.zjtongchengshop.com/about.html");
                 break;
         }
         return mIntent;
