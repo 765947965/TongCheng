@@ -142,7 +142,7 @@ public class SetRetrievePasswordInputCOde extends BaseActivity implements View.O
                 break;
             case R.id.rg4v2_code_regorlog:
                 if (TextUtils.isEmpty(rgv2_phnum.getText().toString())) {
-                    ToastUtil.showResultToast("验证码不能为空!");
+                    ToastUtil.showToast("验证码不能为空!");
                     return;
                 }
                 // 请求密码

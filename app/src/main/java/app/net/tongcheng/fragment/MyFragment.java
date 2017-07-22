@@ -8,6 +8,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.ToggleButton;
 
 import app.net.tongcheng.Business.MyBusiness;
 import app.net.tongcheng.R;
@@ -24,6 +26,7 @@ import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.UserMoreInfoModel;
 import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.GeneralDateUtils;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ViewHolder;
 
@@ -34,9 +37,10 @@ import app.net.tongcheng.util.ViewHolder;
  * @Copyright: Copyright (c) 2016 Tuandai Inc. All rights reserved.
  * @date: 2016/4/16 15:55
  */
-public class MyFragment extends BaseFragment implements View.OnClickListener {
+public class MyFragment extends BaseFragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     private ViewHolder mViewHolder;
+    private ToggleButton btnContent;
     private MyBusiness mMyBusiness;
     private UserMoreInfoModel mUserMoreInfoModel;
     public static boolean isfirstloaddata;
@@ -57,6 +61,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         mViewHolder = new ViewHolder(view, this);
         mViewHolder.setText(R.id.tv_title, "我");
         mViewHolder.setVisibility(R.id.bt_close, View.GONE);
+        btnContent = mViewHolder.getView(R.id.btnContent);
+        btnContent.setOnCheckedChangeListener(this);
         mViewHolder.setOnClickListener(R.id.rlt_user_info);
         mViewHolder.setOnClickListener(R.id.llt_abouttc);
         mViewHolder.setOnClickListener(R.id.llt_fk);
@@ -78,6 +84,10 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
             mViewHolder.setVisibility(R.id.iv_new, View.VISIBLE);
         } else {
             mViewHolder.setVisibility(R.id.iv_new, View.GONE);
+        }
+        int type = GeneralDateUtils.getInt(GeneralDateUtils.CONTACTS_SWITCH, false);
+        if (type == 2) {
+            btnContent.setChecked(true);
         }
         mHandler.sendEmptyMessageDelayed(10001, 100);
     }
@@ -141,7 +151,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(TCApplication.mContext, WalletAccountSetActivity.class));
                 break;
             case R.id.llt_gx://设置开启通讯录读取开关
-                startActivity(new Intent(TCApplication.mContext, PersonalitySetActivity.class));
+//                startActivity(new Intent(TCApplication.mContext, PersonalitySetActivity.class));
                 break;
             case R.id.llt_tjr://查看我的邀请人信息
                 startActivity(new Intent(TCApplication.mContext, InviterActivity.class));
@@ -163,4 +173,17 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         mViewHolder.setText(R.id.iv_phone, TCApplication.getmUserInfo().getPhone());
     }
 
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        switch (buttonView.getId()) {
+            case R.id.btnContent:
+                if (isChecked) {
+                    GeneralDateUtils.PutInt(GeneralDateUtils.CONTACTS_SWITCH, 2, false);
+                    sendEventBusMessage("canUpLoadContents");//通知上传通讯录
+                } else {
+                    GeneralDateUtils.PutInt(GeneralDateUtils.CONTACTS_SWITCH, 1, false);
+                }
+                break;
+        }
+    }
 }

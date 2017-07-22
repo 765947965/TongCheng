@@ -9,6 +9,9 @@ import android.text.TextUtils;
 import com.umeng.analytics.MobclickAgent;
 
 
+import org.greenrobot.eventbus.EventBus;
+
+import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.util.HttpBusinessListener;
 
 /**
@@ -61,5 +64,9 @@ public abstract class BaseFragment extends Fragment implements HttpBusinessListe
     public void onResume() {
         super.onResume();
         MobclickAgent.onPageStart(TextUtils.isEmpty(className) ? "BaseFragment" : className);
+    }
+
+    public void sendEventBusMessage(String messsage) {
+        EventBus.getDefault().post(new CheckEvent(messsage));
     }
 }

@@ -24,7 +24,7 @@ public class FriendBusiness extends BaseBusiness {
 
     public void uploadContens(int mLoding_Type, String message, String data) {
         RequestParams params = new RequestParams(HttpUrls.COMMITFRIEND);
-        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        params.addBodyParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addBodyParameter("aixinContact", data);
         goPostConnect(mActivity, mLoding_Type, params, message, UpContentModel.class.getName());
     }
@@ -38,7 +38,7 @@ public class FriendBusiness extends BaseBusiness {
 
     public void getFriendsInfo(int mLoding_Type, String message, String data) {
         RequestParams params = new RequestParams(HttpUrls.GETAixinFriendInfo);
-        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        params.addBodyParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addBodyParameter("friends", data);
         goPostConnect(mActivity, mLoding_Type, params, message, UpFriendInfoModel.class.getName());
     }

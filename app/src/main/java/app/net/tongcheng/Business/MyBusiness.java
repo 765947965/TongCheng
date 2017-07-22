@@ -36,7 +36,7 @@ public class MyBusiness extends BaseBusiness {
 
     public void upImage(int mLoding_Type, String message, File file) {
         RequestParams params = new RequestParams(HttpUrls.UPUserHeadURL);
-        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        params.addBodyParameter("uid", TCApplication.getmUserInfo().getUid());
         params.setMultipart(true);
         params.addFileParameter("msg", file);
         goPostConnect(mActivity, mLoding_Type, params, message, UserMoreInfoModel.class.getName());
@@ -44,8 +44,8 @@ public class MyBusiness extends BaseBusiness {
 
     public void upOtherUserInfo(int mLoding_Type, String message, String ver, String data) {
         RequestParams params = new RequestParams(HttpUrls.UPUSERDATAURL);
-        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
-        params.addQueryStringParameter("ver", TextUtils.isEmpty(ver) ? "1.0" : ver);
+        params.addBodyParameter("uid", TCApplication.getmUserInfo().getUid());
+        params.addBodyParameter("ver", TextUtils.isEmpty(ver) ? "1.0" : ver);
         params.addBodyParameter("userprofile", data);
         goPostConnect(mActivity, mLoding_Type, params, message, UserMoreInfoModel.class.getName());
     }

@@ -22,4 +22,6 @@ public class NativeUtils {
     public static native String getRSAPUBLIC();
 
     public static native String getnotifyurl();
+
+    public static native String getMerchantSecretKey();
 }

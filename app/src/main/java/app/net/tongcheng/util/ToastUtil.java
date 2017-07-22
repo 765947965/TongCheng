@@ -1,6 +1,9 @@
 package app.net.tongcheng.util;
 
+import android.content.pm.PackageManager;
 import android.view.Gravity;
+import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.github.johnpersano.supertoasts.SuperToast;
 
@@ -17,7 +20,6 @@ import app.net.tongcheng.TCApplication;
  */
 public class ToastUtil {
     private static SuperToast mToast;
-    private static SuperToast mMidToast;
     private static String mLastContent;
 
     /**
@@ -28,6 +30,10 @@ public class ToastUtil {
      * @date 2015-1-5 下午2:19:11
      */
     public static void showToast(String content) {
+        if (!checkToastPermission()) {
+            Toast.makeText(TCApplication.mContext, content, Toast.LENGTH_LONG).show();
+            return;
+        }
         try {
             if (mToast != null) {
                 if (mLastContent.equals(content)) {
@@ -54,53 +60,11 @@ public class ToastUtil {
         showToast(msg);
     }
 
-    /**
-     * 显示信息
-     *
-     * @return void
-     * @author longluliu
-     * @date 2015-1-5 下午2:19:16
-     */
-    public static void showResultToast(int info) {
-        String msg = TCApplication.mContext.getString(info).toString();
-        showResultToast(msg);
+
+    private static boolean checkToastPermission() {
+        PackageManager pm = TCApplication.mContext.getPackageManager();
+        return PackageManager.PERMISSION_GRANTED ==
+                pm.checkPermission("android.permission.SYSTEM_ALERT_WINDOW", TCApplication.mContext.getPackageName());
     }
 
-    public static void showResultToast(String info) {
-        showResultToast(info, R.mipmap.ic_success);
-    }
-
-    /**
-     * 显示信息
-     *
-     * @return void
-     * @author longluliu
-     * @date 2015-1-5 下午2:19:16
-     */
-    public static void showResultToast(int info, int iconId) {
-        String msg = TCApplication.mContext.getString(info).toString();
-        showResultToast(msg, iconId);
-    }
-
-    /**
-     * 显示信息
-     *
-     * @return void
-     * @author longluliu
-     * @date 2015-1-5 下午2:19:16
-     */
-    public static void showResultToast(String info, int iconId) {
-        try {
-            mMidToast = new SuperToast(TCApplication.mContext);
-            mMidToast.setDuration(SuperToast.Duration.SHORT);
-            mMidToast.setBackground(R.drawable.progress_hud_bg);
-            mMidToast.setTextSize(14);
-            mMidToast.setText("" + info);
-            mMidToast.setGravity(Gravity.CENTER, 0, 0);
-            mMidToast.setIcon(iconId, SuperToast.IconPosition.TOP);
-            mMidToast.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

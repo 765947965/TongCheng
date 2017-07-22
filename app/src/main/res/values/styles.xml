@@ -74,4 +74,9 @@
         <attr name="clickAnim" format="boolean" />
     </declare-styleable>
 
+    <style name="datePickerTheme" parent="android:Theme.Holo.Light.NoActionBar">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowBackground">@color/translate</item>
+    </style>
+
 </resources>

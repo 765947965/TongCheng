@@ -38,5 +38,13 @@ JNIEXPORT jstring JNICALL
 
     // TODO
 
-    return (*env)->NewStringUTF(env, "http://user.zjtongchengshop.com:8060/AliSecurity/notify_url.php");
+    return (*env)->NewStringUTF(env, "http://user.zjtongchengshop.com/AliSecurity/notify_url.php");
+}
+
+JNIEXPORT jstring JNICALL
+                  Java_app_net_tongcheng_util_NativeUtils_getMerchantSecretKey(JNIEnv *env, jobject instance) {
+
+    // TODO
+
+    return (*env)->NewStringUTF(env, "key=sdvb753!@&*qpaltrko#$%^159plmokn");
 }

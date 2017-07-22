@@ -96,7 +96,7 @@ public class ErrorInfoUtil {
                 message = "暂不支持该地区电话号码注册、找回密码";
                 break;
             case 39:
-                message = "无同城好友";
+                message = "暂不支持该手机号码段注册";
                 break;
             case 50:
                 message = "红包id已经存在，重复添加";

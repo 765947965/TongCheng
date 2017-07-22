@@ -264,7 +264,7 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
         if (!TextUtils.isEmpty(mUserMoreInfoModel.getName())) {
             mViewHolder.setText(R.id.tv_name, mUserMoreInfoModel.getName());
         } else {
-            mViewHolder.setText(R.id.tv_name, "用户");
+            mViewHolder.setText(R.id.tv_name, "未填写");
         }
         mViewHolder.setText(R.id.tv_num, TCApplication.getmUserInfo().getPhone());
         mViewHolder.setText(R.id.tv_tcnum, TCApplication.getmUserInfo().getUid());

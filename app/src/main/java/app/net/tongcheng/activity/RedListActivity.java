@@ -1,6 +1,7 @@
 package app.net.tongcheng.activity;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -11,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ import com.kevin.wraprecyclerview.WrapRecyclerView;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -40,6 +43,7 @@ import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
+import app.net.tongcheng.view.MyDatePickerDialog;
 
 /**
  * @author: xiewenliang
@@ -48,20 +52,22 @@ import app.net.tongcheng.util.ViewHolder;
  * @Copyright: Copyright (c) 2016 Tuandai Inc. All rights reserved.
  * @date: 2016/6/4 10:43
  */
-public class RedListActivity extends BaseActivity implements View.OnClickListener, RedListAdapter.RedListAdapterSetDialog, SwipeRefreshLayout.OnRefreshListener, DialogUtil.OnListDialogListener<String> {
+public class RedListActivity extends BaseActivity implements View.OnClickListener,
+        RedListAdapter.RedListAdapterSetDialog, SwipeRefreshLayout.OnRefreshListener,
+        DatePickerDialog.OnDateSetListener {
     private ViewHolder mViewHolder, mHeadViewHolder;
-    private String year, direct;
+    private String yearM, direct;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private WrapRecyclerView mRecyclerView;
     private RedListAdapter mRedListAdapter;
     private RedBusiness mRedBusiness;
     private List<GiftsBean> mDatas;
-    private List<String> cities;
     private RedModel mRedModel;
     private AlertDialog mAlertDialog;
     private int selectRedModel;
     private boolean isFilterExcrete;
     private PopupWindow mPopupWindow;
+    private MyDatePickerDialog mMyDatePickerDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +94,7 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
         mHeadViewHolder.setOnClickListener(R.id.myred_changeredtype);
         mHeadViewHolder.setOnClickListener(R.id.redslat_yearchange_layout);
         mHeadViewHolder.setOnClickListener(R.id.tv_sendRed);
-        mHeadViewHolder.setText(R.id.redslat_yearchange, year);
+        mHeadViewHolder.setText(R.id.redslat_yearchange, yearM);
         mHeadViewHolder.setText(R.id.myred_changeredtype, "收到的红包");
         mRecyclerView.addHeaderView(headView);
         initPOPView();
@@ -113,12 +119,8 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void setData() {
-        year = NativieDataUtils.getTodyY();
+        yearM = NativieDataUtils.getTodyY_M();
         direct = "received";
-        cities = new ArrayList<>();
-        for (int yr = Integer.parseInt(year); yr >= 2016; yr--) {
-            cities.add(yr + "");
-        }
     }
 
     @Override
@@ -134,10 +136,10 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
     public void mHandDoSomeThing(Message msg) {
         switch (msg.what) {
             case 10001:
-                mRedModel = NativieDataUtils.getRedModel(year, direct);
+                mRedModel = NativieDataUtils.getRedModel(yearM, direct);
                 if (mRedModel == null || !NativieDataUtils.getTodyYMD().equals(mRedModel.getUpdate())) {
                     mSwipeRefreshLayout.setRefreshing(true);
-                    mRedBusiness.getRedList(APPCationStation.LOADING, "", year, direct);
+                    mRedBusiness.getRedList(APPCationStation.LOADING, "", yearM, direct);
                 }
                 mHandler.sendEmptyMessage(10003);
                 break;
@@ -202,7 +204,7 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
 //                            if (mRedModel.getGifts() != null && mRedModel.getGifts().size() > 0) {
 //                                Collections.sort(mRedModel.getGifts());
 //                            }
-                            NativieDataUtils.setRedModel(mRedModel, year, direct);
+                            NativieDataUtils.setRedModel(mRedModel, yearM, direct);
                             RedListActivity.this.mRedModel = mRedModel;
                             mHandler.sendEmptyMessage(10002);
                         }
@@ -217,7 +219,7 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
                         itemdata.setHas_open(1);
                         itemdata.setMoney(mExcreteRedModel.getAward_money() + "");
                         itemdata.setOpen_time(Utils.sdformat.format(new Date()));
-                        NativieDataUtils.setRedModel(mRedModel, year, direct);
+                        NativieDataUtils.setRedModel(mRedModel, yearM, direct);
                         mHandler.sendEmptyMessage(10003);
                         if (mAlertDialog != null && mAlertDialog.isShowing()) {
                             mAlertDialog.dismiss();
@@ -271,7 +273,14 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
                     ToastUtil.showToast("正在同步数据...");
                     return;
                 }
-                DialogUtil.showListDilaog(this, cities, "请选择年份", R.layout.text_item_layout, this);
+                if (mMyDatePickerDialog == null) {
+                    Calendar mCalendar = Calendar.getInstance();
+                    mMyDatePickerDialog = new MyDatePickerDialog(this, this,
+                            mCalendar.get(Calendar.YEAR),
+                            mCalendar.get(Calendar.MONTH),
+                            mCalendar.get(Calendar.DAY_OF_MONTH));
+                }
+                mMyDatePickerDialog.show();
                 break;
             case R.id.ppwindow_redall:
                 mPopupWindow.dismiss();
@@ -329,7 +338,7 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
             DialogUtil.showTipsDialog(this, "手机时间不正确，请调整手机时间后刷新！", null);
             return;
         }
-        mRedBusiness.getRedList(APPCationStation.LOADING, "", year, direct);
+        mRedBusiness.getRedList(APPCationStation.LOADING, "", yearM, direct);
     }
 
     @Override
@@ -346,22 +355,6 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
-    @Override
-    public void CreateItem(ViewHolder holder, String item, List<String> list, int position) {
-        // 年份dialog创建Item
-        holder.setText(R.id.tv_item, item);
-    }
-
-    @Override
-    public void OnItemSelect(View view, List<String> mDatas, String mItemdata, int position) {
-        // 年份dialog点击Item
-        if (year.equals(mItemdata)) {
-            return;
-        }
-        year = mItemdata;
-        mHeadViewHolder.setText(R.id.redslat_yearchange, year);
-        loadData();
-    }
 
     @Subscribe
     public void onEvent(CheckEvent event) {
@@ -371,7 +364,20 @@ public class RedListActivity extends BaseActivity implements View.OnClickListene
                 return;
             }
             mSwipeRefreshLayout.setRefreshing(true);
-            mRedBusiness.getRedList(APPCationStation.LOADING, "", year, direct);
+            mRedBusiness.getRedList(APPCationStation.LOADING, "", yearM, direct);
         }
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        monthOfYear = monthOfYear + 1;
+        String mm = String.valueOf(monthOfYear).length() == 1 ? "0" + monthOfYear : String.valueOf(monthOfYear);
+        String yearMData = year + "-" + mm;
+        if (yearM.equals(yearMData)) {
+            return;
+        }
+        yearM = yearMData;
+        mHeadViewHolder.setText(R.id.redslat_yearchange, yearM);
+        loadData();
     }
 }
