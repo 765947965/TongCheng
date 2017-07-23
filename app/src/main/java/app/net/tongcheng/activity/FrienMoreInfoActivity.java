@@ -12,6 +12,7 @@ import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.FriendsBean;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
+import app.net.tongcheng.view.FriendMoreInfoMenuDialog;
 
 /**
  * Created by 76594 on 2016/6/17.
@@ -19,6 +20,7 @@ import app.net.tongcheng.util.ViewHolder;
 public class FrienMoreInfoActivity extends BaseActivity implements View.OnClickListener {
     private ViewHolder mViewHolder;
     private FriendsBean itemdata;
+    private FriendMoreInfoMenuDialog mFriendMoreInfoMenuDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,9 @@ public class FrienMoreInfoActivity extends BaseActivity implements View.OnClickL
         mViewHolder = new ViewHolder(findViewById(R.id.llt_main), this);
         mViewHolder.setOnClickListener(R.id.tv_sendRed);
         mViewHolder.setOnClickListener(R.id.iv_head_image);
+        getRightIV().setVisibility(View.VISIBLE);
+        getRightIV().setImageResource(R.drawable.menu);
+        getRightIV().setOnClickListener(this);
     }
 
     @Override
@@ -96,6 +101,12 @@ public class FrienMoreInfoActivity extends BaseActivity implements View.OnClickL
                 if (!TextUtils.isEmpty(itemdata.getPicture()) && itemdata.getPicture().startsWith("http")) {
                     startActivity(new Intent(TCApplication.mContext, ShowImageActivity.class).putExtra("url", itemdata.getPicture()));
                 }
+                break;
+            case R.id.ivRight:
+                if (mFriendMoreInfoMenuDialog == null) {
+                    mFriendMoreInfoMenuDialog = new FriendMoreInfoMenuDialog(this);
+                }
+                mFriendMoreInfoMenuDialog.show();
                 break;
         }
     }
