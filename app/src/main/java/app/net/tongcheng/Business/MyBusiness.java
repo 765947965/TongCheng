@@ -52,15 +52,15 @@ public class MyBusiness extends BaseBusiness {
 
     public void sendProB(int mLoding_Type, String message, String title, String advice) {
         RequestParams params = new RequestParams(HttpUrls.ADVICE);
-        params.addBodyParameter("uid", TCApplication.getmUserInfo().getUid());
-        params.addBodyParameter("phone", TCApplication.getmUserInfo().getPhone());
-        params.addBodyParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
-        params.addBodyParameter("brandname", Common.BrandName);
-        params.addBodyParameter("agent_id", TCApplication.getmUserInfo().getAgent_id());
-        params.addBodyParameter("pv", "android");
-        params.addBodyParameter("v", Utils.getVersionName());
-        params.addBodyParameter("title", title);
-        params.addBodyParameter("advice", advice);
-        goPostConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        params.addQueryStringParameter("phone", TCApplication.getmUserInfo().getPhone());
+        params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
+        params.addQueryStringParameter("brandname", Common.BrandName);
+        params.addQueryStringParameter("agent_id", TCApplication.getmUserInfo().getAgent_id());
+        params.addQueryStringParameter("pv", "android");
+        params.addQueryStringParameter("v", Utils.getVersionName());
+        params.addQueryStringParameter("title", title);
+        params.addQueryStringParameter("advice", advice);
+        goConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
     }
 }
