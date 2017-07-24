@@ -314,6 +314,10 @@
             android:name=".activity.GuQuanActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.changeFriendUserName"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
         <!--小米推送-->
         <service

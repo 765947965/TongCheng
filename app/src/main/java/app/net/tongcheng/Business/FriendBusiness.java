@@ -43,10 +43,18 @@ public class FriendBusiness extends BaseBusiness {
         goPostConnect(mActivity, mLoding_Type, params, message, UpFriendInfoModel.class.getName());
     }
 
-    public void checkFriend(int mLoding_Type, String message, String sdata){
+    public void checkFriend(int mLoding_Type, String message, String sdata) {
         RequestParams params = new RequestParams(HttpUrls.CHECKF);
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("account", sdata);
         goConnect(mActivity, mLoding_Type, params, message, UpFriendInfoModel.class.getName());
+    }
+
+    public void deleteFriend(int mLoding_Type, String message, String ver, String friend_uid) {
+        RequestParams params = new RequestParams(HttpUrls.DeleteFriend);
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        params.addQueryStringParameter("ver", ver);
+        params.addQueryStringParameter("friend_uid", friend_uid);
+        goConnect(mActivity, mLoding_Type, params, message, "");
     }
 }

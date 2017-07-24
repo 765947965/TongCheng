@@ -6,10 +6,19 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 
+import org.greenrobot.eventbus.Subscribe;
+
+import app.net.tongcheng.Business.FriendBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
+import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.model.FriendModel;
 import app.net.tongcheng.model.FriendsBean;
+import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.Common;
+import app.net.tongcheng.util.DialogUtil;
+import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
 import app.net.tongcheng.view.FriendMoreInfoMenuDialog;
@@ -17,9 +26,10 @@ import app.net.tongcheng.view.FriendMoreInfoMenuDialog;
 /**
  * Created by 76594 on 2016/6/17.
  */
-public class FrienMoreInfoActivity extends BaseActivity implements View.OnClickListener {
+public class FrienMoreInfoActivity extends BaseActivity implements View.OnClickListener, FriendMoreInfoMenuDialog.FriendMoreInfoMenuDialogListener {
     private ViewHolder mViewHolder;
     private FriendsBean itemdata;
+    private FriendBusiness mFriendBusiness;
     private FriendMoreInfoMenuDialog mFriendMoreInfoMenuDialog;
 
     @Override
@@ -28,6 +38,8 @@ public class FrienMoreInfoActivity extends BaseActivity implements View.OnClickL
         setContentView(R.layout.frien_more_info_layout);
         setTitle("详细资料");
         initView();
+        setEventBus();
+        mFriendBusiness = new FriendBusiness(this, this, mHandler);
     }
 
     private void initView() {
@@ -79,7 +91,18 @@ public class FrienMoreInfoActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void BusinessOnSuccess(int mLoadType, ConnectResult mConnectResult) {
-
+        switch (mLoadType) {
+            case APPCationStation.SUMBIT://删除成功
+                FriendModel mFriendModel = NativieDataUtils.getFriendModel();
+                if (mFriendModel != null && NativieDataUtils.getTodyYMD().equals(mFriendModel.getUpdate())) {
+                    mFriendModel.setUpdate("00000000");
+                    NativieDataUtils.setFriendModel(mFriendModel);
+                }
+                sendEventBusMessage("FriendFragment.Refresh");
+                ToastUtil.showToast("删除成功");
+                finish();
+                break;
+        }
     }
 
     @Override
@@ -104,10 +127,48 @@ public class FrienMoreInfoActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.ivRight:
                 if (mFriendMoreInfoMenuDialog == null) {
-                    mFriendMoreInfoMenuDialog = new FriendMoreInfoMenuDialog(this);
+                    mFriendMoreInfoMenuDialog = new FriendMoreInfoMenuDialog(this, this);
                 }
                 mFriendMoreInfoMenuDialog.show();
                 break;
         }
+    }
+
+
+    @Subscribe
+    public void onEvent(CheckEvent event) {
+        if (event != null) {
+            try {
+                if (event.getMsg().startsWith("changeFriendUserName=")) {
+                    mViewHolder.setText(R.id.tv_remark, event.getMsg().split("=")[1]);
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    @Override
+    public void onUpdateRemark() {
+        startActivity(new Intent(this, changeFriendUserName.class)
+                .putExtra(Common.AGR1, itemdata.getRemark())
+                .putExtra(Common.AGR2, itemdata.getPhone()));
+    }
+
+    @Override
+    public void deleteFriend() {
+        DialogUtil.showTipsDialog(this, "删除联系人", "将联系人"
+                        + (TextUtils.isEmpty(itemdata.getRemark()) ? itemdata.getPhone() : itemdata.getRemark())
+                        + "删除", "确定", "取消",
+                new DialogUtil.OnConfirmListener() {
+                    @Override
+                    public void clickConfirm() {
+                        mFriendBusiness.deleteFriend(APPCationStation.SUMBIT, "删除中...", itemdata.getVer(), itemdata.getUid());
+                    }
+
+                    @Override
+                    public void clickCancel() {
+
+                    }
+                });
     }
 }
