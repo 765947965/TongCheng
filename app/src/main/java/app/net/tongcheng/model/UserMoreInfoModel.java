@@ -1,9 +1,11 @@
 package app.net.tongcheng.model;
 
+import java.io.Serializable;
+
 /**
  * Created by 76594 on 2016/6/11.
  */
-public class UserMoreInfoModel extends BaseModel {
+public class UserMoreInfoModel extends BaseModel implements Serializable{
 
     private String uid;
     private String province;//省份

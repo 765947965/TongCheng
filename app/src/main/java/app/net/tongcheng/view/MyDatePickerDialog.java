@@ -44,6 +44,10 @@ public class MyDatePickerDialog extends DatePickerDialog {
         hideDatePickerDay(this);
     }
 
+    public void showHasDate() {
+        super.show();
+    }
+
     private void hideDatePickerDay(DatePickerDialog customDialog) {
         ViewGroup group = ((ViewGroup) ((ViewGroup) customDialog.getDatePicker().getChildAt(0))
                 .getChildAt(0));

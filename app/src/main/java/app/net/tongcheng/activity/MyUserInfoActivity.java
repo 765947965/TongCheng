@@ -1,5 +1,6 @@
 package app.net.tongcheng.activity;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +8,10 @@ import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 
+import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.yancy.imageselector.ImageConfig;
 import com.yancy.imageselector.ImageSelector;
@@ -19,6 +22,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import app.net.tongcheng.Business.MyBusiness;
@@ -33,6 +37,7 @@ import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
+import app.net.tongcheng.view.MyDatePickerDialog;
 
 /**
  * @author: xiewenliang
@@ -41,7 +46,8 @@ import app.net.tongcheng.util.ViewHolder;
  * @Copyright: Copyright (c) 2016 Tuandai Inc. All rights reserved.
  * @date: 2016/5/25 17:23
  */
-public class MyUserInfoActivity extends BaseActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class MyUserInfoActivity extends BaseActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener,
+        DatePickerDialog.OnDateSetListener {
 
 
     private ViewHolder mViewHolder;
@@ -50,6 +56,7 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private File fl;
     private List<String> sexlist = new ArrayList<>();
+    private MyDatePickerDialog mMyDatePickerDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +81,8 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
         mViewHolder.setOnClickListener(R.id.rlt_area);
         mViewHolder.setOnClickListener(R.id.rlt_signature);
         mViewHolder.setOnClickListener(R.id.bt_sumbit);
+        mViewHolder.setOnClickListener(R.id.rlt_self_mp);
+        mViewHolder.setOnClickListener(R.id.rlt_birthday);
     }
 
 
@@ -194,6 +203,19 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
             case R.id.bt_sumbit:
                 saveInfo();
                 break;
+            case R.id.rlt_self_mp://个人名片
+                startActivity(new Intent(this, MyUserInfoMP.class).putExtra("mUserMoreInfoModel", mUserMoreInfoModel));
+                break;
+            case R.id.rlt_birthday://生日
+                if (mMyDatePickerDialog == null) {
+                    Calendar mCalendar = Calendar.getInstance();
+                    mMyDatePickerDialog = new MyDatePickerDialog(this, this,
+                            mCalendar.get(Calendar.YEAR),
+                            mCalendar.get(Calendar.MONTH),
+                            mCalendar.get(Calendar.DAY_OF_MONTH));
+                }
+                mMyDatePickerDialog.showHasDate();
+                break;
         }
 
     }
@@ -221,6 +243,16 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
                 .filePath("/ImageSelector/Pictures")
                 .build();
         return imageConfig;
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        if (mUserMoreInfoModel != null) {
+            mUserMoreInfoModel.setBirthday(String.valueOf(year)
+                    + "-" + String.valueOf(monthOfYear + 1)
+                    + "-" + String.valueOf(dayOfMonth));
+            setData(mUserMoreInfoModel);
+        }
     }
 
     class GlideLoader implements com.yancy.imageselector.ImageLoader {
@@ -278,6 +310,11 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
         } else {
             mViewHolder.setText(R.id.tv_area, "");
         }
+        if (!TextUtils.isEmpty(mUserMoreInfoModel.getBirthday())) {
+            mViewHolder.setText(R.id.tv_birthday, mUserMoreInfoModel.getBirthday());
+        } else {
+            mViewHolder.setText(R.id.tv_birthday, "未填写");
+        }
     }
 
     @Subscribe
@@ -303,6 +340,14 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
             mUserMoreInfoModel.setCity(vlues[1]);
             setData(mUserMoreInfoModel);
         }
+        if (event.getMsg().startsWith("mUserMoreInfoModel=")) {
+            String json = event.getMsg().split("=")[1];
+            UserMoreInfoModel mUserMoreInfoModel = JSON.parseObject(json, UserMoreInfoModel.class);
+            if (mUserMoreInfoModel != null) {
+                this.mUserMoreInfoModel = mUserMoreInfoModel;
+                setData(mUserMoreInfoModel);
+            }
+        }
     }
 
     private void saveInfo() {
@@ -314,6 +359,10 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
             json_userprofile.put("province", mUserMoreInfoModel.getProvince());
             json_userprofile.put("city", mUserMoreInfoModel.getCity());
             json_userprofile.put("signature", mUserMoreInfoModel.getSignature());
+            json_userprofile.put("birthday", mUserMoreInfoModel.getBirthday());
+            json_userprofile.put("company", mUserMoreInfoModel.getCompany());
+            json_userprofile.put("profession", mUserMoreInfoModel.getProfession());
+            json_userprofile.put("school", mUserMoreInfoModel.getSchool());
             JSONObject json = new JSONObject();
             json.put("userprofile", json_userprofile);
             mMyBusiness.upOtherUserInfo(APPCationStation.UPOTHERINFO, "提交中...", mUserMoreInfoModel.getVer(), json.toString());

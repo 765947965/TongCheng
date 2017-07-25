@@ -2,7 +2,8 @@
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mSwipeRefreshLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/app_background">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,6 +18,7 @@
                 android:id="@+id/rlt_head_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:padding="14.6dp">
 
                 <TextView
@@ -28,31 +30,25 @@
                     android:textSize="@dimen/sp14" />
 
                 <ImageView
-                    android:id="@+id/iv_head_image_right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_enter" />
-
-                <ImageView
                     android:id="@+id/iv_head_image"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="14.6dp"
-                    android:layout_toLeftOf="@id/iv_head_image_right" />
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
+                android:layout_marginLeft="14.6dp"
+                android:layout_marginTop="-0.5dp"
                 android:background="@color/dividing_line_light" />
 
             <RelativeLayout
                 android:id="@+id/rlt_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:padding="14.6dp">
 
                 <TextView
@@ -88,18 +84,100 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
+                android:layout_marginLeft="14.6dp"
+                android:layout_marginTop="-0.5dp"
                 android:background="@color/dividing_line_light" />
 
             <RelativeLayout
+                android:id="@+id/rlt_signature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:padding="14.6dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="红包账号"
+                    android:text="个性签名"
+                    android:textColor="@color/text_content"
+                    android:textSize="@dimen/sp14" />
+
+                <ImageView
+                    android:id="@+id/iv_signature_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_enter" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="14.6dp"
+                    android:layout_toLeftOf="@id/iv_signature_right"
+                    android:textColor="@color/text_hint"
+                    android:textSize="@dimen/sp14" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="14.6dp"
+                android:layout_marginTop="-0.5dp"
+                android:background="@color/dividing_line_light" />
+
+            <RelativeLayout
+                android:id="@+id/rlt_two_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="14.6dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="我的二维码"
+                    android:textColor="@color/text_content"
+                    android:textSize="@dimen/sp14" />
+
+                <ImageView
+                    android:id="@+id/iv__two_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_enter" />
+
+                <ImageView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/iv__two_code"
+                    android:src="@drawable/qr_code" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="14.6dp"
+                android:layout_marginTop="-0.5dp"
+                android:background="@color/dividing_line_light" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="14.6dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="手机号"
                     android:textColor="@color/text_content"
                     android:textSize="@dimen/sp14" />
 
@@ -126,18 +204,21 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/dividing_line_light"/>
+                android:layout_marginLeft="14.6dp"
+                android:layout_marginTop="-0.5dp"
+                android:background="@color/dividing_line_light" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:padding="14.6dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="同城号"
+                    android:text="商城账号"
                     android:textColor="@color/text_content"
                     android:textSize="@dimen/sp14" />
 
@@ -164,6 +245,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
+                android:layout_marginLeft="14.6dp"
                 android:background="@color/dividing_line_light"
                 android:visibility="gone" />
 
@@ -209,7 +291,8 @@
                 android:id="@+id/rlt_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="14.6dp">
+                android:padding="14.6dp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tv_address_title"
@@ -244,12 +327,58 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/dividing_line_light" />
+
+            <RelativeLayout
+                android:id="@+id/rlt_self_mp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="14.6dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="个人名片"
+                    android:textColor="@color/text_content"
+                    android:textSize="@dimen/sp14" />
+
+                <ImageView
+                    android:id="@+id/iv_self_mp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_enter" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="14.6dp"
+                    android:layout_toLeftOf="@id/iv_self_mp"
+                    android:textColor="@color/text_hint"
+                    android:textSize="@dimen/sp14" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/dividing_line_light" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="@dimen/dp_10"
                 android:background="@color/dividing_line_light" />
 
             <RelativeLayout
                 android:id="@+id/rlt_sex"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:padding="14.6dp">
 
                 <TextView
@@ -282,13 +411,51 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
+                android:layout_marginLeft="14.6dp"
+                android:layout_marginTop="-0.5dp"
                 android:background="@color/dividing_line_light" />
+
+            <RelativeLayout
+                android:id="@+id/rlt_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="14.6dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="生日"
+                    android:textColor="@color/text_content"
+                    android:textSize="@dimen/sp14" />
+
+                <ImageView
+                    android:id="@+id/iv_birthday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_enter" />
+
+                <TextView
+                    android:id="@+id/tv_birthday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="14.6dp"
+                    android:layout_toLeftOf="@id/iv_birthday"
+                    android:textColor="@color/text_hint"
+                    android:textSize="@dimen/sp14" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/rlt_area"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="14.6dp">
+                android:background="@color/white"
+                android:padding="14.6dp"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -317,42 +484,6 @@
                     android:textSize="@dimen/sp14" />
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/dividing_line_light" />
-
-            <RelativeLayout
-                android:id="@+id/rlt_signature"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="14.6dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="个性签名"
-                    android:textColor="@color/text_content"
-                    android:textSize="@dimen/sp14" />
-
-                <ImageView
-                    android:id="@+id/iv_signature_right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_enter" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="14.6dp"
-                    android:layout_toLeftOf="@id/iv_signature_right"
-                    android:textColor="@color/text_hint"
-                    android:textSize="@dimen/sp14" />
-            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
