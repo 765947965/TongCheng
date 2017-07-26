@@ -500,6 +500,7 @@
                 android:background="@drawable/red_button_box_select"
                 android:minHeight="35dp"
                 android:text="保存"
+                android:visibility="gone"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp14" />
         </LinearLayout>

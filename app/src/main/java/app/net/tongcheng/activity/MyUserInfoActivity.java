@@ -83,6 +83,9 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
         mViewHolder.setOnClickListener(R.id.bt_sumbit);
         mViewHolder.setOnClickListener(R.id.rlt_self_mp);
         mViewHolder.setOnClickListener(R.id.rlt_birthday);
+        getRightBtn().setVisibility(View.VISIBLE);
+        getRightBtn().setText("保存");
+        getRightBtn().setOnClickListener(this);
     }
 
 
@@ -201,6 +204,7 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
                 startActivity(new Intent(TCApplication.mContext, QianmingActivity.class).putExtra("signature", mUserMoreInfoModel.getSignature()));
                 break;
             case R.id.bt_sumbit:
+            case R.id.btnRight:
                 saveInfo();
                 break;
             case R.id.rlt_self_mp://个人名片

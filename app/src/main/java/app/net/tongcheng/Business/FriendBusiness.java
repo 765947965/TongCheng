@@ -54,7 +54,7 @@ public class FriendBusiness extends BaseBusiness {
         RequestParams params = new RequestParams(HttpUrls.DeleteFriend);
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         params.addQueryStringParameter("ver", ver);
-        params.addQueryStringParameter("friend_uid", friend_uid);
+        params.addQueryStringParameter("friend_uid", "[" + friend_uid + "]");
         goConnect(mActivity, mLoding_Type, params, message, "");
     }
 }

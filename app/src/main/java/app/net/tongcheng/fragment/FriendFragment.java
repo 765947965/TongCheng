@@ -161,6 +161,7 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
                         }
                     }
                 }
+                mFriendVAdater.setVer(mFriendModel.getVer());
                 mFriendVAdater.notifyDataSetChanged();
                 mFriendHAdater.notifyDataSetChanged();
                 if (mDataHList.size() > 0) {

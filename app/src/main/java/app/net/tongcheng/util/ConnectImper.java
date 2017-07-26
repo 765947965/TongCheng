@@ -76,7 +76,7 @@ public class ConnectImper implements ConnectInterface {
                     } catch (Exception e2) {
                     }
                 }
-                if (response.code() == 403) {
+                if (response != null && response.code() == 403) {
                     ToastUtil.showToast("防火墙安全保障生效中，您可操作慢点。");
                 }
             }
@@ -122,7 +122,7 @@ public class ConnectImper implements ConnectInterface {
                     } catch (Exception e2) {
                     }
                 }
-                if (response.code() == 403) {
+                if (response != null && response.code() == 403) {
                     ToastUtil.showToast("防火墙安全保障生效中，您可操作慢点。");
                 }
             }

@@ -25,6 +25,7 @@ public class FriendMainVAdater extends MyBaseRecyclerViewAdapter<FriendsBean> {
     private Handler mHandler;
     private EditText et_search;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private String ver;
 
 
     public FriendMainVAdater(Context mContext, List<FriendsBean> mDatas, int itemLayoutId, Handler mHandler, EditText et_search, SwipeRefreshLayout mSwipeRefreshLayout) {
@@ -32,6 +33,10 @@ public class FriendMainVAdater extends MyBaseRecyclerViewAdapter<FriendsBean> {
         this.mHandler = mHandler;
         this.et_search = et_search;
         this.mSwipeRefreshLayout = mSwipeRefreshLayout;
+    }
+
+    public void setVer(String ver) {
+        this.ver = ver;
     }
 
     @Override
@@ -42,7 +47,7 @@ public class FriendMainVAdater extends MyBaseRecyclerViewAdapter<FriendsBean> {
         }
 //        itemdata.setSelect(!itemdata.isSelect());
 //        mHandler.sendEmptyMessage(10003);
-        mContext.startActivity(new Intent(TCApplication.mContext, FrienMoreInfoActivity.class).putExtra("FriendsBean", itemdata));
+        mContext.startActivity(new Intent(TCApplication.mContext, FrienMoreInfoActivity.class).putExtra("FriendsBean", itemdata).putExtra("ver", ver));
     }
 
     @Override

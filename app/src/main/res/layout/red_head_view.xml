@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rlt_title"
-    android:layout_width="match_parent"
-    android:layout_height="45dp"
-    android:background="@color/refurush_color">
+                android:id="@+id/rlt_title"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/refurush_color">
 
     <ImageView
         android:id="@+id/bt_close"
@@ -13,7 +13,7 @@
         android:layout_centerVertical="true"
         android:paddingLeft="@dimen/dp_10"
         android:paddingRight="@dimen/dp_16"
-        android:src="@drawable/writeback" />
+        android:src="@drawable/writeback"/>
 
     <TextView
         android:id="@+id/tv_title"
@@ -28,7 +28,7 @@
         android:scrollHorizontally="true"
         android:singleLine="true"
         android:textColor="@color/white"
-        android:textSize="@dimen/sp19" />
+        android:textSize="@dimen/sp19"/>
 
     <Button
         android:id="@+id/btnRight"
@@ -36,12 +36,12 @@
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:background="@null"
-        android:gravity="center"
+        android:gravity="center|right"
         android:paddingLeft="@dimen/dp_10"
         android:paddingRight="@dimen/dp_10"
         android:textColor="@color/right_button_back"
         android:textSize="@dimen/sp16"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
     <ImageView
         android:id="@+id/ivRight"
@@ -52,12 +52,12 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:src="@mipmap/wealth_auto_info"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
     <View
         android:id="@+id/viewBaseLine"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/dividing_line_title" />
+        android:background="@color/dividing_line_title"/>
 </RelativeLayout>

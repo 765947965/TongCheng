@@ -31,6 +31,7 @@ public class FrienMoreInfoActivity extends BaseActivity implements View.OnClickL
     private FriendsBean itemdata;
     private FriendBusiness mFriendBusiness;
     private FriendMoreInfoMenuDialog mFriendMoreInfoMenuDialog;
+    private String ver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class FrienMoreInfoActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void loadData() {
+        ver = getIntent().getStringExtra("ver");
         itemdata = (FriendsBean) getIntent().getSerializableExtra("FriendsBean");
         if (itemdata != null) {
             if (!TextUtils.isEmpty(itemdata.getPicture()) && itemdata.getPicture().startsWith("http")) {
@@ -162,7 +164,7 @@ public class FrienMoreInfoActivity extends BaseActivity implements View.OnClickL
                 new DialogUtil.OnConfirmListener() {
                     @Override
                     public void clickConfirm() {
-                        mFriendBusiness.deleteFriend(APPCationStation.SUMBIT, "删除中...", itemdata.getVer(), itemdata.getUid());
+                        mFriendBusiness.deleteFriend(APPCationStation.SUMBIT, "删除中...", ver, itemdata.getUid());
                     }
 
                     @Override

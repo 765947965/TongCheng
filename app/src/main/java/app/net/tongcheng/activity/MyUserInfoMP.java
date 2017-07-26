@@ -41,9 +41,9 @@ public class MyUserInfoMP extends BaseActivity implements View.OnClickListener, 
     private void initView() {
         mViewHolder = new ViewHolder(findViewById(R.id.llt_main), this);
         mViewHolder.setOnClickListener(R.id.spd_addressrl);
-        ((EditText) mViewHolder.getView(R.id.sdp_companytext)).addTextChangedListener(this);
-        ((EditText) mViewHolder.getView(R.id.sdp_professiontext)).addTextChangedListener(this);
-        ((EditText) mViewHolder.getView(R.id.sdp_schooltext)).addTextChangedListener(this);
+//        ((EditText) mViewHolder.getView(R.id.sdp_companytext)).addTextChangedListener(this);
+//        ((EditText) mViewHolder.getView(R.id.sdp_professiontext)).addTextChangedListener(this);
+//        ((EditText) mViewHolder.getView(R.id.sdp_schooltext)).addTextChangedListener(this);
     }
 
     @Override
