@@ -322,6 +322,10 @@
             android:name=".activity.MyUserInfoMP"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CertificationRecord"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
         <!--小米推送-->
         <service

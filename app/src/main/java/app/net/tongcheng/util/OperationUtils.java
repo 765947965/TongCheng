@@ -17,6 +17,7 @@ public class OperationUtils {
     private static final String FILENAME = "OperationData";
     private static final String USERINFO = "nowuserinfo";
     public static final String walletPassword = "walletPassword";
+    public static final String hadCertification = "hadCertification";
     private static OperationUtils instance;
     private SharedPreferences mSp;
 

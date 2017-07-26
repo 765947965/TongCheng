@@ -11,11 +11,14 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
+import org.json.JSONObject;
+
 import app.net.tongcheng.Business.MyBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.activity.AboutAPP;
 import app.net.tongcheng.activity.AccountSetActivity;
+import app.net.tongcheng.activity.CertificationRecord;
 import app.net.tongcheng.activity.FeedbackActivity;
 import app.net.tongcheng.activity.InviterActivity;
 import app.net.tongcheng.activity.MyUserInfoActivity;
@@ -28,6 +31,7 @@ import app.net.tongcheng.model.UserMoreInfoModel;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.GeneralDateUtils;
 import app.net.tongcheng.util.NativieDataUtils;
+import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.ViewHolder;
 
 /**
@@ -71,6 +75,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Co
         mViewHolder.setOnClickListener(R.id.llt_wallet);
         mViewHolder.setOnClickListener(R.id.llt_gx);
         mViewHolder.setOnClickListener(R.id.llt_tjr);
+        mViewHolder.setOnClickListener(R.id.llt_id_card);
     }
 
     @Override
@@ -89,6 +94,12 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Co
         if (type == 2) {
             btnContent.setChecked(true);
         }
+        if (!OperationUtils.getBoolean(OperationUtils.hadCertification, true)) {
+            mViewHolder.setText(R.id.tv_id_card, "账号实名认证(未通过实名认证)");
+            mHandler.sendEmptyMessageDelayed(10002, 100);
+        } else {
+            mViewHolder.setText(R.id.tv_id_card, "账号实名认证(已通过实名认证)");
+        }
         mHandler.sendEmptyMessageDelayed(10001, 100);
     }
 
@@ -105,6 +116,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Co
                 }
                 setData(mUserMoreInfoModel);
                 break;
+            case 10002:
+                mMyBusiness.queryCertificationStatus(APPCationStation.CHECK, "");
+                break;
         }
     }
 
@@ -117,6 +131,18 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Co
                     mUserMoreInfoModel.setUpdate(NativieDataUtils.getTodyYMD());
                     NativieDataUtils.setUserMoreInfoModel(mUserMoreInfoModel);
                     mHandler.sendEmptyMessage(10001);
+                }
+                break;
+            case APPCationStation.CHECK:
+                try {
+                    String jsonStr = (String) mConnectResult.getObject();
+                    JSONObject json = new JSONObject(jsonStr);
+                    if (json.getInt("result") == 41) {
+                        OperationUtils.PutBoolean(OperationUtils.hadCertification, true, true);
+                        mViewHolder.setText(R.id.tv_id_card, "账号实名认证(已通过实名认证)");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 break;
         }
@@ -155,6 +181,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Co
                 break;
             case R.id.llt_tjr://查看我的邀请人信息
                 startActivity(new Intent(TCApplication.mContext, InviterActivity.class));
+                break;
+            case R.id.llt_id_card:
+                startActivity(new Intent(TCApplication.mContext, CertificationRecord.class));
                 break;
         }
     }

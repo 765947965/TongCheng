@@ -16,6 +16,7 @@ import app.net.tongcheng.util.HttpUrls;
 import app.net.tongcheng.util.MD5;
 import app.net.tongcheng.util.RequestParams;
 import app.net.tongcheng.util.Utils;
+import app.net.tongcheng.util.VerificationCode;
 
 /**
  * Created by 76594 on 2016/6/11.
@@ -62,5 +63,23 @@ public class MyBusiness extends BaseBusiness {
         params.addQueryStringParameter("title", title);
         params.addQueryStringParameter("advice", advice);
         goConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
+    }
+
+
+    public void queryCertificationStatus(int mLoding_Type, String message) {
+        RequestParams params = new RequestParams(HttpUrls.queryCertificationStatus);
+        String sn = VerificationCode.getCode2();
+        params.addQueryStringParameter("sn", sn);
+        params.addQueryStringParameter("sign", MD5.toMD5(sn + TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        goConnect(mActivity, mLoding_Type, params, message, "");
+    }
+
+    public void uploadImage(int mLoding_Type, String message, File file) {
+        RequestParams params = new RequestParams(HttpUrls.uploadImage);
+        params.addBodyParameter("uid", TCApplication.getmUserInfo().getUid());
+        params.setMultipart(true);
+        params.addFileParameter("msg", file);
+        goPostConnect(mActivity, mLoding_Type, params, message, UserMoreInfoModel.class.getName());
     }
 }

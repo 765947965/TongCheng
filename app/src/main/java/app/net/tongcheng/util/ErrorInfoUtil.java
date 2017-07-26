@@ -98,6 +98,9 @@ public class ErrorInfoUtil {
             case 39:
                 message = "暂不支持该手机号码段注册";
                 break;
+            case 42:
+                message = "请先进行实名认证";
+                break;
             case 50:
                 message = "红包id已经存在，重复添加";
                 break;

@@ -246,7 +246,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
                 startActivity(new Intent(TCApplication.mContext, ReChargeActivity.class));
                 break;
             case R.id.llt_rechage_remark:
-                String url = "http://user.zjtongchengshop.com/usercenter/mobile_chargelog.php?phone=" + TCApplication.getmUserInfo().getPhone() + "&uid=" + TCApplication.getmUserInfo().getUid();
+                String url = "http://user.zjtongchengshop.com:8060/usercenter/mobile_chargelog.php?phone=" + TCApplication.getmUserInfo().getPhone() + "&uid=" + TCApplication.getmUserInfo().getUid();
                 startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "账户流水").putExtra("url", url));
                 break;
         }
