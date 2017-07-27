@@ -21,4 +21,7 @@ public class APPCationStation {
     public static final int SUMBITOUT = DCARD + 1;
     public static final int WALLETPASSWORD = SUMBITOUT + 1;
     public static final int CHECKWALLETPASSWORD = WALLETPASSWORD + 1;
+    public static final int UPIDCARD0 = CHECKWALLETPASSWORD + 1;
+    public static final int UPIDCARD1 = UPIDCARD0 + 1;
+    public static final int UPIDCARD2 = UPIDCARD1 + 1;
 }

@@ -9,6 +9,8 @@ import java.io.File;
 
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
+import app.net.tongcheng.model.CertificationList;
+import app.net.tongcheng.model.UpLoadImage;
 import app.net.tongcheng.model.UserMoreInfoModel;
 import app.net.tongcheng.util.HttpBusinessListener;
 import app.net.tongcheng.util.Common;
@@ -80,6 +82,31 @@ public class MyBusiness extends BaseBusiness {
         params.addBodyParameter("uid", TCApplication.getmUserInfo().getUid());
         params.setMultipart(true);
         params.addFileParameter("msg", file);
-        goPostConnect(mActivity, mLoding_Type, params, message, UserMoreInfoModel.class.getName());
+        goPostConnect(mActivity, mLoding_Type, params, message, UpLoadImage.class.getName());
+    }
+
+    public void addCertificationInfo(int mLoding_Type, String message, String full_name, String card_number, String card_img1, String card_img2, String card_img3) {
+        RequestParams params = new RequestParams(HttpUrls.addCertificationInfo);
+        String sn = VerificationCode.getCode2();
+        params.addQueryStringParameter("sn", sn);
+        params.addQueryStringParameter("sign", MD5.toMD5(sn + TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        params.addQueryStringParameter("phone", TCApplication.getmUserInfo().getPhone());
+        params.addQueryStringParameter("full_name", full_name);
+        params.addQueryStringParameter("card_number", card_number);
+        params.addQueryStringParameter("card_img1", card_img1);
+        params.addQueryStringParameter("card_img2", card_img2);
+        params.addQueryStringParameter("card_img3", card_img3);
+        goConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
+    }
+
+
+    public void getCertificationInfo(int mLoding_Type, String message) {
+        RequestParams params = new RequestParams(HttpUrls.getCertificationInfo);
+        String sn = VerificationCode.getCode2();
+        params.addQueryStringParameter("sn", sn);
+        params.addQueryStringParameter("sign", MD5.toMD5(sn + TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
+        params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
+        goConnect(mActivity, mLoding_Type, params, message, CertificationList.class.getName());
     }
 }

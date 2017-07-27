@@ -46,6 +46,8 @@ public class HttpUrls {
     public static final String WXXD = "http://user.zjtongchengshop.com:8060/wxpay/pay/appapi.php";//更改绑定手机号码
     public static final String ZSQQ = "https://mobile.zjtongchengshop.com/v2/agent_add_money_to_zhitui_user";//赠送期权
     public static final String DeleteFriend = "https://mobile.zjtongchengshop.com/friend/delAixinFriends";//删除好友
-    public static final String uploadImage = "https://mobile.zjtongchengshop.com/user/uploadImage";
+    public static final String uploadImage = "https://mobile.zjtongchengshop.com/user/uploadImage";//上传身份证
+    public static final String getCertificationInfo = "https://mobile.zjtongchengshop.com/ams/certification/get_user_certification_info";//获取实名认证信息
+    public static final String addCertificationInfo = "https://mobile.zjtongchengshop.com/ams/certification/add_certification_info";//提交实名认证
     public static final String queryCertificationStatus = "https://mobile.zjtongchengshop.com/ams/certification/query_user_certification_status_info";//查询是否通过实名认证
 }

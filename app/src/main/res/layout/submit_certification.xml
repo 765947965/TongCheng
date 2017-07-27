@@ -2,8 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ssl_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_14"
-            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_4"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -36,7 +35,7 @@
 
             <TextView
                 android:id="@+id/tv_phone"
-                android:layout_width="100dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/dp_10"
                 android:paddingTop="@dimen/dp_10"
@@ -66,7 +65,7 @@
 
             <TextView
                 android:id="@+id/tv_uid"
-                android:layout_width="100dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/dp_10"
                 android:paddingTop="@dimen/dp_10"
@@ -96,8 +95,11 @@
 
             <EditText
                 android:id="@+id/tv_name"
-                android:layout_width="100dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@null"
+                android:inputType="text"
+                android:maxLength="10"
                 android:paddingBottom="@dimen/dp_10"
                 android:paddingTop="@dimen/dp_10"
                 android:textColor="@color/text_content"
@@ -126,8 +128,11 @@
 
             <EditText
                 android:id="@+id/tv_id_card"
-                android:layout_width="100dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@null"
+                android:inputType="text"
+                android:maxLength="18"
                 android:paddingBottom="@dimen/dp_10"
                 android:paddingTop="@dimen/dp_10"
                 android:textColor="@color/text_content"
@@ -152,29 +157,32 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_14"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/iv_card_positive"
                 android:layout_width="0dp"
-                android:layout_height="140dp"
+                android:layout_height="120dp"
                 android:layout_marginLeft="@dimen/dp_14"
                 android:layout_marginRight="@dimen/dp_7"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:src="@drawable/id_card_front" />
 
             <ImageView
                 android:id="@+id/iv_card_other_side"
                 android:layout_width="0dp"
-                android:layout_height="140dp"
+                android:layout_height="120dp"
                 android:layout_marginLeft="@dimen/dp_7"
                 android:layout_marginRight="@dimen/dp_14"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:src="@drawable/id_card_reverse" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_14"
+            android:layout_margin="@dimen/dp_10"
             android:orientation="horizontal">
 
             <TextView
@@ -185,7 +193,8 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="上传身份证正面"
-                android:textColor="@color/remark_tips" />
+                android:textColor="@color/remark_tips"
+                android:textSize="@dimen/sp14" />
 
             <TextView
                 android:layout_width="0dp"
@@ -195,7 +204,8 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="上传身份证反面"
-                android:textColor="@color/remark_tips" />
+                android:textColor="@color/remark_tips"
+                android:textSize="@dimen/sp14" />
         </LinearLayout>
 
         <LinearLayout
@@ -206,17 +216,22 @@
             <ImageView
                 android:id="@+id/iv_synthesis"
                 android:layout_width="0dp"
-                android:layout_height="140dp"
+                android:layout_height="120dp"
                 android:layout_marginLeft="@dimen/dp_14"
                 android:layout_marginRight="@dimen/dp_7"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:src="@drawable/id_card_hand" />
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="140dp"
+                android:layout_height="120dp"
                 android:layout_marginLeft="@dimen/dp_7"
                 android:layout_marginRight="@dimen/dp_14"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="1、需本人上身免冠照；\n2、照片五官清晰可见；\n3、照片身份证号码可见。"
+                android:textColor="@color/remark_tips"
+                android:textSize="@dimen/sp14" />
         </LinearLayout>
 
         <Button
@@ -225,12 +240,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="30dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/red_button_box_select"
             android:minHeight="35dp"
             android:text="确定提交"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp14"
-            android:visibility="gone" />
+            android:textSize="@dimen/sp14" />
     </LinearLayout>
 </ScrollView>
