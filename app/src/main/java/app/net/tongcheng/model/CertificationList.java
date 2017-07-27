@@ -19,7 +19,7 @@ public class CertificationList extends BaseModel implements Serializable {
         this.certification_list = certification_list;
     }
 
-    public static class CertificationInfo {
+    public static class CertificationInfo implements Serializable{
         private String full_name;
         private String phone;
         private String process_time;

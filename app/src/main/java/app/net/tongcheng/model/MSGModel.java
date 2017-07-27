@@ -41,6 +41,7 @@ public class MSGModel extends BaseModel {
     private String agent_id;
     private String isreview;
     private String uploaderrorlog;
+    private String certification_tips;
 
     private String update;
 
@@ -178,5 +179,13 @@ public class MSGModel extends BaseModel {
 
     public void setUpdate(String update) {
         this.update = update;
+    }
+
+    public String getCertification_tips() {
+        return certification_tips;
+    }
+
+    public void setCertification_tips(String certification_tips) {
+        this.certification_tips = certification_tips;
     }
 }

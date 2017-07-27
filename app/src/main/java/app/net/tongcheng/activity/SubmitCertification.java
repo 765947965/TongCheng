@@ -22,8 +22,10 @@ import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.model.MSGModel;
 import app.net.tongcheng.model.UpLoadImage;
 import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
 import top.zibin.luban.Luban;
@@ -64,6 +66,10 @@ public class SubmitCertification extends BaseActivity implements View.OnClickLis
 
     @Override
     public void loadData() {
+        MSGModel mMSGModel = NativieDataUtils.getMSGModel();
+        if (mMSGModel != null) {
+            mViewHoler.setText(R.id.tv_tips, mMSGModel.getCertification_tips());
+        }
         mViewHoler.setText(R.id.tv_phone, TCApplication.getmUserInfo().getPhone());
         mViewHoler.setText(R.id.tv_uid, TCApplication.getmUserInfo().getUid());
     }

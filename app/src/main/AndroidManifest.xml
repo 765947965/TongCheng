@@ -330,6 +330,10 @@
             android:name=".activity.SubmitCertification"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CertificationRecordMoreInfo"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
         <!--小米推送-->
         <service

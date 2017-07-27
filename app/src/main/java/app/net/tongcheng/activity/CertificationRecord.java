@@ -18,12 +18,14 @@ import java.util.List;
 
 import app.net.tongcheng.Business.MyBusiness;
 import app.net.tongcheng.R;
+import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.adapter.MyBaseAdapter;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.CertificationList;
 import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.ViewHolder;
 
@@ -126,7 +128,7 @@ public class CertificationRecord extends BaseActivity implements View.OnClickLis
 
                                 @Override
                                 protected void MyonItemClick(AdapterView<?> parent, View view, CertificationList.CertificationInfo item, List<CertificationList.CertificationInfo> list, int position, long id) {
-
+                                    startActivity(new Intent(TCApplication.mContext, CertificationRecordMoreInfo.class).putExtra(Common.AGR1, item));
                                 }
 
                                 private String getStringFromStata(String process_status) {
