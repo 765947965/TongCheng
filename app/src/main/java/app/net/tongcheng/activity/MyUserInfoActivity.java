@@ -83,6 +83,7 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
         mViewHolder.setOnClickListener(R.id.bt_sumbit);
         mViewHolder.setOnClickListener(R.id.rlt_self_mp);
         mViewHolder.setOnClickListener(R.id.rlt_birthday);
+        mViewHolder.setOnClickListener(R.id.rlt_two_code);
         getRightBtn().setVisibility(View.VISIBLE);
         getRightBtn().setText("保存");
         getRightBtn().setOnClickListener(this);
@@ -219,6 +220,9 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
                             mCalendar.get(Calendar.DAY_OF_MONTH));
                 }
                 mMyDatePickerDialog.showHasDate();
+                break;
+            case R.id.rlt_two_code:// 二维码
+                startActivity(new Intent(this, MyQrcode.class));
                 break;
         }
 

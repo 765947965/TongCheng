@@ -334,6 +334,10 @@
             android:name=".activity.CertificationRecordMoreInfo"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MyQrcode"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
         <!--小米推送-->
         <service
