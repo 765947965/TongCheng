@@ -11,9 +11,12 @@ import android.widget.EditText;
 
 import com.umeng.analytics.MobclickAgent;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
+import app.net.tongcheng.Business.MyBusiness;
 import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
@@ -26,6 +29,7 @@ import app.net.tongcheng.model.MoneyOutInputBean;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.ErrorInfoUtil;
+import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
@@ -45,6 +49,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
     private InputObjectDialog mDialog;
     private String outMoney;
     private double realAmount;//真实可提现金额
+    private MyBusiness mMyBusiness;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
         initView();
         mRedBusiness = new RedBusiness(this, this, mHandler);
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
+        mMyBusiness = new MyBusiness(this, this, mHandler);
     }
 
     private void initView() {
@@ -63,6 +69,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
         money_input = mViewHolder.getView(R.id.money_input);
         Utils.limitDecimalDigits(money_input, 2);
         mViewHolder.setOnClickListener(R.id.tv_description);
+        mViewHolder.setOnClickListener(R.id.tv_no_card);
     }
 
     @Override
@@ -77,11 +84,18 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
             mViewHolder.setText(R.id.tv_description, Html.fromHtml("<u>" + mMoneyInfoModel.getData().getDescription_plus() + "</u>"));
             mViewHolder.setText(R.id.tv_tips, TextUtils.isEmpty(mMoneyInfoModel.getData().getTips_plus()) ? "" : mMoneyInfoModel.getData().getTips_plus());
         }
+        if (!OperationUtils.getBoolean(OperationUtils.hadCertification, true)) {
+            mHandler.sendEmptyMessageDelayed(10001, 200);
+        }
     }
 
     @Override
     public void mHandDoSomeThing(Message msg) {
-
+        switch (msg.what) {
+            case 10001:
+                mMyBusiness.queryCertificationStatus(APPCationStation.CHECK, "");
+                break;
+        }
     }
 
     @Override
@@ -127,6 +141,21 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
                     if (mDialog != null) {
                         mDialog.submitInputFailure();
                     }
+                }
+                break;
+            case APPCationStation.CHECK:
+                try {
+                    String jsonStr = (String) mConnectResult.getObject();
+                    JSONObject json = new JSONObject(jsonStr);
+                    if (json.getInt("result") == 41) {
+                        OperationUtils.PutBoolean(OperationUtils.hadCertification, true, true);
+                        sendEventBusMessage("MyFragment.Refresh");
+                    } else if (json.getInt("result") == 42) {
+                        mViewHolder.setVisibility(R.id.tv_no_card, View.VISIBLE);
+                        mViewHolder.setText(R.id.tv_no_card, Html.fromHtml("<font color=#FF6666>您账号当前未进行实名认证不能提现，请先到\"我\"-->\"账号实名认证\"进行实名认证。</font><br><font color=#0C82F5><u>现在就去实名认证</u></font>"));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 break;
         }
@@ -185,6 +214,9 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.tv_description:
                 startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "手续费").putExtra("url", "http://user.zjtongchengshop.com:8060/service_fee.html"));
+                break;
+            case R.id.tv_no_card:
+                startActivity(new Intent(this, SubmitCertification.class));
                 break;
         }
     }

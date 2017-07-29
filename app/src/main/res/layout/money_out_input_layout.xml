@@ -125,6 +125,17 @@
         android:background="@color/dividing_line_light" />
 
     <TextView
+        android:id="@+id/tv_no_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14.6dp"
+        android:layout_marginRight="14.6dp"
+        android:layout_marginTop="@dimen/dp_14"
+        android:lineSpacingExtra="@dimen/dp_4"
+        android:textSize="@dimen/sp12"
+        android:visibility="gone" />
+
+    <TextView
         android:id="@+id/tv_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

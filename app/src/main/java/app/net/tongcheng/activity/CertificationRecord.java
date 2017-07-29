@@ -121,7 +121,7 @@ public class CertificationRecord extends BaseActivity implements View.OnClickLis
                                             holder.setVisibility(R.id.tv_process_desc, View.GONE);
                                         } else {
                                             holder.setVisibility(R.id.tv_process_desc, View.VISIBLE);
-                                            holder.setText(R.id.tv_process_desc, item.getProcess_desc());
+                                            holder.setText(R.id.tv_process_desc, "审核说明： " + item.getProcess_desc());
                                         }
                                     }
                                 }

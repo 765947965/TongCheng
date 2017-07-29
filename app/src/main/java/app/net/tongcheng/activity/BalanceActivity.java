@@ -87,6 +87,7 @@ public class BalanceActivity extends BaseActivity implements View.OnClickListene
         mHandler.sendEmptyMessageDelayed(10003, 100);
         mHandler.sendEmptyMessageDelayed(10002, 100);
         mHandler.sendEmptyMessageDelayed(10004, 100);
+        mViewHolder.setText(R.id.tv_phone, "用户账号: " + TCApplication.getmUserInfo().getPhone());
     }
 
     @Override

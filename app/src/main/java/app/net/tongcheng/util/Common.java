@@ -9,7 +9,7 @@ public class Common {
 	public static String tag = "TCdebug";
 	public static final String SIGN_KEY = "&%&aicall$#$";
 	public static final String BrandName = "aixin";
-	public static final int LasMine = 60;
+	public static final int LasMine = 6;
 	public static final String AGR1 = "arg1";
 	public static final String AGR2 = "arg2";
 	public static final String AGR3 = "arg3";

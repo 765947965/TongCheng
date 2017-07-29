@@ -41,6 +41,14 @@
             android:layout_margin="@dimen/dp_4"
             android:textColor="@color/text_content"
             android:textSize="@dimen/sp14" />
+
+        <TextView
+            android:id="@+id/tv_process_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_4"
+            android:textColor="@color/refurush_color"
+            android:textSize="@dimen/sp14" />
     </LinearLayout>
 
     <LinearLayout
@@ -57,14 +65,5 @@
             android:layout_margin="@dimen/dp_4"
             android:textColor="@color/refurush_color"
             android:textSize="@dimen/sp14" />
-
-        <TextView
-            android:id="@+id/tv_process_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_4"
-            android:textColor="@color/refurush_color"
-            android:textSize="@dimen/sp14"
-            android:visibility="gone" />
     </LinearLayout>
 </FrameLayout>

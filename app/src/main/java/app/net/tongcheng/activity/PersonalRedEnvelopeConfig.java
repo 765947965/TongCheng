@@ -11,9 +11,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import app.net.tongcheng.Business.MyBusiness;
 import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.Business.RedBusiness;
 import app.net.tongcheng.R;
@@ -52,6 +55,7 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
     private int moneytype = 1;
     private InputObjectDialog mDialog;
     private String outmoney, tips, fromname;
+    private MyBusiness mMyBusiness;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +68,7 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
         initView();
         mRedBusiness = new RedBusiness(this, this, mHandler);
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
+        mMyBusiness = new MyBusiness(this, this, mHandler);
     }
 
     private void initView() {
@@ -75,6 +80,7 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
         money_input.addTextChangedListener(this);
         mViewHolder.setOnClickListener(R.id.sendpalpcredbt);
         mViewHolder.setOnClickListener(R.id.red_lx);
+        mViewHolder.setOnClickListener(R.id.tv_no_card);
     }
 
     @Override
@@ -102,11 +108,18 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
         if (!OperationUtils.getBoolean(OperationUtils.walletPassword)) {
             mOtherBusiness.getWalletPasswordType(APPCationStation.WALLETPASSWORD, "");
         }
+        if (!OperationUtils.getBoolean(OperationUtils.hadCertification, true)) {
+            mHandler.sendEmptyMessageDelayed(10001, 200);
+        }
     }
 
     @Override
     public void mHandDoSomeThing(Message msg) {
-
+        switch (msg.what) {
+            case 10001:
+                mMyBusiness.queryCertificationStatus(APPCationStation.CHECK, "");
+                break;
+        }
     }
 
     @Override
@@ -153,6 +166,20 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
                     if (mDialog != null) {
                         mDialog.submitInputFailure();
                     }
+                }
+                break;
+            case APPCationStation.CHECK:
+                try {
+                    String jsonStr = (String) mConnectResult.getObject();
+                    JSONObject json = new JSONObject(jsonStr);
+                    if (json.getInt("result") == 41) {
+                        OperationUtils.PutBoolean(OperationUtils.hadCertification, true, true);
+                        sendEventBusMessage("MyFragment.Refresh");
+                    } else if (json.getInt("result") == 42) {
+                        mViewHolder.setText(R.id.tv_no_card, Html.fromHtml("<font color=#FF6666>您账号当前未进行实名认证不能提现，请先到\"我\"-->\"账号实名认证\"进行实名认证。</font><br><font color=#0C82F5><u>现在就去实名认证</u></font>"));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 break;
         }
@@ -220,6 +247,9 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
                         ((TextView) mViewHolder.getView(R.id.red_lx)).setText(mItemdata);
                     }
                 });
+                break;
+            case R.id.tv_no_card:
+                startActivity(new Intent(this, SubmitCertification.class));
                 break;
         }
     }

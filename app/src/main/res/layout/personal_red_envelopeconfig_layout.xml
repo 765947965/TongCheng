@@ -160,16 +160,24 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_no_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_14"
+                android:lineSpacingExtra="@dimen/dp_4"
+                android:textSize="@dimen/sp12" />
 
             <TextView
                 android:id="@+id/bttallmoney"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
                 android:gravity="right"
                 android:textSize="15sp" />
 
@@ -177,13 +185,13 @@
                 android:id="@+id/sendpalpcredbt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="120dp"
                 android:background="@drawable/bttallmoney"
                 android:gravity="center"
                 android:text="@string/fahongbao"
                 android:textColor="#fffa02"
                 android:textSize="15sp" />
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
     <View

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.net.tongcheng.Business.FriendBusiness;
+import app.net.tongcheng.Business.MyBusiness;
 import app.net.tongcheng.Business.OtherBusiness;
 import app.net.tongcheng.R;
 import app.net.tongcheng.TCApplication;
@@ -37,6 +38,7 @@ import app.net.tongcheng.model.ContentModel;
 import app.net.tongcheng.model.MSGModel;
 import app.net.tongcheng.model.UpContentJSONModel;
 import app.net.tongcheng.model.UpContentModel;
+import app.net.tongcheng.model.UserMoreInfoModel;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.CastToUtil;
 import app.net.tongcheng.util.ContentsUtil;
@@ -70,6 +72,7 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
     private MyFragment mMyFragment;
     private FriendBusiness mFriendBusiness;
     private OtherBusiness mOtherBusiness;
+    private MyBusiness mMyBusiness;
     private List<BaseFragment> listFragment = new ArrayList<>();
     // 定义数组来存放按钮图片
 //    private String mTextViewArray[] = {"红包", "生活", "好友", "分享", "我的"};
@@ -94,6 +97,7 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
         setEventBus();
         mFriendBusiness = new FriendBusiness(this, this, mHandler);
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
+        mMyBusiness = new MyBusiness(this, this, mHandler);
     }
 
     @Override
@@ -171,6 +175,14 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
         //没有设置钱包密码 查询
         if (!OperationUtils.getBoolean(OperationUtils.walletPassword)) {
             mOtherBusiness.getWalletPasswordType(APPCationStation.WALLETPASSWORD, "");
+        }
+        if (!OperationUtils.getBoolean(OperationUtils.requestPersonInfo, true)) {
+            UserMoreInfoModel mUserMoreInfoModel = NativieDataUtils.getUserMoreInfoModel();
+            if (mUserMoreInfoModel == null) {
+                mMyBusiness.getuserInfo(APPCationStation.CHECK, "");
+            } else {
+                OperationUtils.PutBoolean(OperationUtils.requestPersonInfo, true, true);
+            }
         }
     }
 
@@ -299,6 +311,12 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
                     } else if (((BaseModel) mConnectResult.getObject()).getResult() == 0) {
                         OperationUtils.PutBoolean(OperationUtils.walletPassword, true);
                     }
+                }
+                break;
+            case APPCationStation.CHECK:
+                OperationUtils.PutBoolean(OperationUtils.requestPersonInfo, true, true);
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 60) {
+                    startActivity(new Intent(this, MyUserInfoActivity.class));
                 }
                 break;
         }

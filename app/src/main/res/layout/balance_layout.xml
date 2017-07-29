@@ -20,6 +20,14 @@
             android:src="@drawable/balance_image" />
 
         <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14.6dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp16" />
+
+        <TextView
             android:id="@+id/tv_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -116,9 +124,9 @@
         android:background="@drawable/red_button_box_select"
         android:minHeight="35dp"
         android:text="直推用户线下转赠期权"
-        android:visibility="gone"
         android:textColor="@color/white"
-        android:textSize="@dimen/sp14" />
+        android:textSize="@dimen/sp14"
+        android:visibility="gone" />
 
 
     <Button

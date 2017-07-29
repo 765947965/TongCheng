@@ -118,11 +118,13 @@
         android:padding="14.6dp">
 
         <ImageView
-            android:layout_width="20dp"
+            android:layout_width="18dp"
             android:layout_height="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="15dp"
-            android:src="@drawable/image_set" />
+            android:paddingRight="1dp"
+            android:paddingLeft="1dp"
+            android:src="@drawable/ic_real_name_identity" />
 
         <TextView
             android:id="@+id/tv_id_card"
