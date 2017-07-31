@@ -125,10 +125,8 @@ public class ConnectImper implements ConnectInterface {
     }
 
     private void checkEncrytionParams(RequestParams params) {
-        if (params.getUrl().startsWith("https://mobile.zjtongchengshop.com")) {
-            encryptionRequestParams(params.getQueryStringParameterMap());
-            encryptionRequestParams(params.getBodyParameterMap());
-        }
+        encryptionRequestParams(params.getQueryStringParameterMap());
+        encryptionRequestParams(params.getBodyParameterMap());
     }
 
 

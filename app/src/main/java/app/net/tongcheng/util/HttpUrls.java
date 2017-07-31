@@ -43,7 +43,7 @@ public class HttpUrls {
     public static final String ListGiftInfo = "https://mobile.zjtongchengshop.com/gift/get_gift_receive_info_v2";//看其它人手气
     public static final String bank_list = "http://pay.zjtongchengshop.com:8060/recharge/service/bank_list.php";//银行卡列表
     public static final String ChangPhone_V2 = "https://mobile.zjtongchengshop.com/v2/change_phone_v2";//更改绑定手机号码
-    public static final String WXXD = "http://user.zjtongchengshop.com:8060/wxpay/pay/appapi.php";//更改绑定手机号码
+    public static final String WXXD = "http://user.zjtongchengshop.com:8060/wxpay/pay/appapi.php";//微信
     public static final String ZSQQ = "https://mobile.zjtongchengshop.com/v2/agent_add_money_to_zhitui_user";//赠送期权
     public static final String DeleteFriend = "https://mobile.zjtongchengshop.com/friend/delAixinFriends";//删除好友
     public static final String uploadImage = "https://mobile.zjtongchengshop.com/user/uploadImage";//上传身份证
