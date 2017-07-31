@@ -92,7 +92,9 @@ public class GuQuanActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void BusinessOnFail(int mHttpLoadType, Response response) {
-        DialogUtil.showTipsDialog(this, "网络不可用,请检查网络连接!", null);
+        if (response == null || response.code() != 403) {
+            DialogUtil.showTipsDialog(this, "网络不可用,请检查网络连接!", null);
+        }
     }
 
     @Override

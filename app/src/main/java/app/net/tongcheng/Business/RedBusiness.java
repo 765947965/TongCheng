@@ -138,6 +138,7 @@ public class RedBusiness extends BaseBusiness {
         params.addQueryStringParameter("sign", MD5.toMD5(TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
         params.addQueryStringParameter("money", String.valueOf(money));
         params.addQueryStringParameter("cardid", cardid);
+        params.addQueryStringParameter("ver", Utils.getVersionName());
         goConnect(mActivity, mLoding_Type, params, message, MoneyOutInputBean.class.getName());
     }
 
