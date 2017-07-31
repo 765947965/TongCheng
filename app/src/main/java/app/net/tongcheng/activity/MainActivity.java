@@ -41,6 +41,7 @@ import app.net.tongcheng.model.UpContentModel;
 import app.net.tongcheng.model.UserMoreInfoModel;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.CastToUtil;
+import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.ContentsUtil;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.GeneralDateUtils;
@@ -316,7 +317,7 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
             case APPCationStation.CHECK:
                 OperationUtils.PutBoolean(OperationUtils.requestPersonInfo, true, true);
                 if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 60) {
-                    startActivity(new Intent(this, MyUserInfoActivity.class));
+                    startActivity(new Intent(this, MyUserInfoActivity.class).putExtra(Common.AGR1, true));
                 }
                 break;
         }

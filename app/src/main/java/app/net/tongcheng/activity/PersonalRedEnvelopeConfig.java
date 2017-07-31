@@ -176,7 +176,7 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
                         OperationUtils.PutBoolean(OperationUtils.hadCertification, true, true);
                         sendEventBusMessage("MyFragment.Refresh");
                     } else if (json.getInt("result") == 42) {
-                        mViewHolder.setText(R.id.tv_no_card, Html.fromHtml("<font color=#FF6666>您账号当前未进行实名认证不能提现，请先到\"我\"-->\"账号实名认证\"进行实名认证。</font><br><font color=#0C82F5><u>现在就去实名认证</u></font>"));
+                        mViewHolder.setText(R.id.tv_no_card, Html.fromHtml("<font color=#FF6666>您账号当前未进行实名认证不能发红包，请先到\"我\"-->\"账号实名认证\"进行实名认证。</font><br><font color=#0C82F5><u>现在就去实名认证</u></font>"));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

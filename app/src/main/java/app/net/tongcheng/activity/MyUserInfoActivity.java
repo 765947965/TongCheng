@@ -33,6 +33,7 @@ import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.UserMoreInfoModel;
 import app.net.tongcheng.util.APPCationStation;
+import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ToastUtil;
@@ -104,8 +105,10 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
             case 10001:
                 mUserMoreInfoModel = NativieDataUtils.getUserMoreInfoModel();
                 if (mUserMoreInfoModel == null || !NativieDataUtils.getTodyYMD().equals(mUserMoreInfoModel.getUpdate())) {
-                    mSwipeRefreshLayout.setRefreshing(true);
-                    mMyBusiness.getuserInfo(APPCationStation.LOADING, "");
+                    if (!getIntent().getBooleanExtra(Common.AGR1, false)) {
+                        mSwipeRefreshLayout.setRefreshing(true);
+                        mMyBusiness.getuserInfo(APPCationStation.LOADING, "");
+                    }
                 }
                 if (mUserMoreInfoModel == null) {
                     mUserMoreInfoModel = new UserMoreInfoModel();
