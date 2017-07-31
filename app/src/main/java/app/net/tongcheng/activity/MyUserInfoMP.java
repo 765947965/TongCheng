@@ -19,6 +19,7 @@ import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.UserMoreInfoModel;
 import app.net.tongcheng.util.ViewHolder;
+import okhttp3.Response;
 
 /**
  * Created by 76594 on 2017/7/25.
@@ -91,7 +92,7 @@ public class MyUserInfoMP extends BaseActivity implements View.OnClickListener, 
     }
 
     @Override
-    public void BusinessOnFail(int mHttpLoadType) {
+    public void BusinessOnFail(int mHttpLoadType, Response response) {
 
     }
 

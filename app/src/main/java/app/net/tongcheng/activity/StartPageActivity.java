@@ -12,6 +12,7 @@ import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.StartPageModel;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ViewHolder;
+import okhttp3.Response;
 
 /**
  * Created by 76594 on 2016/5/31.
@@ -61,7 +62,7 @@ public class StartPageActivity extends BaseActivity implements View.OnClickListe
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
+    public void BusinessOnFail(int mLoadType, Response response) {
 
     }
 

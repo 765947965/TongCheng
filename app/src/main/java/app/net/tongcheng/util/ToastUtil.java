@@ -21,6 +21,7 @@ import app.net.tongcheng.TCApplication;
 public class ToastUtil {
     private static SuperToast mToast;
     private static String mLastContent;
+    private static Toast mOldToast;
 
     /**
      * 显示toast
@@ -31,7 +32,11 @@ public class ToastUtil {
      */
     public static void showToast(String content) {
         if (!checkToastPermission()) {
-            Toast.makeText(TCApplication.mContext, content, Toast.LENGTH_LONG).show();
+            if (mOldToast != null) {
+                mOldToast.cancel();
+            }
+            mOldToast = Toast.makeText(TCApplication.mContext, content, Toast.LENGTH_LONG);
+            mOldToast.show();
             return;
         }
         try {

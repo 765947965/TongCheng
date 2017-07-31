@@ -33,6 +33,7 @@ import app.net.tongcheng.util.GeneralDateUtils;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.ViewHolder;
+import okhttp3.Response;
 
 /**
  * @author: xiewenliang
@@ -149,7 +150,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Co
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
+    public void BusinessOnFail(int mLoadType, Response response) {
 
     }
 

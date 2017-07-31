@@ -40,6 +40,7 @@ import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
+import okhttp3.Response;
 
 /**
  * @author: xiewenliang
@@ -211,7 +212,7 @@ public class RedPacketFragment extends BaseFragment implements View.OnClickListe
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
+    public void BusinessOnFail(int mLoadType, Response response) {
         switch (mLoadType) {
             case APPCationStation.LOADING:
                 mSwipeRefreshLayout.setRefreshing(false);

@@ -16,6 +16,7 @@ import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.model.MSGModel;
 import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.NativieDataUtils;
+import okhttp3.Response;
 
 /**
  * Created by 76594 on 2017/7/29.
@@ -77,7 +78,7 @@ public class MyQrcode extends BaseActivity {
     }
 
     @Override
-    public void BusinessOnFail(int mHttpLoadType) {
+    public void BusinessOnFail(int mHttpLoadType, Response response) {
 
     }
 

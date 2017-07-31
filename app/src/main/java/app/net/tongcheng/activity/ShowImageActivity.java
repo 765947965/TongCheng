@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import app.net.tongcheng.R;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.util.ViewHolder;
+import okhttp3.Response;
 
 /**
  * Created by 76594 on 2016/6/17.
@@ -40,7 +41,7 @@ public class ShowImageActivity extends BaseActivity {
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
+    public void BusinessOnFail(int mLoadType, Response response) {
 
     }
 }

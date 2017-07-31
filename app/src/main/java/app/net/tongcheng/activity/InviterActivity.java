@@ -16,6 +16,7 @@ import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
+import okhttp3.Response;
 
 /**
  * @author: xiewenliang
@@ -91,13 +92,15 @@ public class InviterActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
+    public void BusinessOnFail(int mLoadType, Response response) {
         switch (mLoadType) {
             case APPCationStation.SUMBIT:
                 bt_submit.setEnabled(true);
                 break;
         }
-        ToastUtil.showToast("网络不可用,请检查网络连接!");
+        if (response == null || response.code() != 403) {
+            ToastUtil.showToast("网络不可用，请检查网络连接！");
+        }
     }
 
     @Override

@@ -30,6 +30,7 @@ import app.net.tongcheng.util.CastToUtil;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ViewHolder;
 import app.net.tongcheng.view.ScrollViewGridView;
+import okhttp3.Response;
 
 /**
  * @author: xiewenliang
@@ -153,7 +154,7 @@ public class LifeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
+    public void BusinessOnFail(int mLoadType, Response response) {
 
     }
 

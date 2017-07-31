@@ -26,6 +26,7 @@ import app.net.tongcheng.model.UpContentJSONModel;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.NativieDataUtils;
+import okhttp3.Response;
 
 /**
  * Created by 76594 on 2017/7/24.
@@ -90,7 +91,7 @@ public class changeFriendUserName extends BaseActivity implements TextWatcher, V
     }
 
     @Override
-    public void BusinessOnFail(int mHttpLoadType) {
+    public void BusinessOnFail(int mHttpLoadType, Response response) {
 
     }
 

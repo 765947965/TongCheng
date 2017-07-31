@@ -16,6 +16,7 @@ import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
+import okhttp3.Response;
 
 /**
  * @author: xiewenliang
@@ -101,8 +102,10 @@ public class SetWalletActivity extends BaseActivity implements View.OnClickListe
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
-        ToastUtil.showToast("网络不可用，请检查网络链接!");
+    public void BusinessOnFail(int mLoadType, Response response) {
+        if (response == null || response.code() != 403) {
+            ToastUtil.showToast("网络不可用，请检查网络连接！");
+        }
     }
 
     @Override

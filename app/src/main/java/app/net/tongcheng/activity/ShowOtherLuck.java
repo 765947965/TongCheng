@@ -23,6 +23,7 @@ import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
+import okhttp3.Response;
 
 /**
  * Created by 76594 on 2016/6/14.
@@ -107,8 +108,10 @@ public class ShowOtherLuck extends BaseActivity implements View.OnClickListener 
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
-        ToastUtil.showToast("网络不可用,请检查网络连接!");
+    public void BusinessOnFail(int mLoadType, Response response) {
+        if (response == null || response.code() != 403) {
+            ToastUtil.showToast("网络不可用，请检查网络连接！");
+        }
     }
 
     @Override

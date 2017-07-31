@@ -14,6 +14,7 @@ import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.ViewHolder;
+import okhttp3.Response;
 
 /**
  * @author: xiewenliang
@@ -87,7 +88,7 @@ public class WalletAccountSetActivity extends BaseActivity implements View.OnCli
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
+    public void BusinessOnFail(int mLoadType, Response response) {
 
     }
 

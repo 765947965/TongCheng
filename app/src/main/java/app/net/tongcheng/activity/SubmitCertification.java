@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -28,6 +29,7 @@ import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
+import okhttp3.Response;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
@@ -68,7 +70,7 @@ public class SubmitCertification extends BaseActivity implements View.OnClickLis
     public void loadData() {
         MSGModel mMSGModel = NativieDataUtils.getMSGModel();
         if (mMSGModel != null) {
-            mViewHoler.setText(R.id.tv_tips, mMSGModel.getCertification_tips());
+            mViewHoler.setText(R.id.tv_tips, Html.fromHtml(mMSGModel.getCertification_tips()));
         }
         mViewHoler.setText(R.id.tv_phone, TCApplication.getmUserInfo().getPhone());
         mViewHoler.setText(R.id.tv_uid, TCApplication.getmUserInfo().getUid());
@@ -125,7 +127,7 @@ public class SubmitCertification extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    public void BusinessOnFail(int mHttpLoadType) {
+    public void BusinessOnFail(int mHttpLoadType, Response response) {
         switch (mHttpLoadType) {
             case APPCationStation.UPIDCARD0:
                 fl0 = null;

@@ -39,6 +39,7 @@ import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
 import app.net.tongcheng.view.MyDatePickerDialog;
+import okhttp3.Response;
 
 /**
  * @author: xiewenliang
@@ -157,7 +158,7 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
+    public void BusinessOnFail(int mLoadType, Response response) {
         switch (mLoadType) {
             case APPCationStation.LOADING:
                 mSwipeRefreshLayout.setRefreshing(false);

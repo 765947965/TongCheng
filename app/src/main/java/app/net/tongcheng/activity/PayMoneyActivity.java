@@ -7,6 +7,7 @@ import android.view.View;
 import app.net.tongcheng.R;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.util.ViewHolder;
+import okhttp3.Response;
 
 /**
  * @author: xiewenliang
@@ -48,7 +49,7 @@ public class PayMoneyActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
+    public void BusinessOnFail(int mLoadType, Response response) {
 
     }
 

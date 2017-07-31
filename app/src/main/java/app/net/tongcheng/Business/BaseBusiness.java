@@ -22,6 +22,7 @@ import app.net.tongcheng.util.RequestParams;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.VerificationCode;
+import okhttp3.Response;
 
 
 /**
@@ -151,11 +152,14 @@ public class BaseBusiness implements ConnectListener {
     }
 
     @Override
-    public void ConnectOnError(int mLoadType) {
+    public void ConnectOnError(int mLoadType, Response response) {
         Dialog mMessageOld = mMessagesDialog.get(mLoadType);
         if (mMessageOld != null && mMessageOld.isShowing()) {
             mMessageOld.dismiss();
         }
-        mHttpBusinessListener.BusinessOnFail(mLoadType);
+        if (response != null && response.code() == 403) {
+            ToastUtil.showToast("防火墙安全保障生效中，您可操作慢点。");
+        }
+        mHttpBusinessListener.BusinessOnFail(mLoadType, response);
     }
 }

@@ -2,6 +2,7 @@ package app.net.tongcheng.util;
 
 
 import app.net.tongcheng.model.ConnectResult;
+import okhttp3.Response;
 
 /**
  * @author: xiewenliang
@@ -12,5 +13,5 @@ import app.net.tongcheng.model.ConnectResult;
  */
 public interface HttpBusinessListener {
     void BusinessOnSuccess(int mHttpLoadType, ConnectResult mConnectResult);
-    void BusinessOnFail(int mHttpLoadType);
+    void BusinessOnFail(int mHttpLoadType, Response response);
 }

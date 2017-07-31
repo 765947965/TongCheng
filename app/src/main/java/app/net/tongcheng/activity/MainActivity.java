@@ -52,6 +52,7 @@ import app.net.tongcheng.util.ViewHolder;
 import app.net.tongcheng.view.materialtabs.MaterialTab;
 import app.net.tongcheng.view.materialtabs.MaterialTabHost;
 import app.net.tongcheng.view.materialtabs.MaterialTabListener;
+import okhttp3.Response;
 
 /**
  * @author: xiewenliang
@@ -324,7 +325,7 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, V
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
+    public void BusinessOnFail(int mLoadType, Response response) {
 
     }
 

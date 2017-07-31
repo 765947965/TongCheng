@@ -12,6 +12,7 @@ import app.net.tongcheng.model.ShareTipsModel;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ViewHolder;
+import okhttp3.Response;
 
 /**
  * Created by 76594 on 2016/6/20.
@@ -71,7 +72,7 @@ public class ShareSMActivity extends BaseActivity {
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
+    public void BusinessOnFail(int mLoadType, Response response) {
 
     }
 }

@@ -22,6 +22,7 @@ import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
 import app.net.tongcheng.view.FriendMoreInfoMenuDialog;
+import okhttp3.Response;
 
 /**
  * Created by 76594 on 2016/6/17.
@@ -108,7 +109,7 @@ public class FrienMoreInfoActivity extends BaseActivity implements View.OnClickL
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
+    public void BusinessOnFail(int mLoadType, Response response) {
 
     }
 

@@ -28,6 +28,7 @@ import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.OperationUtils;
 import app.net.tongcheng.util.ViewHolder;
+import okhttp3.Response;
 
 /**
  * Created by 76594 on 2017/7/26.
@@ -153,7 +154,7 @@ public class CertificationRecord extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    public void BusinessOnFail(int mHttpLoadType) {
+    public void BusinessOnFail(int mHttpLoadType, Response response) {
 
     }
 

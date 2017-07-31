@@ -34,6 +34,7 @@ import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
 import app.net.tongcheng.view.InputObjectDialog;
+import okhttp3.Response;
 
 /**
  * Created by 76594 on 2016/6/18.
@@ -162,7 +163,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
+    public void BusinessOnFail(int mLoadType, Response response) {
         switch (mLoadType) {
             case APPCationStation.CHECKWALLETPASSWORD:
                 if (mDialog != null) {

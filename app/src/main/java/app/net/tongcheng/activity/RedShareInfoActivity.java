@@ -29,6 +29,7 @@ import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
+import okhttp3.Response;
 
 /**
  * @author: xiewenliang
@@ -201,8 +202,10 @@ public class RedShareInfoActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
-        ToastUtil.showToast("网络不可用,请检查网络连接!");
+    public void BusinessOnFail(int mLoadType, Response response) {
+        if (response == null || response.code() != 403) {
+            ToastUtil.showToast("网络不可用，请检查网络连接！");
+        }
     }
 
     @Override

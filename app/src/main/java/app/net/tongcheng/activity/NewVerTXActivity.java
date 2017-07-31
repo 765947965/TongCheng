@@ -15,6 +15,7 @@ import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.adapter.LoopBaseAdapter;
 import app.net.tongcheng.model.ConnectResult;
 import app.net.tongcheng.util.ViewHolder;
+import okhttp3.Response;
 
 /**
  * Created by 76594 on 2016/6/17.
@@ -73,7 +74,7 @@ public class NewVerTXActivity extends BaseActivity {
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
+    public void BusinessOnFail(int mLoadType, Response response) {
 
     }
 }

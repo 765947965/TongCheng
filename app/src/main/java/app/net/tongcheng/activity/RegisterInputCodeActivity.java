@@ -27,6 +27,7 @@ import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.OraLodingUserTools;
 import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
+import okhttp3.Response;
 
 /**
  * @author: xiewenliang
@@ -128,14 +129,16 @@ public class RegisterInputCodeActivity extends BaseActivity implements View.OnCl
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
+    public void BusinessOnFail(int mLoadType, Response response) {
         switch (mLoadType) {
             case APPCationStation.GETAOUTHCODE:
                 cannotsevedcode.setTextColor(Color.parseColor("#1160FD"));
                 cannotsevedcode.setEnabled(true);
                 break;
         }
-        ToastUtil.showToast("网络不可用，请检查网络连接！");
+        if (response == null || response.code() != 403) {
+            ToastUtil.showToast("网络不可用，请检查网络连接！");
+        }
     }
 
     @Override

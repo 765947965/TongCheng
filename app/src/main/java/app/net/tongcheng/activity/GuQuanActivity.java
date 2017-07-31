@@ -18,6 +18,7 @@ import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.ViewHolder;
 import app.net.tongcheng.view.LineEditText;
 import app.net.tongcheng.view.OnListnerShearch;
+import okhttp3.Response;
 
 /**
  * Created by 76594 on 2017/2/25.
@@ -90,7 +91,7 @@ public class GuQuanActivity extends BaseActivity implements View.OnClickListener
     }
 
     @Override
-    public void BusinessOnFail(int mHttpLoadType) {
+    public void BusinessOnFail(int mHttpLoadType, Response response) {
         DialogUtil.showTipsDialog(this, "网络不可用,请检查网络连接!", null);
     }
 

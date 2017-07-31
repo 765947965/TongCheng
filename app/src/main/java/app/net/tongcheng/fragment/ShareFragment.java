@@ -23,6 +23,7 @@ import app.net.tongcheng.util.Common;
 import app.net.tongcheng.util.MD5;
 import app.net.tongcheng.util.NativieDataUtils;
 import app.net.tongcheng.util.ViewHolder;
+import okhttp3.Response;
 
 /**
  * @author: xiewenliang
@@ -99,7 +100,7 @@ public class ShareFragment extends BaseFragment implements View.OnClickListener 
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
+    public void BusinessOnFail(int mLoadType, Response response) {
 
     }
 

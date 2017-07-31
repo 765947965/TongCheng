@@ -34,6 +34,7 @@ import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
 import app.net.tongcheng.view.InputObjectDialog;
+import okhttp3.Response;
 
 /**
  * @author: xiewenliang
@@ -136,6 +137,8 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
                     // 启动成功页
                     startActivity(new Intent(TCApplication.mContext, PersonRedSendSucess.class).putExtra("nums", nums));
                     finish();
+                } else if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 42) {
+                    ToastUtil.showToast("您账号当前未进行实名认证不能发红包，请先到\"我\"-->\"账号实名认证\"进行实名认证。");
                 }
                 break;
             case APPCationStation.LOADING:
@@ -186,7 +189,7 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
+    public void BusinessOnFail(int mLoadType, Response response) {
         switch (mLoadType) {
             case APPCationStation.CHECKWALLETPASSWORD:
                 if (mDialog != null) {
@@ -194,7 +197,9 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
                 }
                 break;
         }
-        ToastUtil.showToast("网络不可用，请检查网络连接！");
+        if (response == null || response.code() != 403) {
+            ToastUtil.showToast("网络不可用，请检查网络连接！");
+        }
     }
 
     @Override

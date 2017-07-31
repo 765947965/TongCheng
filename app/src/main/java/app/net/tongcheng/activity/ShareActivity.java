@@ -21,6 +21,7 @@ import app.net.tongcheng.util.ViewHolder;
 import cn.sharesdk.system.text.ShortMessage;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.wechat.friends.Wechat;
+import okhttp3.Response;
 
 /**
  * @author: xiewenliang
@@ -101,8 +102,10 @@ public class ShareActivity extends BaseActivity implements View.OnClickListener 
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
-        ToastUtil.showToast("网络不可用,请检查网络连接!");
+    public void BusinessOnFail(int mLoadType, Response response) {
+        if (response == null || response.code() != 403) {
+            ToastUtil.showToast("网络不可用，请检查网络连接！");
+        }
     }
 
     @Override

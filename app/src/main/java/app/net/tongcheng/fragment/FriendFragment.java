@@ -45,6 +45,7 @@ import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
 import app.net.tongcheng.view.MailList_abcList;
+import okhttp3.Response;
 
 /**
  * @author: xiewenliang
@@ -271,7 +272,7 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
+    public void BusinessOnFail(int mLoadType, Response response) {
         mSwipeRefreshLayout.setRefreshing(false);
     }
 

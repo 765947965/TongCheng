@@ -42,6 +42,7 @@ import app.net.tongcheng.util.ToastUtil;
 import app.net.tongcheng.util.Utils;
 import app.net.tongcheng.util.ViewHolder;
 import app.net.tongcheng.view.MailList_abcList;
+import okhttp3.Response;
 
 /**
  * Created by 76594 on 2016/6/17.
@@ -250,7 +251,7 @@ public class SendMoreRedActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
+    public void BusinessOnFail(int mLoadType, Response response) {
         mSwipeRefreshLayout.setRefreshing(false);
     }
 

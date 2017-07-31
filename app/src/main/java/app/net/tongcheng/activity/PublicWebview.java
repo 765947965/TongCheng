@@ -12,6 +12,7 @@ import android.webkit.WebViewClient;
 
 import app.net.tongcheng.R;
 import app.net.tongcheng.model.ConnectResult;
+import okhttp3.Response;
 
 
 /**
@@ -89,7 +90,7 @@ public class PublicWebview extends BaseActivity {
     }
 
     @Override
-    public void BusinessOnFail(int mLoadType) {
+    public void BusinessOnFail(int mLoadType, Response response) {
 
     }
 

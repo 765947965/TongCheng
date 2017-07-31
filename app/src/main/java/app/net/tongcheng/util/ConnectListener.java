@@ -2,6 +2,7 @@ package app.net.tongcheng.util;
 
 
 import app.net.tongcheng.model.ConnectResult;
+import okhttp3.Response;
 
 
 /**
@@ -13,5 +14,5 @@ import app.net.tongcheng.model.ConnectResult;
  */
 public interface ConnectListener {
     void ConnectOnSuccess(int mLoadType, ConnectResult mConnectResult);
-    void ConnectOnError(int mLoadType);
+    void ConnectOnError(int mLoadType, Response response);
 }

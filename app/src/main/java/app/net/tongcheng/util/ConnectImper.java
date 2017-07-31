@@ -72,12 +72,9 @@ public class ConnectImper implements ConnectInterface {
             public void onError(Call call, Response response, Exception e) {
                 if (mConnectListener != null) {
                     try {
-                        mConnectListener.ConnectOnError(mLoding_Type);
+                        mConnectListener.ConnectOnError(mLoding_Type, response);
                     } catch (Exception e2) {
                     }
-                }
-                if (response != null && response.code() == 403) {
-                    ToastUtil.showToast("防火墙安全保障生效中，您可操作慢点。");
                 }
             }
         });
@@ -118,12 +115,9 @@ public class ConnectImper implements ConnectInterface {
             public void onError(Call call, Response response, Exception e) {
                 if (mConnectListener != null) {
                     try {
-                        mConnectListener.ConnectOnError(mLoding_Type);
+                        mConnectListener.ConnectOnError(mLoding_Type, response);
                     } catch (Exception e2) {
                     }
-                }
-                if (response != null && response.code() == 403) {
-                    ToastUtil.showToast("防火墙安全保障生效中，您可操作慢点。");
                 }
             }
         });
