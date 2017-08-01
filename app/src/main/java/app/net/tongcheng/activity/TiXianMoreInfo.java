@@ -62,7 +62,7 @@ public class TiXianMoreInfo extends BaseActivity implements View.OnClickListener
                         case "finish"://提现成功
                             if (mDataBean.getStatus().equals("finish")) {
                                 mViewHolder.setText(R.id.tv_result_tips, "提现成功");
-                                mViewHolder.setText(R.id.tv_money, "-" + mDataBean.getMoney() / 100d);
+                                mViewHolder.setText(R.id.tv_money, "-" + Math.abs(mDataBean.getMoney()) / 100d);
                                 mViewHolder.setImage(R.id.iv_banck_card, mDataBean.getLogo_url());
                                 mViewHolder.setText(R.id.tv_cardname, "提现至" + mDataBean.getBank_name() + "(" + mDataBean.getBank_card_no().substring(mDataBean.getBank_card_no().length() - 4) + ")");
                                 mViewHolder.setText(R.id.tv_to_card_info, "提现至" + mDataBean.getBank_name() + "(" + mDataBean.getBank_card_no().substring(mDataBean.getBank_card_no().length() - 4) + ")");
