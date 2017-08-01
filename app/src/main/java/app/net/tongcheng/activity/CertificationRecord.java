@@ -67,9 +67,9 @@ public class CertificationRecord extends BaseActivity implements View.OnClickLis
             getRightBtn().setVisibility(View.VISIBLE);
             getRightBtn().setText("提交认证");
             getRightBtn().setOnClickListener(this);
-            mHandler.sendEmptyMessageDelayed(10002, 2000);
         }
         mHandler.sendEmptyMessageDelayed(10001, 200);
+        mHandler.sendEmptyMessageDelayed(10002, 2000);
     }
 
     @Override
@@ -93,9 +93,20 @@ public class CertificationRecord extends BaseActivity implements View.OnClickLis
                     String jsonStr = (String) mConnectResult.getObject();
                     JSONObject json = new JSONObject(jsonStr);
                     if (json.getInt("result") == 41) {
+                        boolean oldFlag = OperationUtils.getBoolean(OperationUtils.hadCertification, true);
                         OperationUtils.PutBoolean(OperationUtils.hadCertification, true, true);
                         getRightBtn().setVisibility(View.GONE);
-                        sendEventBusMessage("MyFragment.Refresh");
+                        if (!oldFlag) {
+                            sendEventBusMessage("MyFragment.Refresh");
+                        }
+                    } else if (json.getInt("result") == 42) {
+                        boolean oldFlag = OperationUtils.getBoolean(OperationUtils.hadCertification, true);
+                        OperationUtils.PutBoolean(OperationUtils.hadCertification, false, true);
+                        getRightBtn().setText("提交认证");
+                        getRightBtn().setOnClickListener(this);
+                        if (oldFlag) {
+                            sendEventBusMessage("MyFragment.Refresh");
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

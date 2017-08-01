@@ -85,9 +85,7 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
             mViewHolder.setText(R.id.tv_description, Html.fromHtml("<u>" + mMoneyInfoModel.getData().getDescription_plus() + "</u>"));
             mViewHolder.setText(R.id.tv_tips, TextUtils.isEmpty(mMoneyInfoModel.getData().getTips_plus()) ? "" : mMoneyInfoModel.getData().getTips_plus());
         }
-        if (!OperationUtils.getBoolean(OperationUtils.hadCertification, true)) {
-            mHandler.sendEmptyMessageDelayed(10001, 200);
-        }
+        mHandler.sendEmptyMessageDelayed(10001, 200);
     }
 
     @Override
@@ -149,11 +147,19 @@ public class MoneyOutInputActivity extends BaseActivity implements View.OnClickL
                     String jsonStr = (String) mConnectResult.getObject();
                     JSONObject json = new JSONObject(jsonStr);
                     if (json.getInt("result") == 41) {
+                        boolean oldFlag = OperationUtils.getBoolean(OperationUtils.hadCertification, true);
                         OperationUtils.PutBoolean(OperationUtils.hadCertification, true, true);
-                        sendEventBusMessage("MyFragment.Refresh");
+                        if (!oldFlag) {
+                            sendEventBusMessage("MyFragment.Refresh");
+                        }
                     } else if (json.getInt("result") == 42) {
+                        boolean oldFlag = OperationUtils.getBoolean(OperationUtils.hadCertification, true);
+                        OperationUtils.PutBoolean(OperationUtils.hadCertification, false, true);
                         mViewHolder.setVisibility(R.id.tv_no_card, View.VISIBLE);
                         mViewHolder.setText(R.id.tv_no_card, Html.fromHtml("<font color=#FF6666>您账号当前未进行实名认证不能提现，请先到\"我\"-->\"账号实名认证\"进行实名认证。</font><br><font color=#0C82F5><u>现在就去实名认证</u></font>"));
+                        if (oldFlag) {
+                            sendEventBusMessage("MyFragment.Refresh");
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

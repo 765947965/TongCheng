@@ -109,9 +109,7 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
         if (!OperationUtils.getBoolean(OperationUtils.walletPassword)) {
             mOtherBusiness.getWalletPasswordType(APPCationStation.WALLETPASSWORD, "");
         }
-        if (!OperationUtils.getBoolean(OperationUtils.hadCertification, true)) {
-            mHandler.sendEmptyMessageDelayed(10001, 200);
-        }
+        mHandler.sendEmptyMessageDelayed(10001, 200);
     }
 
     @Override
@@ -176,9 +174,17 @@ public class PersonalRedEnvelopeConfig extends BaseActivity implements View.OnCl
                     String jsonStr = (String) mConnectResult.getObject();
                     JSONObject json = new JSONObject(jsonStr);
                     if (json.getInt("result") == 41) {
+                        boolean oldFlag = OperationUtils.getBoolean(OperationUtils.hadCertification, true);
                         OperationUtils.PutBoolean(OperationUtils.hadCertification, true, true);
-                        sendEventBusMessage("MyFragment.Refresh");
+                        if (!oldFlag) {
+                            sendEventBusMessage("MyFragment.Refresh");
+                        }
                     } else if (json.getInt("result") == 42) {
+                        boolean oldFlag = OperationUtils.getBoolean(OperationUtils.hadCertification, true);
+                        OperationUtils.PutBoolean(OperationUtils.hadCertification, false, true);
+                        if (oldFlag) {
+                            sendEventBusMessage("MyFragment.Refresh");
+                        }
                         mViewHolder.setText(R.id.tv_no_card, Html.fromHtml("<font color=#FF6666>您账号当前未进行实名认证不能发红包，请先到\"我\"-->\"账号实名认证\"进行实名认证。</font><br><font color=#0C82F5><u>现在就去实名认证</u></font>"));
                     }
                 } catch (Exception e) {

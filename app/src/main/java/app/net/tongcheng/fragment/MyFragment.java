@@ -97,11 +97,11 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Co
         }
         if (!OperationUtils.getBoolean(OperationUtils.hadCertification, true)) {
             mViewHolder.setText(R.id.tv_id_card, "账号实名认证(未通过实名认证)");
-            mHandler.sendEmptyMessageDelayed(10002, 100);
         } else {
             mViewHolder.setText(R.id.tv_id_card, "账号实名认证(已通过实名认证)");
         }
         mHandler.sendEmptyMessageDelayed(10001, 100);
+        mHandler.sendEmptyMessageDelayed(10002, 100);
     }
 
     @Override
@@ -141,6 +141,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Co
                     if (json.getInt("result") == 41) {
                         OperationUtils.PutBoolean(OperationUtils.hadCertification, true, true);
                         mViewHolder.setText(R.id.tv_id_card, "账号实名认证(已通过实名认证)");
+                    } else if (json.getInt("result") == 42) {
+                        OperationUtils.PutBoolean(OperationUtils.hadCertification, false, true);
+                        mViewHolder.setText(R.id.tv_id_card, "账号实名认证(未通过实名认证)");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
