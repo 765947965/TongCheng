@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:padding="5dp"
-        android:text="下 拉 看 看 有 没 新 红 包"
+        android:text="下 拉 刷 新 当 月 接 收 红 包"
         android:textColor="@color/red"
         android:textSize="@dimen/sp16"
         android:textStyle="bold" />
