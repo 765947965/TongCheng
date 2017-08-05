@@ -1,5 +1,9 @@
 package app.net.tongcheng.activity;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
@@ -12,6 +16,8 @@ import android.webkit.WebViewClient;
 
 import app.net.tongcheng.R;
 import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.util.ToastUtil;
+import app.net.tongcheng.view.PublicWebViewMenuDialog;
 import okhttp3.Response;
 
 
@@ -22,10 +28,11 @@ import okhttp3.Response;
  * @Copyright: Copyright (c) 2016 Tuandai Inc. All rights reserved.
  * @date: 2016/4/13 14:03
  */
-public class PublicWebview extends BaseActivity {
+public class PublicWebview extends BaseActivity implements View.OnClickListener, PublicWebViewMenuDialog.MenuDialogListener {
     private WebView webview;
     private String title;
     private String url;
+    private PublicWebViewMenuDialog mPublicWebViewMenuDialog;
 
 
     @Override
@@ -42,6 +49,9 @@ public class PublicWebview extends BaseActivity {
     }
 
     private void initView() {
+        getRightIV().setVisibility(View.VISIBLE);
+        getRightIV().setImageResource(R.drawable.menu);
+        getRightIV().setOnClickListener(this);
         webview = (WebView) findViewById(R.id.webview);
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
@@ -120,5 +130,32 @@ public class PublicWebview extends BaseActivity {
     protected void onResume() {
         webview.onResume();
         super.onResume();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ivRight:
+                if (mPublicWebViewMenuDialog == null) {
+                    mPublicWebViewMenuDialog = new PublicWebViewMenuDialog(this, this);
+                }
+                mPublicWebViewMenuDialog.show();
+                break;
+        }
+    }
+
+    @Override
+    public void onUpdateRemark() {
+        Intent mIntent = new Intent("android.intent.action.VIEW", Uri.parse(webview.getUrl()));
+        mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(mIntent);
+    }
+
+    @Override
+    public void deleteFriend() {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        ClipData textCd = ClipData.newPlainText("num", webview.getUrl());
+        clipboard.setPrimaryClip(textCd);
+        ToastUtil.showToast("已复制");
     }
 }
