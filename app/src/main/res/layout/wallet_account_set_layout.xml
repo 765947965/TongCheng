@@ -47,7 +47,7 @@
             android:background="@color/dividing_line_light" />
 
         <RelativeLayout
-            android:id="@+id/setts_retrieve_password_relayout"
+            android:id="@+id/setts_change_password_relayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="#FFFFFF"
@@ -61,7 +61,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical|left"
-                android:text="找回钱包密码"
+                android:text="更改钱包密码"
                 android:textColor="#000000"
                 android:textSize="15sp" />
 
@@ -81,7 +81,7 @@
             android:background="@color/dividing_line_light" />
 
         <RelativeLayout
-            android:id="@+id/setts_change_password_relayout"
+            android:id="@+id/setts_retrieve_password_relayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="#FFFFFF"
@@ -95,7 +95,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical|left"
-                android:text="修改钱包密码"
+                android:text="找回钱包密码"
                 android:textColor="#000000"
                 android:textSize="15sp" />
 

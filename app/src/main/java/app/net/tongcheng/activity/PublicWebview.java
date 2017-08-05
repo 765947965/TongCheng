@@ -2,6 +2,7 @@ package app.net.tongcheng.activity;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.GeolocationPermissions;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -65,8 +67,23 @@ public class PublicWebview extends BaseActivity implements View.OnClickListener,
         if (android.os.Build.VERSION.SDK_INT < 21) {
             webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null); //低版本系统兼容性 不留空白页
         }
-        webview.setWebChromeClient(new WebChromeClient());
+        webview.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+                callback.invoke(origin, true, false);
+                super.onGeolocationPermissionsShowPrompt(origin, callback);
+            }
+        });
         webview.setWebViewClient(wvc);
+
+        //启用数据库
+        webview.getSettings().setDatabaseEnabled(true);
+        String dir = this.getApplicationContext().getDir("database", Context.MODE_PRIVATE).getPath();
+        //启用地理定位
+        webview.getSettings().setGeolocationEnabled(true);
+        //设置定位的数据库路径
+        webview.getSettings().setGeolocationDatabasePath(dir);
+        webview.getSettings().setDomStorageEnabled(true);
     }
 
     WebViewClient wvc = new WebViewClient() {

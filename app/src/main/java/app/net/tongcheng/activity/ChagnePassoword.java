@@ -42,7 +42,7 @@ public class ChagnePassoword extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.change_password_layout);
         arg1 = getIntent().getIntExtra(Common.AGR1, 0);
-        setTitle(arg1 == 0 ? "修改密码" : "修改钱包密码");
+        setTitle(arg1 == 0 ? "修改密码" : "更改钱包密码");
         initView();
         mOtherBusiness = new OtherBusiness(this, this, mHandler);
     }

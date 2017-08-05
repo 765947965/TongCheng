@@ -129,7 +129,7 @@ public class CertificationRecord extends BaseActivity implements View.OnClickLis
                                         holder.setText(R.id.tv_create_time, "提交时间： " + item.getCreate_time());
                                         holder.setText(R.id.process_time, "审核时间： " + (TextUtils.isEmpty(item.getProcess_time()) ? "" : item.getProcess_time()));
                                         holder.setText(R.id.tv_process_status, getStringFromStata(item.getProcess_status()));
-                                        if (TextUtils.isEmpty(item.getProcess_desc())) {
+                                        if ("pass".equals(item.getProcess_status())) {
                                             holder.setVisibility(R.id.tv_process_desc, View.GONE);
                                         } else {
                                             holder.setVisibility(R.id.tv_process_desc, View.VISIBLE);
