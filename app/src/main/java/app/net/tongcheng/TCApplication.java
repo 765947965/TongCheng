@@ -39,7 +39,7 @@ public class TCApplication extends Application {
     public static Context mContext;
     private static UserInfo mUserInfo;
     public static boolean isHasNEW;
-    public static String mRegId;
+    public static String mRegId = "";
 
 
     @Override
