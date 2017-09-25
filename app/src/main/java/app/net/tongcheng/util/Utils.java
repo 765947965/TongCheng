@@ -19,17 +19,13 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import org.apache.http.conn.util.InetAddressUtils;
 
 import java.math.RoundingMode;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
@@ -372,36 +368,6 @@ public class Utils {
         } catch (Exception e) {
         }
         return 0;
-    }
-
-    /**
-     * 获取IP地址
-     *
-     * @return String
-     * @Description
-     * @date： 2014-12-24 上午9:34:06
-     * @author: hehaodong
-     */
-    public static String getLocalIpAddress() {
-        // 得到本机IP地址
-        try {
-            Enumeration<NetworkInterface> en = NetworkInterface
-                    .getNetworkInterfaces();
-            while (en.hasMoreElements()) {
-                NetworkInterface nif = en.nextElement();
-                Enumeration<InetAddress> enumIpAddr = nif.getInetAddresses();
-                while (enumIpAddr.hasMoreElements()) {
-                    InetAddress mInetAddress = enumIpAddr.nextElement();
-                    if (!mInetAddress.isLoopbackAddress()
-                            && InetAddressUtils.isIPv4Address(mInetAddress
-                            .getHostAddress())) {
-                        return mInetAddress.getHostAddress().toString();
-                    }
-                }
-            }
-        } catch (Exception ex) {
-        }
-        return null;
     }
 
     /**

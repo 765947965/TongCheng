@@ -20,6 +20,7 @@ import app.net.tongcheng.TCApplication;
 import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.CheckEvent;
 import app.net.tongcheng.model.ConnectResult;
+import app.net.tongcheng.model.InviteCode;
 import app.net.tongcheng.util.APPCationStation;
 import app.net.tongcheng.util.DialogUtil;
 import app.net.tongcheng.util.ToastUtil;
@@ -43,6 +44,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private Button bt_register;
     private String phone, invite_code;
     private OtherBusiness mOtherBusiness;
+    private InviteCode mInvitecode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +73,19 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void loadData() {
         Utils.setInputMethodVisiable(et_phone, 250);
+        mHandler.sendEmptyMessageDelayed(10001, 100);
     }
 
     @Override
     public void mHandDoSomeThing(Message msg) {
-
+        switch (msg.what) {
+            case 10001:
+                mOtherBusiness.regwithinvitecodestatus(APPCationStation.LOADING, "");
+                break;
+            case 10002:
+                mOtherBusiness.regwithinvitecodestatus(APPCationStation.LOADINGANDRISTER, "加载中...");
+                break;
+        }
     }
 
     @Override
@@ -101,6 +111,25 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     });
                 }
                 break;
+            case APPCationStation.LOADING:
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    mInvitecode = (InviteCode) mConnectResult.getObject();
+                    initInviteCodeUi();
+                }
+                break;
+            case APPCationStation.LOADINGANDRISTER:
+                if (mConnectResult != null && mConnectResult.getObject() != null && ((BaseModel) mConnectResult.getObject()).getResult() == 0) {
+                    mInvitecode = (InviteCode) mConnectResult.getObject();
+                    initInviteCodeUi();
+                    register();
+                }
+                break;
+        }
+    }
+
+    private void initInviteCodeUi() {
+        if (mInvitecode != null) {
+            et_invite_code.setHint(mInvitecode.isMust() ? "必填" : "非必填");
         }
     }
 
@@ -121,33 +150,41 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("title", "用户协议").putExtra("url", "http://user.zjtongchengshop.com/agreement.html?sn=" + VerificationCode.getCode2()));
                 break;
             case R.id.bt_register://注册
-                if (TextUtils.isEmpty(et_phone.getText().toString())) {
-                    ToastUtil.showToast("请输入手机号码!");
-                    return;
-                }
-                if (et_phone.getText().toString().length() != 11) {
-                    ToastUtil.showToast("请输入正确的手机号码!");
-                    return;
-                }
-                if (!checkBox.isChecked()) {
-                    ToastUtil.showToast("请先阅读并同意用户协议!");
-                    return;
-                }
-                phone = et_phone.getText().toString();
-                invite_code = et_invite_code.getText().toString();
-                if (TextUtils.isEmpty(invite_code)) {
-                    ToastUtil.showToast("请输入邀请码!");
-                    return;
-                }
-                mOtherBusiness.registerInviteflagBusiness(APPCationStation.CHECK, "查询邀请码...", et_invite_code.getText().toString());
-//                if (!TextUtils.isEmpty(invite_code)) {
-//                    mOtherBusiness.registerInviteflagBusiness(APPCationStation.CHECK, "查询邀请码...", et_invite_code.getText().toString());
-//                } else {
-//                    sendAouthCode();
-//                }
+                register();
                 break;
         }
     }
+
+    private void register() {
+        if (mInvitecode == null) {
+            mHandler.sendEmptyMessage(10002);
+            return;
+        }
+        if (TextUtils.isEmpty(et_phone.getText().toString())) {
+            ToastUtil.showToast("请输入手机号码!");
+            return;
+        }
+        if (et_phone.getText().toString().length() != 11) {
+            ToastUtil.showToast("请输入正确的手机号码!");
+            return;
+        }
+        if (!checkBox.isChecked()) {
+            ToastUtil.showToast("请先阅读并同意用户协议!");
+            return;
+        }
+        phone = et_phone.getText().toString();
+        invite_code = et_invite_code.getText().toString();
+        if (mInvitecode.isMust() && TextUtils.isEmpty(invite_code)) {
+            ToastUtil.showToast("请输入邀请码!");
+            return;
+        }
+        if (!TextUtils.isEmpty(invite_code)) {
+            mOtherBusiness.registerInviteflagBusiness(APPCationStation.CHECK, "查询邀请码...", et_invite_code.getText().toString());
+        } else {
+            sendAouthCode();
+        }
+    }
+
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {

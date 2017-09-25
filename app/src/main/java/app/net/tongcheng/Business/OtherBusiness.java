@@ -9,6 +9,7 @@ import app.net.tongcheng.model.BaseModel;
 import app.net.tongcheng.model.ChangeAccoutModel;
 import app.net.tongcheng.model.GetPassordModel;
 import app.net.tongcheng.model.InviteInfo;
+import app.net.tongcheng.model.InviteCode;
 import app.net.tongcheng.model.MSGModel;
 import app.net.tongcheng.model.RegisterCode;
 import app.net.tongcheng.model.RegisterInviteflagModel;
@@ -328,5 +329,13 @@ public class OtherBusiness extends BaseBusiness {
         params.addQueryStringParameter("sign", MD5.toMD5(sn + TCApplication.getmUserInfo().getUid() + Common.SIGN_KEY));
         params.addQueryStringParameter("uid", TCApplication.getmUserInfo().getUid());
         goConnect(mActivity, mLoding_Type, params, message, BaseModel.class.getName());
+    }
+
+    public void regwithinvitecodestatus(int mLoding_Type, String message) {
+        RequestParams params = new RequestParams(HttpUrls.regwithinvitecodestatus);
+        params.addQueryStringParameter("pv", "android");
+        params.addQueryStringParameter("sc", "10240");
+        params.addQueryStringParameter("v", Utils.getVersionName());
+        goConnect(mActivity, mLoding_Type, params, message, InviteCode.class.getName());
     }
 }

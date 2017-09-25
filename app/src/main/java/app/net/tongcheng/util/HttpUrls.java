@@ -50,4 +50,5 @@ public class HttpUrls {
     public static final String getCertificationInfo = "https://mobile.zjtongchengshop.com/ams/certification/get_user_certification_info";//获取实名认证信息
     public static final String addCertificationInfo = "https://mobile.zjtongchengshop.com/ams/certification/add_certification_info";//提交实名认证
     public static final String queryCertificationStatus = "https://mobile.zjtongchengshop.com/ams/certification/query_user_certification_status_info";//查询是否通过实名认证
+    public static final String regwithinvitecodestatus = "https://mobile.zjtongchengshop.com/config/regwithinvitecodestatus";//检测是否需要注册邀请码
 }
