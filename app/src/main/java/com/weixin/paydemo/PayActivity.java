@@ -7,8 +7,6 @@ import java.util.*;
 import android.app.Activity;
 import android.util.Xml;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 
@@ -52,13 +50,13 @@ public class PayActivity {
         }
     }
 
-    private String genAppSign(List<NameValuePair> params) {
+    private String genAppSign(Map<String, String> maps) {
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < params.size(); i++) {
-            sb.append(params.get(i).getName());
+        for (Map.Entry<String, String> item : maps.entrySet()) {
+            sb.append(item.getKey());
             sb.append('=');
-            sb.append(params.get(i).getValue());
+            sb.append(item.getValue());
             sb.append('&');
         }
         sb.append("key=");
@@ -69,14 +67,14 @@ public class PayActivity {
         return appSign;
     }
 
-    private String toXml(List<NameValuePair> params) {
+    private String toXml(Map<String, String> maps) {
         StringBuilder sb = new StringBuilder();
         sb.append("<xml>");
-        for (int i = 0; i < params.size(); i++) {
-            sb.append("<" + params.get(i).getName() + ">");
+        for (Map.Entry<String, String> item : maps.entrySet()) {
+            sb.append("<" + item.getKey() + ">");
 
-            sb.append(params.get(i).getValue());
-            sb.append("</" + params.get(i).getName() + ">");
+            sb.append(item.getValue());
+            sb.append("</" + item.getKey() + ">");
         }
         sb.append("</xml>");
 
@@ -140,26 +138,26 @@ public class PayActivity {
 
     private String genMyxml(JSONObject json) {
         try {
-            List<NameValuePair> packageParams = new LinkedList<NameValuePair>();
-            packageParams.add(new BasicNameValuePair("return_code", "<![CDATA["
-                    + json.optString("return_code") + "]]>"));
-            packageParams.add(new BasicNameValuePair("return_msg", "<![CDATA["
-                    + json.optString("return_msg") + "]]>"));
-            packageParams.add(new BasicNameValuePair("appid", "<![CDATA["
-                    + WXContacts.APP_ID + "]]>"));
-            packageParams.add(new BasicNameValuePair("mch_id", "<![CDATA["
-                    + json.optString("mch_id") + "]]>"));
-            packageParams.add(new BasicNameValuePair("nonce_str", "<![CDATA["
-                    + json.optString("nonceStr") + "]]>"));
-            packageParams.add(new BasicNameValuePair("sign", "<![CDATA["
-                    + json.optString("paySign") + "]]>"));
-            packageParams.add(new BasicNameValuePair("result_code", "<![CDATA["
-                    + json.optString("result_code") + "]]>"));
-            packageParams.add(new BasicNameValuePair("prepay_id", "<![CDATA["
-                    + json.optString("prepay_id") + "]]>"));
-            packageParams.add(new BasicNameValuePair("trade_type",
-                    "<![CDATA[APP]]>"));
-            String xmlstring = toXml(packageParams);
+            Map<String, String> maps = new HashMap<>();
+            maps.put("return_code", "<![CDATA["
+                    + json.optString("return_code") + "]]>");
+            maps.put("return_msg", "<![CDATA["
+                    + json.optString("return_msg") + "]]>");
+            maps.put("appid", "<![CDATA["
+                    + WXContacts.APP_ID + "]]>");
+            maps.put("mch_id", "<![CDATA["
+                    + json.optString("mch_id") + "]]>");
+            maps.put("nonce_str", "<![CDATA["
+                    + json.optString("nonceStr") + "]]>");
+            maps.put("sign", "<![CDATA["
+                    + json.optString("paySign") + "]]>");
+            maps.put("result_code", "<![CDATA["
+                    + json.optString("result_code") + "]]>");
+            maps.put("prepay_id", "<![CDATA["
+                    + json.optString("prepay_id") + "]]>");
+            maps.put("trade_type",
+                    "<![CDATA[APP]]>");
+            String xmlstring = toXml(maps);
             return xmlstring;
         } catch (Exception e) {
             return null;
@@ -175,15 +173,15 @@ public class PayActivity {
         req.nonceStr = genNonceStr();
         req.timeStamp = String.valueOf(genTimeStamp());
 
-        List<NameValuePair> signParams = new LinkedList<NameValuePair>();
-        signParams.add(new BasicNameValuePair("appid", req.appId));
-        signParams.add(new BasicNameValuePair("noncestr", req.nonceStr));
-        signParams.add(new BasicNameValuePair("package", req.packageValue));
-        signParams.add(new BasicNameValuePair("partnerid", req.partnerId));
-        signParams.add(new BasicNameValuePair("prepayid", req.prepayId));
-        signParams.add(new BasicNameValuePair("timestamp", req.timeStamp));
+        Map<String, String> maps = new HashMap<>();
+        maps.put("appid", req.appId);
+        maps.put("noncestr", req.nonceStr);
+        maps.put("package", req.packageValue);
+        maps.put("partnerid", req.partnerId);
+        maps.put("prepayid", req.prepayId);
+        maps.put("timestamp", req.timeStamp);
 
-        req.sign = genAppSign(signParams);
+        req.sign = genAppSign(maps);
 
         sb.append("sign\n" + req.sign + "\n\n");
 

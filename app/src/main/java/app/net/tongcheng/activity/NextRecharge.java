@@ -11,14 +11,10 @@ import com.weixin.paydemo.MD5;
 import com.weixin.paydemo.PayActivity;
 import com.weixin.paydemo.WXContacts;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -180,30 +176,24 @@ public class NextRecharge extends BaseActivity implements View.OnClickListener {
             String nonceStr = genNonceStr();
 
             xml.append("</xml>");
-            List<NameValuePair> packageParams = new LinkedList<NameValuePair>();
-            packageParams
-                    .add(new BasicNameValuePair("appid", WXContacts.APP_ID));
-            packageParams
-                    .add(new BasicNameValuePair("body", subject));// 商品简述
-            packageParams.add(new BasicNameValuePair("product_id", selectbean
-                    .getGoodsID()));
+            Map<String, String> maps = new HashMap<>();
+            maps.put("appid", WXContacts.APP_ID);
+            maps.put("body", subject);// 商品简述
+            maps.put("product_id", selectbean.getGoodsID());
             // packageParams.add(new BasicNameValuePair("mch_id",
             // WXContacts.MCH_ID));
-            packageParams.add(new BasicNameValuePair("nonce_str", nonceStr));
+            maps.put("nonce_str", nonceStr);
             // packageParams.add(new BasicNameValuePair("notify_url",
             // WXContacts.NOTIFY_URL));
             // packageParams.add(new BasicNameValuePair("out_trade_no",
             // genOutTradNo()));
-            packageParams.add(new BasicNameValuePair("spbill_create_ip",
-                    "8.8.8.8"));
-            packageParams.add(new BasicNameValuePair("total_fee", selectbean
-                    .getPrice() * 100 + ""));
-            packageParams.add(new BasicNameValuePair("trade_type", "APP"));
-
+            maps.put("spbill_create_ip", "8.8.8.8");
+            maps.put("total_fee", selectbean.getPrice() * 100 + "");
+            maps.put("trade_type", "APP");
             // String sign = genPackageSign(packageParams);
             // packageParams.add(new BasicNameValuePair("sign", sign));
 
-            String xmlstring = toXml(packageParams);
+            String xmlstring = toXml(maps);
 
             return "uid=" + TCApplication.getmUserInfo().getUid() + "&xml="
                     + xmlstring;
@@ -220,14 +210,13 @@ public class NextRecharge extends BaseActivity implements View.OnClickListener {
                 .getBytes());
     }
 
-    private String toXml(List<NameValuePair> params) {
+    private String toXml(Map<String, String> maps) {
         StringBuilder sb = new StringBuilder();
         sb.append("<xml>");
-        for (int i = 0; i < params.size(); i++) {
-            sb.append("<" + params.get(i).getName() + ">");
-
-            sb.append(params.get(i).getValue());
-            sb.append("</" + params.get(i).getName() + ">");
+        for (Map.Entry<String, String> item : maps.entrySet()) {
+            sb.append("<" + item.getKey() + ">");
+            sb.append(item.getValue());
+            sb.append("</" + item.getKey() + ">");
         }
         sb.append("</xml>");
 
