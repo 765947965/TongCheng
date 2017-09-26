@@ -47,7 +47,9 @@ public class PublicWebview extends BaseActivity implements View.OnClickListener,
         }
         initView();
         setCheckLoad(false);
-        setTitle(title);
+        if (!TextUtils.isEmpty(title)) {
+            setTitle(title);
+        }
     }
 
     private void initView() {
@@ -68,6 +70,15 @@ public class PublicWebview extends BaseActivity implements View.OnClickListener,
             webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null); //低版本系统兼容性 不留空白页
         }
         webview.setWebChromeClient(new WebChromeClient() {
+
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                super.onReceivedTitle(view, title);
+                if (!TextUtils.isEmpty(title)) {
+                    setTitle(title);
+                }
+            }
+
             @Override
             public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
                 callback.invoke(origin, true, false);

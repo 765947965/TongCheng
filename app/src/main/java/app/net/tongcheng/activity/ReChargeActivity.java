@@ -40,6 +40,7 @@ public class ReChargeActivity extends BaseActivity implements View.OnClickListen
     private ListView mListView;
     private RechargeInfoModel.DataBean selectbean;
     private RechargeInfoModel.DataBean zxSelectbean;//自己填写充值金额的对象
+    private int rechargeFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,10 @@ public class ReChargeActivity extends BaseActivity implements View.OnClickListen
             case 10001:
                 RechargeInfoModel mRechargeInfoModel = NativieDataUtils.getRechargeInfoModel();
                 if (mRechargeInfoModel != null && mRechargeInfoModel.getData() != null && mRechargeInfoModel.getData().size() > 0) {
+                    RechargeInfoModel.PayType mPayType = mRechargeInfoModel.getPay_type();
+                    if (mPayType != null) {
+                        rechargeFlag = (mPayType.getAlipay() << 2) | (mPayType.getWxpay() << 1) | mPayType.getAllinpay();
+                    }
                     datas.clear();
                     datas.addAll(mRechargeInfoModel.getData());
                     if (mRechargeInfoModel.getDiy_hehuoren_goods_info() != null && mRechargeInfoModel.getDiy_hehuoren_goods_info().getData() != null && mRechargeInfoModel.getDiy_hehuoren_goods_info().getData().size() > 0) {
@@ -118,7 +123,7 @@ public class ReChargeActivity extends BaseActivity implements View.OnClickListen
                 } else if (selectbean.getPrice() == 0f && v.getTag() != null && v.getTag() instanceof RechargeInfoModel.GuQaunObject) {
                     showInputDialog(((RechargeInfoModel.GuQaunObject) v.getTag()).getData());
                 } else {
-                    startActivity(new Intent(this, NextRecharge.class).putExtra("RechargeInfoModel.DataBean", selectbean));
+                    startActivity(new Intent(this, NextRecharge.class).putExtra("RechargeInfoModel.DataBean", selectbean).putExtra("rechargeFlag", rechargeFlag));
                 }
                 break;
         }

@@ -334,7 +334,7 @@ public class OtherBusiness extends BaseBusiness {
     public void regwithinvitecodestatus(int mLoding_Type, String message) {
         RequestParams params = new RequestParams(HttpUrls.regwithinvitecodestatus);
         params.addQueryStringParameter("pv", "android");
-        params.addQueryStringParameter("sc", "10240");
+        params.addQueryStringParameter("sc", String.valueOf((int) ((Math.random() * 9 + 1) * 100000)));
         params.addQueryStringParameter("v", Utils.getVersionName());
         goConnect(mActivity, mLoding_Type, params, message, InviteCode.class.getName());
     }

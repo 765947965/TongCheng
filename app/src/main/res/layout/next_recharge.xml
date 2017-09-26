@@ -63,6 +63,7 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/view_line_zfb"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/dividing_line_light" />
@@ -111,6 +112,56 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/view_line_wx"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/dividing_line_light" />
+
+    <LinearLayout
+        android:id="@+id/llt_tl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="14.6dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/allinpay" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="通联支付"
+                android:textColor="@color/text_content"
+                android:textSize="@dimen/sp14" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="使用通联支付,更自由"
+                android:textColor="@color/gray_ab"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivTLCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/uncheck" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_line_tl"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/dividing_line_light" />

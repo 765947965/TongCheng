@@ -24,6 +24,10 @@ public class RechargeInfoModel extends BaseModel {
 
     private List<DataBean> data;
 
+    private GuQaunObject diy_hehuoren_goods_info;
+
+    private PayType pay_type;
+
     public String getUpdate() {
         return update;
     }
@@ -40,14 +44,20 @@ public class RechargeInfoModel extends BaseModel {
         this.data = data;
     }
 
-    private GuQaunObject diy_hehuoren_goods_info;
-
     public GuQaunObject getDiy_hehuoren_goods_info() {
         return diy_hehuoren_goods_info;
     }
 
     public void setDiy_hehuoren_goods_info(GuQaunObject diy_hehuoren_goods_info) {
         this.diy_hehuoren_goods_info = diy_hehuoren_goods_info;
+    }
+
+    public PayType getPay_type() {
+        return pay_type;
+    }
+
+    public void setPay_type(PayType pay_type) {
+        this.pay_type = pay_type;
     }
 
     public static class DataBean implements Serializable {
@@ -134,6 +144,36 @@ public class RechargeInfoModel extends BaseModel {
 
         public void setDiy_hehuoren_goods_name(String diy_hehuoren_goods_name) {
             this.diy_hehuoren_goods_name = diy_hehuoren_goods_name;
+        }
+    }
+
+    public static class PayType{
+        private int wxpay;
+        private int alipay;
+        private int allinpay;
+
+        public int getWxpay() {
+            return wxpay;
+        }
+
+        public void setWxpay(int wxpay) {
+            this.wxpay = wxpay;
+        }
+
+        public int getAlipay() {
+            return alipay;
+        }
+
+        public void setAlipay(int alipay) {
+            this.alipay = alipay;
+        }
+
+        public int getAllinpay() {
+            return allinpay;
+        }
+
+        public void setAllinpay(int allinpay) {
+            this.allinpay = allinpay;
         }
     }
 }
