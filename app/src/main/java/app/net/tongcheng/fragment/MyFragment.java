@@ -173,8 +173,12 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Co
                 startActivity(new Intent(TCApplication.mContext, AccountSetActivity.class));
                 break;
             case R.id.iv_head_image:
-                if (mUserMoreInfoModel != null && !TextUtils.isEmpty(mUserMoreInfoModel.getPicture()) && !TextUtils.isEmpty(mUserMoreInfoModel.getPicurl_prefix())) {
-                    startActivity(new Intent(TCApplication.mContext, ShowImageActivity.class).putExtra("url", mUserMoreInfoModel.getPicurl_prefix() + mUserMoreInfoModel.getPicture()));
+                if (mUserMoreInfoModel != null && !TextUtils.isEmpty(mUserMoreInfoModel.getPicture())) {
+                    String imageUrl = mUserMoreInfoModel.getPicture();
+                    if (!imageUrl.startsWith("http")) {
+                        imageUrl = mUserMoreInfoModel.getPicurl_prefix() + imageUrl;
+                    }
+                    startActivity(new Intent(TCApplication.mContext, ShowImageActivity.class).putExtra("url", imageUrl));
                 }
                 break;
             case R.id.llt_wallet://钱包密码设置
@@ -193,8 +197,12 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Co
     }
 
     private void setData(UserMoreInfoModel mUserMoreInfoModel) {
-        if (!TextUtils.isEmpty(mUserMoreInfoModel.getPicture()) && !TextUtils.isEmpty(mUserMoreInfoModel.getPicurl_prefix())) {
-            mViewHolder.setImage(R.id.iv_head_image, mUserMoreInfoModel.getPicurl_prefix() + mUserMoreInfoModel.getPicture(), 0, 360);
+        if (!TextUtils.isEmpty(mUserMoreInfoModel.getPicture())) {
+            String imageUrl = mUserMoreInfoModel.getPicture();
+            if (!imageUrl.startsWith("http")) {
+                imageUrl = mUserMoreInfoModel.getPicurl_prefix() + imageUrl;
+            }
+            mViewHolder.setImage(R.id.iv_head_image, imageUrl, 0, 360);
         } else {
             mViewHolder.setImage(R.id.iv_head_image, R.drawable.content5);
         }

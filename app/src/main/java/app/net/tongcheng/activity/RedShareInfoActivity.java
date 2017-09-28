@@ -137,8 +137,12 @@ public class RedShareInfoActivity extends BaseActivity implements View.OnClickLi
             }
             // 设置头像
             UserMoreInfoModel mUserMoreInfoModel = NativieDataUtils.getUserMoreInfoModel();
-            if (mUserMoreInfoModel != null && !TextUtils.isEmpty(mUserMoreInfoModel.getPicture()) && !TextUtils.isEmpty(mUserMoreInfoModel.getPicurl_prefix())) {
-                mViewHolder.setImage(R.id.reddetails_from_iamge, mUserMoreInfoModel.getPicurl_prefix() + mUserMoreInfoModel.getPicture(), R.drawable.red_dialog_head_image, 360);
+            if (mUserMoreInfoModel != null && !TextUtils.isEmpty(mUserMoreInfoModel.getPicture())) {
+                String imageUrl = mUserMoreInfoModel.getPicture();
+                if (!imageUrl.startsWith("http")) {
+                    imageUrl = mUserMoreInfoModel.getPicurl_prefix() + imageUrl;
+                }
+                mViewHolder.setImage(R.id.reddetails_from_iamge, imageUrl, R.drawable.red_dialog_head_image, 360);
             }
         } else {
             mViewHolder.setText(R.id.reddetails_from_money_time, money_temp + "已存入钱包");

@@ -300,8 +300,12 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
     }
 
     private void setData(UserMoreInfoModel mUserMoreInfoModel) {
-        if (!TextUtils.isEmpty(mUserMoreInfoModel.getPicture()) && !TextUtils.isEmpty(mUserMoreInfoModel.getPicurl_prefix())) {
-            mViewHolder.setImage(R.id.iv_head_image, mUserMoreInfoModel.getPicurl_prefix() + mUserMoreInfoModel.getPicture(), 0, 360);
+        if (!TextUtils.isEmpty(mUserMoreInfoModel.getPicture())) {
+            String imageUrl = mUserMoreInfoModel.getPicture();
+            if (!imageUrl.startsWith("http")) {
+                imageUrl = mUserMoreInfoModel.getPicurl_prefix() + imageUrl;
+            }
+            mViewHolder.setImage(R.id.iv_head_image, imageUrl, 0, 360);
         } else {
             mViewHolder.setImage(R.id.iv_head_image, R.drawable.content5);
         }
