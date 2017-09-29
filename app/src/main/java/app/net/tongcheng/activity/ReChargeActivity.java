@@ -134,7 +134,7 @@ public class ReChargeActivity extends BaseActivity implements View.OnClickListen
         DialogUtil.showInputDialog(this, selectbean.getGoodsName(), "", selectbean.getGoodsInfo(), InputType.TYPE_CLASS_NUMBER, new DialogUtil.InputListener() {
             @Override
             public void onSureInout(String input) {
-                startActivity(new Intent(ReChargeActivity.this, NextRecharge.class).putExtra("RechargeInfoModel.DataBean", zxSelectbean));
+                startActivity(new Intent(ReChargeActivity.this, NextRecharge.class).putExtra("RechargeInfoModel.DataBean", zxSelectbean).putExtra("rechargeFlag", rechargeFlag));
             }
 
             @Override
