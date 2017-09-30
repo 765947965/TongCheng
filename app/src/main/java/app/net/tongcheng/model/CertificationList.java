@@ -28,7 +28,7 @@ public class CertificationList extends BaseModel implements Serializable {
         private String card_img2;
         private String card_img1;
         private String create_time;
-        private String process_desc;
+        private String process_desc = "";
         private String process_status;
         private String user_name;
         private String card_number;
