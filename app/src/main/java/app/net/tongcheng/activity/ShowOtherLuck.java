@@ -76,7 +76,11 @@ public class ShowOtherLuck extends BaseActivity implements View.OnClickListener 
                 for (FriendsBean mFriendsBean : mFriendModel.getFriends()) {
                     if (mFriendsBean.getUid().equals(mGiftsBean.getFrom())) {
                         if (!TextUtils.isEmpty(mFriendsBean.getPicture())) {
-                            mViewHolder.setImage(R.id.reddetails_from_iamge, mFriendsBean.getPicture(), R.drawable.red_dialog_head_image, 360);
+                            String imageUrl = mFriendsBean.getPicture();
+                            if (!imageUrl.startsWith("http")) {
+                                imageUrl = mFriendsBean.getPicurl_prefix() + imageUrl;
+                            }
+                            mViewHolder.setImage(R.id.reddetails_from_iamge, imageUrl, R.drawable.red_dialog_head_image, 360);
                         }
                         break;
                     }
@@ -135,8 +139,12 @@ public class ShowOtherLuck extends BaseActivity implements View.OnClickListener 
         mListView.setAdapter(new MyBaseAdapter<SplideGiftModel.ReceivedUserGiftInfoBean>(mListView, TCApplication.mContext, data.getReceived_user_gift_info(), R.layout.show_other_luck_list_item_layout) {
             @Override
             protected void convert(ViewHolder holder, SplideGiftModel.ReceivedUserGiftInfoBean item, List<SplideGiftModel.ReceivedUserGiftInfoBean> list, int position) {
-                if (!TextUtils.isEmpty(item.getPicture()) && item.getPicture().startsWith("http")) {
-                    holder.setImage(R.id.iv_list_head_image, item.getPicture(), R.drawable.defaultuserimage, 360);
+                if (!TextUtils.isEmpty(item.getPicture())) {
+                    String imageUrl = item.getPicture();
+                    if (!imageUrl.startsWith("http")) {
+                        imageUrl = item.getPicurl_prefix() + imageUrl;
+                    }
+                    holder.setImage(R.id.iv_list_head_image, imageUrl, R.drawable.defaultuserimage, 360);
                 } else {
                     holder.setImage(R.id.iv_list_head_image, R.drawable.defaultuserimage);
                 }

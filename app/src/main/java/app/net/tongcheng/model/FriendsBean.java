@@ -27,8 +27,10 @@ public class FriendsBean implements Serializable, Comparable<FriendsBean> {
     private String FY;
     private boolean select;
     private String mobileNumber;
+    private String picurl_prefix;
 
-    public void setInfo(String province, String picture, String picmd5, String company, String profession, String school, String sex, String birthday, String signature, String city, String name) {
+    public void setInfo(String province, String picture, String picmd5, String company, String profession, String school, String sex, String birthday, String signature, String city, String name,
+                        String picurl_prefix) {
         this.province = province;
         this.picture = picture;
         this.picmd5 = picmd5;
@@ -40,6 +42,15 @@ public class FriendsBean implements Serializable, Comparable<FriendsBean> {
         this.signature = signature;
         this.city = city;
         this.name = name;
+        this.picurl_prefix = picurl_prefix;
+    }
+
+    public String getPicurl_prefix() {
+        return picurl_prefix;
+    }
+
+    public void setPicurl_prefix(String picurl_prefix) {
+        this.picurl_prefix = picurl_prefix;
     }
 
     public String getMobileNumber() {

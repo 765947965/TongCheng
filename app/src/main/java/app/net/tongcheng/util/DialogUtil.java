@@ -296,7 +296,11 @@ public class DialogUtil {
                 for (FriendsBean mFriendsBean : mFriendModel.getFriends()) {
                     if (mFriendsBean.getUid().equals(mGiftsBean.getFrom())) {
                         if (!TextUtils.isEmpty(mFriendsBean.getPicture())) {
-                            new PictureLoader(R.drawable.red_dialog_head_image, 360).displayImage(mFriendsBean.getPicture(), (ImageView) view.findViewById(R.id.sendfromname_image));
+                            String imageUrl = mFriendsBean.getPicture();
+                            if (!imageUrl.startsWith("http")) {
+                                imageUrl = mFriendsBean.getPicurl_prefix() + imageUrl;
+                            }
+                            new PictureLoader(R.drawable.red_dialog_head_image, 360).displayImage(imageUrl, (ImageView) view.findViewById(R.id.sendfromname_image));
                         }
                         break;
                     }

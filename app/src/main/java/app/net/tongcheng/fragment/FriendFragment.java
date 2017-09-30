@@ -253,7 +253,8 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
                                     if (mFriendsBeanNew != null) {
                                         mFriendsBean.setInfo(mFriendsBeanNew.getProvince(), mFriendsBeanNew.getPicture(), mFriendsBeanNew.getPicmd5(),
                                                 mFriendsBeanNew.getCompany(), mFriendsBeanNew.getProfession(), mFriendsBeanNew.getSchool(), mFriendsBeanNew.getSex(),
-                                                mFriendsBeanNew.getBirthday(), mFriendsBeanNew.getSignature(), mFriendsBeanNew.getCity(), mFriendsBeanNew.getName());
+                                                mFriendsBeanNew.getBirthday(), mFriendsBeanNew.getSignature(), mFriendsBeanNew.getCity(), mFriendsBeanNew.getName(),
+                                                mFriendsBeanNew.getPicurl_prefix());
                                         if (!TextUtils.isEmpty(mFriendsBean.getName())) {
                                             FriendBeanUtils.pinYin4Name(mFriendsBean);
                                         }

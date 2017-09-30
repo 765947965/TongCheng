@@ -45,7 +45,11 @@ public class FriendVAdater extends MyBaseRecyclerViewAdapter<FriendsBean> {
     @Override
     public void onCreateItemView(MyRecyclerViewHolder holder, FriendsBean itemdata, List<FriendsBean> list, int position) {
         if (!TextUtils.isEmpty(itemdata.getPicture())) {
-            holder.setImage(R.id.pre_tx, itemdata.getPicture(), itemdata.getPictureRED(), 360);
+            String imageUrl = itemdata.getPicture();
+            if (!imageUrl.startsWith("http")) {
+                imageUrl = itemdata.getPicurl_prefix() + imageUrl;
+            }
+            holder.setImage(R.id.pre_tx, imageUrl, itemdata.getPictureRED(), 360);
         } else {
             holder.setImage(R.id.pre_tx, itemdata.getPictureRED());
         }

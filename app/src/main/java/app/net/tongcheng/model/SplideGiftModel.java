@@ -63,6 +63,7 @@ public class SplideGiftModel extends BaseModel {
         private String name;
         private String thankyou;
         private String uid;
+        private String picurl_prefix;
 
         public String getPicture() {
             return picture;
@@ -118,6 +119,14 @@ public class SplideGiftModel extends BaseModel {
 
         public void setUid(String uid) {
             this.uid = uid;
+        }
+
+        public String getPicurl_prefix() {
+            return picurl_prefix;
+        }
+
+        public void setPicurl_prefix(String picurl_prefix) {
+            this.picurl_prefix = picurl_prefix;
         }
     }
 }

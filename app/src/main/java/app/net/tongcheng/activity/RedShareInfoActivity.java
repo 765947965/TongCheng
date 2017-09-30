@@ -158,7 +158,11 @@ public class RedShareInfoActivity extends BaseActivity implements View.OnClickLi
                     for (FriendsBean mFriendsBean : mFriendModel.getFriends()) {
                         if (mFriendsBean.getUid().equals(mGiftsBean.getFrom())) {
                             if (!TextUtils.isEmpty(mFriendsBean.getPicture())) {
-                                mViewHolder.setImage(R.id.reddetails_from_iamge, mFriendsBean.getPicture(), R.drawable.red_dialog_head_image, 360);
+                                String imageUrl = mFriendsBean.getPicture();
+                                if (!imageUrl.startsWith("http")) {
+                                    imageUrl = mFriendsBean.getPicurl_prefix() + imageUrl;
+                                }
+                                mViewHolder.setImage(R.id.reddetails_from_iamge, imageUrl, R.drawable.red_dialog_head_image, 360);
                             }
                             break;
                         }

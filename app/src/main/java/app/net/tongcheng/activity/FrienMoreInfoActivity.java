@@ -58,8 +58,12 @@ public class FrienMoreInfoActivity extends BaseActivity implements View.OnClickL
         ver = getIntent().getStringExtra("ver");
         itemdata = (FriendsBean) getIntent().getSerializableExtra("FriendsBean");
         if (itemdata != null) {
-            if (!TextUtils.isEmpty(itemdata.getPicture()) && itemdata.getPicture().startsWith("http")) {
-                mViewHolder.setImage(R.id.iv_head_image, itemdata.getPicture(), 0, 360);
+            if (!TextUtils.isEmpty(itemdata.getPicture())) {
+                String imageUrl = itemdata.getPicture();
+                if (!imageUrl.startsWith("http")) {
+                    imageUrl = itemdata.getPicurl_prefix() + imageUrl;
+                }
+                mViewHolder.setImage(R.id.iv_head_image, imageUrl, 0, 360);
             } else {
                 mViewHolder.setImage(R.id.iv_head_image, itemdata.getPictureRED());
             }
@@ -124,8 +128,12 @@ public class FrienMoreInfoActivity extends BaseActivity implements View.OnClickL
                 startActivity(new Intent(TCApplication.mContext, PersonalRedEnvelopeConfig.class).putExtra("uids", itemdata.getUid()).putExtra("name", itemdata.getRemark()).putExtra("nums", 1));
                 break;
             case R.id.iv_head_image:
-                if (!TextUtils.isEmpty(itemdata.getPicture()) && itemdata.getPicture().startsWith("http")) {
-                    startActivity(new Intent(TCApplication.mContext, ShowImageActivity.class).putExtra("url", itemdata.getPicture()));
+                if (!TextUtils.isEmpty(itemdata.getPicture())) {
+                    String imageUrl = itemdata.getPicture();
+                    if (!imageUrl.startsWith("http")) {
+                        imageUrl = itemdata.getPicurl_prefix() + imageUrl;
+                    }
+                    startActivity(new Intent(TCApplication.mContext, ShowImageActivity.class).putExtra("url", imageUrl));
                 }
                 break;
             case R.id.ivRight:

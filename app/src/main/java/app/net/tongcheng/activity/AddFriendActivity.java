@@ -91,7 +91,11 @@ public class AddFriendActivity extends BaseActivity implements View.OnClickListe
                         mViewHolder.setVisibility(R.id.itemaddfriend, View.VISIBLE);
                         FriendsBean mFriendsBean = mUpFriendInfoModel.getFriendslist().get(0);
                         if (!TextUtils.isEmpty(mFriendsBean.getPicture())) {
-                            mViewHolder.setImage(R.id.friendist_tx, mFriendsBean.getPicture());
+                            String imageUrl = mFriendsBean.getPicture();
+                            if (!imageUrl.startsWith("http")) {
+                                imageUrl = mFriendsBean.getPicurl_prefix() + imageUrl;
+                            }
+                            mViewHolder.setImage(R.id.friendist_tx, imageUrl);
                         } else {
                             mViewHolder.setImage(R.id.friendist_tx, R.drawable.content5);
                         }

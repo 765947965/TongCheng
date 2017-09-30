@@ -137,6 +137,7 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
                     if (MyUserInfoActivity.this.mUserMoreInfoModel != null) {
                         MyUserInfoActivity.this.mUserMoreInfoModel.setPicurl_prefix(mUserMoreInfoModel.getPicurl_prefix());
                         MyUserInfoActivity.this.mUserMoreInfoModel.setPicture(mUserMoreInfoModel.getPicture());
+                        MyUserInfoActivity.this.mUserMoreInfoModel.setPicurl_prefix(mUserMoreInfoModel.getPicurl_prefix());
                         MyUserInfoActivity.this.mUserMoreInfoModel.setPicmd5(mUserMoreInfoModel.getPicmd5());
                         MyUserInfoActivity.this.mUserMoreInfoModel.setVer(mUserMoreInfoModel.getVer());
                         NativieDataUtils.setUserMoreInfoModel(MyUserInfoActivity.this.mUserMoreInfoModel);
