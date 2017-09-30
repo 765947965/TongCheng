@@ -1,5 +1,7 @@
 package app.net.tongcheng.model;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class CertificationList extends BaseModel implements Serializable {
         this.certification_list = certification_list;
     }
 
-    public static class CertificationInfo implements Serializable{
+    public static class CertificationInfo implements Serializable {
         private String full_name;
         private String phone;
         private String process_time;
@@ -28,7 +30,7 @@ public class CertificationList extends BaseModel implements Serializable {
         private String card_img2;
         private String card_img1;
         private String create_time;
-        private String process_desc = "";
+        private String process_desc;
         private String process_status;
         private String user_name;
         private String card_number;
@@ -98,7 +100,7 @@ public class CertificationList extends BaseModel implements Serializable {
         }
 
         public String getProcess_desc() {
-            return process_desc;
+            return TextUtils.isEmpty(process_desc) ? "" : process_desc;
         }
 
         public void setProcess_desc(String process_desc) {

@@ -14,6 +14,7 @@ public class InviteInfo extends BaseModel implements Serializable {
     private String inviteflag;
     private String inviteByUID;
     private String inviteByPhone;
+    private String inviteTime;
 
     public String getInviteByPhone() {
         return inviteByPhone;
@@ -37,5 +38,13 @@ public class InviteInfo extends BaseModel implements Serializable {
 
     public void setInviteflag(String inviteflag) {
         this.inviteflag = inviteflag;
+    }
+
+    public String getInviteTime() {
+        return inviteTime;
+    }
+
+    public void setInviteTime(String inviteTime) {
+        this.inviteTime = inviteTime;
     }
 }

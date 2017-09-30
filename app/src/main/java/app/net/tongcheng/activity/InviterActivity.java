@@ -67,6 +67,9 @@ public class InviterActivity extends BaseActivity implements View.OnClickListene
                     if (!TextUtils.isEmpty(mInviteInfo.getInviteflag())) {
                         inputCode.setText(mInviteInfo.getInviteflag());
                         inputCode.setHintTextColor(getResources().getColor(R.color.text_content));
+                        mViewHolder.setText(R.id.tv_tips_1, "邀请人账号:   " + mInviteInfo.getInviteByUID()).setVisibility(View.VISIBLE);
+                        mViewHolder.setText(R.id.tv_tips_2, "邀请人手机号码:   " + mInviteInfo.getInviteByPhone()).setVisibility(View.VISIBLE);
+                        mViewHolder.setText(R.id.tv_tips_3, "邀请关系建立时间:   " + mInviteInfo.getInviteTime()).setVisibility(View.VISIBLE);
                     }
                 } else {
                     inputCode.setEnabled(true);
