@@ -39,7 +39,6 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
 
     public RedListAdapter(Activity mActivity, List<GiftsBean> mDatas, SwipeRefreshLayout mSwipeRefreshLayout, RedBusiness mRedBusiness, RedListAdapterSetDialog mRedListAdapterSetDialog) {
         super(TCApplication.mContext, mDatas, R.layout.red_listviewadapter);
-        datestr_today = Utils.sdformat_3.format(new Date());
         this.mSwipeRefreshLayout = mSwipeRefreshLayout;
         this.mActivity = mActivity;
         this.mRedBusiness = mRedBusiness;
@@ -48,6 +47,7 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
 
     @Override
     public void onItemClick(View view, GiftsBean itemdata, List<GiftsBean> list, int position) {
+        datestr_today = Utils.sdformat.format(new Date());
         if (mSwipeRefreshLayout.isRefreshing()) {
             ToastUtil.showToast("正在同步数据...");
         } else if (itemdata != null) {
@@ -76,7 +76,11 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
                 ImageView red_has_open_image = holder.getView(R.id.red_has_open_image);
                 red_moneys.setText(String.valueOf(Double.parseDouble(itemdata.getMoney().replace(",", "")) / (double) 100) + "元");
                 if (itemdata.getDirect().equals("sended")) {
-                    red_type_text.setText("发出: " + Utils.sdformat_2.format(Utils.sdformat.parse(itemdata.getCreate_time().trim())));
+                    try {
+                        red_type_text.setText("发出: " + Utils.sdformat_2.format(Utils.sdformat.parse(itemdata.getCreate_time().trim())));
+                    } catch (Exception e) {
+                        red_type_text.setText("发出: " + itemdata.getCreate_time().trim());
+                    }
                     String status = itemdata.getStatus();
                     if ("has_sended".equals(status)) {
                         red_has_open_text.setText("领取中...");
@@ -136,9 +140,14 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
 
                     // 日期
                     String creatime = itemdata.getCreate_time();
-                    if (creatime != null && creatime.trim().length() == 19) {
-                        Date date = Utils.sdformat.parse(creatime.trim());
-                        red_creatime_text.setText("收到: " + Utils.sdformat_2.format(date));
+                    if (creatime != null) {
+                        try {
+                            Date date = Utils.sdformat.parse(creatime.trim());
+                            red_creatime_text.setText("收到: " + Utils.sdformat_2.format(date));
+                        } catch (Exception e) {
+                            red_creatime_text.setText("收到: " + creatime);
+                        }
+
                     }
 
                     // 设置是否已拆动作
@@ -151,16 +160,24 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
                         }
                         // 格式化日期
                         String exp_time = itemdata.getExp_time();
-                        if (exp_time != null && exp_time.trim().length() == 10) {
-                            Date date = Utils.sdformat_3.parse(exp_time.trim());
-                            red_has_open_text.setText("未拆: " + Utils.sdformat_4.format(date) + " 前有效");
+                        if (exp_time != null) {
+                            try {
+                                Date date = Utils.sdformat.parse(exp_time.trim());
+                                red_has_open_text.setText("未拆: " + Utils.sdformat_2.format(date) + " 前有效");
+                            } catch (Exception e) {
+                                red_has_open_text.setText("未拆: " + exp_time + " 前有效");
+                            }
                         }
                     } else if (itemdata.getHas_open() == 1) {
                         // 格式化日期
                         String open_time = itemdata.getOpen_time();
-                        if (open_time != null && open_time.length() == 19) {
-                            Date date = Utils.sdformat.parse(open_time.trim());
-                            red_has_open_text.setText("拆开: " + Utils.sdformat_2.format(date));
+                        if (open_time != null) {
+                            try {
+                                Date date = Utils.sdformat.parse(open_time.trim());
+                                red_has_open_text.setText("拆开: " + Utils.sdformat_2.format(date));
+                            } catch (Exception e) {
+                                red_has_open_text.setText("拆开: " + open_time);
+                            }
                         }
                     }
                 }
