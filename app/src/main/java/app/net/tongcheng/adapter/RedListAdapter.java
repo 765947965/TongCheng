@@ -31,7 +31,6 @@ import app.net.tongcheng.util.Utils;
  */
 public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
 
-    private String datestr_today;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private Activity mActivity;
     private RedBusiness mRedBusiness;
@@ -47,7 +46,6 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
 
     @Override
     public void onItemClick(View view, GiftsBean itemdata, List<GiftsBean> list, int position) {
-        datestr_today = Utils.sdformat.format(new Date());
         if (mSwipeRefreshLayout.isRefreshing()) {
             ToastUtil.showToast("正在同步数据...");
         } else if (itemdata != null) {
@@ -69,6 +67,7 @@ public class RedListAdapter extends MyBaseRecyclerViewAdapter<GiftsBean> {
     public void onCreateItemView(MyRecyclerViewHolder holder, GiftsBean itemdata, List<GiftsBean> list, int position) {
         if (itemdata != null) {
             try {
+                String datestr_today = Utils.sdformat.format(new Date());
                 TextView red_type_text = holder.getView(R.id.red_type_text);
                 TextView red_creatime_text = holder.getView(R.id.red_creatime_text);
                 TextView red_has_open_text = holder.getView(R.id.red_has_open_text);
