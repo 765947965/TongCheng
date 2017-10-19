@@ -1,21 +1,28 @@
 package app.net.tongcheng.activity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
-import com.yancy.imageselector.ImageConfig;
-import com.yancy.imageselector.ImageSelector;
-import com.yancy.imageselector.ImageSelectorActivity;
+import com.yancy.gallerypick.config.GalleryConfig;
+import com.yancy.gallerypick.config.GalleryPick;
+import com.yancy.gallerypick.inter.IHandlerCallBack;
+import com.yancy.gallerypick.inter.ImageLoader;
+import com.yancy.gallerypick.widget.GalleryImageView;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONObject;
@@ -59,6 +66,7 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
     private File fl;
     private List<String> sexlist = new ArrayList<>();
     private MyDatePickerDialog mMyDatePickerDialog;
+    private GalleryConfig mGalleryConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,7 +186,7 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
         if (mUserMoreInfoModel == null) return;
         switch (v.getId()) {
             case R.id.rlt_head_image:
-                ImageSelector.open(this, getImageConfig());
+                initPermission();
                 break;
             case R.id.rlt_name:
                 startActivity(new Intent(TCApplication.mContext, ChangeNameActivity.class).putExtra("name", mUserMoreInfoModel.getName()));
@@ -233,29 +241,100 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
 
     }
 
+    private void initPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                // 拒绝过了 提示用户如果想要正常使用，要手动去设置中授权。
+                ToastUtil.showToast("请在 设置-应用管理 中开启此应用的储存授权。");
+            } else {
+                // 进行授权
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100001);
+            }
+        } else {
+            GalleryPick.getInstance().setGalleryConfig(getImageConfig()).open(this);
+        }
+    }
+
     @Override
     protected void onDestroy() {
         sendEventBusMessage("MyFragment.Refresh");
         super.onDestroy();
     }
 
-    private ImageConfig getImageConfig() {
-        ImageConfig imageConfig
-                = new ImageConfig.Builder(new GlideLoader())
-                .steepToolBarColor(getResources().getColor(R.color.refurush_color))
-                .titleBgColor(getResources().getColor(R.color.refurush_color))
-                .titleSubmitTextColor(getResources().getColor(R.color.white))
-                .titleTextColor(getResources().getColor(R.color.white))
-                // (截图默认配置：关闭    比例 1：1    输出分辨率  500*500)
-                .crop()
-                // 开启单选   （默认为多选）
-                .singleSelect()
-                // 开启拍照功能 （默认关闭）
-                .showCamera()
-                // 拍照后存放的图片路径（默认 /temp/picture） （会自动创建）
-                .filePath("/ImageSelector/Pictures")
-                .build();
-        return imageConfig;
+    private GalleryConfig getImageConfig() {
+        if (mGalleryConfig == null) {
+            mGalleryConfig = new GalleryConfig.Builder()
+                    .imageLoader(new GlideLoader())    // ImageLoader 加载框架（必填）
+                    .iHandlerCallBack(iHandlerCallBack)     // 监听接口（必填）
+                    .provider("app.net.tongchengzj.provider")   // provider (必填)
+                    .pathList(new ArrayList<String>())                         // 记录已选的图片
+                    .crop(true, 1, 1, 500, 500)             // 配置裁剪功能的参数，   默认裁剪比例 1:1
+                    .isShowCamera(true)                     // 是否现实相机按钮  默认：false
+                    .filePath("/Gallery/Pictures")          // 图片存放路径
+                    .build();
+        }
+        return mGalleryConfig;
+    }
+
+    private IHandlerCallBack iHandlerCallBack = new IHandlerCallBack() {
+        @Override
+        public void onStart() {
+        }
+
+        @Override
+        public void onSuccess(List<String> pathList) {
+            if (pathList == null || pathList.size() == 0) return;
+            fl = new File(pathList.get(0));
+            if (fl.exists()) {
+                // 上传图片
+                mMyBusiness.upImage(APPCationStation.UPIMAGE, "上传图片中...", fl);
+            }
+        }
+
+        @Override
+        public void onCancel() {
+        }
+
+        @Override
+        public void onFinish() {
+        }
+
+        @Override
+        public void onError() {
+        }
+    };
+
+    private static class GlideLoader implements ImageLoader {
+
+        @Override
+        public void displayImage(Activity activity, Context context, String path, GalleryImageView galleryImageView, int width, int height) {
+            Glide.with(context)
+                    .load(path)
+                    .placeholder(R.mipmap.gallery_pick_photo)
+                    .centerCrop()
+                    .into(galleryImageView);
+        }
+
+        @Override
+        public void clearMemoryCache() {
+
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        if (requestCode == 100001) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                GalleryPick.getInstance().setGalleryConfig(getImageConfig()).open(this);
+            } else {
+                ToastUtil.showToast("请在 设置-应用管理 中开启此应用的储存授权。");
+            }
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        mMyBusiness.getuserInfo(APPCationStation.LOADING, "");
     }
 
     @Override
@@ -266,38 +345,6 @@ public class MyUserInfoActivity extends BaseActivity implements View.OnClickList
                     + "-" + String.valueOf(dayOfMonth));
             setData(mUserMoreInfoModel);
         }
-    }
-
-    class GlideLoader implements com.yancy.imageselector.ImageLoader {
-
-        @Override
-        public void displayImage(Context context, String path, ImageView imageView) {
-            Glide.with(context)
-                    .load(path)
-                    .placeholder(com.yancy.imageselector.R.mipmap.imageselector_photo)
-                    .centerCrop()
-                    .into(imageView);
-        }
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ImageSelector.IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
-            List<String> pathList = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT);
-            if (pathList == null || pathList.size() == 0) return;
-            fl = new File(pathList.get(0));
-            if (fl.exists()) {
-                // 上传图片
-                mMyBusiness.upImage(APPCationStation.UPIMAGE, "上传图片中...", fl);
-            }
-        }
-    }
-
-    @Override
-    public void onRefresh() {
-        mMyBusiness.getuserInfo(APPCationStation.LOADING, "");
     }
 
     private void setData(UserMoreInfoModel mUserMoreInfoModel) {

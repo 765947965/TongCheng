@@ -1,9 +1,14 @@
 package app.net.tongcheng.activity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,11 +16,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.yancy.imageselector.ImageConfig;
-import com.yancy.imageselector.ImageSelector;
-import com.yancy.imageselector.ImageSelectorActivity;
+import com.yancy.gallerypick.config.GalleryConfig;
+import com.yancy.gallerypick.config.GalleryPick;
+import com.yancy.gallerypick.inter.IHandlerCallBack;
+import com.yancy.gallerypick.inter.ImageLoader;
+import com.yancy.gallerypick.widget.GalleryImageView;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import app.net.tongcheng.Business.MyBusiness;
@@ -45,6 +53,7 @@ public class SubmitCertification extends BaseActivity implements View.OnClickLis
     private File fl0, fl1, fl2; //0 正面, 1反面, 2手持照片
     private String imageId0, imageId1, imageId2;//0 正面, 1反面, 2手持照片
     private EditText tv_name, tv_id_card;
+    private GalleryConfig mGalleryConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,15 +161,15 @@ public class SubmitCertification extends BaseActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.iv_card_positive:
                 mImageFlag = 0;
-                ImageSelector.open(this, getImageConfig());
+                initPermission();
                 break;
             case R.id.iv_card_other_side:
                 mImageFlag = 1;
-                ImageSelector.open(this, getImageConfig());
+                initPermission();
                 break;
             case R.id.iv_synthesis:
                 mImageFlag = 2;
-                ImageSelector.open(this, getImageConfig());
+                initPermission();
                 break;
             case R.id.bt_sumbit:
                 String name = tv_name.getText().toString();
@@ -183,16 +192,47 @@ public class SubmitCertification extends BaseActivity implements View.OnClickLis
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ImageSelector.IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
-            List<String> pathList = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT);
+    private void initPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                // 拒绝过了 提示用户如果想要正常使用，要手动去设置中授权。
+                ToastUtil.showToast("请在 设置-应用管理 中开启此应用的储存授权。");
+            } else {
+                // 进行授权
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100001);
+            }
+        } else {
+            GalleryPick.getInstance().setGalleryConfig(getImageConfig()).open(this);
+        }
+    }
+
+    private GalleryConfig getImageConfig() {
+        if (mGalleryConfig == null) {
+            mGalleryConfig = new GalleryConfig.Builder()
+                    .imageLoader(new GlideLoader())    // ImageLoader 加载框架（必填）
+                    .iHandlerCallBack(iHandlerCallBack)     // 监听接口（必填）
+                    .provider("app.net.tongchengzj.provider")   // provider (必填)
+                    .pathList(new ArrayList<String>())                         // 记录已选的图片
+                    .crop(false)             // 配置裁剪功能的参数
+                    .isShowCamera(true)                     // 是否现实相机按钮  默认：false
+                    .filePath("/Gallery/Pictures")          // 图片存放路径
+                    .build();
+        }
+        return mGalleryConfig;
+    }
+
+    private IHandlerCallBack iHandlerCallBack = new IHandlerCallBack() {
+        @Override
+        public void onStart() {
+        }
+
+        @Override
+        public void onSuccess(List<String> pathList) {
             if (pathList == null || pathList.size() == 0) return;
             final File fl = new File(pathList.get(0));
             if (fl.exists()) {
                 final int tempSelection = mImageFlag;
-                Luban.with(this)
+                Luban.with(SubmitCertification.this)
                         .load(fl)                     //传人要压缩的图片
                         .setCompressListener(new OnCompressListener() { //设置回调
                             @Override
@@ -231,38 +271,45 @@ public class SubmitCertification extends BaseActivity implements View.OnClickLis
                         }).launch();
             }
         }
-    }
-
-
-    private ImageConfig getImageConfig() {
-        ImageConfig imageConfig
-                = new ImageConfig.Builder(new GlideLoader())
-                .steepToolBarColor(getResources().getColor(R.color.refurush_color))
-                .titleBgColor(getResources().getColor(R.color.refurush_color))
-                .titleSubmitTextColor(getResources().getColor(R.color.white))
-                .titleTextColor(getResources().getColor(R.color.white))
-                // (截图默认配置：关闭    比例 1：1    输出分辨率  500*500)
-//                .crop()
-                // 开启单选   （默认为多选）
-                .singleSelect()
-                // 开启拍照功能 （默认关闭）
-                .showCamera()
-                // 拍照后存放的图片路径（默认 /temp/picture） （会自动创建）
-                .filePath("/ImageSelector/Pictures")
-                .build();
-        return imageConfig;
-    }
-
-    class GlideLoader implements com.yancy.imageselector.ImageLoader {
 
         @Override
-        public void displayImage(Context context, String path, ImageView imageView) {
-            Glide.with(context)
-                    .load(path)
-                    .placeholder(com.yancy.imageselector.R.mipmap.imageselector_photo)
-                    .centerCrop()
-                    .into(imageView);
+        public void onCancel() {
         }
 
+        @Override
+        public void onFinish() {
+        }
+
+        @Override
+        public void onError() {
+        }
+    };
+
+    private static class GlideLoader implements ImageLoader {
+
+        @Override
+        public void displayImage(Activity activity, Context context, String path, GalleryImageView galleryImageView, int width, int height) {
+            Glide.with(context)
+                    .load(path)
+                    .placeholder(R.mipmap.gallery_pick_photo)
+                    .centerCrop()
+                    .into(galleryImageView);
+        }
+
+        @Override
+        public void clearMemoryCache() {
+
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        if (requestCode == 100001) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                GalleryPick.getInstance().setGalleryConfig(getImageConfig()).open(this);
+            } else {
+                ToastUtil.showToast("请在 设置-应用管理 中开启此应用的储存授权。");
+            }
+        }
     }
 }

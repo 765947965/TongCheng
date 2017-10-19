@@ -78,5 +78,5 @@
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowBackground">@color/translate</item>
     </style>
-
+    <style name="GalleryTheme" parent="AppTheme"/>
 </resources>

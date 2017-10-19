@@ -16,6 +16,8 @@
     <color name="refurush_gray">#cccccc</color>
     <color name="refurush_color_dark">#ff5c5c</color>
     <color name="translate">#00000000</color>
+    <color name="red">#ff0000</color>
+    <color name="gallery_blue">#FF6666</color>
     <!-- 黄色边框默认 -->
 
     <!-- 正文标题 -->

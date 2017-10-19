@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
 
 
     signingConfigs {
@@ -24,7 +24,7 @@ android {
         ndk {
             moduleName "jniTongCheng"
             ldLibs "log", "z", "m"
-            abiFilters "armeabi", "armeabi-v7a", 'arm64-v8a', "x86", "x86_64", 'mips', 'mips64'
+            abiFilters "armeabi", "armeabi-v7a"
         }
     }
     buildTypes {
@@ -52,9 +52,9 @@ bugly {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.android.support:design:22.2.1'
-    compile 'com.android.support:recyclerview-v7:22.2.1'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.lzy.net:okgo:2.1.4'//https://github.com/jeasonlzy/okhttp-OkGo
     compile 'com.wang.avi:library:2.1.3'//进度条 https://github.com/81813780/AVLoadingIndicatorView
     compile 'com.nineoldandroids:library:2.4.0'//进度条
@@ -64,7 +64,7 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.kevin:wraprecyclerview:1.0.6'//可添加头部的recyclerview
     compile 'com.github.promeg:tinypinyin:1.0.0'//拼音处理
-    compile 'com.yancy.imageselector:imageselector:1.3.3'//https://github.com/YancyYe/GalleryPick 图片选择裁剪
+    compile 'com.github.YancyYe:GalleryPick:1.2.1'//https://github.com/YancyYe/GalleryPick 图片选择裁剪
     compile 'com.umeng.analytics:analytics:latest.integration'//友盟+
     compile 'com.google.zxing:core:3.2.1'
     compile 'com.google.zxing:android-core:3.2.1'
