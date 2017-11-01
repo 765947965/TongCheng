@@ -5,12 +5,14 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.GeolocationPermissions;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -98,6 +100,12 @@ public class PublicWebview extends BaseActivity implements View.OnClickListener,
     }
 
     WebViewClient wvc = new WebViewClient() {
+
+        @Override
+        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+            //接受证书
+            handler.proceed();
+        }
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             if (!url.startsWith("http")) {
