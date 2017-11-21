@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
 
 
     signingConfigs {
@@ -18,8 +18,8 @@ android {
         applicationId "app.net.tongchengzj"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 371
-        versionName "3.7.1"
+        versionCode 372
+        versionName "3.7.2"
         resConfigs "zh" //只保留中文支持,去掉其它国际化配置
         ndk {
             moduleName "jniTongCheng"

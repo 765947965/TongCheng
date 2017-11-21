@@ -46,7 +46,7 @@ public class ReChargeActivity extends BaseActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recharge_layout);
-        setTitle("充值套餐");
+        setTitle("支付套餐");
         initView();
         mRedBusiness = new RedBusiness(this, this, mHandler);
     }

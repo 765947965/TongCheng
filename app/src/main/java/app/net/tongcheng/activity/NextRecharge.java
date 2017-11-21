@@ -56,7 +56,7 @@ public class NextRecharge extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.next_recharge);
-        setTitle("账户充值");
+        setTitle("账户支付");
         selectbean = (RechargeInfoModel.DataBean) getIntent().getSerializableExtra("RechargeInfoModel.DataBean");
         rechargeFlag = getIntent().getIntExtra("rechargeFlag", 7);
         initView();
