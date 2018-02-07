@@ -44,6 +44,7 @@ public class NextRecharge extends BaseActivity implements View.OnClickListener {
     private static final String WX = "WeiXin";
     private static final String ZFB = "ZhiFuBao";
     private static final String TL = "TLH5";
+    private static final String HX = "HXH5";
     private String mCheckNow;
     private ViewHolder mViewHolder;
     private RedBusiness mRedBusiness;
@@ -74,7 +75,12 @@ public class NextRecharge extends BaseActivity implements View.OnClickListener {
         mViewHolder.setOnClickListener(R.id.llt_zfb);
         mViewHolder.setOnClickListener(R.id.llt_wx);
         mViewHolder.setOnClickListener(R.id.llt_tl);
+        mViewHolder.setOnClickListener(R.id.llt_hx);
         mViewHolder.setOnClickListener(R.id.bt_recharge);
+        if ((rechargeFlag >> 3 & 1) == 0) {
+            mViewHolder.setVisibility(R.id.llt_hx, View.GONE);
+            mViewHolder.setVisibility(R.id.view_line_hx, View.GONE);
+        }
         if ((rechargeFlag >> 2 & 1) == 0) {
             mViewHolder.setVisibility(R.id.llt_zfb, View.GONE);
             mViewHolder.setVisibility(R.id.view_line_zfb, View.GONE);
@@ -140,18 +146,28 @@ public class NextRecharge extends BaseActivity implements View.OnClickListener {
                 mViewHolder.setImage(R.id.ivZFBCheck, R.drawable.check);
                 mViewHolder.setImage(R.id.ivWXCheck, R.drawable.uncheck);
                 mViewHolder.setImage(R.id.ivTLCheck, R.drawable.uncheck);
+                mViewHolder.setImage(R.id.ivHXCheck, R.drawable.uncheck);
                 break;
             case R.id.llt_wx:
                 mCheckNow = WX;
                 mViewHolder.setImage(R.id.ivZFBCheck, R.drawable.uncheck);
                 mViewHolder.setImage(R.id.ivWXCheck, R.drawable.check);
                 mViewHolder.setImage(R.id.ivTLCheck, R.drawable.uncheck);
+                mViewHolder.setImage(R.id.ivHXCheck, R.drawable.uncheck);
                 break;
             case R.id.llt_tl:
                 mCheckNow = TL;
                 mViewHolder.setImage(R.id.ivZFBCheck, R.drawable.uncheck);
                 mViewHolder.setImage(R.id.ivWXCheck, R.drawable.uncheck);
                 mViewHolder.setImage(R.id.ivTLCheck, R.drawable.check);
+                mViewHolder.setImage(R.id.ivHXCheck, R.drawable.uncheck);
+                break;
+            case R.id.llt_hx:
+                mCheckNow = HX;
+                mViewHolder.setImage(R.id.ivZFBCheck, R.drawable.uncheck);
+                mViewHolder.setImage(R.id.ivWXCheck, R.drawable.uncheck);
+                mViewHolder.setImage(R.id.ivTLCheck, R.drawable.uncheck);
+                mViewHolder.setImage(R.id.ivHXCheck, R.drawable.check);
                 break;
             case R.id.bt_recharge:
                 mRecharge();
@@ -193,6 +209,10 @@ public class NextRecharge extends BaseActivity implements View.OnClickListener {
             mRedBusiness.getWeiXinXiaDan(APPCationStation.LOADING, "生成订单...", genProductArgs());
         } else if (TL.equals(mCheckNow)) {
             String url = "http://user.zjtongchengshop.com:8060/allinpay/payapi.php?uid=" + TCApplication.getmUserInfo().getUid()
+                    + "&goods_id=" + selectbean.getGoodsID();
+            startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("url", url));
+        } else if (HX.equals(mCheckNow)) {
+            String url = "http://user.zjtongchengshop.com:8060/allinpay/payapi_huanxun.php?uid=" + TCApplication.getmUserInfo().getUid()
                     + "&goods_id=" + selectbean.getGoodsID();
             startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("url", url));
         }

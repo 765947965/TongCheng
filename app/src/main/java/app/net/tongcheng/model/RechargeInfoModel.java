@@ -151,6 +151,7 @@ public class RechargeInfoModel extends BaseModel {
         private int wxpay;
         private int alipay;
         private int allinpay;
+        private int huanxun;
 
         public int getWxpay() {
             return wxpay;
@@ -174,6 +175,14 @@ public class RechargeInfoModel extends BaseModel {
 
         public void setAllinpay(int allinpay) {
             this.allinpay = allinpay;
+        }
+
+        public int getHuanxun() {
+            return huanxun;
+        }
+
+        public void setHuanxun(int huanxun) {
+            this.huanxun = huanxun;
         }
     }
 }

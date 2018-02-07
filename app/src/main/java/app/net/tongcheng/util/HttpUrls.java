@@ -26,7 +26,7 @@ public class HttpUrls {
     public static final String deletecard = "http://pay.zjtongchengshop.com:8060/recharge/service/delete_wallet_bank.php";//删除银行卡
     public static final String bandingCard = "http://pay.zjtongchengshop.com:8060/recharge/service/set_wallet_bank.php";//绑定银行卡
     public static final String moneyout = "http://pay.zjtongchengshop.com:8060/recharge/service/cash_apply_plus.php";//提现
-    public static final String rechage = "http://pay.zjtongchengshop.com:8060/recharge/service/goodsinfo.php";//充值信息
+    public static final String rechage = "http://pay.zjtongchengshop.com:8060/recharge/service/goodsinfo_huanxun.php";//充值信息
     public static final String getUserInfo = "https://mobile.zjtongchengshop.com/user/getUserProfile";//获取用户信息
     public static final String UPUserHeadURL = "https://mobile.zjtongchengshop.com/user/uploadUserHead";//上传头像
     public static final String UPUSERDATAURL = "https://mobile.zjtongchengshop.com/user/uploadUserProfile";//上传用户其它信息

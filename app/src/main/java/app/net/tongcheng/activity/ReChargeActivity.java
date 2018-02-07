@@ -72,7 +72,7 @@ public class ReChargeActivity extends BaseActivity implements View.OnClickListen
                 if (mRechargeInfoModel != null && mRechargeInfoModel.getData() != null && mRechargeInfoModel.getData().size() > 0) {
                     RechargeInfoModel.PayType mPayType = mRechargeInfoModel.getPay_type();
                     if (mPayType != null) {
-                        rechargeFlag = (mPayType.getAlipay() << 2) | (mPayType.getWxpay() << 1) | mPayType.getAllinpay();
+                        rechargeFlag = (mPayType.getHuanxun() << 3) | (mPayType.getAlipay() << 2) | (mPayType.getWxpay() << 1) | mPayType.getAllinpay();
                     }
                     datas.clear();
                     datas.addAll(mRechargeInfoModel.getData());

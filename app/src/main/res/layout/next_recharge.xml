@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/llt_main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/app_background"
-    android:orientation="vertical">
+              android:id="@+id/llt_main"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/app_background"
+              android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
@@ -12,12 +12,12 @@
         android:padding="14.6dp"
         android:text="选择支付方式"
         android:textColor="@color/text_content"
-        android:textSize="@dimen/sp14" />
+        android:textSize="@dimen/sp14"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/dividing_line_light" />
+        android:background="@color/dividing_line_light"/>
 
     <LinearLayout
         android:id="@+id/llt_zfb"
@@ -30,7 +30,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/zfbappicon" />
+            android:src="@drawable/zfbappicon"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:text="支付宝支付"
                 android:textColor="@color/text_content"
-                android:textSize="@dimen/sp14" />
+                android:textSize="@dimen/sp14"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -52,21 +52,21 @@
                 android:layout_marginTop="3dp"
                 android:text="采用支付宝快捷支付,便捷又安全"
                 android:textColor="@color/gray_ab"
-                android:textSize="11sp" />
+                android:textSize="11sp"/>
         </LinearLayout>
 
         <ImageView
             android:id="@+id/ivZFBCheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/uncheck" />
+            android:src="@drawable/uncheck"/>
     </LinearLayout>
 
     <View
         android:id="@+id/view_line_zfb"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/dividing_line_light" />
+        android:background="@color/dividing_line_light"/>
 
     <LinearLayout
         android:id="@+id/llt_wx"
@@ -79,7 +79,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/weixinicon" />
+            android:src="@drawable/weixinicon"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:text="微信支付"
                 android:textColor="@color/text_content"
-                android:textSize="@dimen/sp14" />
+                android:textSize="@dimen/sp14"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -101,21 +101,21 @@
                 android:layout_marginTop="3dp"
                 android:text="亿万用户的选择,更快更安全"
                 android:textColor="@color/gray_ab"
-                android:textSize="11sp" />
+                android:textSize="11sp"/>
         </LinearLayout>
 
         <ImageView
             android:id="@+id/ivWXCheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/uncheck" />
+            android:src="@drawable/uncheck"/>
     </LinearLayout>
 
     <View
         android:id="@+id/view_line_wx"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/dividing_line_light" />
+        android:background="@color/dividing_line_light"/>
 
     <LinearLayout
         android:id="@+id/llt_tl"
@@ -128,7 +128,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/allinpay" />
+            android:src="@drawable/allinpay"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -142,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:text="通联支付"
                 android:textColor="@color/text_content"
-                android:textSize="@dimen/sp14" />
+                android:textSize="@dimen/sp14"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -150,21 +150,70 @@
                 android:layout_marginTop="3dp"
                 android:text="使用通联支付,更自由"
                 android:textColor="@color/gray_ab"
-                android:textSize="11sp" />
+                android:textSize="11sp"/>
         </LinearLayout>
 
         <ImageView
             android:id="@+id/ivTLCheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/uncheck" />
+            android:src="@drawable/uncheck"/>
     </LinearLayout>
 
     <View
         android:id="@+id/view_line_tl"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/dividing_line_light" />
+        android:background="@color/dividing_line_light"/>
+
+    <LinearLayout
+        android:id="@+id/llt_hx"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="14.6dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/huanxun_logo"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="环迅支付"
+                android:textColor="@color/text_content"
+                android:textSize="@dimen/sp14"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="使用环迅支付,更自由"
+                android:textColor="@color/gray_ab"
+                android:textSize="11sp"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivHXCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/uncheck"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_line_hx"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/dividing_line_light"/>
 
     <Button
         android:id="@+id/bt_recharge"
@@ -177,6 +226,6 @@
         android:minHeight="35dp"
         android:text="立即支付"
         android:textColor="@color/white"
-        android:textSize="@dimen/sp14" />
+        android:textSize="@dimen/sp14"/>
 
 </LinearLayout>
