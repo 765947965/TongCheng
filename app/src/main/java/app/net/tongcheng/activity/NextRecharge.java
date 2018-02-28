@@ -212,7 +212,7 @@ public class NextRecharge extends BaseActivity implements View.OnClickListener {
                     + "&goods_id=" + selectbean.getGoodsID();
             startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("url", url));
         } else if (HX.equals(mCheckNow)) {
-            String url = "http://user.zjtongchengshop.com:8060/allinpay/payapi_huanxun.php?uid=" + TCApplication.getmUserInfo().getUid()
+            String url = "http://user.zjtongchengshop.com/ips/payapi.php?uid=" + TCApplication.getmUserInfo().getUid()
                     + "&goods_id=" + selectbean.getGoodsID();
             startActivity(new Intent(TCApplication.mContext, PublicWebview.class).putExtra("url", url));
         }
