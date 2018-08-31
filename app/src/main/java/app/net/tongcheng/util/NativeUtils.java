@@ -8,9 +8,8 @@ package app.net.tongcheng.util;
  * @date: 2016/6/20 10:05
  */
 public class NativeUtils {
-
     static {
-        System.loadLibrary("jniTongCheng");//重要
+        System.loadLibrary("TongCheng");
     }
 
     public static native String getPARTNER();
