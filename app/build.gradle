@@ -8,7 +8,7 @@ android {
         defaultSign {
             keyAlias 'aisin'
             keyPassword 'aisin.android'
-            storeFile file('isin_Android.Android')
+            storeFile file('Aisin_Android.Android')
             storePassword 'aisin.android'
         }
     }
@@ -23,7 +23,7 @@ android {
         externalNativeBuild {
             cmake {
                 cppFlags ""
-                abiFilters "arm64-v8a", "armeabi-v7a"
+                abiFilters "arm64-v8a", "armeabi-v7a", "x86"
             }
         }
     }
