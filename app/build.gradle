@@ -8,7 +8,7 @@ android {
         defaultSign {
             keyAlias 'aisin'
             keyPassword 'aisin.android'
-            storeFile file('F:\\ym\\Aisin_Android.Android')
+            storeFile file('isin_Android.Android')
             storePassword 'aisin.android'
         }
     }
